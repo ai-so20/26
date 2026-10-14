@@ -1,0 +1,7 @@
+import {escape as e,date} from './format.mjs';
+const assets=[['BTC/USD','Bitcoin'],['ETH/USD','Ethereum'],['DOT/USD','Polkadot'],['XRP/USD','XRP'],['035720','카카오'],['LTC/USD','Litecoin'],['DOGE/USD','Dogecoin'],['068270','셀트리온'],['005930','삼성전자'],['SOL/USD','Solana']];
+export function terminal(p,now=Date.now()){
+ if(!p)return'';
+ const cycle=Math.floor(now/300000),seed=[...p.id].reduce((v,c)=>v+c.charCodeAt(0),0),running=p.status==='running';
+ return `<details class="trading-terminal"><summary><div><p class="eyebrow">AI QUANT TERMINAL</p><h2>주식·코인 PROCESS 진행 현황</h2><p class="terminal-sub">모의 트레이딩 · 5분 단위 현황</p></div><span class="terminal-toggle">펼치기</span></summary><div class="terminal-body"><p class="terminal-note">시세·실제 주문과 연결되지 않은 모의 상태입니다. 평가금액과 손익에는 반영되지 않습니다.</p><div class="watch-assets">${assets.slice(0,2).map(([code,name])=>`<div><b>${e(code)}</b><small>${e(name)}</small><span>${running?'◉ 모의 시그널 관찰 중':'PROCESS 종료'}</span></div>`).join('')}</div><h3>종목별 모의 진행 현황</h3><div class="trading-list">${assets.slice(2).map(([code,name],i)=>{const up=(seed+cycle+i*7)%5!==0,phase=(seed+cycle+i)%3;return `<div class="trading-row"><div><b>${e(name)} <small>· ${e(code)}</small></b><p>${!running?'모의 진행 종료':phase===0?'모의 시그널 관찰 중':phase===1?'모의 판단 · 검토 중':`모의 판단 · ${up?'매수':'매도'} 신청 완료`}</p></div><span class="${up?'market-up':'market-down'}">${running?(phase===0?'관찰 중':up?'↗ 모의 상승세 감지':'↘ 모의 하락세 감지'):'완료'}</span></div>`}).join('')}</div><div class="terminal-footer"><span>현황 갱신 ${date(cycle*300000)}</span><span>모의 현황</span></div></div></details>`;
+}
