@@ -5,7 +5,7 @@ values('qa_admin26',extensions.crypt('__PASSWORD__',extensions.gen_salt('bf',12)
 do $$
 declare g text:='__GATE__'; pw text:='__PASSWORD__'; r jsonb; t text; a text; uid uuid; pid uuid; rid uuid:=gen_random_uuid(); n integer;
 begin
- r:=public.ap_gateway(g,'signup','',jsonb_build_object('username','qa_short26','password','가나다라','name','검증 회원','phone','01000000000','_ip','qa')); assert r->>'code'='INVALID','minimum password character count';
+ r:=public.ap_gateway(g,'signup','',jsonb_build_object('username','qa_short26','password','가나다','name','검증 회원','phone','01000000000','_ip','qa')); assert r->>'code'='INVALID','minimum password character count';
  r:=public.ap_gateway(g,'signup','',jsonb_build_object('username','qa_user26','password',pw,'name','검증 회원','phone','01000000000','_ip','qa'));
  assert (r->>'ok')::boolean,'signup';uid:=(r->'data'->>'id')::uuid;
  r:=public.ap_gateway(g,'login','',jsonb_build_object('username','qa_user26','password',pw,'_ip','qa'));

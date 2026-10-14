@@ -93,8 +93,8 @@ begin
      return jsonb_build_object('ok',false,'code','RATE_LIMIT','message','시도 횟수를 초과했습니다. 15분 후 다시 시도해주세요.');
    end if;
    insert into ap_private.attempts(identity_key,ip_key,action) values(uname,ip,p_action);
-   if uname !~ '^[a-z0-9_]{4,24}$' or length(pw)<10 or octet_length(pw)>72 then
-     return jsonb_build_object('ok',false,'code','INVALID','message','아이디는 영문 소문자·숫자·밑줄 4~24자, 비밀번호는 10자 이상·UTF-8 72바이트 이하로 입력해주세요.');
+   if uname !~ '^[a-z0-9_]{4,24}$' or length(pw)<4 or octet_length(pw)>72 then
+     return jsonb_build_object('ok',false,'code','INVALID','message','아이디는 영문 소문자·숫자·밑줄 4~24자, 비밀번호는 4자 이상·UTF-8 72바이트 이하로 입력해주세요.');
    end if;
    if p_action='signup' then
      if length(trim(coalesce(p_payload->>'name','')))<1 or length(p_payload->>'name')>40
@@ -266,7 +266,7 @@ begin
      insert into ap_private.audit(actor_id,user_id,action,details) values(u.id,uid,'approval',jsonb_build_object('approved',(p_payload->>'approved')::boolean));
    else
      pw:=coalesce(p_payload->>'new_password','');
-     if length(pw)<10 or octet_length(pw)>72 then return jsonb_build_object('ok',false,'code','INVALID','message','임시 비밀번호는 10자 이상·72바이트 이하로 입력해주세요.'); end if;
+     if length(pw)<4 or octet_length(pw)>72 then return jsonb_build_object('ok',false,'code','INVALID','message','임시 비밀번호는 4자 이상·72바이트 이하로 입력해주세요.'); end if;
      update ap_private.users set password_hash=extensions.crypt(pw,extensions.gen_salt('bf',12)),must_change_password=true,updated_at=now() where id=uid;
      delete from ap_private.sessions where user_id=uid;
      insert into ap_private.audit(actor_id,user_id,action) values(u.id,uid,'password_reset');
@@ -304,7 +304,7 @@ begin
      return jsonb_build_object('ok',false,'code','INVALID','message','현재 비밀번호가 올바르지 않습니다.');
    end if;
    pw:=coalesce(p_payload->>'new_password','');
-   if length(pw)<10 or octet_length(pw)>72 then return jsonb_build_object('ok',false,'code','INVALID','message','새 비밀번호는 10자 이상·72바이트 이하로 입력해주세요.'); end if;
+   if length(pw)<4 or octet_length(pw)>72 then return jsonb_build_object('ok',false,'code','INVALID','message','새 비밀번호는 4자 이상·72바이트 이하로 입력해주세요.'); end if;
    update ap_private.users set password_hash=extensions.crypt(pw,extensions.gen_salt('bf',12)),must_change_password=false,updated_at=now() where id=u.id;
    delete from ap_private.sessions where user_id=u.id and token_hash<>encode(extensions.digest(p_token,'sha256'),'hex');
    return jsonb_build_object('ok',true,'data',jsonb_build_object('changed',true));

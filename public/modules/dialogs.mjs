@@ -1,5 +1,5 @@
 import {escape as e,money,valuation} from './format.mjs';
-const passwordField=(label,name)=>`<label>${label}<input name="${name}" type="password" minlength="10" maxlength="72" autocomplete="new-password" required></label>`;
+const passwordField=(label,name)=>`<label>${label}<input name="${name}" type="password" minlength="4" maxlength="72" autocomplete="new-password" required></label>`;
 export function dialogContent(action,member,p){
  const titles={create:'PROCESS 시작',restart:'PROCESS 재시작',capital:'투자금 추가',profit:'수익금 반영',loss:'손실 반영',schedule:'기간·목표 설정',end:'PROCESS 종료',approval:member.approved?'승인 해제':'회원 승인',reset:'비밀번호 재설정'};
  let content='';
