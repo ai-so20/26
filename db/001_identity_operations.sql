@@ -136,7 +136,7 @@ begin
  end if;
  if p_action='admin_members' then
    select coalesce(jsonb_agg(ap_private.safe_user(x)||jsonb_build_object('capital',coalesce(v.capital,0),'pnl',coalesce(v.pnl,0),'running',coalesce(v.running,0),'next_end',v.next_end) order by x.created_at desc),'[]') into result
-   from ap_private.users x left join lateral(select sum(z.capital) as capital,sum(z.pnl) as pnl,count(*) as running,min(z.ends_at) as next_end from ap_private.processes z where z.user_id=x.id and z.status='running') v on true where x.role='user';
+   from ap_private.users x left join lateral(select sum(z.capital) as capital,sum(z.pnl) as pnl,count(*) as running,min(z.ends_at) as next_end from ap_private.processes z where z.user_id=x.id and z.status='running') v on true where x.role='user' and not x.blocked;
    return jsonb_build_object('ok',true,'data',result);
  end if;
  if p_action='admin_processes' then

@@ -17,7 +17,7 @@ The service is an internal simulation, not a representation of real trading resu
 ## Checks
 
 npm test / npm run build. 15 Node tests (9 calculation, 6 API boundary/session checks).
-scripts/live-flow.mjs accepts disposable QA credentials on stdin and tests the deployed API without printing cookies. test/database-flow.sql uses in-memory placeholders and a rollback-only transaction to verify actual DB flows without leaving sample accounts or processes.
+scripts/live-flow.mjs accepts disposable QA credentials on stdin and tests the deployed API without printing cookies. The first deployed run passed 14 API checks; QA accounts were disabled and hidden afterward. test/database-flow.sql uses in-memory placeholders and a rollback-only transaction to verify actual DB flows without leaving sample accounts or processes.
 The DB bootstrap secret and initial admin password are never committed. Server variables: SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, AP_GATEWAY_KEY. Production only; preview deployments do not share production credentials.
 
 ## Database
