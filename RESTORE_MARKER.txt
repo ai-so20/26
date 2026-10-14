@@ -1,0 +1,3 @@
+VIP gamma exact restore work in progress.
+Source: vip-event-main(1).zip
+Do not redesign before exact restoration verification.
