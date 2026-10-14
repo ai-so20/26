@@ -17,9 +17,9 @@ The service is an internal simulation, not a representation of real trading resu
 ## Checks
 
 npm test / npm run build. 15 Node tests (9 calculation, 6 API boundary/session checks).
-test/database-flow.sql uses in-memory placeholders and a rollback-only transaction to verify actual DB flows without leaving sample accounts or processes.
+scripts/live-flow.mjs accepts disposable QA credentials on stdin and tests the deployed API without printing cookies. test/database-flow.sql uses in-memory placeholders and a rollback-only transaction to verify actual DB flows without leaving sample accounts or processes.
 The DB bootstrap secret and initial admin password are never committed. Server variables: SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, AP_GATEWAY_KEY. Production only; preview deployments do not share production credentials.
 
 ## Database
 
-The applied private tables and individual function modules are under db/. 001_identity_operations.sql reconstructs the clean setup from those modules. Seed settings and administrator via the authorized setup workflow, not this migration. Private schema access is denied by default. Supabase advisor flags the secret-protected gateway because the anon role can invoke it; the gateway rejects all calls without its 256-bit server key, and checks opaque session and role for protected actions.
+The exact clean database setup is recorded in db/001_identity_operations.sql. Local function modules are combined into that setup for version control. Seed settings and administrator via the authorized setup workflow, not this migration. Private schema access is denied by default. Supabase advisor flags the secret-protected gateway because the anon role can invoke it; the gateway rejects all calls without its 256-bit server key, and checks opaque session and role for protected actions.
