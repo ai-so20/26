@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-const ACTIONS=new Set(['health','signup','login','logout','me','password','processes','history','admin_members','admin_processes','admin_history','admin_audit','admin_approval','admin_reset_password','admin_create','admin_adjust','admin_schedule','admin_end','admin_restart']);
+const ACTIONS=new Set(['health','signup','login','logout','me','password','processes','history','admin_members','admin_processes','admin_history','admin_audit','admin_approval','admin_reset_password','admin_create','admin_adjust','admin_schedule','admin_end','admin_restart','events','join_event','rewards','admin_portal_members','admin_member_create','admin_events','admin_event_create','admin_event_status','admin_gifts','admin_gift_add','admin_reward_assign','admin_reward_status']);
 const STATUS={UNAUTHORIZED:401,FORBIDDEN:403,PENDING:403,PASSWORD_CHANGE:403,INVALID:400,CONFLICT:409,RATE_LIMIT:429};
 export const COOKIE_NAME='__Host-ap26_session';
 export const sessionCookie=(token,expired=false)=>`${COOKIE_NAME}=${expired?'':token}; Path=/; Max-Age=${expired?0:43200}; HttpOnly; Secure; SameSite=Strict`;
