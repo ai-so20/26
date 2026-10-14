@@ -1,5 +1,6 @@
-import { mkdir, copyFile, readdir } from 'node:fs/promises';
-await mkdir('dist/domain', { recursive: true });
-for (const file of await readdir('public')) await copyFile('public/' + file, 'dist/' + file);
-await copyFile('src/domain/process.mjs', 'dist/domain/process.mjs');
-console.log('Static web build complete');
+import { mkdir, copyFile, cp, rm } from 'node:fs/promises';
+await rm('dist',{recursive:true,force:true});
+await mkdir('dist/domain',{recursive:true});
+await cp('public','dist',{recursive:true});
+await copyFile('src/domain/process.mjs','dist/domain/process.mjs');
+console.log('Web build complete');

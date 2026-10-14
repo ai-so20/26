@@ -1,0 +1,1 @@
+export const state={user:null,processes:[],members:[],selected:null,memberId:null,history:[],audit:[],filter:'running',recordFilter:'all',chartMode:'all',memberFilter:'all',search:'',revision:0,preview:false};
