@@ -397,3 +397,43 @@
   .eventPage .simpleList { border-radius: 8px; }
   .eventPage .eventLiveRow { padding-left: 13px; padding-right: 13px; }
 }
+
+
+/* EVENT FINAL HIERARCHY POLISH 2026 */
+.eventPage .summaryCard {
+  border-color: #E1E4E9;
+  background: #FFFFFF;
+  box-shadow: none;
+}
+.eventPage .summaryCard::before {
+  width: 2px;
+  opacity: .58;
+}
+.eventPage .primaryCard {
+  border-color: #D7C2B3;
+  box-shadow: 0 8px 22px rgba(62,40,24,.105);
+}
+.eventPage .primaryCard::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: rgba(255,255,255,.92);
+  pointer-events: none;
+}
+.eventPage .statsGrid,
+.eventPage .eventLiveRow,
+.eventPage .attendanceThirtyGrid {
+  font-variant-numeric: tabular-nums;
+}
+.eventPage button:focus-visible,
+.eventPage input:focus-visible {
+  outline: 2px solid #2155CD;
+  outline-offset: 2px;
+}
+@media (max-width: 520px) {
+  .eventPage .summaryCard { box-shadow: none; }
+  .eventPage .primaryCard { box-shadow: 0 6px 18px rgba(62,40,24,.10); }
+}

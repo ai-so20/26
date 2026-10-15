@@ -394,7 +394,7 @@ export default function RewardLiveClient({ embedded = false, embeddedUser = null
 
         <div className={`${styles.content} ${styles.page}`}>
           <section className={styles.pageHeading}>
-            <div><span className={styles.kicker}>REWARD CENTER</span><h1>상품지급센터</h1></div>
+            <div><span className={styles.kicker}>상품 지급</span><h1>상품지급센터</h1></div>
             <span className={styles.statusBadge}><i /> 실시간 연결</span>
           </section>
 
@@ -413,14 +413,14 @@ export default function RewardLiveClient({ embedded = false, embeddedUser = null
 
               <section className={styles.deliveryCard}>
                 <div className={styles.deliveryHead}>
-                  <div><span>VIP REWARD CENTER</span><strong>지급 및 당첨 안내</strong></div>
-                  <span className={styles.liveBadge}>● LIVE</span>
+                  <div><span>지급 안내</span><strong>지급 및 당첨 안내</strong></div>
+                  <span className={styles.liveBadge}>● 실시간</span>
                 </div>
 
                 <div className={styles.messageList} ref={messageBoxRef}>
                   <section className={`${styles.rewardWelcome} ${styles.rewardWelcomeInFeed}`}>
                                   <div className={styles.rewardWelcomeTop}>
-                                    <span>VIP EVENT BENEFITS</span>
+                                    <span>VIP 혜택 안내</span>
                                     <strong>{String(profile?.nickname || profile?.display_name || profile?.name || 'VIP 회원')}님, 환영합니다.</strong>
                                     <p>VIP 이벤트 혜택과 당첨 상품 지급 내역을 상품지급센터에서 확인할 수 있습니다.</p>
                                   </div>
@@ -439,8 +439,8 @@ export default function RewardLiveClient({ embedded = false, embeddedUser = null
                                   </div>
 
                                   <div className={styles.rewardQuickLinks}>
-                                    <button type="button" onClick={() => goTab('event')}><span>EVENT</span><strong>시간별 이벤트</strong></button>
-                                    <button type="button" onClick={() => goTab('event')}><span>CHECK-IN</span><strong>출석 이벤트</strong></button>
+                                    <button type="button" onClick={() => goTab('event')}><span>시간별</span><strong>시간별 이벤트</strong></button>
+                                    <button type="button" onClick={() => goTab('event')}><span>출석</span><strong>출석 이벤트</strong></button>
                                   </div>
 
                                   <div className={styles.rewardAlert}>

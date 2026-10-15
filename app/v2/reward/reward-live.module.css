@@ -730,3 +730,47 @@
   .rewardEmbeddedShell .rewardQuickLinks { grid-template-columns: 1fr; }
   .rewardEmbeddedShell .pageHeading .statusBadge { max-width: 92px; }
 }
+
+
+/* REWARD FINAL VISUAL POLISH 2026 */
+.rewardEmbeddedShell .summary,
+.rewardEmbeddedShell .giftProduct,
+.rewardEmbeddedShell .meta {
+  font-variant-numeric: tabular-nums;
+}
+.rewardEmbeddedShell .summary::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: rgba(255,255,255,.95);
+  pointer-events: none;
+}
+.rewardEmbeddedShell .rewardQuickLinks button {
+  transition: border-color .16s ease, background-color .16s ease, transform .16s ease;
+}
+.rewardEmbeddedShell .rewardQuickLinks button:hover {
+  border-color: var(--reward-border);
+  background: #FAF8FD;
+}
+.rewardEmbeddedShell .rewardQuickLinks button:active {
+  transform: translateY(1px);
+  background: var(--reward-soft);
+}
+.rewardEmbeddedShell button:focus-visible,
+.rewardEmbeddedShell a:focus-visible,
+.rewardEmbeddedShell textarea:focus-visible {
+  outline: 2px solid #2155CD;
+  outline-offset: 2px;
+}
+.rewardEmbeddedShell .liveBadge {
+  border: 1px solid var(--reward-border);
+  border-radius: 999px;
+  padding: 5px 7px;
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rewardEmbeddedShell .rewardQuickLinks button { transition: none; }
+}
