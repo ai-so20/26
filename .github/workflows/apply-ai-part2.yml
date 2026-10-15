@@ -16,6 +16,15 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - name: Repair JSX template escapes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('.github/scripts/apply-ai-part2.cjs')
+          s = p.read_text()
+          s = s.replace('${', '\\${').replace('\\${marker}', '${marker}')
+          p.write_text(s)
+          PY
       - name: Apply part 2
         run: node .github/scripts/apply-ai-part2.cjs
       - name: Verify diff
