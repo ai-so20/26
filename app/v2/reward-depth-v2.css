@@ -1,5 +1,6 @@
 /* PRODUCT REWARD CENTER · SURFACE DEPTH PASS
-   Scope: reward center only. AI PROCESS and Event are intentionally untouched. */
+   Scope: reward center only. AI PROCESS and Event are intentionally untouched.
+   Deployment marker: reward-only pass finalized after previous production build. */
 
 /* Page identity: neutral first, violet reserved for actionable/meaningful states. */
 [class*="rewardEmbeddedShell"] [class*="pageHeading"] [class*="kicker"] {
