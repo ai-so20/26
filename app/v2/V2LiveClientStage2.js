@@ -704,7 +704,7 @@ function AiLive({ profile, userId, row, tick, error }) {
           </div>
           <div className={styles.aiPart1Facts}>
             <div className={styles.aiPart1FactWide}><span>진행 시간</span><strong>최소 1시간 ~ 최대 30일</strong></div>
-            <div><span>예상 수익률</span><strong>{availableCount > 0 || status === 'waiting' ? configuredReturn : '회원별 설정'}</strong></div>
+            <div><span>예상 수익률</span><strong>10% ~ 1000%</strong></div>
             <div><span>현재 상태</span><strong>{availableCount <= 0 && status === 'ready' ? '본인 자금 진행 불가' : aiProcessStatusLabel(status, availableCount)}</strong></div>
             {opportunityDday !== null && <div><span>진행 기회</span><strong className={styles.aiPart1Accent}>D-{opportunityDday}</strong></div>}
             {status === 'waiting' && Number(processRow.investment_amount || 0) > 0 && <div><span>설정 금액</span><strong>{aiKrw(processRow.investment_amount)}</strong></div>}

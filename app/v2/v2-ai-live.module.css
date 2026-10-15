@@ -927,3 +927,16 @@
   .aiIdleStep p { margin: 0; font-size: 11px; line-height: 1.5; }
   .aiIdleConsultBar { margin-top: 14px; font-size: 11.5px; line-height: 1.6; }
 }
+
+/* AI IDLE LABEL FIX */
+.aiPart1Headline small {
+  white-space: nowrap;
+  word-break: keep-all;
+  writing-mode: horizontal-tb;
+}
+@media (max-width: 520px) {
+  .aiPart1Headline small {
+    min-width: max-content;
+    font-size: 11px;
+  }
+}
