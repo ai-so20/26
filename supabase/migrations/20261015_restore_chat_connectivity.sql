@@ -1,0 +1,5 @@
+insert into storage.buckets(id,name,public,file_size_limit,allowed_mime_types) values ('chat-media','chat-media',true,8388608,array['image/jpeg','image/png','image/gif','image/webp','image/avif']) on conflict(id) do nothing;
+create policy vip_chat_media_upload on storage.objects for insert to authenticated with check (bucket_id='chat-media' and (storage.foldername(name))[1]=auth.uid()::text and exists(select 1 from public.profiles where id=auth.uid() and approval_status='1'));
+do $$ declare t text; begin foreach t in array array['ai_process_members','profiles','group_messages','room_chat_settings','private_messages'] loop
+if not exists(select 1 from pg_publication_tables where pubname='supabase_realtime' and schemaname='public' and tablename=t) then execute format('alter publication supabase_realtime add table public.%I',t); end if;
+end loop; end $$;

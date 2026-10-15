@@ -1,7 +1,18 @@
 {
-  "name": "ai-process-v1-core",
-  "version": "0.1.0",
+  "name": "vip-event",
+  "version": "1.0.0",
   "private": true,
-  "type": "module",
-  "scripts": { "test": "node --test", "build": "node --test && node scripts/build.mjs" }
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.117.3",
+    "bcryptjs": "3.0.3",
+    "next": "15.5.28",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "web-push": "3.6.7"
+  }
 }

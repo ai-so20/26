@@ -1,0 +1,17 @@
+{
+  "source_url": "https://vip-event-gamma.vercel.app/",
+  "vercel_deployment": "dpl_HdN8VuoTfcoV1teBkih5BvfjVysC",
+  "git_commit": "02035a5123bfa7d1d7ecfbdd7e3f344d235c386d",
+  "supabase_project": "hycqgxtuojcorcaxnyvt",
+  "migration_count": 42,
+  "rpc_count": 110,
+  "catalog_schema_files": 8,
+  "notes": [
+    "Migrations are exact SQL statements stored in supabase_migrations.schema_migrations.",
+    "RPC definitions are pg_get_functiondef snapshots from the connected database at extraction time.",
+    "Schema/ files are reconstructed from catalog, not original historical migrations.",
+    "No table rows, authentication credentials, or database dump included.",
+    "GitHub commit tree contained no original .sql or supabase/migrations directory.",
+    "This is not guaranteed to be an executable all-in-one restore."
+  ]
+}

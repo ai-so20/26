@@ -1,0 +1,1 @@
+create table if not exists public.vip_surprise_ai_reactions (announcement_id uuid primary key references public.group_messages(id) on delete cascade, created_at timestamptz not null default now()); alter table public.vip_surprise_ai_reactions enable row level security; revoke all on public.vip_surprise_ai_reactions from anon, authenticated;

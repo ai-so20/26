@@ -1,0 +1,1 @@
+alter table public.vip_surprise_process_runs add column if not exists winner_push_sent_at timestamptz;

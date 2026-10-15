@@ -1,0 +1,79 @@
+[
+  {
+    "jobid": 8,
+    "schedule": "0 2 * * *",
+    "active": true,
+    "jobname": "vip-daily-event-push-11kst",
+    "command": "\r\n  select net.http_get(\r\n    url := 'https://vip-event-gamma.vercel.app/api/push/daily-event'\r\n  );\r\n  "
+  },
+  {
+    "jobid": 9,
+    "schedule": "7 * * * *",
+    "active": true,
+    "jobname": "ai-process-d10-expiry",
+    "command": "select public.expire_ai_process_available_counts();"
+  },
+  {
+    "jobid": 13,
+    "schedule": "0 2 * * *",
+    "active": true,
+    "jobname": "vip-ai-opening-11kst",
+    "command": "\r\n  select net.http_post(\r\n    url := 'https://vip-event-gamma.vercel.app/api/ai-chat',\r\n    headers := jsonb_build_object('Content-Type','application/json'),\r\n    body := jsonb_build_object('mode','idle','reason','daily_opening')\r\n  );\r\n  "
+  },
+  {
+    "jobid": 16,
+    "schedule": "* * * * *",
+    "active": true,
+    "jobname": "vip-auto-event-engine",
+    "command": "select public.run_auto_event_engine();"
+  },
+  {
+    "jobid": 17,
+    "schedule": "0 2 * * *",
+    "active": true,
+    "jobname": "vip-group-open-11kst",
+    "command": "\r\n  select public.vip_daily_open_group_chat();\r\n  "
+  },
+  {
+    "jobid": 18,
+    "schedule": "20,23,26 9 * * *",
+    "active": true,
+    "jobname": "vip-ai-final-closing-1820kst",
+    "command": "\r\n  select net.http_post(\r\n    url := 'https://vip-event-gamma.vercel.app/api/ai-chat',\r\n    headers := jsonb_build_object('Content-Type','application/json'),\r\n    body := jsonb_build_object(\r\n      'mode','idle',\r\n      'reason','daily_final_closing'\r\n    ),\r\n    timeout_milliseconds := 5000\r\n  );\r\n  "
+  },
+  {
+    "jobid": 19,
+    "schedule": "30 9 * * *",
+    "active": true,
+    "jobname": "vip-group-close-1830kst",
+    "command": "\r\n  select public.vip_daily_close_group_chat();\r\n  "
+  },
+  {
+    "jobid": 20,
+    "schedule": "40 1 * * *",
+    "active": true,
+    "jobname": "vip-ai-presence-cleanup",
+    "command": "\r\n  select public.cleanup_old_ai_daily_presence();\r\n  "
+  },
+  {
+    "jobid": 22,
+    "schedule": "0 2 * * *",
+    "active": true,
+    "jobname": "vip-group-notice-1100kst",
+    "command": "\r\n  select public.vip_daily_1100_group_notice();\r\n  "
+  },
+  {
+    "jobid": 25,
+    "schedule": "* * * * *",
+    "active": true,
+    "jobname": "vip-surprise-process-advance",
+    "command": "select public.advance_vip_surprise_processes()"
+  },
+  {
+    "jobid": 26,
+    "schedule": "* * * * *",
+    "active": true,
+    "jobname": "vip-virtual-event-simulation",
+    "command": "select public.run_virtual_event_simulation();"
+  }
+]

@@ -1,0 +1,1 @@
+do $$ declare f text; begin select pg_get_functiondef(p.oid) into f from pg_proc p where p.pronamespace='public'::regnamespace and p.proname='advance_vip_surprise_processes'; f:=replace(f,'''fixed''','''daily'''); execute f; end $$;

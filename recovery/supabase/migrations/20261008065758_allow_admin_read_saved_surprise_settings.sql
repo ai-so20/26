@@ -1,0 +1,1 @@
+create policy vip_surprise_settings_admin_read on public.vip_surprise_settings for select to authenticated using (exists (select 1 from public.profiles p where p.id=auth.uid() and p.role='admin'));
