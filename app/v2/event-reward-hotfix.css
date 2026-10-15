@@ -1,0 +1,137 @@
+/* EVENT + REWARD HOTFIX 2026-10-16
+   Scope is intentionally limited to Event and Product Reward Center.
+   AI PROCESS is untouched. */
+
+/* ─────────────────────────────────────────────
+   PRODUCT REWARD CENTER
+   1) Remove the broken top-right live connection badge.
+   2) Restore a restrained violet identity (5–10%), not violet surfaces.
+   ───────────────────────────────────────────── */
+[class*="rewardEmbeddedShell"] [class*="pageHeading"] > [class*="statusBadge"] {
+  display: none !important;
+}
+
+[class*="rewardEmbeddedShell"] {
+  --reward-violet: #6342A6;
+  --reward-violet-dark: #4F3486;
+  --reward-violet-soft: #F4F0FA;
+  --reward-violet-border: #D9CFE9;
+}
+
+[class*="rewardEmbeddedShell"] [class*="pageHeading"] [class*="kicker"] {
+  color: var(--reward-violet) !important;
+}
+
+/* Meaningful counts/statuses only */
+[class*="rewardEmbeddedShell"] [class*="summary"] > div:first-child strong,
+[class*="rewardEmbeddedShell"] [class*="summary"] > div:nth-child(2) strong {
+  color: var(--reward-violet-dark) !important;
+}
+
+[class*="rewardEmbeddedShell"] [class*="deliveryHead"] > div > span {
+  color: var(--reward-violet) !important;
+}
+[class*="rewardEmbeddedShell"] [class*="liveBadge"] {
+  border-color: var(--reward-violet-border) !important;
+  background: var(--reward-violet-soft) !important;
+  color: var(--reward-violet-dark) !important;
+}
+
+/* Violet is identity/action, never the whole card. */
+[class*="rewardEmbeddedShell"] [class*="rewardWelcomeTop"] > span,
+[class*="rewardEmbeddedShell"] [class*="rewardQuickLinks"] button span,
+[class*="rewardEmbeddedShell"] [class*="giftTitle"],
+[class*="rewardEmbeddedShell"] [class*="specialKicker"] {
+  color: var(--reward-violet) !important;
+}
+
+[class*="rewardEmbeddedShell"] [class*="rewardBenefitIcon"] {
+  border-color: var(--reward-violet-border) !important;
+  color: var(--reward-violet) !important;
+  background: #FFFFFF !important;
+}
+
+[class*="rewardEmbeddedShell"] [class*="rewardAlert"] {
+  border-color: var(--reward-violet-border) !important;
+  background: #F6F3FA !important;
+}
+[class*="rewardEmbeddedShell"] [class*="rewardAlertBell"] {
+  border-color: var(--reward-violet-border) !important;
+  background: #FFFFFF !important;
+}
+[class*="rewardEmbeddedShell"] [class*="rewardAlertBell"] svg {
+  stroke: var(--reward-violet) !important;
+}
+[class*="rewardEmbeddedShell"] [class*="rewardAlert"] strong {
+  color: var(--reward-violet-dark) !important;
+}
+
+[class*="rewardEmbeddedShell"] [class*="giftCard"] {
+  border-color: #D9D3E2 !important;
+}
+[class*="rewardEmbeddedShell"] [class*="giftProduct"] {
+  background: #F3F1F6 !important;
+}
+
+/* ─────────────────────────────────────────────
+   EVENT
+   One mobile x-axis. No heading/card/text may hug the viewport wall.
+   ───────────────────────────────────────────── */
+@media (max-width: 520px) {
+  [class*="content"]:has(> [class*="eventPage"]),
+  [class*="content"]:has([class*="eventPage"]) {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  [class*="eventPage"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  [class*="eventPage"] > * {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  /* Keep every section on the exact same left/right rail. */
+  [class*="eventPage"] [class*="pageHeading"],
+  [class*="eventPage"] [class*="summaryCard"],
+  [class*="eventPage"] [class*="section"],
+  [class*="eventPage"] [class*="primaryCard"],
+  [class*="eventPage"] [class*="simpleList"],
+  [class*="eventPage"] [class*="attendanceCardLarge"],
+  [class*="eventPage"] [class*="infoCard"],
+  [class*="eventPage"] [class*="listCard"],
+  [class*="eventPage"] [class*="surpriseGuideCard"] {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Breathing room inside surfaces. */
+  [class*="eventPage"] [class*="summaryTop"],
+  [class*="eventPage"] [class*="statsGrid"] {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  [class*="eventPage"] [class*="sectionHead"] {
+    padding-left: 1px !important;
+    padding-right: 1px !important;
+  }
+
+  [class*="eventPage"] [class*="cardTopline"],
+  [class*="eventPage"] [class*="cardBody"],
+  [class*="eventPage"] [class*="attendanceHeader"],
+  [class*="eventPage"] [class*="listHeader"] {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
