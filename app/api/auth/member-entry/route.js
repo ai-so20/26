@@ -16,8 +16,7 @@ export async function POST(request) {
     const admin = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
     const { data: member, error } = await admin.from("profiles").select("id,role,approval_status")
       .eq("nickname", nickname).eq("real_name", realName).maybeSingle();
-    // Name-based entry is deliberately limited to approved members. Admins use password sign-in.
-    if (error || !member || member.role !== "member" || member.approval_status !== "1") return denied();
+    if (error || !member || !["member", "admin"].includes(member.role) || member.approval_status !== "1") return denied();
     const { data: account } = await admin.auth.admin.getUserById(member.id);
     if (!account?.user?.email) return denied();
     const { data: link, error: linkError } = await admin.auth.admin.generateLink({ type: "magiclink", email: account.user.email });
