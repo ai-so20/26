@@ -38,4 +38,4 @@ jobs:
           git commit -m 'Apply financial app UX QA pass' || exit 0
           git push origin main
 
-# retry after whitespace validation fix
+# retry after CSS Modules token scope fix
