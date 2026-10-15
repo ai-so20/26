@@ -1,20 +1,23 @@
 from pathlib import Path
 import re
 
+def clean(text):
+    return '\n'.join(line.rstrip() for line in text.splitlines()) + '\n'
+
 # 1) Main V2: render reward center inline instead of redirect placeholder
 p = Path('app/v2/V2LiveClientStage2.js')
 s = p.read_text()
 if "import RewardLiveClient from './reward/RewardLiveClient';" not in s:
     s = s.replace("import aiStyles from './v2-ai-live.module.css';", "import aiStyles from './v2-ai-live.module.css';\nimport RewardLiveClient from './reward/RewardLiveClient';")
 s = s.replace("{activeTab === 'private' && <PrivatePreview />}", "{activeTab === 'private' && <RewardLiveClient embedded embeddedUser={user} embeddedProfile={profile} onNavigateTab={(tab) => { setActiveTab(tab); try { window.sessionStorage.setItem('vip-active-tab', tab); } catch {} }} />}")
-p.write_text(s)
+p.write_text(clean(s))
 
 # 2) Page: remove old click bridge that forced a full page navigation
 p = Path('app/v2/page.js')
 s = p.read_text()
 s = s.replace("import V2RewardBridge from './V2RewardBridge';\n", "")
 s = s.replace("      <V2RewardBridge />\n", "")
-p.write_text(s)
+p.write_text(clean(s))
 
 # 3) Reward center: support embedded mode and reuse already-loaded member state
 p = Path('app/v2/reward/RewardLiveClient.js')
@@ -35,10 +38,8 @@ s = s.replace(
     "  function goTab(tab) {\n    try { window.sessionStorage.setItem('vip-active-tab', tab); } catch {}\n    if (embedded && typeof onNavigateTab === 'function') {\n      onNavigateTab(tab);\n      return;\n    }\n    window.location.assign('/v2');\n  }"
 )
 
-# Give the embedded shell a class so the duplicate header/nav are visually removed without duplicating component logic.
 s = s.replace("<main className={styles.canvas}>\n      <section className={styles.appShell}>", "<main className={`${styles.canvas} ${embedded ? styles.rewardEmbeddedCanvas : ''}`}>\n      <section className={`${styles.appShell} ${embedded ? styles.rewardEmbeddedShell : ''}`}>", 1)
 
-# Move the large welcome/benefit block into the payout message stream instead of keeping it as a separate top-level page card.
 match = re.search(r"\n\s*<section className=\{styles\.rewardWelcome\}>.*?</section>\n", s, re.S)
 if match:
     welcome = match.group(0).strip()
@@ -48,7 +49,7 @@ if match:
     if marker in s:
         s = s.replace(marker, marker + "\n                  " + welcome.replace("\n", "\n                  "), 1)
 
-p.write_text(s)
+p.write_text(clean(s))
 
 # 4) Reward CSS: embedded SPA treatment + clearer section separation inside the chat stream
 p = Path('app/v2/reward/reward-live.module.css')
@@ -87,4 +88,4 @@ append = r'''
 '''
 if '/* REWARD INLINE SPA + VISUAL SEPARATION */' not in s:
     s += append
-p.write_text(s)
+p.write_text(clean(s))
