@@ -158,7 +158,7 @@ export default function Home() {
   const [surpriseGuideSaving, setSurpriseGuideSaving] = useState(false);
   const [surpriseGuideCollapsed, setSurpriseGuideCollapsed] = useState(true);
   const [surpriseCopy,setSurpriseCopy]=useState({group_start_title:"",group_start_body:"",group_complete_title:"",group_complete_body:"",private_start_body:""});
-  const [eventWinnerFooter,setEventWinnerFooter]=useState("💌 당첨 상품은 1:1 고객센터에서 확인해주세요.");
+  const [eventWinnerFooter,setEventWinnerFooter]=useState("💌 당첨 상품은 카카오톡 1:1 고객센터에서 확인해주세요.");
   const [eventWinnerFooterCollapsed,setEventWinnerFooterCollapsed]=useState(true);
   const [eventWinnerFooterSaving,setEventWinnerFooterSaving]=useState(false);
   async function loadEventWinnerFooter(){
@@ -1269,7 +1269,7 @@ export default function Home() {
 
     const body = privateNotificationPreview(payload.content);
 
-    setPrivateAlert({ title: `${adminIdentity.nickname || "관리자"} 1:1 고객센터`, body });
+    setPrivateAlert({ title: `${adminIdentity.nickname || "관리자"} 카카오톡 1:1 고객센터`, body });
     window.clearTimeout(window.__vipPrivateAlertTimer);
     window.__vipPrivateAlertTimer = window.setTimeout(() => setPrivateAlert(null), 6500);
 
@@ -4673,7 +4673,7 @@ export default function Home() {
       setRealName("");
       setPassword("");
       setMode("login");
-      setNotice("VIP 가입 신청이 완료되었습니다. 운영자 승인 후 로그인하시면 VIP 라운지 및 1:1 고객센터를 이용하실 수 있습니다.");
+      setNotice("VIP 가입 신청이 완료되었습니다. 운영자 승인 후 로그인하시면 VIP 라운지 및 카카오톡 1:1 고객센터를 이용하실 수 있습니다.");
     } catch (error) {
       console.error("회원가입 오류:", error);
       setNotice("가입 신청 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
@@ -5197,7 +5197,7 @@ export default function Home() {
                 </div>
 
                 <p style={blueTheme(styles.sponsorWelcomeBenefit, "surface", "shell")}>
-                  <b>이벤트 · AI프로세스 · 1:1 고객센터</b><br/>
+                  <b>이벤트 · AI프로세스 · 카카오톡 1:1 고객센터</b><br/>
                   모든 VIP 전용 서비스를 편하게 이용해보세요.
                 </p>
 
@@ -5477,7 +5477,7 @@ export default function Home() {
                 <h3 style={blueTheme(styles.installGuideTitle, "surface", "shell")}>VIP 전용 앱 설치 방법</h3>
                 <p style={blueTheme(styles.installGuideText, "surface", "shell")}>
                   홈 화면에 앱을 설치해두시면<br />
-                  <strong>이벤트 및 1:1 고객센터 알림 확인이 더욱 편리합니다.</strong>
+                  <strong>이벤트 및 카카오톡 1:1 고객센터 알림 확인이 더욱 편리합니다.</strong>
                 </p>
 
                 <div style={blueTheme(styles.installGuideImageWrap, "surface", "shell")}>
@@ -5953,7 +5953,7 @@ export default function Home() {
                               <div style={blueTheme({fontSize:"10px",fontWeight:900,letterSpacing:"1.5px",color:"#e9c77f"}, "surface", "shell")}>VIP AI PROCESS · COMPLETE</div>
                               <div style={blueTheme({fontSize:"22px",marginTop:"8px"}, "surface", "shell")}>🎊</div>
                               <div style={blueTheme({whiteSpace:"pre-line",fontSize:"13px",fontWeight:900,marginTop:"8px",lineHeight:1.6}, "surface", "shell")}>{formatSurpriseCopy(surpriseCopy.group_complete_title || "{닉네임}님 AI프로세스 진행 완료되셨습니다.\\n진심으로 축하드립니다!",winnerName)}</div>
-                              <div style={blueTheme({whiteSpace:"pre-line",fontSize:"11px",lineHeight:1.7,marginTop:"8px",color:"#e9e4d8"}, "surface", "shell")}>{formatSurpriseCopy(surpriseCopy.group_complete_body || "이벤트 완료 안내는 1:1 고객센터에서 확인해 주세요.",winnerName)}</div>
+                              <div style={blueTheme({whiteSpace:"pre-line",fontSize:"11px",lineHeight:1.7,marginTop:"8px",color:"#e9e4d8"}, "surface", "shell")}>{formatSurpriseCopy(surpriseCopy.group_complete_body || "이벤트 완료 안내는 카카오톡 1:1 고객센터에서 확인해 주세요.",winnerName)}</div>
                               <button type="button" onClick={() => { setChatTab("private"); window.sessionStorage.setItem("vip-active-tab","private"); }} style={blueTheme({width:"100%",marginTop:"14px",padding:"11px",borderRadius:"10px",border:"1px solid #e8cb8e",background:"#e8cb8e",color:"#25313a",fontSize:"12px",fontWeight:900,cursor:"pointer"}, "button", "shell")}>1:1 메시지 확인하기 ›</button>
                             </div>
                           </div>
@@ -6241,7 +6241,7 @@ export default function Home() {
                   <div style={blueTheme(styles.vipPrizeGuideCopy, "surface", "event")}>
                     <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.5px",color:"#e2b762"}, "surface", "event")}>VIP EVENT REWARD</span>
                     <strong style={blueTheme({display:"block",marginTop:"3px",paddingRight:"32px",fontSize:"11px",lineHeight:1.45,color:"#fff4df"}, "surface", "event")}>3,000원 ~ 100,000원 상당 랜덤 기프티콘</strong>
-                    <p style={blueTheme({margin:"4px 0 0",fontSize:"8px",lineHeight:1.5,color:"rgba(255,255,255,.65)",wordBreak:"keep-all"}, "surface", "event")}>이벤트 당첨 시 <b>1:1 고객센터</b>에서 기프티콘이 즉시 지급됩니다.</p>
+                    <p style={blueTheme({margin:"4px 0 0",fontSize:"8px",lineHeight:1.5,color:"rgba(255,255,255,.65)",wordBreak:"keep-all"}, "surface", "event")}>이벤트 당첨 시 <b>카카오톡 1:1 고객센터</b>에서 기프티콘이 즉시 지급됩니다.</p>
                   </div>
                   <div style={blueTheme(styles.vipPrizeGuideBadge, "surface", "event")}>GIFT</div>
                 </div>
@@ -6697,7 +6697,7 @@ export default function Home() {
                       <span style={blueTheme(styles.dailyAttendanceEyebrow, "surface", "attendance")}>VIP DAILY CHECK-IN</span>
                       <strong style={blueTheme(styles.dailyAttendanceTitle, "surface", "attendance")}>매일 출석 혜택</strong>
                       <p style={blueTheme(styles.dailyAttendanceDesc, "surface", "attendance")}>
-                        하루 1회 출석할 수 있으며, <b>10회 출석 달성 시 3,000원 ~ 200,000원 상당 랜덤 기프티콘이 1:1 고객센터에서 즉시 지급됩니다.</b>
+                        하루 1회 출석할 수 있으며, <b>10회 출석 달성 시 3,000원 ~ 200,000원 상당 랜덤 기프티콘이 카카오톡 1:1 고객센터에서 즉시 지급됩니다.</b>
                       </p>
                     </div>
                     <div style={blueTheme(styles.dailyAttendanceCount, "surface", "attendance")}>
@@ -6728,7 +6728,7 @@ export default function Home() {
                       <strong style={blueTheme({display:"block",fontSize:"10px",color:"#4a3422"}, "surface", "attendance")}>{attendanceStatus.checked_today ? "✓ 오늘 출석 완료" : "오늘의 출석을 완료해주세요"}</strong>
                       <span style={blueTheme({display:"block",marginTop:"3px",fontSize:"7.5px",lineHeight:1.45,color:"#8d7862"}, "surface", "attendance")}>
                         {attendanceStatus.reward_ready && attendanceStatus.checked_today
-                          ? "10회 출석 달성 · 랜덤 기프티콘이 1:1 고객센터로 자동 지급됩니다."
+                          ? "10회 출석 달성 · 랜덤 기프티콘이 카카오톡 1:1 고객센터로 자동 지급됩니다."
                           : getAttendanceCycleCount() === 0
                             ? "새로운 10회 출석이 시작됩니다. 오늘부터 다시 1회 출석할 수 있습니다."
                             : `현재 ${getAttendanceCycleCount()}/10 · 10회 달성마다 랜덤 기프티콘이 자동 지급됩니다.`}
@@ -6776,7 +6776,7 @@ export default function Home() {
                     </button>
                   </div>
                   <div style={blueTheme(styles.dailyAttendanceFoot, "surface", "attendance")}>
-                    ※ 출석 혜택 지급은 10회 달성 확인 후 1:1 고객센터를 통해 안내됩니다.
+                    ※ 출석 혜택 지급은 10회 달성 확인 후 카카오톡 1:1 고객센터를 통해 안내됩니다.
                   </div>
                 </div>
 
@@ -7096,7 +7096,7 @@ export default function Home() {
 <div style={blueTheme({display:"flex",justifyContent:"space-between",alignItems:"center",gap:"8px"}, "surface", "ai")}><strong style={blueTheme({fontSize:"13px",color:"#3e2c19"}, "surface", "ai")}>그룹채팅 이벤트 당첨 안내 문구</strong><button type="button" onClick={()=>{setEventWinnerFooterCollapsed(v=>!v);if(eventWinnerFooterCollapsed)loadEventWinnerFooter();}} style={blueTheme({padding:"6px 10px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}, "button", "ai")}>{eventWinnerFooterCollapsed?"펼치기 ▾":"접어두기 ▴"}</button></div>
 {!eventWinnerFooterCollapsed&&<div style={blueTheme({display:"grid",gap:"10px",marginTop:"12px"}, "surface", "ai")}>
 <div style={blueTheme({fontSize:"11px",color:"#70502d",lineHeight:1.6}, "surface", "ai")}>AI · 가상지급 · 실제 회원 당첨 공지에 공통 적용됩니다. 기존 상품명과 1:1 지급 방식은 바뀌지 않으며, 앞으로 올라오는 당첨 공지 맨 아래에 한 줄 띄어 표시됩니다.</div>
-<label style={blueTheme({fontSize:"11px",fontWeight:800,color:"#594022"}, "surface", "ai")}>당첨 상품 아래 추가 문구<textarea maxLength={250} value={eventWinnerFooter} onChange={e=>setEventWinnerFooter(e.target.value)} placeholder="💌 당첨 상품은 1:1 고객센터에서 확인해주세요." style={blueTheme({display:"block",width:"100%",boxSizing:"border-box",padding:"9px",marginTop:"5px",minHeight:"75px",borderRadius:"8px",border:"1px solid #d8bd91",fontSize:"12px"}, "surface", "ai")}/></label>
+<label style={blueTheme({fontSize:"11px",fontWeight:800,color:"#594022"}, "surface", "ai")}>당첨 상품 아래 추가 문구<textarea maxLength={250} value={eventWinnerFooter} onChange={e=>setEventWinnerFooter(e.target.value)} placeholder="💌 당첨 상품은 카카오톡 1:1 고객센터에서 확인해주세요." style={blueTheme({display:"block",width:"100%",boxSizing:"border-box",padding:"9px",marginTop:"5px",minHeight:"75px",borderRadius:"8px",border:"1px solid #d8bd91",fontSize:"12px"}, "surface", "ai")}/></label>
 <button type="button" onClick={saveEventWinnerFooter} disabled={eventWinnerFooterSaving} style={blueTheme({padding:"11px",background:"#172938",color:"#fff",border:0,borderRadius:"9px",fontWeight:800,cursor:"pointer"}, "button", "ai")}>{eventWinnerFooterSaving?"저장 중...":"당첨 안내 문구 저장"}</button></div>}</div>
 <div style={blueTheme({padding:"14px",marginTop:"14px",marginBottom:"12px",border:"1px solid #d8bd91",borderRadius:"12px",background:"#fff9ee"}, "surface", "ai")}>
 <div style={blueTheme({display:"flex",justifyContent:"space-between",alignItems:"center",gap:"8px"}, "surface", "ai")}><strong style={blueTheme({fontSize:"13px",color:"#3e2c19"}, "surface", "ai")}>돌발 이벤트 자동 공지 문구 관리</strong><button type="button" onClick={()=>{setSurpriseCopyCollapsed(v=>!v);if(surpriseCopyCollapsed)loadSurpriseCopy();}} style={blueTheme({padding:"6px 10px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}, "button", "ai")}>{surpriseCopyCollapsed?"펼치기 ▾":"접어두기 ▴"}</button></div>
@@ -7165,7 +7165,7 @@ export default function Home() {
                             {status === "waiting"
                               ? "상담을 통해 진행 설정이 완료되었습니다. 담당자 확인 후 진행이 시작되면 회원님 전용 AI 수익 현황 화면으로 자동 전환됩니다."
                               : availableCount > 0
-                                ? "회원님께 제공된 AI프로세스 이용 기회가 준비되어 있습니다. 진행을 원하시면 1:1 고객센터로 문의해 주세요. 상담 후 진행 설정이 완료되면 바로 시작할 수 있습니다."
+                                ? "회원님께 제공된 AI프로세스 이용 기회가 준비되어 있습니다. 진행을 원하시면 카카오톡 1:1 고객센터로 문의해 주세요. 상담 후 진행 설정이 완료되면 바로 시작할 수 있습니다."
                                 : <>현재 AI프로세스 돌발 1만원 지원금 이벤트 진행중입니다.<br/>당첨 시 1만원 으로 AI프로세스 자동 진행 됩니다.<br/>(진행 가능횟수가 0회 인 경우 본인 자금으로 진행 불가능 합니다.)</>}
                           </p>
 
@@ -7336,18 +7336,18 @@ export default function Home() {
                               textAlign:"center"
                             }, "accentSurface", "ai")}>
                               <strong style={blueTheme({display:"block",fontSize:"13px",lineHeight:1.4,color:"#ffd98c"}, "surface", "ai")}>
-                                1:1 고객센터 메시지를 확인해주세요
+                                카카오톡 1:1 고객센터 메시지를 확인해주세요
                               </strong>
                               <span style={blueTheme({display:"block",marginTop:"6px",fontSize:"9px",lineHeight:1.65,color:"rgba(255,255,255,.80)",wordBreak:"keep-all"}, "surface", "ai")}>
-                                AI프로세스 완료 안내와 출금 관련 안내를 1:1 고객센터로 보내드렸습니다.<br />
-                                1:1 고객센터에서 메시지를 확인해주세요.
+                                AI프로세스 완료 안내와 출금 관련 안내를 카카오톡 1:1 고객센터로 보내드렸습니다.<br />
+                                카카오톡 1:1 고객센터에서 메시지를 확인해주세요.
                               </span>
                               <button
                                 type="button"
                                 onClick={()=>{setChatTab("private");window.sessionStorage.setItem("vip-active-tab","private");openPrivateChat();}}
                                 style={blueTheme({marginTop:"10px",width:"100%",padding:"11px",border:0,borderRadius:"12px",background:"linear-gradient(145deg,#a8752d,#d1a04d)",color:"#fff",fontSize:"9px",fontWeight:"1000",cursor:"pointer"}, "button", "ai")}
                               >
-                                1:1 고객센터 메시지 확인
+                                카카오톡 1:1 고객센터 메시지 확인
                               </button>
                             </div>
                           )}
@@ -7454,7 +7454,7 @@ export default function Home() {
                           ? "상단의 회원 전용 수익 현황에서 진행 상태를 확인하세요"
                           : aiMemberProcess?.status === "completed"
                             ? "진행 결과는 상단의 회원 전용 현황에서 확인할 수 있습니다"
-                            : "진행을 원하시면 1:1 고객센터로 문의해 주세요"}
+                            : "진행을 원하시면 카카오톡 1:1 고객센터로 문의해 주세요"}
                     </span>
                   </div>
                   <div style={blueTheme(styles.aiBenefitCornerBadge, "surface", "ai")}>
@@ -7483,8 +7483,8 @@ export default function Home() {
                             : aiMemberProcess?.status === "completed"
                               ? "회원님의 AI프로세스 진행이 완료되었습니다. 상단에서 최종 모의 수익 현황과 결과를 확인하실 수 있습니다."
                               : Number(aiMemberProcess?.available_count || 0) > 0
-                                ? `현재 회원님께 AI프로세스 ${Number(aiMemberProcess?.available_count || 0)}회 이용 기회가 제공되어 있습니다. 1:1 고객센터 상담 후 진행할 수 있습니다.`
-                                : "AI프로세스 이용을 원하시면 1:1 고객센터에서 개별 상담을 신청해 주세요."}
+                                ? `현재 회원님께 AI프로세스 ${Number(aiMemberProcess?.available_count || 0)}회 이용 기회가 제공되어 있습니다. 카카오톡 1:1 고객센터 상담 후 진행할 수 있습니다.`
+                                : "AI프로세스 이용을 원하시면 카카오톡 1:1 고객센터에서 개별 상담을 신청해 주세요."}
                       </div>
                     </div>
                     <div style={blueTheme(styles.aiProChip, "surface", "ai")}>
@@ -7548,7 +7548,7 @@ export default function Home() {
                   </div>
                   <div style={blueTheme(styles.aiProHowRow, "surface", "ai")}>
                     {[
-                      ["1","1:1 고객센터","고객센터 상담 신청"],
+                      ["1","카카오톡 1:1 고객센터","고객센터 상담 신청"],
                       ["2","예약 안내","이용 가능 일정 확인"],
                       ["3","진행 설정","AI 프로세스 안내"],
                       ["4","프로세스 진행","설정된 방식으로 진행"],
@@ -7591,8 +7591,8 @@ export default function Home() {
                         : aiMemberProcess?.status === "completed"
                           ? "회원님의 AI프로세스 진행이 완료되었습니다. 상단의 전용 현황에서 최종 결과를 확인하실 수 있습니다."
                           : Number(aiMemberProcess?.available_count || 0) > 0
-                            ? `회원님께 AI프로세스 ${Number(aiMemberProcess?.available_count || 0)}회 진행 기회가 준비되어 있습니다. 원하시는 경우 1:1 고객센터에서 바로 상담해 주세요.`
-                            : "AI프로세스 이용을 원하시면 1:1 고객센터로 문의해 주세요. 이용 가능 여부와 진행 방법을 개별적으로 안내해드립니다."}
+                            ? `회원님께 AI프로세스 ${Number(aiMemberProcess?.available_count || 0)}회 진행 기회가 준비되어 있습니다. 원하시는 경우 카카오톡 1:1 고객센터에서 바로 상담해 주세요.`
+                            : "AI프로세스 이용을 원하시면 카카오톡 1:1 고객센터로 문의해 주세요. 이용 가능 여부와 진행 방법을 개별적으로 안내해드립니다."}
                   </p>
                   <div style={blueTheme(styles.aiProStandbyBottom, "surface", "ai")}>
                     {profile?.role === "admin"
@@ -7600,8 +7600,8 @@ export default function Home() {
                       : aiMemberProcess?.status === "running"
                         ? "진행 중에는 상단 AI 수익 현황에서 회원님의 현재 진행 데이터를 확인할 수 있습니다."
                         : aiMemberProcess?.status === "completed"
-                          ? "추가 진행 가능 횟수가 있는 경우 1:1 고객센터를 통해 다음 진행을 상담해 주세요."
-                          : <><b>1:1 고객센터에서 AI프로세스 진행 상담</b>을 신청해주세요.</>}
+                          ? "추가 진행 가능 횟수가 있는 경우 카카오톡 1:1 고객센터를 통해 다음 진행을 상담해 주세요."
+                          : <><b>카카오톡 1:1 고객센터에서 AI프로세스 진행 상담</b>을 신청해주세요.</>}
                   </div>
                 </div>
 
@@ -7754,7 +7754,7 @@ export default function Home() {
                                     </i>
                                   )}
                                 </div>
-                                <span>{unreadCount > 0 ? "새로운 1:1 고객센터가 도착했습니다." : "1:1 상담 시작하기"}</span>
+                                <span>{unreadCount > 0 ? "새로운 카카오톡 1:1 고객센터가 도착했습니다." : "1:1 상담 시작하기"}</span>
                               </div>
                               <b>›</b>
                             </button>
@@ -7777,10 +7777,10 @@ export default function Home() {
                         {profile?.role === "admin" ? (
                           <>
                             <strong>{selectedAdminChat?.member?.nickname || selectedAdminChat?.nickname || "회원 상담"}</strong>
-                            <span>VIP 전용 1:1 고객센터</span>
+                            <span>VIP 전용 카카오톡 1:1 고객센터</span>
                           </>
                         ) : (
-                          <><span style={blueTheme({fontSize:"15px",fontWeight:"900",color:"#34251d"}, "surface", "reward")}>VIP 전용 1:1 고객센터</span><span style={blueTheme({fontSize:"12px",fontWeight:"700",color:"#786451",marginTop:"3px"}, "surface", "reward")}>내 닉네임 : <b style={blueTheme({fontSize:"13px",fontWeight:"900",color:"#A36C17"}, "surface", "reward")}>{profile?.nickname || "VIP 회원"}</b></span></>
+                          <><span style={blueTheme({fontSize:"15px",fontWeight:"900",color:"#34251d"}, "surface", "reward")}>VIP 전용 카카오톡 1:1 고객센터</span><span style={blueTheme({fontSize:"12px",fontWeight:"700",color:"#786451",marginTop:"3px"}, "surface", "reward")}>내 닉네임 : <b style={blueTheme({fontSize:"13px",fontWeight:"900",color:"#A36C17"}, "surface", "reward")}>{profile?.nickname || "VIP 회원"}</b></span></>
                         )}
                       </div>
                     </div>

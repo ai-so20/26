@@ -7,7 +7,7 @@ export default function V2RewardBridge() {
     const handleClick = (event) => {
       const button = event.target?.closest?.('button');
       if (!button) return;
-      if (String(button.textContent || '').trim() !== '상품 지급') return;
+      if (!['상품 지급', '상품지급센터'].includes(String(button.textContent || '').trim())) return;
 
       event.preventDefault();
       event.stopPropagation();

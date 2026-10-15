@@ -13,7 +13,7 @@ const AI_PROCESS_STEP_MINUTES = 3;
 const navItems = [
   { id: 'event', label: '이벤트' },
   { id: 'ai', label: 'AI프로세스' },
-  { id: 'private', label: '상품 지급' },
+  { id: 'private', label: '상품지급센터' },
 ];
 
 function avatarSrc(value) {

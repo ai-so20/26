@@ -271,3 +271,43 @@
   .composer { grid-template-columns: 1fr; }
   .sendButton { width: 100%; }
 }
+
+
+/* PRODUCT REWARD CENTER */
+.rewardWelcome {
+  margin-bottom: 10px;
+  overflow: hidden;
+  border: 1px solid #dbe4f0;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(31,45,61,.055);
+}
+.rewardWelcomeTop { padding: 18px 18px 15px; border-bottom: 1px solid #e9eef5; }
+.rewardWelcomeTop > span { display:block; color:#2f6fed; font-size:8px; font-weight:900; letter-spacing:.14em; }
+.rewardWelcomeTop > strong { display:block; margin-top:8px; color:#172033; font-size:18px; letter-spacing:-.035em; }
+.rewardWelcomeTop > p { margin:7px 0 0; color:#718096; font-size:10px; line-height:1.65; }
+.rewardBenefitPanel { margin:14px; padding:15px; border:1px solid #dce6f6; background:#f7f9fd; }
+.rewardBenefitPanel > strong { display:block; color:#20304a; font-size:11px; }
+.rewardBenefitRow { display:grid; grid-template-columns:34px minmax(0,1fr); gap:10px; margin-top:13px; align-items:start; }
+.rewardBenefitIcon { width:34px; height:34px; display:grid; place-items:center; border:1px solid #ccdaf1; background:#fff; color:#2f6fed; font-size:9px; font-weight:900; }
+.rewardBenefitRow b { display:block; color:#27364d; font-size:10px; }
+.rewardBenefitRow p { margin:4px 0 0; color:#66758a; font-size:9px; line-height:1.68; }
+.rewardBenefitFoot { margin:14px 0 0; padding-top:12px; border-top:1px solid #dfe7f2; color:#53657e; font-size:9px; line-height:1.65; font-weight:700; }
+.rewardQuickLinks { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:0 14px 14px; }
+.rewardQuickLinks button { min-width:0; padding:13px 12px; border:1px solid #dce4ee; background:#fff; color:#26354c; text-align:left; cursor:pointer; }
+.rewardQuickLinks button span { display:block; color:#2f6fed; font-size:7px; font-weight:900; letter-spacing:.1em; }
+.rewardQuickLinks button strong { display:block; margin-top:4px; font-size:10px; }
+.rewardAlert { margin:0 14px 14px; padding:13px; display:grid; grid-template-columns:38px minmax(0,1fr); gap:11px; align-items:center; border:1px solid #cddbf2; background:#eef4ff; }
+.rewardAlertBell { width:38px; height:38px; display:grid; place-items:center; background:#fff; border:1px solid #d6e1f4; }
+.rewardAlertBell svg { width:19px; height:19px; fill:none; stroke:#2f6fed; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.rewardAlert strong { display:block; color:#20314c; font-size:10px; }
+.rewardAlert p { margin:4px 0 0; color:#5f718d; font-size:9px; line-height:1.55; }
+.rewardFooterNotice { margin-top:10px; padding:16px 14px; border-top:2px solid #172033; border-bottom:1px solid #dfe5ed; background:#fff; text-align:center; }
+.rewardFooterNotice strong { display:block; color:#1e2d43; font-size:11px; letter-spacing:-.02em; }
+.rewardFooterNotice p { margin:5px 0 0; color:#6f7d90; font-size:9px; line-height:1.6; }
+@media (max-width:420px) {
+  .rewardWelcomeTop { padding:16px 14px 13px; }
+  .rewardWelcomeTop > strong { font-size:16px; }
+  .rewardBenefitPanel { margin:11px; padding:13px; }
+  .rewardQuickLinks { padding:0 11px 11px; gap:7px; }
+  .rewardAlert { margin:0 11px 11px; }
+}

@@ -24,7 +24,7 @@ export async function POST(request) {
     if (subError) throw subError;
     if (!subscriptions?.length) return NextResponse.json({ ok: true, sent: 0, reason: "no_subscription" });
     webpush.setVapidDetails(process.env.VAPID_SUBJECT || "https://26-beige.vercel.app", process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY, process.env.VAPID_PRIVATE_KEY);
-    const payload = JSON.stringify(phase === "complete" ? { title: "🎉 AI프로세스 진행 완료", body: "진행 완료 안내가 1:1 고객센터에 도착했습니다. 확인해 주세요.", tag: `vip-surprise-complete-${run.id}`, url: "/?tab=private", icon: "/avatars/admin.png.png", badge: "/avatars/admin.png.png" } : { title: "🎉 VIP 돌발 AI프로세스 당첨", body: "돌발 이벤트에 당첨되셨습니다! 1:1 고객센터에서 상세 안내를 확인해 주세요.", tag: `vip-surprise-${run.id}`, url: "/?tab=private", icon: "/avatars/admin.png.png", badge: "/avatars/admin.png.png" });
+    const payload = JSON.stringify(phase === "complete" ? { title: "🎉 AI프로세스 진행 완료", body: "진행 완료 안내가 카카오톡 1:1 고객센터에 도착했습니다. 확인해 주세요.", tag: `vip-surprise-complete-${run.id}`, url: "/?tab=private", icon: "/avatars/admin.png.png", badge: "/avatars/admin.png.png" } : { title: "🎉 VIP 돌발 AI프로세스 당첨", body: "돌발 이벤트에 당첨되셨습니다! 카카오톡 1:1 고객센터에서 상세 안내를 확인해 주세요.", tag: `vip-surprise-${run.id}`, url: "/?tab=private", icon: "/avatars/admin.png.png", badge: "/avatars/admin.png.png" });
     let sent = 0;
     for (const sub of subscriptions) {
       try {

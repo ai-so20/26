@@ -338,14 +338,14 @@ export default function RewardLiveClient() {
   }
 
   if (loading) {
-    return <main className={styles.canvas}><section className={`${styles.appShell} ${styles.loadingShell}`}><div className={styles.loadingMark}>VIP</div><strong>상품 지급 정보를 확인하고 있습니다.</strong></section></main>;
+    return <main className={styles.canvas}><section className={`${styles.appShell} ${styles.loadingShell}`}><div className={styles.loadingMark}>VIP</div><strong>상품지급센터 정보를 확인하고 있습니다.</strong></section></main>;
   }
 
   if (!user || !profile) {
     return (
       <main className={styles.canvas}>
         <section className={styles.appShell}>
-          <div className={styles.loginGate}><div><strong>VIP 회원 입장이 필요합니다.</strong><p>회원 입장 후 상품 지급 내역을 확인할 수 있습니다.</p><button type="button" className={styles.primaryButton} onClick={() => window.location.assign('/v2')}>회원 입장으로 이동</button></div></div>
+          <div className={styles.loginGate}><div><strong>VIP 회원 입장이 필요합니다.</strong><p>회원 입장 후 상품지급센터를 확인할 수 있습니다.</p><button type="button" className={styles.primaryButton} onClick={() => window.location.assign('/v2')}>회원 입장으로 이동</button></div></div>
         </section>
       </main>
     );
@@ -365,12 +365,12 @@ export default function RewardLiveClient() {
         <nav className={styles.nav} aria-label="주요 메뉴">
           <button type="button" className={styles.navItem} onClick={() => goTab('event')}>이벤트</button>
           <button type="button" className={styles.navItem} onClick={() => goTab('ai')}>AI프로세스</button>
-          <button type="button" className={`${styles.navItem} ${styles.navActive}`}>상품 지급</button>
+          <button type="button" className={`${styles.navItem} ${styles.navActive}`}>상품지급센터</button>
         </nav>
 
         <div className={`${styles.content} ${styles.page}`}>
           <section className={styles.pageHeading}>
-            <div><span className={styles.kicker}>REWARD</span><h1>상품 지급</h1></div>
+            <div><span className={styles.kicker}>REWARD CENTER</span><h1>상품지급센터</h1></div>
             <span className={styles.statusBadge}><i /> 실시간 연결</span>
           </section>
 
@@ -380,21 +380,54 @@ export default function RewardLiveClient() {
             <section className={styles.infoCard}><span className={styles.infoIcon}>i</span><div><strong>관리자 상품 지급</strong></div></section>
           ) : (
             <>
+              <section className={styles.rewardWelcome}>
+                <div className={styles.rewardWelcomeTop}>
+                  <span>VIP EVENT BENEFITS</span>
+                  <strong>{String(profile?.nickname || profile?.display_name || profile?.name || 'VIP 회원')}님, 환영합니다.</strong>
+                  <p>VIP 이벤트 혜택과 당첨 상품 지급 내역을 상품지급센터에서 확인할 수 있습니다.</p>
+                </div>
+
+                <div className={styles.rewardBenefitPanel}>
+                  <strong>VIP 이벤트 참여 안내</strong>
+                  <div className={styles.rewardBenefitRow}>
+                    <span className={styles.rewardBenefitIcon}>24</span>
+                    <div><b>시간별 이벤트 · 매일 24회</b><p>매일 00:00 ~ 24:00, 총 하루 24회차 이벤트가 진행됩니다. 회차당 1회 참여할 수 있으며 당첨 시 3,000원 ~ 300,000원 상당 랜덤 기프티콘이 지급됩니다.</p></div>
+                  </div>
+                  <div className={styles.rewardBenefitRow}>
+                    <span className={styles.rewardBenefitIcon}>30</span>
+                    <div><b>출석 이벤트 · 누적 30회</b><p>하루 1회 출석할 수 있으며, 누적 30회 출석 달성 시 3,000원 ~ 500,000원 상당 랜덤 기프티콘 혜택이 제공됩니다. 연속 출석이 아니어도 누적 횟수로 인정됩니다.</p></div>
+                  </div>
+                  <p className={styles.rewardBenefitFoot}>당첨 상품과 출석 달성 보상은 이곳 상품지급센터에서 바로 안내·지급됩니다.</p>
+                </div>
+
+                <div className={styles.rewardQuickLinks}>
+                  <button type="button" onClick={() => goTab('event')}><span>EVENT</span><strong>시간별 이벤트</strong></button>
+                  <button type="button" onClick={() => goTab('event')}><span>CHECK-IN</span><strong>출석 이벤트</strong></button>
+                </div>
+
+                <div className={styles.rewardAlert}>
+                  <span className={styles.rewardAlertBell} aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
+                  </span>
+                  <div><strong>이벤트 당첨 알림</strong><p>상단 알림을 허용하면 이벤트 당첨 및 상품 지급 안내를 바로 확인할 수 있습니다.</p></div>
+                </div>
+              </section>
+
               <section className={styles.summary}>
-                <div><span>입장 시 새 메시지</span><strong>{unreadAtOpen}<small>건</small></strong></div>
-                <div><span>상품 지급 내역</span><strong>{giftCount}<small>건</small></strong></div>
-                <div><span>전체 메시지</span><strong>{messages.length}<small>건</small></strong></div>
+                <div><span>미확인 안내</span><strong>{unreadAtOpen}<small>건</small></strong></div>
+                <div><span>지급 상품</span><strong>{giftCount}<small>건</small></strong></div>
+                <div><span>전체 안내</span><strong>{messages.length}<small>건</small></strong></div>
               </section>
 
               <section className={styles.deliveryCard}>
                 <div className={styles.deliveryHead}>
-                  <div><span>VIP REWARD INBOX</span><strong>상품 지급 내역</strong></div>
+                  <div><span>VIP REWARD CENTER</span><strong>지급 및 당첨 안내</strong></div>
                   <span className={styles.liveBadge}>● LIVE</span>
                 </div>
 
                 <div className={styles.messageList} ref={messageBoxRef}>
                   {messages.length === 0 ? (
-                    <div className={styles.empty}>아직 도착한 상품 지급 내역이 없습니다.</div>
+                    <div className={styles.empty}>아직 도착한 지급 안내가 없습니다.</div>
                   ) : messages.map((item) => {
                     const mine = item.sender_id === user.id;
                     return (
@@ -410,6 +443,11 @@ export default function RewardLiveClient() {
                     );
                   })}
                 </div>
+              </section>
+
+              <section className={styles.rewardFooterNotice}>
+                <strong>이벤트 당첨 시 이곳에서 즉시 상품이 지급됩니다.</strong>
+                <p>궁금한 사항은 카카오톡 1:1 고객센터로 문의해주세요.</p>
               </section>
             </>
           )}
