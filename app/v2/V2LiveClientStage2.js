@@ -681,9 +681,7 @@ function AiLive({ profile, userId, row, tick, error }) {
   const status = processRow.status || 'ready';
   const availableCount = Math.max(0, Number(processRow.available_count || 0));
   const opportunityDday = aiProcessOpportunityDday(processRow);
-  const minReturn = Math.max(0, Number(processRow.min_return || 0));
-  const maxReturn = Math.max(minReturn, Number(processRow.max_return || minReturn));
-  const configuredReturn = `${minReturn.toFixed(1)}% ~ ${maxReturn.toFixed(1)}%`;
+  const publicExpectedReturn = '10% ~ 1000%';
 
   if (status !== 'running' && status !== 'completed') {
     return (
@@ -704,10 +702,10 @@ function AiLive({ profile, userId, row, tick, error }) {
           </div>
           <div className={styles.aiPart1Facts}>
             <div className={styles.aiPart1FactWide}><span>진행 시간</span><strong>최소 1시간 ~ 최대 30일</strong></div>
-            <div><span>예상 수익률</span><strong>10% ~ 1000%</strong></div>
+            <div><span>예상 수익률</span><strong>{publicExpectedReturn}</strong></div>
             <div><span>현재 상태</span><strong>{availableCount <= 0 && status === 'ready' ? '본인 자금 진행 불가' : aiProcessStatusLabel(status, availableCount)}</strong></div>
-            {opportunityDday !== null && <div><span>진행 기회</span><strong className={styles.aiPart1Accent}>D-{opportunityDday}</strong></div>}
-            {status === 'waiting' && Number(processRow.investment_amount || 0) > 0 && <div><span>설정 금액</span><strong>{aiKrw(processRow.investment_amount)}</strong></div>}
+            {opportunityDday !== null && <div className={styles.aiPart1FactWide}><span>진행 기회</span><strong className={styles.aiPart1Accent}>D-{opportunityDday}</strong></div>}
+            {status === 'waiting' && Number(processRow.investment_amount || 0) > 0 && <div className={styles.aiPart1FactWide}><span>설정 금액</span><strong>{aiKrw(processRow.investment_amount)}</strong></div>}
           </div>
         </section>
         <section className={styles.aiIdleSection}>
