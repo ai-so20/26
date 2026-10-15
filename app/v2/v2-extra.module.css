@@ -537,3 +537,53 @@
   .primaryButtonWide { min-height: 46px; font-size: 12.5px; }
   .inboxRow { min-height: 68px; }
 }
+
+/* FINANCIAL UX QA PHASE 2 - semantic event status */
+.rowState {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 2px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 10.5px;
+  font-weight: 850;
+  letter-spacing: -.01em;
+}
+.rowState::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .9;
+}
+.rowStateLive { color: #d94343; }
+.rowStateJoined { color: #16805d; }
+.rowStateWaiting { color: #9a6700; }
+.rowStateClosed { color: #7a8594; }
+
+.eventFeaturedState {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 850;
+}
+.eventFeaturedState::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.eventFeaturedLive { color: #2366d1; }
+.eventFeaturedJoined { color: #16805d; }
+.eventFeaturedWaiting { color: #9a6700; }
+
+@media (max-width: 520px) {
+  .rowState { font-size: 11.5px !important; min-height: 32px; }
+  .eventFeaturedState { font-size: 13px; }
+}

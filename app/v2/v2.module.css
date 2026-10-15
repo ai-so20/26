@@ -970,3 +970,25 @@ button.chevronButton {
   .stat:nth-child(2) { border-right: 0 !important; }
   .stat:nth-child(3) { padding-left: 0; }
 }
+
+/* FINANCIAL UX QA PHASE 2 - interaction feedback */
+.canvas button:focus-visible {
+  outline: 2px solid #2f6fed;
+  outline-offset: 2px;
+}
+.primaryButton:not(:disabled):active,
+.secondaryButton:not(:disabled):active,
+.textButton:not(:disabled):active,
+.chevronButton:not(:disabled):active,
+.segment:not(:disabled):active,
+.navItem:not(:disabled):active {
+  opacity: .72;
+}
+.primaryButton:disabled,
+.secondaryButton:disabled,
+.textButton:disabled,
+.chevronButton:disabled,
+.segment:disabled {
+  cursor: default;
+  opacity: .5;
+}

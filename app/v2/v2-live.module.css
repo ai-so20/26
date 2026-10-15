@@ -182,3 +182,24 @@
   .eventMotionIcon::after,
   .eventMotionIcon svg { animation: none !important; }
 }
+
+/* FINANCIAL UX QA PHASE 2 - event hierarchy */
+.eventLiveRowActive {
+  position: relative;
+  background: #f8fbff;
+}
+.eventLiveRowActive::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #2f6fed;
+}
+@media (max-width: 520px) {
+  .eventRowTitle small { font-size: 10.5px; color: #69778a; }
+  .eventRowTitle strong { font-size: 13px; }
+  .eventGuide { font-size: 11.5px; line-height: 1.65; color: #5f6d80; }
+  .winnerLine { font-size: 11px; }
+}

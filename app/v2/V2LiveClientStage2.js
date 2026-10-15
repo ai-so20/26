@@ -456,7 +456,7 @@ function EventLive({ profile, autoEvents, attendanceStatus, attendanceWorking, e
               {activeEvent && !featuredEvent.participated ? (
                 <EventGame item={featuredEvent} answer={eventAnswers[featuredEvent.event_id]} busy={eventWorkingId === featuredEvent.event_id} spinning={Boolean(rouletteSpins[featuredEvent.event_id])} onAnswer={(value) => onAnswer(featuredEvent.event_id, value)} onJoin={(directAnswer) => onJoin(featuredEvent, directAnswer)} />
               ) : (
-                <div className={styles.cardFooter}><div className={styles.timeBlock}><span>참여 상태</span><strong>{featuredEvent.participated ? '참여 완료' : activeEvent ? '참여 가능' : '시작 대기'}</strong></div></div>
+                <div className={styles.cardFooter}><div className={styles.timeBlock}><span>참여 상태</span><strong className={`${styles.eventFeaturedState} ${featuredEvent.participated ? styles.eventFeaturedJoined : activeEvent ? styles.eventFeaturedLive : styles.eventFeaturedWaiting}`}>{featuredEvent.participated ? '참여 완료' : activeEvent ? '참여 가능' : '시작 대기'}</strong></div></div>
               )}
             </section>
           ) : (
@@ -471,7 +471,7 @@ function EventLive({ profile, autoEvents, attendanceStatus, attendanceWorking, e
                 <div key={item.event_id} className={`${styles.eventLiveRow} ${live ? styles.eventLiveRowActive : ''}`}>
                   <div className={styles.eventRowTop}>
                     <div className={styles.eventRowTitle}><span className={styles.rowIndex}>{item.round_number || '-'}</span><span className={styles.eventEmoji}><EventTypeIcon type={item.event_type} /></span><div><small>{formatEventTime(item.starts_at)} ~ {formatEventTime(item.ends_at)}</small><strong>{item.title || '이벤트'}</strong></div></div>
-                    <span className={styles.rowState}>{item.participated ? '참여완료' : live ? '진행중' : done ? '종료' : '대기'}</span>
+                    <span className={`${styles.rowState} ${item.participated ? styles.rowStateJoined : live ? styles.rowStateLive : done ? styles.rowStateClosed : styles.rowStateWaiting}`}>{item.participated ? '참여완료' : live ? '진행중' : done ? '종료' : '대기'}</span>
                   </div>
                   <p className={styles.eventGuide}>{eventGuide(item.event_type)}</p>
                   {item.winner_nickname && <div className={styles.winnerLine}>🏆 당첨 · <strong>{item.winner_nickname}</strong></div>}
