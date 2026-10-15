@@ -332,4 +332,4 @@ for path, patch in patches.items():
     marker = '/* FINANCIAL UX QA PASS */'
     if marker in text:
         text = text.split(marker)[0].rstrip() + '\n'
-    path.write_text(text.rstrip() + patch + '\n')
+    path.write_text(text.rstrip() + patch.rstrip() + '\n')
