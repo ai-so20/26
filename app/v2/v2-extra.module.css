@@ -587,3 +587,22 @@
   .rowState { font-size: 11.5px !important; min-height: 32px; }
   .eventFeaturedState { font-size: 13px; }
 }
+
+/* FINANCIAL UX QA PHASE 3 - explicit feedback */
+.noticeError {
+  border-color: #f0caca;
+  background: #fff7f7;
+  color: #b13c3c;
+}
+.noticeSuccess {
+  border-color: #cbe8d9;
+  background: #f4fbf7;
+  color: #196c51;
+}
+@media (max-width: 520px) {
+  .noticeBox {
+    padding: 12px 13px;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+}

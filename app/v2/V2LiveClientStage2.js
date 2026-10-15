@@ -420,7 +420,7 @@ function EventLive({ profile, autoEvents, attendanceStatus, attendanceWorking, e
     <>
       <PageHeading kicker="EVENT" title="이벤트" />
       {(notice || eventSuccess) && (
-        <div className={`${styles.noticeBox} ${eventSuccess ? styles.noticeSuccess : ''}`}>
+        <div role="status" aria-live="polite" className={`${styles.noticeBox} ${eventSuccess ? styles.noticeSuccess : styles.noticeError}`}>
           {eventSuccess ? `${eventSuccess.title} · ${eventSuccess.message}` : notice}
         </div>
       )}
@@ -484,7 +484,7 @@ function EventLive({ profile, autoEvents, attendanceStatus, attendanceWorking, e
       ) : (
         <>
           <section className={styles.attendanceCardLarge}>
-            <div className={styles.attendanceHeader}><div><span className={styles.cardKicker}>VIP DAILY CHECK-IN</span><h3>매일 출석 혜택</h3><p className={styles.attendanceLead}>매일 한 번씩 출석하고, 누적 30회 달성 혜택을 받아보세요.</p></div><strong className={styles.attendanceCount}>{attendanceCycle}<small>/30</small></strong></div>
+            <div className={styles.attendanceHeader}><div><span className={styles.cardKicker}>출석 진행</span><h3>매일 출석 혜택</h3><p className={styles.attendanceLead}>매일 한 번씩 출석하고, 누적 30회 달성 혜택을 받아보세요.</p></div><strong className={styles.attendanceCount}>{attendanceCycle}<small>/30</small></strong></div>
             <div className={styles.progressTrack}><span style={{ width: `${Math.min(100, (attendanceCycle / 30) * 100)}%` }} /></div>
             <div className={styles.attendanceRemaining}>🎁 보상까지 <strong>{Math.max(0, 30 - attendanceCycle)}회</strong> 남았어요!</div>
             <div className={styles.attendanceThirtyGrid}>{Array.from({ length: 30 }).map((_, index) => { const done = index < attendanceCycle; return <span key={index} className={`${styles.attendanceThirtyCell} ${done ? styles.attendanceThirtyDone : ''}`}><b>{index + 1}</b>{done && <i className={styles.attendanceThirtyStamp}>✓</i>}</span>; })}</div>
@@ -716,7 +716,7 @@ function AiLive({ profile, userId, row, tick, error }) {
           <p>분석 · 탐색 · 매수 판단 · 보유 관리 · 매도 판단 · 재분석을 반복하며, 설정된 진행기간 동안 평가금액·수익·반영 기록을 확인할 수 있습니다.</p>
         </section>
         <section className={styles.aiPart1Flow}>
-          <span>PROCESS FLOW</span>
+          <span>진행 흐름</span>
           <div>
             {['분석', '탐색', '매수', '관리', '매도', '재분석'].map((label, index) => <b key={label}><i>{String(index + 1).padStart(2, '0')}</i>{label}</b>)}
           </div>
@@ -785,7 +785,7 @@ function AiLive({ profile, userId, row, tick, error }) {
       {status === 'completed' && <div className={styles.aiResultBar}><span>출금예정금액</span><strong>{aiKrw(snapshot.totalAmount)}</strong></div>}
 
       <section className={styles.aiStageBoard}>
-        <div className={styles.aiStageHead}><span>PROCESS FLOW</span><strong>{status === 'completed' ? '진행 완료' : stageLabels[activeStageIndex]}</strong></div>
+        <div className={styles.aiStageHead}><span>진행 흐름</span><strong>{status === 'completed' ? '진행 완료' : stageLabels[activeStageIndex]}</strong></div>
         <div className={styles.aiStageTrack}>
           {stageLabels.map((label, index) => {
             const active = index === activeStageIndex && status === 'running';
@@ -798,12 +798,12 @@ function AiLive({ profile, userId, row, tick, error }) {
       <section className={styles.aiMarketScanner}>
         <button type="button" className={styles.aiMarketScannerHead} onClick={() => setTradingOpen((value) => !value)} aria-expanded={tradingOpen}>
           <div>
-            <span>AI MARKET SCANNER</span>
+            <span>AI 시장 탐색</span>
             <strong>실시간 시장 탐색판</strong>
             <small>8개 자산을 동시에 추적하며 자산별 판단 상태를 유지합니다.</small>
           </div>
           <div className={styles.aiMarketScannerHeadRight}>
-            <b className={styles.aiMarketPulse}><i /> LIVE SCAN</b>
+            <b className={styles.aiMarketPulse}><i /> 실시간</b>
             <em>{tradingOpen ? '접기' : '펼치기'}</em>
           </div>
         </button>
@@ -860,7 +860,7 @@ function AiLive({ profile, userId, row, tick, error }) {
       <section className={styles.aiChartCard}>
         <div className={styles.aiPart3ChartTop}>
           <div>
-            <span>PERFORMANCE</span>
+            <span>평가 흐름</span>
             <h3>평가금액 변화</h3>
           </div>
           <div className={styles.aiPart3Current}>
@@ -885,7 +885,7 @@ function AiLive({ profile, userId, row, tick, error }) {
 
       <section className={styles.aiPart3History}>
         <button type="button" className={styles.aiFoldHead} onClick={() => setHistoryOpen((value) => !value)} aria-expanded={historyOpen}>
-          <div><span>REFLECTION LOG</span><strong>최근 반영 내역</strong></div>
+          <div><span>반영 기록</span><strong>최근 반영 내역</strong></div>
           <div className={styles.aiFoldMeta}><b>{activities.length}건</b><i>{historyOpen ? '접기' : '펼치기'}</i></div>
         </button>
         {historyOpen && <div className={styles.aiPart3HistoryList}>
@@ -1085,7 +1085,7 @@ export default function V2LiveClientStage2() {
     setAttendanceWorking(true);
     setNotice('');
     const { data, error } = await supabase.rpc('check_daily_attendance');
-    if (error) { setNotice(`출석 참여 실패: ${error.message}`); setAttendanceWorking(false); return; }
+    if (error) { setNotice(`출석 참여에 실패했습니다. 잠시 후 다시 시도해주세요. (${error.message})`); setAttendanceWorking(false); return; }
     const result = Array.isArray(data) ? data[0] : data;
     setEventSuccess({ eventId: 'daily-attendance', title: 'VIP DAILY CHECK-IN', message: result?.message || '오늘의 출석이 완료되었습니다.' });
     await loadAttendanceStatus();
@@ -1117,7 +1117,7 @@ export default function V2LiveClientStage2() {
     setNotice('');
     const { error } = await supabase.rpc('join_auto_event', { target_event_id: eventItem.event_id, submitted_answer: answer });
     if (error) {
-      setNotice(`이벤트 참여 실패: ${error.message}`);
+      setNotice(`이벤트 참여에 실패했습니다. 잠시 후 다시 시도해주세요. (${error.message})`);
       setEventSuccess(null);
     } else {
       setEventSuccess({ eventId: eventItem.event_id, title: eventItem.title || '이벤트', message: `${eventItem.title || '이벤트'} 참여가 완료되었습니다.` });
