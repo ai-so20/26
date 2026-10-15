@@ -540,26 +540,41 @@ function AiLive({ profile, userId, row, tick, error }) {
   const status = processRow.status || 'ready';
   const availableCount = Math.max(0, Number(processRow.available_count || 0));
   const opportunityDday = aiProcessOpportunityDday(processRow);
+  const minReturn = Math.max(0, Number(processRow.min_return || 0));
+  const maxReturn = Math.max(minReturn, Number(processRow.max_return || minReturn));
+  const configuredReturn = `${minReturn.toFixed(1)}% ~ ${maxReturn.toFixed(1)}%`;
 
   if (status !== 'running' && status !== 'completed') {
     return (
       <>
         <PageHeading kicker="AI PROCESS" title="AI프로세스" status={aiProcessStatusLabel(status, availableCount)} />
         {error && <div className={styles.noticeBox}>{error}</div>}
-        <section className={styles.aiWaitingCard}>
-          <div className={styles.aiWaitingTop}>
-            <div><span className={styles.aiEyebrow}>AI PROCESS STATUS</span><h2>{status === 'waiting' ? `${profile?.nickname || '회원'}님, 진행 준비가 완료되었습니다.` : availableCount > 0 ? `${profile?.nickname || '회원'}님, ${availableCount}회 진행 가능합니다.` : `${profile?.nickname || '회원'}님의 진행 가능한 횟수가 없습니다.`}</h2></div>
-            <span className={styles.aiStatusWaiting}>{aiProcessStatusLabel(status, availableCount)}</span>
+        <section className={styles.aiPart1Hero}>
+          <div className={styles.aiPart1Topline}>
+            <span>AI PROCESS</span>
+            <b>{aiProcessStatusLabel(status, availableCount)}</b>
           </div>
-          <p className={styles.aiWaitingText}>{status === 'waiting' ? '상담을 통해 진행 설정이 완료되었습니다. 담당자 확인 후 진행이 시작되면 회원 전용 수익 현황 화면으로 자동 전환됩니다.' : availableCount > 0 ? '회원님께 제공된 AI프로세스 이용 기회가 준비되어 있습니다. 상담 후 진행 설정이 완료되면 시작할 수 있습니다.' : '현재 AI프로세스 돌발 1만원 지원금 이벤트가 진행 중이며, 당첨 시 지원금으로 AI프로세스가 진행됩니다.'}</p>
-          <div className={styles.aiAccessGrid}>
-            <div><span>진행 가능한 횟수</span><strong>{availableCount}회</strong></div>
+          <div className={styles.aiPart1Headline}>
+            <div>
+              <small>진행 가능</small>
+              <strong>{availableCount}<em>회</em></strong>
+            </div>
+            <p>분석 → 탐색 → 매수 → 관리 → 매도 → 재분석</p>
+          </div>
+          <div className={styles.aiPart1Facts}>
+            <div className={styles.aiPart1FactWide}><span>진행 시간</span><strong>최소 1시간 ~ 최대 30일</strong></div>
+            <div><span>예상 수익률</span><strong>{availableCount > 0 || status === 'waiting' ? configuredReturn : '회원별 설정'}</strong></div>
             <div><span>현재 상태</span><strong>{availableCount <= 0 && status === 'ready' ? '본인 자금 진행 불가' : aiProcessStatusLabel(status, availableCount)}</strong></div>
-            {opportunityDday !== null && <div><span>진행 기회 유효기간</span><strong className={styles.aiDday}>D-{opportunityDday}</strong></div>}
-            {status === 'waiting' && Number(processRow.investment_amount || 0) > 0 && <div><span>시작 금액</span><strong>{aiKrw(processRow.investment_amount)}</strong></div>}
+            {opportunityDday !== null && <div><span>진행 기회</span><strong className={styles.aiPart1Accent}>D-{opportunityDday}</strong></div>}
+            {status === 'waiting' && Number(processRow.investment_amount || 0) > 0 && <div><span>설정 금액</span><strong>{aiKrw(processRow.investment_amount)}</strong></div>}
           </div>
         </section>
-
+        <section className={styles.aiPart1Flow}>
+          <span>PROCESS FLOW</span>
+          <div>
+            {['분석', '탐색', '매수', '관리', '매도', '재분석'].map((label, index) => <b key={label}><i>{String(index + 1).padStart(2, '0')}</i>{label}</b>)}
+          </div>
+        </section>
       </>
     );
   }
