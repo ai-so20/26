@@ -37,3 +37,5 @@ jobs:
           git add app/v2/v2.module.css app/v2/v2-extra.module.css app/v2/v2-ai-live.module.css
           git commit -m 'Apply financial app UX QA pass' || exit 0
           git push origin main
+
+# retry after whitespace validation fix
