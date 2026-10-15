@@ -6159,7 +6159,7 @@ export default function Home() {
               <div style={blueTheme(styles.refEventScreen, "surface", "event")}>
                 <div style={blueTheme({display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:14}, "surface", "event")}>
                   {[["live","실시간 이벤트"],["attendance","출석 이벤트"]].map(([id,title])=>(
-                    <button key={id} type="button" onClick={()=>setEventView(id)} aria-pressed={eventView===id} style={blueTheme({padding:"12px 14px",borderRadius:14,border:eventView===id?"1px solid #3165f4":"1px solid #dde5f0",background:eventView===id?"#3165f4":"#fff",textAlign:"center",color:eventView===id?"#fff":"#17233f",cursor:"pointer"}, "button", "event")}>
+                    <button key={id} type="button" onClick={()=>setEventView(id)} aria-pressed={eventView===id} style={blueTheme({padding:"12px 14px",borderRadius:14,border:eventView===id?"1px solid #3165f4":"1px solid #dde5f0",background:eventView===id?"#3165f4":"#fff",textAlign:"center",color:eventView===id?"#fff":"#17233f",cursor:"pointer"}, "button", id === "attendance" ? "attendance" : "event")}>
                       <strong style={blueTheme({display:"block",fontSize:14}, "buttonChild", "event")}>{title}</strong>
                     </button>
                   ))}
@@ -6236,14 +6236,14 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div style={blueTheme(styles.vipPrizeGuide, "accentSurface", "reward")}>
-                  <div style={blueTheme(styles.vipPrizeGuideIcon, "surface", "reward")}>🎁</div>
-                  <div style={blueTheme(styles.vipPrizeGuideCopy, "surface", "reward")}>
+                <div style={blueTheme(styles.vipPrizeGuide, "accentSurface", "event")}>
+                  <div style={blueTheme(styles.vipPrizeGuideIcon, "surface", "event")}>🎁</div>
+                  <div style={blueTheme(styles.vipPrizeGuideCopy, "surface", "event")}>
                     <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.5px",color:"#e2b762"}, "surface", "event")}>VIP EVENT REWARD</span>
                     <strong style={blueTheme({display:"block",marginTop:"3px",paddingRight:"32px",fontSize:"11px",lineHeight:1.45,color:"#fff4df"}, "surface", "event")}>3,000원 ~ 100,000원 상당 랜덤 기프티콘</strong>
                     <p style={blueTheme({margin:"4px 0 0",fontSize:"8px",lineHeight:1.5,color:"rgba(255,255,255,.65)",wordBreak:"keep-all"}, "surface", "event")}>이벤트 당첨 시 <b>1:1 고객센터</b>에서 기프티콘이 즉시 지급됩니다.</p>
                   </div>
-                  <div style={blueTheme(styles.vipPrizeGuideBadge, "surface", "reward")}>GIFT</div>
+                  <div style={blueTheme(styles.vipPrizeGuideBadge, "surface", "event")}>GIFT</div>
                 </div>
 
                 {profile?.role === "admin" && (
@@ -9118,9 +9118,9 @@ const styles = {
   refAvatarPickerTop:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:"10px"},
   refAvatarGrid:{display:"grid",gridTemplateColumns:"repeat(6,1fr)",gap:"6px"},
   refAvatarChoice:{border:0,background:"transparent",padding:0},
-  refEventScreen:{flex:1,minHeight:0,overflowY:"auto",padding:"12px",background:"#f7efe5"},
-  refHeroEvent:{padding:"16px",borderRadius:"20px",backgroundColor:"#342622",backgroundSize:"cover",backgroundPosition:"center",color:"#fff7ee",boxShadow:"0 12px 26px rgba(66,42,27,.18)",border:"3px solid #fff",overflow:"hidden"},
-  refHeroEventTop:{display:"flex",justifyContent:"space-between",fontSize:"10px",color:"#e9d7c8"},
+  refEventScreen:{flex:1,minHeight:0,overflowY:"auto",padding:"14px 12px 18px",background:"#ffffff"},
+  refHeroEvent:{padding:"16px",borderRadius:"18px",backgroundColor:"#ffffff",backgroundSize:"cover",backgroundPosition:"center",color:"#17233f",boxShadow:"0 6px 18px rgba(15,23,42,.06)",border:"1px solid #e1e7ef",overflow:"hidden"},
+  refHeroEventTop:{display:"flex",justifyContent:"space-between",fontSize:"10px",color:"#65758c",fontWeight:"800"},
   refHeroEventMain:{display:"flex",gap:"13px",alignItems:"center",padding:"15px 0 12px"},
   refHeroTarget:{fontSize:"42px"},
   refHeroDisabled:{padding:"11px",borderRadius:"12px",background:"rgba(255,255,255,.08)",textAlign:"center",fontSize:"11px"},
