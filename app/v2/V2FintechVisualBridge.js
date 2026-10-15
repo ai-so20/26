@@ -53,9 +53,22 @@ function markRewardObjects() {
   });
 }
 
+function bindRewardAttendanceShortcut() {
+  document.querySelectorAll('[class*="rewardQuickLinks"] button').forEach((button) => {
+    const text = String(button.textContent || '').replace(/\s+/g, ' ').trim();
+    if (!text.includes('출석') || button.dataset.v2AttendanceShortcutBound) return;
+    button.dataset.v2AttendanceShortcutBound = 'true';
+    button.addEventListener('click', () => {
+      try { window.sessionStorage.setItem('vip-event-page-mode', 'attendance'); } catch {}
+      document.documentElement.dataset.v2EventMode = 'attendance';
+    }, { capture: true });
+  });
+}
+
 function sync() {
   ensureIdlePipeline();
   markRewardObjects();
+  bindRewardAttendanceShortcut();
 }
 
 export default function V2FintechVisualBridge() {
