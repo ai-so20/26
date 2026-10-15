@@ -133,7 +133,6 @@ export default function RewardLiveClient() {
   const [sending, setSending] = useState(false);
   const [notice, setNotice] = useState('');
   const [unreadAtOpen, setUnreadAtOpen] = useState(0);
-  const [showProfile, setShowProfile] = useState(false);
   const [toast, setToast] = useState(null);
   const messageBoxRef = useRef(null);
 
@@ -346,7 +345,7 @@ export default function RewardLiveClient() {
     return (
       <main className={styles.canvas}>
         <section className={styles.appShell}>
-          <div className={styles.loginGate}><div><strong>VIP 회원 입장이 필요합니다.</strong><p>V2 회원 입장 후 상품 지급 내역을 확인할 수 있습니다.</p><button type="button" className={styles.primaryButton} onClick={() => window.location.assign('/v2')}>회원 입장으로 이동</button></div></div>
+          <div className={styles.loginGate}><div><strong>VIP 회원 입장이 필요합니다.</strong><p>회원 입장 후 상품 지급 내역을 확인할 수 있습니다.</p><button type="button" className={styles.primaryButton} onClick={() => window.location.assign('/v2')}>회원 입장으로 이동</button></div></div>
         </section>
       </main>
     );
@@ -358,21 +357,10 @@ export default function RewardLiveClient() {
         <header className={styles.header}>
           <div className={styles.brandBlock}><span className={styles.brandEyebrow}>PRIVATE MEMBER</span><strong className={styles.brand}>VIP LOUNGE</strong></div>
           <div className={styles.headerActions}>
-            <button type="button" className={styles.iconButton} aria-label="알림"><span className={styles.bellIcon}>⌁</span></button>
-            <button type="button" className={styles.profileButton} onClick={() => setShowProfile((value) => !value)}>
-              <img src={avatarSrc(profile.avatar)} alt="" className={styles.avatarImage} />
-              <span className={styles.profileCopy}><strong>{profile.nickname || 'VIP 회원'}</strong><small>내 정보</small></span>
-            </button>
+            <button type="button" className={styles.iconButton} aria-label="알림"><svg className={styles.bellSvg} viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></button>
+            <button type="button" className={styles.logoutButton} onClick={logout}>로그아웃</button>
           </div>
         </header>
-
-        {showProfile && (
-          <div className={styles.profilePopover}>
-            <div className={styles.profilePopoverHead}><img src={avatarSrc(profile.avatar)} alt="" /><div><strong>{profile.nickname || 'VIP 회원'}</strong><span>{profile.role === 'admin' ? '관리자' : 'VIP 회원'}</span></div></div>
-            <dl><div><dt>닉네임</dt><dd>{profile.nickname || '-'}</dd></div><div><dt>성함</dt><dd>{profile.real_name || '-'}</dd></div><div><dt>승인상태</dt><dd>{String(profile.approval_status) === '1' ? '승인 완료' : profile.approval_status}</dd></div></dl>
-            <button type="button" onClick={logout}>로그아웃</button>
-          </div>
-        )}
 
         <nav className={styles.nav} aria-label="주요 메뉴">
           <button type="button" className={styles.navItem} onClick={() => goTab('event')}>이벤트</button>
@@ -382,14 +370,14 @@ export default function RewardLiveClient() {
 
         <div className={`${styles.content} ${styles.page}`}>
           <section className={styles.pageHeading}>
-            <div><span className={styles.kicker}>REWARD</span><h1>상품 지급</h1><p>이벤트·출석 혜택으로 지급된 상품과 운영팀 메시지를 확인하세요.</p></div>
+            <div><span className={styles.kicker}>REWARD</span><h1>상품 지급</h1></div>
             <span className={styles.statusBadge}><i /> 실시간 연결</span>
           </section>
 
           {notice && <div className={styles.notice}>{notice}</div>}
 
           {profile.role === 'admin' ? (
-            <section className={styles.infoCard}><span className={styles.infoIcon}>i</span><div><strong>관리자 기능은 다음 단계에서 연결합니다.</strong><p>회원용 상품 지급 화면은 실제 메시지·기프티콘·링크·읽음 처리까지 연결된 상태입니다.</p></div></section>
+            <section className={styles.infoCard}><span className={styles.infoIcon}>i</span><div><strong>관리자 상품 지급</strong></div></section>
           ) : (
             <>
               <section className={styles.summary}>
@@ -400,13 +388,13 @@ export default function RewardLiveClient() {
 
               <section className={styles.deliveryCard}>
                 <div className={styles.deliveryHead}>
-                  <div><span>VIP REWARD INBOX</span><strong>상품 지급 메시지함</strong><p>운영팀이 지급한 기프티콘과 안내 링크를 바로 확인할 수 있습니다.</p></div>
+                  <div><span>VIP REWARD INBOX</span><strong>상품 지급 내역</strong></div>
                   <span className={styles.liveBadge}>● LIVE</span>
                 </div>
 
                 <div className={styles.messageList} ref={messageBoxRef}>
                   {messages.length === 0 ? (
-                    <div className={styles.empty}>아직 도착한 상품 지급 메시지가 없습니다.<br />새 지급 내역이 생기면 이 화면에 실시간으로 표시됩니다.</div>
+                    <div className={styles.empty}>아직 도착한 상품 지급 내역이 없습니다.</div>
                   ) : messages.map((item) => {
                     const mine = item.sender_id === user.id;
                     return (
@@ -422,14 +410,7 @@ export default function RewardLiveClient() {
                     );
                   })}
                 </div>
-
-                <form className={styles.composer} onSubmit={sendMessage}>
-                  <textarea value={messageText} onChange={(event) => setMessageText(event.target.value)} placeholder="상품 지급 관련 메시지를 입력해주세요." />
-                  <button type="submit" className={styles.sendButton} disabled={sending || !messageText.trim()}>{sending ? '전송 중' : '보내기'}</button>
-                </form>
               </section>
-
-              <section className={styles.guide}><span className={styles.guideIcon}>i</span><div><strong>상품 지급 안내</strong><p>새 메시지는 실시간으로 반영되며, 화면을 열면 읽음 처리됩니다. 기존에 알림을 허용한 기기에서는 새 메시지 알림도 계속 받을 수 있습니다.</p></div></section>
             </>
           )}
         </div>

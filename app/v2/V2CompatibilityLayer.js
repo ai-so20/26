@@ -315,7 +315,6 @@ export default function V2CompatibilityLayer() {
 
   const accessActions = !user && entryTarget ? createPortal(
     <div className={styles.accessActions}>
-      <button type="button" onClick={() => { setNotice(''); setAccessMode('login'); }}>비밀번호로 로그인</button>
       <button type="button" onClick={() => { setNotice(''); setAccessMode('signup'); }}>가입 신청</button>
     </div>, entryTarget,
   ) : null;
@@ -333,7 +332,7 @@ export default function V2CompatibilityLayer() {
   const bellBadge = user && bellTarget && unread > 0 ? createPortal(<span className={styles.headerBadge}>{unread > 99 ? '99+' : unread}</span>, bellTarget) : null;
 
   return <>
-    {accessActions}{profileTools}{rewardBadge}{bellBadge}
+    {accessActions}{rewardBadge}{bellBadge}
     {showWelcome && profile?.role !== 'admin' && modal(<>
       <button type="button" className={styles.close} onClick={() => void closeWelcome()}>×</button>
       <span className={styles.eyebrow}>AI PROCESS · VIP MEMBERSHIP</span>
@@ -360,16 +359,6 @@ export default function V2CompatibilityLayer() {
       {notice && <div className={styles.modalNotice}>{notice}</div>}
       <button className={styles.primary} disabled={working}>{working ? '변경 중...' : '비밀번호 변경'}</button>
     </form>, () => setShowPassword(false))}
-
-    {accessMode === 'login' && modal(<form onSubmit={legacyLogin}>
-      <button type="button" className={styles.close} onClick={() => setAccessMode('')}>×</button>
-      <span className={styles.eyebrow}>MEMBER LOGIN</span><h2>비밀번호로 로그인</h2>
-      <label className={styles.field}><span>성함</span><input value={loginName} onChange={(e) => setLoginName(e.target.value)} autoComplete="name" /></label>
-      <label className={styles.field}><span>비밀번호</span><input type="password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} autoComplete="current-password" /></label>
-      {notice && <div className={styles.modalNotice}>{notice}</div>}
-      <button className={styles.primary} disabled={working}>{working ? '로그인 중...' : '로그인'}</button>
-    </form>, () => setAccessMode(''))}
-
     {accessMode === 'signup' && modal(<form onSubmit={legacySignup}>
       <button type="button" className={styles.close} onClick={() => setAccessMode('')}>×</button>
       <span className={styles.eyebrow}>VIP REGISTRATION</span><h2>가입 신청</h2>

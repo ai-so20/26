@@ -269,3 +269,23 @@
   .aiChartHead h3 { font-size: 14px; }
   .aiChart { height: 118px; }
 }
+
+/* restored AI trading activity */
+.tradingCard { margin-top: 10px; border: 1px solid #e0e6ed; background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 7px 20px rgba(31,45,61,.04); min-width:0; }
+.tradingHead { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:15px 16px; border-bottom:1px solid #edf1f5; }
+.tradingHead div { min-width:0; display:grid; gap:3px; }
+.tradingHead span { color:#8a96a6; font-size:8px; font-weight:800; letter-spacing:.11em; }
+.tradingHead strong { color:#172033; font-size:14px; }
+.tradingHead b { color:#2f6fed; background:#eef4ff; border-radius:999px; padding:5px 8px; font-size:8px; letter-spacing:.08em; }
+.tradingList { display:grid; }
+.tradingRow { display:grid; grid-template-columns:34px minmax(0,.8fr) minmax(0,1.2fr); align-items:center; gap:9px; padding:11px 14px; border-bottom:1px solid #f0f3f6; min-width:0; }
+.tradingRow:last-child { border-bottom:0; }
+.tradingCoin,.tradingStock { width:30px; height:30px; border-radius:10px; display:grid; place-items:center; font-size:14px; font-weight:800; }
+.tradingCoin { color:#2f6fed; background:#edf4ff; }
+.tradingStock { color:#13795b; background:#edf8f4; }
+.tradingAsset,.tradingAction { min-width:0; display:grid; gap:2px; }
+.tradingAsset strong,.tradingAction strong { font-size:10px; color:#263247; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.tradingAsset small,.tradingAction span { font-size:8px; color:#8995a5; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.aiChart, .processRail, .twoColumnCards, .aiProgressCard, .aiChartCard { max-width:100%; min-width:0; }
+.aiChart { width:100%; height:auto; display:block; }
+@media (max-width:520px){ .tradingRow{grid-template-columns:32px minmax(0,.7fr) minmax(0,1.3fr); padding:10px 11px; gap:7px;} .tradingHead{padding:13px 12px;} }

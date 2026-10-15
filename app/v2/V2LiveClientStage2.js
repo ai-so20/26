@@ -46,13 +46,13 @@ function Segment({ title, subtitle, active, onClick }) {
   );
 }
 
-function PageHeading({ kicker, title, description, status = '운영 중' }) {
+function PageHeading({ kicker, title, description = '', status = '운영 중' }) {
   return (
     <section className={styles.pageHeading}>
       <div>
         <span className={styles.kicker}>{kicker}</span>
         <h1>{title}</h1>
-        <p>{description}</p>
+        {description ? <p>{description}</p> : null}
       </div>
       <span className={styles.statusBadge}><i /> {status}</span>
     </section>
@@ -69,15 +69,16 @@ function formatEventTime(value) {
   }).format(new Date(value));
 }
 
-function eventIcon(type) {
-  return ({
-    gift_box: '🎁',
-    number: '🎯',
-    roulette: '🎰',
-    first_come: '⚡',
-    quiz: '🧩',
-    draw: '🎟️',
-  }[type] || '🎁');
+function EventTypeIcon({ type }) {
+  const paths = {
+    gift_box: <><rect x="5" y="9" width="14" height="10" rx="2"/><path d="M12 9v10M4 9h16M8 5c0 2 4 4 4 4s4-2 4-4c0-1.2-.9-2-2-2-1.4 0-2 1.2-2 2 0-.8-.6-2-2-2-1.1 0-2 .8-2 2Z"/></>,
+    number: <><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1.4"/></>,
+    roulette: <><circle cx="12" cy="12" r="8"/><path d="M12 4v8l5 4M12 12 7 17M4 12h16"/></>,
+    first_come: <path d="M13.5 2 6 13h5l-1 9 8-12h-5l.5-8Z"/>,
+    quiz: <><path d="M9.5 9a2.7 2.7 0 1 1 4.7 1.8c-1.3 1.1-2.2 1.6-2.2 3.2"/><circle cx="12" cy="18" r="1"/></>,
+    draw: <><path d="M5 6h14v4a2 2 0 0 0 0 4v4H5v-4a2 2 0 0 0 0-4V6Z"/><path d="M12 7v10"/></>,
+  };
+  return <span className={styles.eventMotionIcon} aria-hidden="true"><svg viewBox="0 0 24 24">{paths[type] || paths.gift_box}</svg></span>;
 }
 
 function eventGuide(type) {
@@ -370,7 +371,7 @@ function MemberEntry({ nickname, realName, working, notice, onNickname, onRealNa
           <div className={styles.entryCopy}>
             <span className={styles.kicker}>MEMBER ENTRY</span>
             <h1>VIP 회원 입장</h1>
-            <p>기존 등록 정보로 입장하면 V2에서 실제 이벤트와 AI PROCESS 현황을 확인할 수 있습니다.</p>
+            <p>등록된 회원 정보로 입장해주세요.</p>
           </div>
           <form className={styles.entryForm} onSubmit={onSubmit}>
             <label><span>오픈방 닉네임</span><input value={nickname} onChange={(e) => onNickname(e.target.value)} autoComplete="nickname" /></label>
@@ -378,7 +379,6 @@ function MemberEntry({ nickname, realName, working, notice, onNickname, onRealNa
             {notice && <div className={styles.noticeBox}>{notice}</div>}
             <button type="submit" disabled={working} className={styles.entryButton}>{working ? '확인 중...' : '입장하기'}</button>
           </form>
-          <div className={styles.entryFoot}>기존 인증과 운영 데이터를 그대로 사용합니다.</div>
         </div>
       </section>
     </main>
@@ -406,10 +406,19 @@ function EventLive({ profile, autoEvents, attendanceStatus, attendanceWorking, e
   const participated = autoEvents.filter((item) => Boolean(item.participated)).length;
   const nickname = String(profile?.nickname || '').trim();
   const wins = nickname ? autoEvents.filter((item) => String(item.winner_nickname || '').trim() === nickname).length : 0;
+  const [showSurpriseGuide, setShowSurpriseGuide] = useState(false);
+  const [surpriseGuide, setSurpriseGuide] = useState({ title: 'AI PROCESS 돌발 체험 이벤트', body: '' });
+  useEffect(() => {
+    let active = true;
+    void supabase.from('vip_surprise_guide').select('title,body').eq('id', 1).maybeSingle().then(({ data }) => {
+      if (active && data) setSurpriseGuide({ title: data.title || 'AI PROCESS 돌발 체험 이벤트', body: data.body || '' });
+    });
+    return () => { active = false; };
+  }, []);
 
   return (
     <>
-      <PageHeading kicker="EVENT" title="이벤트" description="참여 가능한 이벤트와 출석 현황을 한곳에서 확인하세요." />
+      <PageHeading kicker="EVENT" title="이벤트" />
       {(notice || eventSuccess) && (
         <div className={`${styles.noticeBox} ${eventSuccess ? styles.noticeSuccess : ''}`}>
           {eventSuccess ? `${eventSuccess.title} · ${eventSuccess.message}` : notice}
@@ -440,7 +449,7 @@ function EventLive({ profile, autoEvents, attendanceStatus, attendanceWorking, e
                 <span className={styles.muted}>{formatEventTime(featuredEvent.starts_at)} ~ {formatEventTime(featuredEvent.ends_at)}</span>
               </div>
               <div className={styles.cardBody}>
-                <span className={styles.cardKicker}>{eventIcon(featuredEvent.event_type)} 실시간 이벤트</span>
+                <span className={styles.cardKicker}><EventTypeIcon type={featuredEvent.event_type} /> 실시간 이벤트</span>
                 <h2>{featuredEvent.title || '이벤트'}</h2>
                 <p>{featuredEvent.description || eventGuide(featuredEvent.event_type)}</p>
               </div>
@@ -461,7 +470,7 @@ function EventLive({ profile, autoEvents, attendanceStatus, attendanceWorking, e
               return (
                 <div key={item.event_id} className={`${styles.eventLiveRow} ${live ? styles.eventLiveRowActive : ''}`}>
                   <div className={styles.eventRowTop}>
-                    <div className={styles.eventRowTitle}><span className={styles.rowIndex}>{item.round_number || '-'}</span><span className={styles.eventEmoji}>{eventIcon(item.event_type)}</span><div><small>{formatEventTime(item.starts_at)} ~ {formatEventTime(item.ends_at)}</small><strong>{item.title || '이벤트'}</strong></div></div>
+                    <div className={styles.eventRowTitle}><span className={styles.rowIndex}>{item.round_number || '-'}</span><span className={styles.eventEmoji}><EventTypeIcon type={item.event_type} /></span><div><small>{formatEventTime(item.starts_at)} ~ {formatEventTime(item.ends_at)}</small><strong>{item.title || '이벤트'}</strong></div></div>
                     <span className={styles.rowState}>{item.participated ? '참여완료' : live ? '진행중' : done ? '종료' : '대기'}</span>
                   </div>
                   <p className={styles.eventGuide}>{eventGuide(item.event_type)}</p>
@@ -477,25 +486,52 @@ function EventLive({ profile, autoEvents, attendanceStatus, attendanceWorking, e
           <section className={styles.attendanceCardLarge}>
             <div className={styles.attendanceHeader}><div><span className={styles.cardKicker}>VIP DAILY CHECK-IN</span><h3>매일 출석 혜택</h3></div><strong className={styles.attendanceCount}>{attendanceCycle}<small>/10</small></strong></div>
             <div className={styles.progressTrack}><span style={{ width: `${Math.min(100, attendanceCycle * 10)}%` }} /></div>
-            <div className={styles.attendanceDots}>{Array.from({ length: 10 }).map((_, index) => <span key={index} className={index < attendanceCycle ? styles.attendanceDotDone : ''}>{index + 1}</span>)}</div>
+            <div className={styles.attendanceDots}>{Array.from({ length: 10 }).map((_, index) => { const done = index < attendanceCycle; return <span key={index} className={done ? styles.attendanceDotDone : ''}>{done && <i className={styles.attendanceStamp}>✓</i>}<b>{index + 1}</b></span>; })}</div>
             <p>하루 1회 출석할 수 있으며, 10회 출석 달성 시 랜덤 기프티콘이 상품 지급 화면으로 안내됩니다.</p>
             <button type="button" onClick={onAttendance} disabled={attendanceWorking || attendanceStatus.checked_today} className={styles.primaryButtonWide}>{attendanceWorking ? '처리 중' : attendanceStatus.checked_today ? '✓ 오늘 출석 완료' : '오늘 출석하기'}</button>
           </section>
           <section className={styles.infoCard}><span className={styles.infoIcon}>i</span><div><strong>출석 보상 안내</strong><p>현재 {attendanceCycle}/10 · 10회 달성마다 랜덤 기프티콘이 자동 지급됩니다.</p></div></section>
         </>
       )}
-      <section className={styles.listCard}><div className={styles.listCopy}><span className={styles.listIcon}>AI</span><div><strong>AI PROCESS 돌발 체험 이벤트</strong><p>진행 방법과 참여 안내는 기존 운영 기능을 그대로 유지합니다.</p></div></div><button type="button" className={styles.chevronButton}>진행방법 <span>›</span></button></section>
+      <section className={styles.listCard}><div className={styles.listCopy}><span className={styles.listIcon}>AI</span><div><strong>AI PROCESS 돌발 체험 이벤트</strong></div></div><button type="button" onClick={() => setShowSurpriseGuide((value) => !value)} className={styles.chevronButton}>진행방법 <span>›</span></button></section>
+      {showSurpriseGuide && <section className={styles.surpriseGuideCard}><div className={styles.surpriseGuideHead}><strong>{surpriseGuide.title}</strong><button type="button" onClick={() => setShowSurpriseGuide(false)}>닫기</button></div><div className={styles.surpriseGuideBody}>{surpriseGuide.body || '현재 안내 내용을 준비 중입니다.'}</div></section>}
     </>
   );
 }
 
+const aiTradingAssets = [
+  { symbol: 'BTC/USD', name: 'Bitcoin', market: 'COIN' },
+  { symbol: 'NVDA', name: 'NVIDIA', market: 'STOCK' },
+  { symbol: 'ETH/USD', name: 'Ethereum', market: 'COIN' },
+  { symbol: '005930', name: '삼성전자', market: 'STOCK' },
+  { symbol: 'SOL/USD', name: 'Solana', market: 'COIN' },
+  { symbol: 'AAPL', name: 'Apple', market: 'STOCK' },
+  { symbol: 'XRP/USD', name: 'XRP', market: 'COIN' },
+  { symbol: '000660', name: 'SK하이닉스', market: 'STOCK' },
+];
+const aiTradingSignals = [
+  ['상승세 감지', 'AI 판단 매수 신청 완료'],
+  ['조건 탐색', '진입 구간 탐색 중'],
+  ['매수 조건 충족', '매수 신청 완료'],
+  ['보유 구간 관리', '수익 구간 모니터링'],
+  ['목표 구간 감지', '매도 신청 완료'],
+  ['체결 결과 반영', '재분석 진행'],
+];
+function buildAiTradingRows(clock, count = 8) {
+  const slot = Math.floor(Number(clock || Date.now()) / 300000);
+  return Array.from({ length: count }, (_, index) => {
+    const asset = aiTradingAssets[(slot + index * 3) % aiTradingAssets.length];
+    const signal = aiTradingSignals[(slot + index) % aiTradingSignals.length];
+    return { id: String(slot) + '-' + String(index), ...asset, signal: signal[0], action: signal[1] };
+  });
+}
+
 function AiLive({ profile, userId, row, tick, error }) {
-  void tick;
   if (profile?.role === 'admin') {
     return (
       <>
-        <PageHeading kicker="AI PROCESS" title="AI프로세스" description="현재 진행 상태와 주요 결과를 한 화면에서 확인하세요." status="회원 화면 연결 완료" />
-        <section className={styles.aiAdminHold}><strong>관리자 AI PROCESS 관리 화면은 기존 운영 화면을 유지합니다.</strong><p>관리자 회원별 설정·진행 시작/완료·수익 조정 기능은 삭제하지 않고 관리자 V2 단계에서 별도로 이식합니다.</p></section>
+        <PageHeading kicker="AI PROCESS" title="AI프로세스" status="관리자" />
+        <section className={styles.aiAdminHold}><strong>AI PROCESS 관리</strong></section>
       </>
     );
   }
@@ -508,7 +544,7 @@ function AiLive({ profile, userId, row, tick, error }) {
   if (status !== 'running' && status !== 'completed') {
     return (
       <>
-        <PageHeading kicker="AI PROCESS" title="AI프로세스" description="회원별 진행 가능 상태와 설정 내용을 확인하세요." status={aiProcessStatusLabel(status, availableCount)} />
+        <PageHeading kicker="AI PROCESS" title="AI프로세스" status={aiProcessStatusLabel(status, availableCount)} />
         {error && <div className={styles.noticeBox}>{error}</div>}
         <section className={styles.aiWaitingCard}>
           <div className={styles.aiWaitingTop}>
@@ -523,7 +559,7 @@ function AiLive({ profile, userId, row, tick, error }) {
             {status === 'waiting' && Number(processRow.investment_amount || 0) > 0 && <div><span>시작 금액</span><strong>{aiKrw(processRow.investment_amount)}</strong></div>}
           </div>
         </section>
-        <section className={styles.infoCard}><span className={styles.infoIcon}>i</span><div><strong>AI PROCESS 이용 안내</strong><p>진행 설정이 시작되면 투자금액·수익·총 금액·진행률·3분 단위 그래프가 이 화면에 자동으로 표시됩니다.</p></div></section>
+
       </>
     );
   }
@@ -539,10 +575,11 @@ function AiLive({ profile, userId, row, tick, error }) {
     return { step: item.step, amount: item.amount, delta, stage: stageLabels[stageIndex] };
   }).reverse();
   const areaPoints = snapshot.chartPoints ? `18,200 ${snapshot.chartPoints} 742,200` : '';
+  const tradingRows = buildAiTradingRows(Date.now() + Number(tick || 0));
 
   return (
     <>
-      <PageHeading kicker="AI PROCESS" title="AI프로세스" description="현재 진행 상태와 주요 결과를 한 화면에서 확인하세요." status={status === 'running' ? '진행중' : '진행완료'} />
+      <PageHeading kicker="AI PROCESS" title="AI프로세스" status={status === 'running' ? '진행중' : '진행완료'} />
       {error && <div className={styles.noticeBox}>{error}</div>}
       <section className={styles.balanceCard}>
         <div className={styles.balanceTop}>
@@ -561,18 +598,23 @@ function AiLive({ profile, userId, row, tick, error }) {
       <section className={styles.aiProgressCard}>
         <div className={styles.aiProgressTop}><div><span className={styles.aiEyebrow}>PROCESS PROGRESS</span><h3>{status === 'completed' ? 'AI프로세스 진행이 완료되었습니다.' : 'AI프로세스가 진행 중입니다.'}</h3></div><span className={status === 'completed' ? styles.aiStatusComplete : styles.aiStatusPill}>{status === 'completed' ? 'COMPLETE' : 'ACTIVE'}</span></div>
         <div className={styles.aiProgressTrack}><span style={{ width: `${snapshot.progress}%` }} /></div>
-        <div className={styles.aiProgressMeta}><span>진행률 {snapshot.progress.toFixed(2)}%</span><span>{status === 'running' ? `다음 반영 ${snapshot.nextText}` : '최종 반영 완료'}</span><span>{snapshot.remainingText}</span></div>
+        <div className={styles.aiProgressMeta}><span>진행률 {snapshot.progress.toFixed(2)}%</span><span>{snapshot.remainingText}</span></div>
       </section>
 
       <section className={styles.section}>
-        <div className={styles.sectionHead}><div><span>AI 진행 구조</span><strong>분석부터 재분석까지</strong></div><small>3분 단위 반영</small></div>
+        <div className={styles.sectionHead}><div><span>AI 진행 구조</span><strong>분석부터 재분석까지</strong></div></div>
         <div className={styles.processRail}>
           {stageLabels.map((label, index) => <div key={label} className={`${styles.processStep} ${index === activeStageIndex || status === 'completed' ? styles.processStepActive : ''}`}><span>{index + 1}</span><strong>{label}</strong><small>{index === activeStageIndex && status === 'running' ? '진행 중' : status === 'completed' ? '완료' : '대기'}</small></div>)}
         </div>
       </section>
 
+      <section className={styles.tradingCard}>
+        <div className={styles.tradingHead}><div><span>AI TRADING</span><strong>주식 · 코인 트레이딩 현황</strong></div><b>LIVE</b></div>
+        <div className={styles.tradingList}>{tradingRows.map((item) => <div key={item.id} className={styles.tradingRow}><span className={item.market === 'COIN' ? styles.tradingCoin : styles.tradingStock}>{item.market === 'COIN' ? '₿' : '◈'}</span><div className={styles.tradingAsset}><strong>{item.name}</strong><small>{item.symbol} · {item.market}</small></div><div className={styles.tradingAction}><strong>{item.signal}</strong><span>{item.action}</span></div></div>)}</div>
+      </section>
+
       <section className={styles.aiChartCard}>
-        <div className={styles.aiChartHead}><div><span>최근 3분 반영 그래프</span><h3>평가금액 변화</h3></div><strong className={styles.aiChartValue}>+{aiKrw(snapshot.earnedProfit)}</strong></div>
+        <div className={styles.aiChartHead}><div><span>최근 반영 그래프</span><h3>평가금액 변화</h3></div><strong className={styles.aiChartValue}>+{aiKrw(snapshot.earnedProfit)}</strong></div>
         <svg className={styles.aiChart} viewBox="0 0 760 220" role="img" aria-label="AI PROCESS 평가금액 그래프">
           <line className={styles.aiChartGrid} x1="18" y1="55" x2="742" y2="55" />
           <line className={styles.aiChartGrid} x1="18" y1="110" x2="742" y2="110" />
@@ -587,15 +629,14 @@ function AiLive({ profile, userId, row, tick, error }) {
       <section className={styles.simpleList}>
         <div className={styles.listHeader}><span>진행 기록</span><strong>최근 반영 내역</strong></div>
         <div className={styles.activityList}>
-          {activities.length === 0 ? <div className={styles.emptyRow}>첫 3분 반영을 기다리고 있습니다.</div> : activities.map((item) => <div key={item.step} className={styles.activityRow}><span className={styles.activityTime}>{item.step}회</span><i className={styles.activityDot} /><div><strong>{item.stage} · {item.delta >= 0 ? '상승 반영' : '조정 반영'}</strong><p>{item.delta >= 0 ? '+' : ''}{aiKrw(item.delta)} 반영</p><span className={styles.aiActivityValue}>평가금액 {aiKrw(item.amount)}</span></div></div>)}
+          {activities.length === 0 ? <div className={styles.emptyRow}>진행 기록을 준비하고 있습니다.</div> : activities.map((item) => <div key={item.step} className={styles.activityRow}><span className={styles.activityTime}>{item.step}회</span><i className={styles.activityDot} /><div><strong>{item.stage} · {item.delta >= 0 ? '상승 반영' : '조정 반영'}</strong><p>{item.delta >= 0 ? '+' : ''}{aiKrw(item.delta)} 반영</p><span className={styles.aiActivityValue}>평가금액 {aiKrw(item.amount)}</span></div></div>)}
         </div>
       </section>
 
       <div className={styles.twoColumnCards}>
         <section className={styles.metricCard}><span>설정 진행기간</span><strong>{aiProcessDurationLabel(processRow.duration_hours)}</strong><small>{status === 'running' ? `남은 시간 ${snapshot.remainingText}` : '진행 완료'}</small></section>
-        <section className={styles.metricCard}><span>3분 평균 반영</span><strong className={styles.positive}>+{aiKrw(snapshot.averagePerStep)}</strong><small>현재까지 누적 기준</small></section>
+        <section className={styles.metricCard}><span>평균 반영</span><strong className={styles.positive}>+{aiKrw(snapshot.averagePerStep)}</strong></section>
       </div>
-      <div className={styles.aiLiveNotice}>{status === 'completed' ? '진행 완료 시점의 마지막 반영 금액으로 결과가 고정되어 표시됩니다.' : '회원별 설정값과 기존 AI PROCESS 계산 로직을 그대로 사용하며 화면은 1초 단위로 갱신되고 실제 수익 반영 기준은 3분 단위입니다.'}</div>
     </>
   );
 }
@@ -627,7 +668,6 @@ export default function V2LiveClientStage2() {
   const [eventWorkingId, setEventWorkingId] = useState(null);
   const [rouletteSpins, setRouletteSpins] = useState({});
   const [eventSuccess, setEventSuccess] = useState(null);
-  const [showProfile, setShowProfile] = useState(false);
   const [, setClockTick] = useState(0);
   const [aiMemberProcess, setAiMemberProcess] = useState(null);
   const [aiProcessTick, setAiProcessTick] = useState(0);
@@ -742,7 +782,6 @@ export default function V2LiveClientStage2() {
     setProfile(null);
     setAutoEvents([]);
     setAiMemberProcess(null);
-    setShowProfile(false);
     setNotice('');
   }
 
@@ -828,11 +867,10 @@ export default function V2LiveClientStage2() {
         <header className={styles.header}>
           <div className={styles.brandBlock}><span className={styles.brandEyebrow}>PRIVATE MEMBER</span><strong className={styles.brand}>VIP LOUNGE</strong></div>
           <div className={styles.headerActions}>
-            <button type="button" className={styles.iconButton} aria-label="알림"><span className={styles.bellDot} /><span className={styles.bellIcon}>⌁</span></button>
-            <button type="button" className={styles.profileButton} onClick={() => setShowProfile((value) => !value)}><img src={avatarSrc(profile.avatar)} alt="" className={styles.avatarImage} /><span className={styles.profileCopy}><strong>{profile.nickname || 'VIP 회원'}</strong><small>내 정보</small></span></button>
+            <button type="button" className={styles.iconButton} aria-label="알림"><span className={styles.bellDot} /><svg className={styles.bellSvg} viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg></button>
+            <button type="button" className={styles.logoutButton} onClick={handleLogout}>로그아웃</button>
           </div>
         </header>
-        {showProfile && <div className={styles.profilePopover}><div className={styles.profilePopoverHead}><img src={avatarSrc(profile.avatar)} alt="" /><div><strong>{profile.nickname || 'VIP 회원'}</strong><span>{profile.role === 'admin' ? '관리자' : 'VIP 회원'}</span></div></div><dl><div><dt>닉네임</dt><dd>{profile.nickname || '-'}</dd></div><div><dt>성함</dt><dd>{profile.real_name || '-'}</dd></div><div><dt>회원등급</dt><dd>{profile.role === 'admin' ? '관리자' : 'VIP 회원'}</dd></div><div><dt>승인상태</dt><dd>{profile.approval_status === '1' ? '승인 완료' : profile.approval_status}</dd></div></dl><button type="button" onClick={handleLogout}>로그아웃</button></div>}
         <nav className={styles.nav} aria-label="주요 메뉴">
           {navItems.map((item) => <button key={item.id} type="button" onClick={() => { setActiveTab(item.id); window.sessionStorage.setItem('vip-active-tab', item.id); }} className={`${styles.navItem} ${activeTab === item.id ? styles.navActive : ''}`}>{item.label}</button>)}
         </nav>
@@ -840,7 +878,6 @@ export default function V2LiveClientStage2() {
           {activeTab === 'event' && <EventLive profile={profile} autoEvents={autoEvents} attendanceStatus={attendanceStatus} attendanceWorking={attendanceWorking} eventAnswers={eventAnswers} eventWorkingId={eventWorkingId} rouletteSpins={rouletteSpins} eventSuccess={eventSuccess} notice={notice} mode={eventMode} setMode={setEventMode} onAttendance={checkDailyAttendance} onAnswer={setEventAnswer} onJoin={joinAutoEvent} />}
           {activeTab === 'ai' && <AiLive profile={profile} userId={user.id} row={aiMemberProcess} tick={aiProcessTick} error={aiLoadError} />}
           {activeTab === 'private' && <PrivatePreview />}
-          <div className={styles.previewNotice}>V2 2차 실제 기능 연결 · 회원 세션/회원정보/실시간 이벤트/출석/AI PROCESS 회원 데이터·수익·그래프·진행상태가 기존 운영 기능에 연결되었습니다. 상품 지급과 관리자 전체 화면은 다음 단계에서 연결합니다.</div>
         </div>
       </section>
     </main>

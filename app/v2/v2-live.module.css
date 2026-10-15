@@ -66,3 +66,18 @@
   .profilePopover { right: 8px; width: min(240px, calc(100vw - 28px)); }
   .gameFourGrid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* final attendance stamp */
+.attendanceDots > span { position: relative; overflow: hidden; }
+.attendanceDots > span b { position: relative; z-index: 1; font: inherit; }
+.attendanceDotDone { background: #eef4ff !important; border-color: #76a2ff !important; color: #2f6fed !important; }
+.attendanceStamp { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%,-58%) rotate(-10deg); width: 30px; height: 30px; border: 2px solid #2f6fed; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 18px; font-weight: 900; color: #2f6fed; opacity: .92; background: rgba(255,255,255,.82); }
+.attendanceDotDone b { position: absolute !important; right: 6px; bottom: 4px; font-size: 8px !important; }
+.surpriseGuideCard { margin-top: 10px; border: 1px solid #dfe6ef; border-radius: 16px; background: #fff; padding: 16px; }
+.surpriseGuideHead { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.surpriseGuideHead strong { font-size: 13px; color:#172033; }
+.surpriseGuideHead button { border:0; background:#f1f4f8; color:#647287; border-radius:9px; padding:7px 9px; font-size:9px; cursor:pointer; }
+.surpriseGuideBody { margin-top: 12px; white-space: pre-line; font-size: 10px; line-height: 1.75; color:#59677a; }
+.eventEmoji .eventMotionIcon { width: 28px; height: 28px; border-radius: 9px; }
+.cardKicker .eventMotionIcon { width: 24px; height: 24px; border-radius: 8px; margin-right: 6px; }
+.cardKicker { display:flex; align-items:center; }
