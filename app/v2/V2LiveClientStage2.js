@@ -710,16 +710,67 @@ function AiLive({ profile, userId, row, tick, error }) {
             {status === 'waiting' && Number(processRow.investment_amount || 0) > 0 && <div><span>설정 금액</span><strong>{aiKrw(processRow.investment_amount)}</strong></div>}
           </div>
         </section>
-        <section className={styles.aiProcessBrief}>
-          <span>AI PROCESS</span>
-          <strong>주식·코인 흐름을 6단계로 분석하고 3분 단위로 반영합니다.</strong>
-          <p>분석 · 탐색 · 매수 판단 · 보유 관리 · 매도 판단 · 재분석을 반복하며, 설정된 진행기간 동안 평가금액·수익·반영 기록을 확인할 수 있습니다.</p>
-        </section>
-        <section className={styles.aiPart1Flow}>
-          <span>진행 흐름</span>
-          <div>
-            {['분석', '탐색', '매수', '관리', '매도', '재분석'].map((label, index) => <b key={label}><i>{String(index + 1).padStart(2, '0')}</i>{label}</b>)}
+        <section className={styles.aiIdleSection}>
+          <div className={styles.aiIdleSectionHead}>
+            <span>진행 구조</span>
+            <h3>AI프로세스 진행 구조</h3>
+            <p>AI가 시장 데이터를 분석하고 설정된 기준에 따라 단계별로 진행합니다.</p>
           </div>
+          <div className={styles.aiIdleFlowGrid}>
+            {[
+              ['시장 분석', '시장 데이터를 분석해 현재 조건을 확인합니다.'],
+              ['기회 포착', '설정 기준에 맞는 진행 구간을 탐색합니다.'],
+              ['AI 진행', '선정된 조건을 기반으로 프로세스를 진행합니다.'],
+              ['실시간 확인', '진행 상태와 데이터를 지속적으로 확인합니다.'],
+              ['위험 관리', '설정된 기준에 따라 위험 구간을 관리합니다.'],
+              ['결과 관리', '진행 결과를 확인하고 프로세스를 마무리합니다.'],
+            ].map(([title, copy], index) => (
+              <div key={title} className={styles.aiIdleFlowItem}>
+                <i>{index + 1}</i>
+                <div><strong>{title}</strong><p>{copy}</p></div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className={`${styles.aiIdleSection} ${styles.aiIdleLimited}`}>
+          <div className={styles.aiIdleLimitedMark} aria-hidden="true">◆</div>
+          <div>
+            <span>제한 운영</span>
+            <h3>VIP 회원을 위한 제한 운영</h3>
+            <p>AI PROCESS는 자체 기술과 운영 시스템을 기반으로 구성되어 있으며, VIP 회원을 위해 회원별 이용 가능 횟수와 진행 설정에 따라 개별적으로 운영됩니다.</p>
+          </div>
+        </section>
+
+        <section className={styles.aiIdleSection}>
+          <div className={styles.aiIdleSectionHead}>
+            <span>이용 절차</span>
+            <h3>AI프로세스 이용 절차</h3>
+          </div>
+          <div className={styles.aiIdleSteps}>
+            {[
+              ['카카오톡 1:1 고객센터', '진행 상담 신청'],
+              ['예약 안내', '이용 가능 일정 확인'],
+              ['진행 설정', 'AI 프로세스 안내'],
+              ['프로세스 진행', '설정된 방식으로 진행'],
+              ['결과 확인', '진행 결과 안내'],
+            ].map(([title, copy], index) => (
+              <div key={title} className={styles.aiIdleStep}>
+                <i>{index + 1}</i>
+                <strong>{title}</strong>
+                <p>{copy}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className={`${styles.aiIdleSection} ${styles.aiIdleConsult}`}>
+          <div>
+            <span>현재 상태</span>
+            <h3>현재 상태 · {availableCount > 0 ? '이용 가능' : '이용 상담 가능'}</h3>
+            <p>AI프로세스 이용을 원하시면 카카오톡 1:1 고객센터로 문의해 주세요. 이용 가능 여부와 진행 방법을 개별적으로 안내해드립니다.</p>
+          </div>
+          <div className={styles.aiIdleConsultBar}>카카오톡 1:1 고객센터에서 AI프로세스 진행 상담을 신청해주세요.</div>
         </section>
       </>
     );

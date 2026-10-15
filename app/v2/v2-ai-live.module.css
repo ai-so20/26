@@ -743,3 +743,187 @@
     min-height: 44px !important;
   }
 }
+
+/* AI IDLE CONTENT REBUILD */
+.aiIdleSection {
+  margin-top: 14px;
+  padding: 20px 22px;
+  border: 1px solid #d9e2ee;
+  border-radius: 8px;
+  background: #fff;
+  color: #172840;
+}
+.aiIdleSectionHead { margin-bottom: 16px; }
+.aiIdleSectionHead > span,
+.aiIdleLimited span,
+.aiIdleConsult span {
+  display: block;
+  margin-bottom: 5px;
+  color: #3569ad;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+.aiIdleSection h3 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.35;
+  letter-spacing: -.035em;
+}
+.aiIdleSectionHead > p,
+.aiIdleLimited p,
+.aiIdleConsult p {
+  margin: 7px 0 0;
+  color: #5d6c7e;
+  font-size: 12px;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+.aiIdleFlowGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid #e5ebf2;
+  border-left: 1px solid #e5ebf2;
+}
+.aiIdleFlowItem {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 10px;
+  min-height: 86px;
+  padding: 15px 14px;
+  border-right: 1px solid #e5ebf2;
+  border-bottom: 1px solid #e5ebf2;
+}
+.aiIdleFlowItem > i,
+.aiIdleStep > i {
+  display: grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #155eb9;
+  color: #fff;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+}
+.aiIdleFlowItem strong { font-size: 13px; }
+.aiIdleFlowItem p {
+  margin: 5px 0 0;
+  color: #68788c;
+  font-size: 11px;
+  line-height: 1.55;
+  word-break: keep-all;
+}
+.aiIdleLimited {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 16px;
+  border-color: #153f73;
+  background: #0f315e;
+  color: #fff;
+}
+.aiIdleLimitedMark {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255,255,255,.32);
+  border-radius: 10px;
+  color: #f0c66c;
+  font-size: 18px;
+}
+.aiIdleLimited span { color: #b9d5f7; }
+.aiIdleLimited p { color: #d6e2f0; }
+.aiIdleSteps {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  padding-top: 4px;
+}
+.aiIdleStep {
+  position: relative;
+  min-width: 0;
+  padding: 4px 8px 0;
+  text-align: center;
+}
+.aiIdleStep:not(:last-child)::after {
+  content: '›';
+  position: absolute;
+  top: 7px;
+  right: -4px;
+  color: #a6b5c7;
+  font-size: 17px;
+}
+.aiIdleStep > i { margin: 0 auto 8px; }
+.aiIdleStep strong {
+  display: block;
+  font-size: 11px;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+.aiIdleStep p {
+  margin: 4px 0 0;
+  color: #7b8999;
+  font-size: 9.5px;
+  line-height: 1.45;
+  word-break: keep-all;
+}
+.aiIdleConsult {
+  border-color: #c7d6e8;
+  background: #f7faff;
+}
+.aiIdleConsultBar {
+  margin-top: 15px;
+  padding: 11px 13px;
+  border-top: 1px solid #d8e3ef;
+  color: #234f82;
+  font-size: 11px;
+  font-weight: 750;
+  text-align: center;
+  line-height: 1.55;
+}
+
+@media (max-width: 520px) {
+  .aiIdleSection {
+    margin-top: 12px;
+    padding: 18px 16px;
+    border-radius: 6px;
+  }
+  .aiIdleSectionHead { margin-bottom: 14px; }
+  .aiIdleSectionHead > span,
+  .aiIdleLimited span,
+  .aiIdleConsult span { font-size: 11px; }
+  .aiIdleSection h3 { font-size: 18px; }
+  .aiIdleSectionHead > p,
+  .aiIdleLimited p,
+  .aiIdleConsult p { font-size: 12.5px; line-height: 1.75; }
+  .aiIdleFlowGrid { grid-template-columns: 1fr; }
+  .aiIdleFlowItem {
+    grid-template-columns: 30px minmax(0, 1fr);
+    min-height: 0;
+    padding: 13px 12px;
+  }
+  .aiIdleFlowItem strong { font-size: 13px; }
+  .aiIdleFlowItem p { font-size: 11.5px; line-height: 1.6; }
+  .aiIdleLimited { grid-template-columns: 38px minmax(0, 1fr); gap: 12px; }
+  .aiIdleLimitedMark { width: 38px; height: 38px; }
+  .aiIdleSteps {
+    grid-template-columns: 1fr;
+    gap: 0;
+    border-top: 1px solid #e5ebf2;
+  }
+  .aiIdleStep {
+    display: grid;
+    grid-template-columns: 30px minmax(0, 1fr);
+    gap: 2px 10px;
+    padding: 12px 2px;
+    border-bottom: 1px solid #e5ebf2;
+    text-align: left;
+  }
+  .aiIdleStep:not(:last-child)::after { display: none; }
+  .aiIdleStep > i { grid-row: 1 / span 2; margin: 0; }
+  .aiIdleStep strong { align-self: end; font-size: 12.5px; }
+  .aiIdleStep p { margin: 0; font-size: 11px; line-height: 1.5; }
+  .aiIdleConsultBar { margin-top: 14px; font-size: 11.5px; line-height: 1.6; }
+}
