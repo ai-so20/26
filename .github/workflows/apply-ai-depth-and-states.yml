@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '22'
           cache: npm
       - name: Apply AI depth and state polish
         run: python .github/scripts/apply-ai-depth-and-states.py
@@ -28,7 +28,9 @@ jobs:
       - name: Production build check
         env:
           NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: dummy-key-for-build
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_build_dummy
+          SUPABASE_SECRET_KEY: sb_secret_build_dummy
+          TWELVE_DATA_API_KEY: build_dummy
         run: npm run build
       - name: Commit and push
         run: |
