@@ -78,6 +78,8 @@
    One mobile x-axis. No heading/card/text may hug the viewport wall.
    ───────────────────────────────────────────── */
 @media (max-width: 520px) {
+  /* Parent content already has 18px in v2.module.css. Keep parent rule as a best-effort
+     enhancement, but do NOT rely on :has() for the final gutter. */
   [class*="content"]:has(> [class*="eventPage"]),
   [class*="content"]:has([class*="eventPage"]) {
     width: 100% !important;
@@ -87,11 +89,16 @@
     padding-right: 20px !important;
   }
 
+  /* Guaranteed event-only gutter: works even if the parent :has selector is ignored.
+     Base content = 18px. This adds 4px inside Event => visible rail is at least 22px,
+     and 24px when the parent 20px rule is active. */
   [class*="eventPage"] {
     width: 100% !important;
     max-width: 100% !important;
     min-width: 0 !important;
     box-sizing: border-box !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
   }
 
   [class*="eventPage"] > * {
