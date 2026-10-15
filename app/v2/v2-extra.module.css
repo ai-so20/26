@@ -438,3 +438,46 @@
 .rewardIcon, .giftPlaceholder, .messageBubble { border-radius: 4px; }
 .processStep { border-radius: 4px; }
 .processStep > span { border-radius: 3px; }
+
+
+/* MOBILE READABILITY PASS */
+@media (max-width: 520px) {
+  .listHeader span,
+  .rowIndex,
+  .rowState,
+  .balanceTop span,
+  .balanceMeta span,
+  .metricCard span,
+  .rewardSummary span,
+  .messageHeader span,
+  .processBadge,
+  .activityTime,
+  .metricCard small,
+  .inboxCopy small,
+  .newBadge,
+  .giftPlaceholder small {
+    font-size: 10px !important;
+  }
+  .listHeader strong,
+  .listRow strong,
+  .balanceMeta strong,
+  .processStep strong,
+  .activityRow strong,
+  .inboxCopy strong,
+  .messageBubble > strong,
+  .giftPlaceholder strong {
+    font-size: 11.5px;
+  }
+  .processStep small,
+  .activityRow p,
+  .messageBubble > p,
+  .infoCard p {
+    font-size: 11px;
+    line-height: 1.7;
+  }
+  .infoCard strong { font-size: 12.5px; }
+  .attendanceCardLarge p { font-size: 11.5px; line-height: 1.7; }
+  .attendanceDots span { font-size: 10.5px; }
+  .primaryButtonWide { font-size: 12px; }
+  .metricCard strong { font-size: 18px; }
+}

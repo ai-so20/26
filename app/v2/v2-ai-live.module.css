@@ -588,3 +588,70 @@
   box-shadow: none !important;
 }
 .aiFoldMeta b, .aiFoldMeta i { border-radius: 2px !important; }
+
+
+/* MOBILE READABILITY PASS */
+@media (max-width: 520px) {
+  .aiEyebrow,
+  .aiProgressMeta,
+  .aiChartHead span,
+  .aiChartFoot,
+  .aiActivityValue,
+  .aiPart1Topline span,
+  .aiPart1Topline b,
+  .aiPart1Headline small,
+  .aiPart1Flow > span,
+  .aiPart1Flow i,
+  .aiPart2Topline {
+    font-size: 10px;
+  }
+  .aiWaitingText,
+  .aiLiveNotice,
+  .aiAdminHold p,
+  .aiPart1Headline p,
+  .aiPart1Facts span,
+  .aiPart1Flow b,
+  .aiPart2Primary > div:first-child span,
+  .aiPart2Return span,
+  .aiPart2Bento span {
+    font-size: 11px;
+    line-height: 1.65;
+  }
+  .aiPart1Facts strong { font-size: 13px; }
+  .aiPart2Bento strong { font-size: 14px; }
+
+  .aiMarketScannerHead span,
+  .aiMarketScannerHead small,
+  .aiMarketTelemetry span,
+  .aiMarketTelemetry small,
+  .aiMarketColumns,
+  .aiMarketAsset small,
+  .aiMarketDirection small,
+  .aiMarketState small,
+  .aiMarketHistoryHead span,
+  .aiMarketHistoryHead small,
+  .aiMarketHistoryTime small,
+  .aiMarketHistoryAsset small,
+  .aiMarketHistoryAction small,
+  .aiMarketFootnote {
+    font-size: 10px !important;
+    line-height: 1.55;
+  }
+  .aiMarketScannerHead strong { font-size: 15px; }
+  .aiMarketTelemetry strong { font-size: 14px; }
+  .aiMarketAsset strong,
+  .aiMarketDirection strong,
+  .aiMarketState strong,
+  .aiMarketHistoryTime strong,
+  .aiMarketHistoryAsset strong,
+  .aiMarketHistoryChange,
+  .aiMarketHistoryAction strong {
+    font-size: 11.5px !important;
+    line-height: 1.4;
+  }
+  .aiMarketLiveRow {
+    min-height: 84px;
+    row-gap: 8px;
+  }
+  .aiMarketHistoryRow { min-height: 72px; }
+}

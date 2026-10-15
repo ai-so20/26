@@ -758,3 +758,41 @@
   .header { padding: 0 14px; }
   .nav { padding: 0 14px; gap: 22px; }
 }
+
+
+/* MOBILE READABILITY PASS */
+@media (max-width: 520px) {
+  .pageHeading p,
+  .cardBody p,
+  .attendanceCard p,
+  .listCopy p,
+  .attendanceLead,
+  .previewNotice {
+    font-size: 11.5px;
+    line-height: 1.7;
+  }
+  .brandEyebrow,
+  .kicker,
+  .cardKicker,
+  .summaryTop span,
+  .sectionHead span,
+  .timeBlock span,
+  .stat span,
+  .stat small,
+  .segmentCopy small,
+  .muted,
+  .statusBadge,
+  .liveBadge,
+  .textButton,
+  .chevronButton {
+    font-size: 10.5px;
+  }
+  .segmentCopy strong,
+  .listCopy strong,
+  .timeBlock strong {
+    font-size: 12.5px;
+  }
+  .navItem { font-size: 13.5px; }
+  .primaryButton,
+  .secondaryButton { font-size: 12px; }
+}
