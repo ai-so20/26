@@ -387,3 +387,54 @@
   .attendanceDots { gap: 5px; }
   .inboxRow { grid-template-columns: 34px 1fr auto auto; }
 }
+
+
+/* FINAL DE-AI CONTENT SURFACES */
+.simpleList,
+.attendanceCardLarge,
+.balanceCard,
+.infoCard,
+.metricCard,
+.rewardSummary,
+.inboxList,
+.messagePanel {
+  border-radius: 5px;
+  box-shadow: none;
+}
+.simpleList { border-left: 0; border-right: 0; border-radius: 0; }
+.listHeader { padding-left: 2px; padding-right: 2px; }
+.eventLiveRow, .listRow { background: transparent; }
+.rowState, .processBadge, .newBadge {
+  border-radius: 3px;
+}
+.attendanceCardLarge {
+  padding: 17px 0;
+  border-width: 1px 0;
+  border-radius: 0;
+  background: transparent;
+}
+.infoCard {
+  padding: 13px 0;
+  border-width: 1px 0 0;
+  border-radius: 0;
+  background: transparent;
+}
+.infoIcon { border-radius: 3px; }
+.attendanceDots span { border-radius: 3px; }
+.twoColumnCards {
+  gap: 0;
+  border: 1px solid #dfe4ea;
+  background: #fff;
+}
+.metricCard {
+  border: 0;
+  border-right: 1px solid #e3e7ec;
+  border-radius: 0;
+}
+.metricCard:last-child { border-right: 0; }
+.rewardSummary { border-radius: 4px; }
+.inboxList, .messagePanel { border-radius: 4px; }
+.inboxRowActive { background: #f1f5fa; }
+.rewardIcon, .giftPlaceholder, .messageBubble { border-radius: 4px; }
+.processStep { border-radius: 4px; }
+.processStep > span { border-radius: 3px; }

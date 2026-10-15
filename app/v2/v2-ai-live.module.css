@@ -538,3 +538,53 @@
   .aiMarketHistoryHead { align-items:flex-start; }
 }
 @media (prefers-reduced-motion: reduce) { .aiMarketPulse i { animation:none; } }
+
+
+/* FINAL DE-AI AI PROCESS */
+.aiPart1Hero,
+.aiPart2Hero,
+.aiMarketScanner,
+.aiStageBoard,
+.aiChartCard,
+.aiPart3History,
+.tradingCard {
+  border-radius: 4px !important;
+}
+.aiPart1Hero,
+.aiPart2Hero {
+  box-shadow: 0 10px 24px rgba(13, 27, 49, .10);
+}
+.aiProcessBrief {
+  border-radius: 0 !important;
+  border-left: 0 !important;
+  border-right: 0 !important;
+  background: transparent !important;
+  padding-left: 2px !important;
+  padding-right: 2px !important;
+}
+.aiStageBoard {
+  border-left: 0 !important;
+  border-right: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.aiStageItem { border-radius: 0 !important; }
+.aiStageItemActive { box-shadow: inset 3px 0 0 #2f6fed !important; }
+.aiMarketScanner {
+  border: 1px solid #142742 !important;
+  background: #0b1729 !important;
+  box-shadow: 0 12px 28px rgba(10, 24, 42, .11) !important;
+}
+.aiMarketScannerHead { border-radius: 0 !important; }
+.aiMarketPulse { border-radius: 2px !important; }
+.aiMarketTelemetry > div { border-radius: 0 !important; }
+.aiMarketLiveRow,
+.aiMarketHistoryRow { border-radius: 0 !important; }
+.aiMarketCoinMark,
+.aiMarketStockMark { border-radius: 3px !important; }
+.aiTradingPager button { border-radius: 2px !important; }
+.aiChartCard,
+.aiPart3History {
+  box-shadow: none !important;
+}
+.aiFoldMeta b, .aiFoldMeta i { border-radius: 2px !important; }

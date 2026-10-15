@@ -642,7 +642,7 @@ function formatAiMarketPrice(value) {
 }
 
 function AiLive({ profile, userId, row, tick, error }) {
-  const [tradingOpen, setTradingOpen] = useState(true);
+  const [tradingOpen, setTradingOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(true);
   const [tradingPage, setTradingPage] = useState(1);
   const [marketFeed, setMarketFeed] = useState({ quotes: [], updatedAt: null, stale: false, loading: true, error: '' });
