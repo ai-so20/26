@@ -1,0 +1,338 @@
+/* EVENT · REWARD-FIRST HIERARCHY PASS
+   Scope: eventPage only. AI PROCESS and reward center are intentionally untouched. */
+
+[class*="eventPage"] {
+  --event-canvas: #F4F5F7;
+  --event-surface: #FFFFFF;
+  --event-inset: #F1F3F6;
+  --event-border: #DCE1E7;
+  --event-border-strong: #D1D7DF;
+  --event-text: #171B24;
+  --event-text-2: #4D5665;
+  --event-text-3: #737D8B;
+  --event-accent: #A44912;
+  --event-accent-soft: #FFF5EC;
+}
+
+/* Mobile safe area */
+@media (max-width: 520px) {
+  [class*="content"]:has([class*="eventPage"]) {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+}
+
+/* Quiet page heading */
+[class*="eventPage"] [class*="pageHeading"] {
+  margin-bottom: 16px !important;
+}
+[class*="eventPage"] [class*="pageHeading"] [class*="kicker"] {
+  color: #626B78 !important;
+}
+[class*="eventPage"] [class*="pageHeading"] [class*="statusBadge"] {
+  border-color: #D9DEE5 !important;
+  background: #FFFFFF !important;
+  color: #454C59 !important;
+  box-shadow: 0 1px 2px rgba(23,27,36,.04) !important;
+}
+[class*="eventPage"] [class*="pageHeading"] [class*="statusBadge"] i {
+  background: #16734B !important;
+}
+
+/* Participation summary = flat L1 surface */
+[class*="eventPage"] [class*="summaryCard"] {
+  border: 1px solid var(--event-border) !important;
+  border-radius: 14px !important;
+  background: #FFFFFF !important;
+  box-shadow: none !important;
+}
+[class*="eventPage"] [class*="summaryCard"]::before {
+  display: none !important;
+}
+[class*="eventPage"] [class*="summaryTop"] {
+  padding-bottom: 12px !important;
+  border-bottom-color: #E9EDF1 !important;
+}
+[class*="eventPage"] [class*="statsGrid"] {
+  gap: 0 !important;
+}
+[class*="eventPage"] [class*="stat"] {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Selector = recessed track, not two floating cards */
+[class*="eventPage"] [class*="section"] {
+  margin-top: 20px !important;
+}
+[class*="eventPage"] [class*="sectionHead"] {
+  margin-bottom: 9px !important;
+}
+[class*="eventPage"] [class*="segmentGrid"] {
+  padding: 4px !important;
+  gap: 4px !important;
+  border: 1px solid #E0E4E9 !important;
+  border-radius: 13px !important;
+  background: #EDEFF2 !important;
+  box-shadow: inset 0 1px 2px rgba(23,27,36,.035) !important;
+}
+[class*="eventPage"] [class*="segment"] {
+  min-height: 62px !important;
+  border: 1px solid transparent !important;
+  border-radius: 10px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+[class*="eventPage"] [class*="segmentActive"] {
+  border-color: #D5DAE1 !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 2px 7px rgba(23,27,36,.07) !important;
+}
+[class*="eventPage"] [class*="segmentMark"] {
+  width: 6px !important;
+  height: 6px !important;
+  background: #8B95A3 !important;
+}
+[class*="eventPage"] [class*="segmentActive"] [class*="segmentMark"] {
+  background: var(--event-accent) !important;
+}
+[class*="eventPage"] [class*="segment"] small {
+  font-size: 0 !important;
+  line-height: 1.35 !important;
+}
+[class*="eventPage"] [class*="segment"]:first-child small::after {
+  content: "3,000원 ~ 300,000원 상당";
+  font-size: 9px;
+  color: #7B8491;
+}
+[class*="eventPage"] [class*="segment"]:last-child small::after {
+  content: "30회 달성 · 최대 500,000원 상당";
+  font-size: 9px;
+  color: #7B8491;
+}
+
+/* Featured live event = the single raised event surface */
+[class*="eventPage"] [class*="primaryCard"] {
+  margin-top: 14px !important;
+  overflow: hidden !important;
+  border: 1px solid var(--event-border-strong) !important;
+  border-radius: 15px !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 2px 5px rgba(23,27,36,.04), 0 10px 24px rgba(23,27,36,.075) !important;
+}
+[class*="eventPage"] [class*="primaryCard"]::before {
+  display: none !important;
+}
+[class*="eventPage"] [class*="cardTopline"] {
+  padding: 14px 16px 11px !important;
+  border-bottom: 1px solid #ECEFF3 !important;
+  background: #FBFCFD !important;
+}
+[class*="eventPage"] [class*="cardBody"] {
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 16px !important;
+}
+[class*="eventPage"] [class*="cardBody"]::before {
+  content: "VIP EVENT REWARD";
+  order: -4;
+  margin-bottom: 5px;
+  color: #8D5A31;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .14em;
+}
+[class*="eventPage"] [class*="cardBody"]::after {
+  content: "3,000원 ~ 300,000원 상당 랜덤 기프티콘";
+  order: -3;
+  margin-bottom: 15px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #E8EBEF;
+  color: var(--event-text);
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: -.035em;
+  line-height: 1.3;
+}
+[class*="eventPage"] [class*="cardBody"] [class*="cardKicker"] {
+  order: -2;
+  color: #626B78 !important;
+}
+[class*="eventPage"] [class*="cardBody"] h2 {
+  order: -1;
+  margin-top: 8px !important;
+  color: var(--event-text) !important;
+}
+[class*="eventPage"] [class*="cardBody"] p {
+  color: #697383 !important;
+}
+
+/* Participation controls = inset */
+[class*="eventPage"] [class*="gameArea"] {
+  margin: 0 16px 16px !important;
+  padding: 14px !important;
+  border: 1px solid #E0E4E9 !important;
+  border-radius: 11px !important;
+  background: var(--event-inset) !important;
+  box-shadow: inset 0 1px 3px rgba(23,27,36,.045) !important;
+}
+[class*="eventPage"] [class*="gameChoice"],
+[class*="eventPage"] [class*="quizChoice"],
+[class*="eventPage"] [class*="gameInput"] {
+  border-color: #DCE1E7 !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 1px 2px rgba(23,27,36,.03) !important;
+}
+[class*="eventPage"] [class*="primaryButtonWide"],
+[class*="eventPage"] [class*="primaryButton"] {
+  border-radius: 9px !important;
+  background: var(--event-accent) !important;
+  box-shadow: 0 3px 8px rgba(164,73,18,.18) !important;
+}
+
+/* Schedule = low-emphasis flat surface */
+[class*="eventPage"] [class*="simpleList"] {
+  margin-top: 18px !important;
+  overflow: hidden !important;
+  border: 1px solid var(--event-border) !important;
+  border-radius: 12px !important;
+  background: #FFFFFF !important;
+  box-shadow: none !important;
+}
+[class*="eventPage"] [class*="listHeader"] {
+  background: #FAFBFC !important;
+  border-bottom-color: #E7EBEF !important;
+}
+[class*="eventPage"] [class*="eventLiveRow"] {
+  border-top-color: #E9EDF1 !important;
+  background: #FFFFFF !important;
+}
+[class*="eventPage"] [class*="eventLiveRowActive"] {
+  background: #F8F9FB !important;
+}
+[class*="eventPage"] [class*="eventMotionIcon"] {
+  border-color: #DDE2E8 !important;
+  background: #FFFFFF !important;
+  color: #596678 !important;
+  box-shadow: 0 1px 2px rgba(23,27,36,.035) !important;
+}
+
+/* Attendance = reward first, then progress/actions */
+[class*="eventPage"] [class*="attendanceCardLarge"] {
+  position: relative;
+  margin-top: 14px !important;
+  overflow: hidden !important;
+  border: 1px solid var(--event-border-strong) !important;
+  border-radius: 15px !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 2px 5px rgba(23,27,36,.04), 0 10px 24px rgba(23,27,36,.07) !important;
+}
+[class*="eventPage"] [class*="attendanceCardLarge"]::before {
+  content: "30회 출석 달성 보상\A3,000원 ~ 500,000원 상당 랜덤 기프티콘";
+  display: block;
+  white-space: pre-line;
+  margin: 0 16px 16px;
+  padding: 14px;
+  border: 1px solid #E0E4E9;
+  border-radius: 11px;
+  background: var(--event-inset);
+  box-shadow: inset 0 1px 3px rgba(23,27,36,.04);
+  color: var(--event-text);
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: -.025em;
+  line-height: 1.55;
+}
+[class*="eventPage"] [class*="attendanceHeader"] {
+  padding: 16px 16px 12px !important;
+}
+[class*="eventPage"] [class*="attendanceHeader"] [class*="cardKicker"] {
+  color: #626B78 !important;
+}
+[class*="eventPage"] [class*="attendanceLead"] {
+  color: #737D8B !important;
+}
+[class*="eventPage"] [class*="attendanceCount"] {
+  color: var(--event-text) !important;
+}
+[class*="eventPage"] [class*="progressTrack"] {
+  margin-left: 16px !important;
+  margin-right: 16px !important;
+  background: #E8EBEF !important;
+}
+[class*="eventPage"] [class*="progressTrack"] > span {
+  background: var(--event-accent) !important;
+}
+[class*="eventPage"] [class*="attendanceRemaining"] {
+  margin-left: 16px !important;
+  margin-right: 16px !important;
+  color: #6E6258 !important;
+}
+[class*="eventPage"] [class*="attendanceRemaining"] strong {
+  color: var(--event-accent) !important;
+}
+[class*="eventPage"] [class*="attendanceThirtyGrid"] {
+  margin-left: 16px !important;
+  margin-right: 16px !important;
+  padding: 10px !important;
+  border: 1px solid #E2E6EB !important;
+  border-radius: 11px !important;
+  background: #F2F4F6 !important;
+  box-shadow: inset 0 1px 3px rgba(23,27,36,.04) !important;
+}
+[class*="eventPage"] [class*="attendanceThirtyCell"] {
+  border-color: #DCE1E7 !important;
+  border-radius: 7px !important;
+  background: #FFFFFF !important;
+  color: #7A8492 !important;
+}
+[class*="eventPage"] [class*="attendanceThirtyDone"] {
+  border-color: #D6B79F !important;
+  background: #FFF8F2 !important;
+  color: var(--event-accent) !important;
+}
+[class*="eventPage"] [class*="attendanceThirtyStamp"] {
+  border-color: var(--event-accent) !important;
+  color: var(--event-accent) !important;
+}
+[class*="eventPage"] [class*="attendanceCardLarge"] > [class*="primaryButtonWide"] {
+  width: calc(100% - 32px) !important;
+  margin: 14px 16px 16px !important;
+}
+
+/* Explanatory blocks are secondary, not hero surfaces */
+[class*="eventPage"] [class*="infoCard"],
+[class*="eventPage"] [class*="listCard"],
+[class*="eventPage"] [class*="surpriseGuideCard"] {
+  border-color: #DDE2E8 !important;
+  border-radius: 11px !important;
+  background: #FFFFFF !important;
+  box-shadow: none !important;
+}
+[class*="eventPage"] [class*="infoIcon"],
+[class*="eventPage"] [class*="listIcon"] {
+  background: #F1F3F6 !important;
+  color: #626B78 !important;
+}
+
+@media (max-width: 420px) {
+  [class*="content"]:has([class*="eventPage"]) {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  [class*="eventPage"] [class*="segment"] {
+    min-height: 66px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  [class*="eventPage"] [class*="cardBody"]::after {
+    font-size: 15px;
+  }
+  [class*="eventPage"] [class*="attendanceCardLarge"]::before {
+    font-size: 14px;
+  }
+  [class*="eventPage"] [class*="attendanceThirtyGrid"] {
+    grid-template-columns: repeat(5,minmax(0,1fr)) !important;
+    gap: 5px !important;
+  }
+}
