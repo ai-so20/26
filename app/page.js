@@ -3,6 +3,7 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { supabase } from "./supabase";
+import { blueTheme } from "../lib/blueTheme.mjs";
 
 const GROUP_CHAT_ENABLED = false;
 
@@ -493,7 +494,7 @@ export default function Home() {
 
   function AiProcessMemberGuide({ compact = false }) {
     return (
-      <div style={{
+      <div style={blueTheme({
         marginTop: compact ? "12px" : "14px",
         padding: compact ? "13px 12px" : "15px 14px",
         borderRadius:"16px",
@@ -501,31 +502,31 @@ export default function Home() {
         border:"1px solid rgba(226,187,112,.30)",
         color:"#fff",
         textAlign:"left"
-      }}>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:"8px"}}>
+      }, "accentSurface")}>
+        <div style={blueTheme({display:"flex",alignItems:"center",justifyContent:"space-between",gap:"8px"}, "surface")}>
           <div>
-            <span style={{display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.5px",color:"#e2bb70"}}>AI PROCESS GUIDE</span>
-            <strong style={{display:"block",marginTop:"3px",fontSize:compact?"13px":"14px",color:"#fff"}}>AI프로세스 진행 안내</strong>
+            <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.5px",color:"#e2bb70"}, "surface")}>AI PROCESS GUIDE</span>
+            <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:compact?"13px":"14px",color:"#fff"}, "surface")}>AI프로세스 진행 안내</strong>
           </div>
-          <span style={{padding:"5px 8px",borderRadius:"999px",background:"rgba(226,187,112,.10)",border:"1px solid rgba(226,187,112,.22)",fontSize:"7px",fontWeight:"1000",color:"#f0cb82",whiteSpace:"nowrap"}}>3분 단위 반영</span>
+          <span style={blueTheme({padding:"5px 8px",borderRadius:"999px",background:"rgba(226,187,112,.10)",border:"1px solid rgba(226,187,112,.22)",fontSize:"7px",fontWeight:"1000",color:"#f0cb82",whiteSpace:"nowrap"}, "surface")}>3분 단위 반영</span>
         </div>
 
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"7px",marginTop:"10px"}}>
-          <div style={{padding:"10px 7px",borderRadius:"12px",background:"rgba(255,255,255,.055)",border:"1px solid rgba(255,255,255,.06)",textAlign:"center"}}>
-            <span style={{display:"block",fontSize:"7px",color:"rgba(255,255,255,.48)"}}>진행시간</span>
-            <b style={{display:"block",marginTop:"4px",fontSize:"11px",color:"#f0cb82"}}>최소 1시간 ~ 최대 30일</b>
+        <div style={blueTheme({display:"grid",gridTemplateColumns:"1fr 1fr",gap:"7px",marginTop:"10px"}, "surface")}>
+          <div style={blueTheme({padding:"10px 7px",borderRadius:"12px",background:"rgba(255,255,255,.055)",border:"1px solid rgba(255,255,255,.06)",textAlign:"center"}, "surface")}>
+            <span style={blueTheme({display:"block",fontSize:"7px",color:"rgba(255,255,255,.48)"}, "surface")}>진행시간</span>
+            <b style={blueTheme({display:"block",marginTop:"4px",fontSize:"11px",color:"#f0cb82"}, "surface")}>최소 1시간 ~ 최대 30일</b>
           </div>
-          <div style={{padding:"10px 7px",borderRadius:"12px",background:"rgba(255,255,255,.055)",border:"1px solid rgba(255,255,255,.06)",textAlign:"center"}}>
-            <span style={{display:"block",fontSize:"7px",color:"rgba(255,255,255,.48)"}}>예상 수익률</span>
-            <b style={{display:"block",marginTop:"4px",fontSize:"11px",color:"#f0cb82"}}>10% ~ 1000% 이상</b>
+          <div style={blueTheme({padding:"10px 7px",borderRadius:"12px",background:"rgba(255,255,255,.055)",border:"1px solid rgba(255,255,255,.06)",textAlign:"center"}, "surface")}>
+            <span style={blueTheme({display:"block",fontSize:"7px",color:"rgba(255,255,255,.48)"}, "surface")}>예상 수익률</span>
+            <b style={blueTheme({display:"block",marginTop:"4px",fontSize:"11px",color:"#f0cb82"}, "surface")}>10% ~ 1000% 이상</b>
           </div>
         </div>
 
-        <div style={{marginTop:"8px",padding:"10px 9px",borderRadius:"12px",background:"rgba(226,187,112,.08)",border:"1px solid rgba(226,187,112,.18)",textAlign:"center"}}>
-          <strong style={{display:"block",fontSize:"9px",lineHeight:1.55,color:"#f4d28f",wordBreak:"keep-all"}}>
+        <div style={blueTheme({marginTop:"8px",padding:"10px 9px",borderRadius:"12px",background:"rgba(226,187,112,.08)",border:"1px solid rgba(226,187,112,.18)",textAlign:"center"}, "surface")}>
+          <strong style={blueTheme({display:"block",fontSize:"9px",lineHeight:1.55,color:"#f4d28f",wordBreak:"keep-all"}, "surface")}>
             설정된 진행기간 내 AI 분석 기준으로 진행됩니다.
           </strong>
-          <span style={{display:"block",marginTop:"3px",fontSize:"8px",lineHeight:1.6,color:"rgba(255,255,255,.70)",wordBreak:"keep-all"}}>
+          <span style={blueTheme({display:"block",marginTop:"3px",fontSize:"8px",lineHeight:1.6,color:"rgba(255,255,255,.70)",wordBreak:"keep-all"}, "surface")}>
             수익 변동이 1시간 이상 없을 경우 AI 판단으로 자동 완료 됩니다.
           </span>
         </div>
@@ -2840,18 +2841,18 @@ export default function Home() {
 
     if (item.event_type === "gift_box") {
       return (
-        <div style={styles.gameArea}>
-          <div style={styles.gameLabel}>선물상자를 선택하세요</div>
-          <div style={styles.gameFourGrid}>
+        <div style={blueTheme(styles.gameArea, "surface")}>
+          <div style={blueTheme(styles.gameLabel, "surface")}>선물상자를 선택하세요</div>
+          <div style={blueTheme(styles.gameFourGrid, "surface")}>
             {[1,2,3,4].map((box) => (
               <button key={box} type="button" onClick={() => setEventAnswer(item.event_id, String(box))}
-                style={{...styles.gameChoice, ...(String(eventAnswers[item.event_id]) === String(box) ? styles.gameChoiceSelected : {})}}>
-                <span style={styles.gameChoiceIcon}>🎁</span>
-                <span style={styles.gameChoiceNumber}>{box}번</span>
+                style={blueTheme({...styles.gameChoice, ...(String(eventAnswers[item.event_id]) === String(box) ? styles.gameChoiceSelected : {})}, "button")}>
+                <span style={blueTheme(styles.gameChoiceIcon, "buttonChild")}>🎁</span>
+                <span style={blueTheme(styles.gameChoiceNumber, "buttonChild")}>{box}번</span>
               </button>
             ))}
           </div>
-          <button type="button" disabled={busy} onClick={() => joinAutoEvent(item)} style={styles.gameSubmit}>
+          <button type="button" disabled={busy} onClick={() => joinAutoEvent(item)} style={blueTheme(styles.gameSubmit, "button")}>
             {busy ? "처리 중..." : "선택한 상자로 참여하기"}
           </button>
         </div>
@@ -2860,12 +2861,12 @@ export default function Home() {
 
     if (item.event_type === "number") {
       return (
-        <div style={styles.gameArea}>
-          <div style={styles.gameLabel}>1 ~ 10 중에서 <b>숫자 1개</b>를 선택해주세요.</div>
-          <div style={styles.numberRow}>
+        <div style={blueTheme(styles.gameArea, "surface")}>
+          <div style={blueTheme(styles.gameLabel, "surface")}>1 ~ 10 중에서 <b>숫자 1개</b>를 선택해주세요.</div>
+          <div style={blueTheme(styles.numberRow, "surface")}>
             <input type="number" min="1" max="10" inputMode="numeric" value={eventAnswers[item.event_id] || ""}
-              onChange={(e) => setEventAnswer(item.event_id, e.target.value)} placeholder="예: 7" style={styles.gameInput} />
-            <button type="button" disabled={busy} onClick={() => joinAutoEvent(item)} style={styles.gameSubmitSmall}>
+              onChange={(e) => setEventAnswer(item.event_id, e.target.value)} placeholder="예: 7" style={blueTheme(styles.gameInput, "surface")} />
+            <button type="button" disabled={busy} onClick={() => joinAutoEvent(item)} style={blueTheme(styles.gameSubmitSmall, "button")}>
               {busy ? "처리 중" : "제출"}
             </button>
           </div>
@@ -2876,18 +2877,18 @@ export default function Home() {
     if (item.event_type === "quiz") {
       const options = [item.quiz_option_1, item.quiz_option_2, item.quiz_option_3, item.quiz_option_4];
       return (
-        <div style={styles.gameArea}>
-          <div style={styles.quizQuestion}>Q. {item.quiz_question || "퀴즈를 불러오는 중입니다."}</div>
-          <div style={styles.quizGrid}>
+        <div style={blueTheme(styles.gameArea, "surface")}>
+          <div style={blueTheme(styles.quizQuestion, "surface")}>Q. {item.quiz_question || "퀴즈를 불러오는 중입니다."}</div>
+          <div style={blueTheme(styles.quizGrid, "surface")}>
             {options.map((option, index) => (
               <button key={index} type="button" disabled={!option} onClick={() => setEventAnswer(item.event_id, String(index + 1))}
-                style={{...styles.quizChoice, ...(String(eventAnswers[item.event_id]) === String(index + 1) ? styles.gameChoiceSelected : {})}}>
-                <span style={styles.quizOptionNumber}>{index + 1}</span>
-                <span style={styles.quizOptionText}>{option || "-"}</span>
+                style={blueTheme({...styles.quizChoice, ...(String(eventAnswers[item.event_id]) === String(index + 1) ? styles.gameChoiceSelected : {})}, "button")}>
+                <span style={blueTheme(styles.quizOptionNumber, "buttonChild")}>{index + 1}</span>
+                <span style={blueTheme(styles.quizOptionText, "buttonChild")}>{option || "-"}</span>
               </button>
             ))}
           </div>
-          <button type="button" disabled={busy} onClick={() => joinAutoEvent(item)} style={styles.gameSubmit}>
+          <button type="button" disabled={busy} onClick={() => joinAutoEvent(item)} style={blueTheme(styles.gameSubmit, "button")}>
             {busy ? "제출 중..." : "정답 제출하기"}
           </button>
         </div>
@@ -2897,9 +2898,9 @@ export default function Home() {
     if (item.event_type === "roulette") {
       const spinning = rouletteSpins[item.event_id];
       return (
-        <div style={styles.gameArea}>
-          <div style={{...styles.rouletteWheel, transform: spinning ? "rotate(1080deg)" : "rotate(0deg)"}}>✦</div>
-          <button type="button" disabled={busy || spinning} onClick={() => joinAutoEvent(item, "roulette")} style={styles.gameSubmit}>
+        <div style={blueTheme(styles.gameArea, "surface")}>
+          <div style={blueTheme({...styles.rouletteWheel, transform: spinning ? "rotate(1080deg)" : "rotate(0deg)"}, "surface")}>✦</div>
+          <button type="button" disabled={busy || spinning} onClick={() => joinAutoEvent(item, "roulette")} style={blueTheme(styles.gameSubmit, "button")}>
             {spinning ? "룰렛 회전 중..." : busy ? "처리 중..." : "룰렛 돌리고 응모하기"}
           </button>
         </div>
@@ -2908,8 +2909,8 @@ export default function Home() {
 
     const labels = { first_come: "⚡ 지금 참여하기", draw: "🎟️ 응모하기" };
     return (
-      <div style={styles.gameArea}>
-        <button type="button" disabled={busy} onClick={() => joinAutoEvent(item, null)} style={styles.gameSubmit}>
+      <div style={blueTheme(styles.gameArea, "surface")}>
+        <button type="button" disabled={busy} onClick={() => joinAutoEvent(item, null)} style={blueTheme(styles.gameSubmit, "button")}>
           {busy ? "처리 중..." : labels[item.event_type] || "참여하기"}
         </button>
       </div>
@@ -3450,7 +3451,7 @@ export default function Home() {
       <div
         data-chat-date={label}
         aria-hidden="true"
-        style={{
+        style={blueTheme({
           height: 0,
           minHeight: 0,
           margin: 0,
@@ -3459,7 +3460,7 @@ export default function Home() {
           overflow: "hidden",
           opacity: 0,
           pointerEvents: "none",
-        }}
+        }, "surface")}
       />
     );
   }
@@ -3516,7 +3517,7 @@ export default function Home() {
 
     return (
       <div
-        style={{
+        style={blueTheme({
           position: "sticky",
           top: "7px",
           zIndex: 30,
@@ -3531,7 +3532,7 @@ export default function Home() {
           lineHeight: 1.35,
           boxShadow: "0 2px 8px rgba(0,0,0,.18)",
           pointerEvents: "none",
-        }}
+        }, "surface")}
       >
         {value}
       </div>
@@ -3598,7 +3599,7 @@ export default function Home() {
         type="button"
         aria-label="최신 메시지로 이동"
         onClick={() => scrollChatToLatest(kind)}
-        style={{
+        style={blueTheme({
           position:"absolute",
           right:"14px",
           bottom: kind === "group" ? "142px" : "82px",
@@ -3619,7 +3620,7 @@ export default function Home() {
           cursor:"pointer",
           padding:0,
           backdropFilter:"blur(8px)"
-        }}
+        }, "button")}
       >↓</button>
     );
   }
@@ -3632,27 +3633,27 @@ export default function Home() {
         const gift = JSON.parse(content.slice("[[GIFT_REWARD]]".length));
         const safeUrl = /^https:\/\//i.test(gift?.gift_url || "") ? gift.gift_url : "";
         return (
-          <div style={styles.giftRewardMessage}>
-            <div style={styles.giftRewardTitle}>🎁 이벤트 당첨 상품이 지급되었습니다!</div>
-            <div style={styles.giftRewardProduct}>
+          <div style={blueTheme(styles.giftRewardMessage, "surface")}>
+            <div style={blueTheme(styles.giftRewardTitle, "surface")}>🎁 이벤트 당첨 상품이 지급되었습니다!</div>
+            <div style={blueTheme(styles.giftRewardProduct, "surface")}>
               <span>상품명</span>
               <strong>{gift?.product_name || "기프티콘"}</strong>
             </div>
-            <div style={styles.giftRewardLinkLabel}>기프티콘 링크</div>
+            <div style={blueTheme(styles.giftRewardLinkLabel, "surface")}>기프티콘 링크</div>
             {safeUrl ? (
               <a
                 href={safeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={styles.giftRewardButton}
+                style={blueTheme(styles.giftRewardButton, "surface")}
               >
                 🎁 기프티콘 확인하기
               </a>
             ) : (
-              <div style={styles.giftRewardUnavailable}>기프티콘 링크를 확인할 수 없습니다.</div>
+              <div style={blueTheme(styles.giftRewardUnavailable, "surface")}>기프티콘 링크를 확인할 수 없습니다.</div>
             )}
-            <p style={styles.giftRewardCongrats}>이벤트 당첨을 진심으로 축하드립니다 ♥️</p>
-            <small style={styles.giftRewardNotice}>해당 기프티콘은 당첨 회원님께만 지급된 상품입니다.</small>
+            <p style={blueTheme(styles.giftRewardCongrats, "surface")}>이벤트 당첨을 진심으로 축하드립니다 ♥️</p>
+            <small style={blueTheme(styles.giftRewardNotice, "surface")}>해당 기프티콘은 당첨 회원님께만 지급된 상품입니다.</small>
           </div>
         );
       } catch (error) {
@@ -3664,10 +3665,10 @@ export default function Home() {
       try {
         const data = JSON.parse(content.slice("[[VIP_SURPRISE_LINK]]".length));
         return (
-          <div style={{minWidth:"210px",maxWidth:"100%",display:"flex",flexDirection:"column",gap:"10px"}}>
-            <div style={{whiteSpace:"pre-wrap",lineHeight:1.65}}>{String(data?.text || "")}</div>
+          <div style={blueTheme({minWidth:"210px",maxWidth:"100%",display:"flex",flexDirection:"column",gap:"10px"}, "surface")}>
+            <div style={blueTheme({whiteSpace:"pre-wrap",lineHeight:1.65}, "surface")}>{String(data?.text || "")}</div>
             <button type="button" onClick={() => { setChatTab("ai"); window.sessionStorage.setItem("vip-active-tab","ai"); }}
-              style={{display:"block",width:"100%",padding:"11px 14px",borderRadius:"11px",border:"none",background:"linear-gradient(135deg,#c89543,#8e5f24)",color:"#fff",fontWeight:900,cursor:"pointer"}}>
+              style={blueTheme({display:"block",width:"100%",padding:"11px 14px",borderRadius:"11px",border:"none",background:"linear-gradient(135deg,#c89543,#8e5f24)",color:"#fff",fontWeight:900,cursor:"pointer"}, "button")}>
               AI프로세스 바로가기 ›
             </button>
           </div>
@@ -3685,16 +3686,16 @@ export default function Home() {
         const guideText = String(linkData?.text || "").trim();
 
         return (
-          <div style={{minWidth:"210px",maxWidth:"100%",display:"flex",flexDirection:"column",gap:"10px"}}>
-            {guideText && <div style={{whiteSpace:"pre-wrap",lineHeight:1.55}}>{guideText}</div>}
+          <div style={blueTheme({minWidth:"210px",maxWidth:"100%",display:"flex",flexDirection:"column",gap:"10px"}, "surface")}>
+            {guideText && <div style={blueTheme({whiteSpace:"pre-wrap",lineHeight:1.55}, "surface")}>{guideText}</div>}
             {safeUrl ? (
               <a href={safeUrl} target="_blank" rel="noopener noreferrer"
-                style={{display:"block",width:"100%",boxSizing:"border-box",padding:"11px 14px",borderRadius:"11px",
+                style={blueTheme({display:"block",width:"100%",boxSizing:"border-box",padding:"11px 14px",borderRadius:"11px",
                   background:"linear-gradient(135deg, #c89543, #8e5f24)",color:"#fff",fontWeight:900,
-                  textAlign:"center",textDecoration:"none",boxShadow:"0 5px 14px rgba(126,82,28,.22)",overflowWrap:"anywhere"}}>
+                  textAlign:"center",textDecoration:"none",boxShadow:"0 5px 14px rgba(126,82,28,.22)",overflowWrap:"anywhere"}, "accentSurface")}>
                 🔗 {buttonText}
               </a>
-            ) : <div style={{fontSize:"12px",color:"#a33"}}>연결 링크를 확인할 수 없습니다.</div>}
+            ) : <div style={blueTheme({fontSize:"12px",color:"#a33"}, "surface")}>연결 링크를 확인할 수 없습니다.</div>}
           </div>
         );
       } catch (error) {
@@ -3709,7 +3710,7 @@ export default function Home() {
           type="button"
           onClick={() => setChatImagePreview(url)}
           aria-label="사진 크게 보기"
-          style={{
+          style={blueTheme({
             display:"block",
             margin:0,
             padding:0,
@@ -3717,18 +3718,18 @@ export default function Home() {
             background:"transparent",
             cursor:"zoom-in",
             maxWidth:"100%",
-          }}
+          }, "button")}
         >
           <img
             src={url}
             alt="전송 이미지"
-            style={{
+            style={blueTheme({
               display: "block",
               width: "min(180px, 48vw)",
               maxHeight: "220px",
               objectFit: "cover",
               borderRadius: "12px",
-            }}
+            }, "buttonChild")}
           />
         </button>
       );
@@ -3744,11 +3745,11 @@ export default function Home() {
           href={part}
           target="_blank"
           rel="noreferrer"
-          style={{
+          style={blueTheme({
             color: "#9b692d",
             textDecoration: "underline",
             overflowWrap: "anywhere",
-          }}
+          }, "surface")}
         >
           {part}
         </a>
@@ -5081,47 +5082,47 @@ export default function Home() {
 
   if (loading) {
     return (
-      <main style={styles.page}>VIP 혜택을 준비하고 있습니다…</main>
+      <main style={blueTheme(styles.page, "surface")}>VIP 혜택을 준비하고 있습니다…</main>
     );
   }
 
   if (user && profile && vipLocked) {
     const avatarKey = profile.avatar || "01";
     return (
-      <main style={styles.vipReturnPage}>
-        <section style={styles.vipReturnCard}>
-          <div style={styles.vipReturnGlowA}></div>
-          <div style={styles.vipReturnGlowB}></div>
-          <div style={styles.vipReturnCrown}>♛</div>
-          <div style={styles.vipReturnEyebrow}>AI PROCESS · VIP PRIVATE</div>
+      <main style={blueTheme(styles.vipReturnPage, "surface")}>
+        <section style={blueTheme(styles.vipReturnCard, "surface")}>
+          <div style={blueTheme(styles.vipReturnGlowA, "surface")}></div>
+          <div style={blueTheme(styles.vipReturnGlowB, "surface")}></div>
+          <div style={blueTheme(styles.vipReturnCrown, "surface")}>♛</div>
+          <div style={blueTheme(styles.vipReturnEyebrow, "surface")}>AI PROCESS · VIP PRIVATE</div>
 
-          <div style={styles.vipReturnAvatarWrap}>
-            <div style={styles.vipReturnAvatarHalo}></div>
+          <div style={blueTheme(styles.vipReturnAvatarWrap, "surface")}>
+            <div style={blueTheme(styles.vipReturnAvatarHalo, "surface")}></div>
             <img
               src={avatarSrc(avatarKey)}
               alt=""
-              style={styles.vipReturnAvatar}
+              style={blueTheme(styles.vipReturnAvatar, "surface")}
             />
-            <span style={styles.vipReturnSeal}>VIP</span>
+            <span style={blueTheme(styles.vipReturnSeal, "surface")}>VIP</span>
           </div>
 
-          <h2 style={styles.vipReturnTitle}>
+          <h2 style={blueTheme(styles.vipReturnTitle, "surface")}>
             <span>{profile.nickname}</span>님,
             <br />다시 오셨네요
           </h2>
-          <p style={styles.vipReturnText}>
+          <p style={blueTheme(styles.vipReturnText, "surface")}>
             회원님의 프라이빗 VIP 공간이 준비되어 있습니다.
             <br />간편하게 다시 접속하세요.
           </p>
 
-          <button type="button" onClick={resumeVipSession} style={styles.vipReturnPrimary}>
+          <button type="button" onClick={resumeVipSession} style={blueTheme(styles.vipReturnPrimary, "button")}>
             VIP 다시 접속 <span>›</span>
           </button>
-          <button type="button" onClick={switchVipAccount} style={styles.vipReturnSecondary}>
+          <button type="button" onClick={switchVipAccount} style={blueTheme(styles.vipReturnSecondary, "button")}>
             다른 계정으로 로그인
           </button>
 
-          <div style={styles.vipReturnFoot}>
+          <div style={blueTheme(styles.vipReturnFoot, "surface")}>
             <span>◆</span> PRIVATE ACCESS <span>◆</span>
           </div>
         </section>
@@ -5166,28 +5167,28 @@ export default function Home() {
     };
 
     return (
-      <main style={{...styles.refPage,...(mobileViewportHeight ? {height:mobileViewportHeight+"px",minHeight:0} : {})}}>
-        <section style={{...styles.refApp,...(mobileViewportHeight ? {height:mobileViewportHeight+"px",maxHeight:mobileViewportHeight+"px"} : {})}}>
+      <main style={blueTheme({...styles.refPage,...(mobileViewportHeight ? {height:mobileViewportHeight+"px",minHeight:0} : {})}, "surface")}>
+        <section style={blueTheme({...styles.refApp,...(mobileViewportHeight ? {height:mobileViewportHeight+"px",maxHeight:mobileViewportHeight+"px"} : {})}, "surface")}>
           {showSponsorWelcome && profile?.role !== "admin" && (
-            <div style={styles.sponsorWelcomeBackdrop}>
-              <div style={styles.sponsorWelcomeCard}>
-                <div style={styles.sponsorWelcomeGlow}></div>
-                <button type="button" onClick={closeSponsorWelcome} style={styles.sponsorWelcomeClose}>×</button>
+            <div style={blueTheme(styles.sponsorWelcomeBackdrop, "surface")}>
+              <div style={blueTheme(styles.sponsorWelcomeCard, "surface")}>
+                <div style={blueTheme(styles.sponsorWelcomeGlow, "surface")}></div>
+                <button type="button" onClick={closeSponsorWelcome} style={blueTheme(styles.sponsorWelcomeClose, "button")}>×</button>
 
-                <div style={styles.sponsorWelcomeSeal}>VIP</div>
-                <div style={styles.sponsorWelcomeEyebrow}>AI PROCESS · VIP MEMBERSHIP</div>
-                <h2 style={styles.sponsorWelcomeTitle}>
+                <div style={blueTheme(styles.sponsorWelcomeSeal, "surface")}>VIP</div>
+                <div style={blueTheme(styles.sponsorWelcomeEyebrow, "surface")}>AI PROCESS · VIP MEMBERSHIP</div>
+                <h2 style={blueTheme(styles.sponsorWelcomeTitle, "surface")}>
                   {profile?.real_name || profile?.nickname || "VIP 회원"}님, 환영합니다!
                 </h2>
-                <div style={{textAlign:"center",wordBreak:"keep-all",display:"flex",flexDirection:"column",alignItems:"center",gap:"7px",margin:"12px 0 18px"}}>
-                  <p style={{margin:0,fontSize:"13px",lineHeight:1.65,color:"#6e5b46"}}>
+                <div style={blueTheme({textAlign:"center",wordBreak:"keep-all",display:"flex",flexDirection:"column",alignItems:"center",gap:"7px",margin:"12px 0 18px"}, "surface")}>
+                  <p style={blueTheme({margin:0,fontSize:"13px",lineHeight:1.65,color:"#6e5b46"}, "surface")}>
                     저희 기업의 발전과 협업에 함께해 주신 분들을 위한
                   </p>
-                  <strong style={{fontSize:"19px",fontWeight:900,color:"#a47733",lineHeight:1.5}}>프라이빗 VIP 라운지</strong>
-                  <p style={{margin:0,fontSize:"13px",lineHeight:1.6,color:"#7e6f5d"}}>특별한 이벤트와 혜택을 만나보세요.</p>
+                  <strong style={blueTheme({fontSize:"19px",fontWeight:900,color:"#a47733",lineHeight:1.5}, "surface")}>프라이빗 VIP 라운지</strong>
+                  <p style={blueTheme({margin:0,fontSize:"13px",lineHeight:1.6,color:"#7e6f5d"}, "surface")}>특별한 이벤트와 혜택을 만나보세요.</p>
                 </div>
 
-                <div style={styles.sponsorWelcomeNotice}>
+                <div style={blueTheme(styles.sponsorWelcomeNotice, "surface")}>
                   <span>🔔</span>
                   <div>
                     <strong>알림 설정을 꼭 허용해주세요!</strong>
@@ -5195,7 +5196,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <p style={styles.sponsorWelcomeBenefit}>
+                <p style={blueTheme(styles.sponsorWelcomeBenefit, "surface")}>
                   <b>이벤트 · AI프로세스 · 1:1 고객센터</b><br/>
                   모든 VIP 전용 서비스를 편하게 이용해보세요.
                 </p>
@@ -5207,7 +5208,7 @@ export default function Home() {
                   void closeSponsorWelcome();
                   setChatTab("private");
                   openPrivateChat();
-                }} style={styles.sponsorWelcomePrimary}>
+                }} style={blueTheme(styles.sponsorWelcomePrimary, "button")}>
                   확인했어요 <span>›</span>
                 </button>
               </div>
@@ -5215,9 +5216,9 @@ export default function Home() {
           )}
 
           {adminEventEntryTarget && profile?.role === "admin" && (
-            <div style={styles.adminEventEntriesBackdrop} onClick={() => setAdminEventEntryTarget(null)}>
-              <div style={styles.adminEventEntriesModal} onClick={(e) => e.stopPropagation()}>
-                <div style={styles.adminEventEntriesHead}>
+            <div style={blueTheme(styles.adminEventEntriesBackdrop, "surface")} onClick={() => setAdminEventEntryTarget(null)}>
+              <div style={blueTheme(styles.adminEventEntriesModal, "surface")} onClick={(e) => e.stopPropagation()}>
+                <div style={blueTheme(styles.adminEventEntriesHead, "surface")}>
                   <div>
                     <small>EVENT PARTICIPANTS</small>
                     <strong>{adminEventEntryTarget.title || "이벤트"} 참여자</strong>
@@ -5226,19 +5227,19 @@ export default function Home() {
                   <button type="button" onClick={() => setAdminEventEntryTarget(null)}>×</button>
                 </div>
 
-                <div style={styles.adminEventEntriesList}>
+                <div style={blueTheme(styles.adminEventEntriesList, "surface")}>
                   {adminEventEntriesLoading ? (
-                    <div style={styles.adminEventEntriesEmpty}>참여자 명단을 불러오는 중입니다.</div>
+                    <div style={blueTheme(styles.adminEventEntriesEmpty, "surface")}>참여자 명단을 불러오는 중입니다.</div>
                   ) : adminEventEntries.length === 0 ? (
-                    <div style={styles.adminEventEntriesEmpty}>아직 참여한 회원이 없습니다.</div>
+                    <div style={blueTheme(styles.adminEventEntriesEmpty, "surface")}>아직 참여한 회원이 없습니다.</div>
                   ) : adminEventEntries.map((entry, index) => (
-                    <div key={`${entry.member_id}-${entry.submitted_at || index}`} style={styles.adminEventEntryRow}>
-                      <div style={styles.adminEventEntryNo}>{index + 1}</div>
-                      <div style={styles.adminEventEntryMember}>
+                    <div key={`${entry.member_id}-${entry.submitted_at || index}`} style={blueTheme(styles.adminEventEntryRow, "surface")}>
+                      <div style={blueTheme(styles.adminEventEntryNo, "surface")}>{index + 1}</div>
+                      <div style={blueTheme(styles.adminEventEntryMember, "surface")}>
                         <strong>{entry.nickname || "VIP 회원"}</strong>
                         <span>{entry.real_name || "성함 미등록"}</span>
                       </div>
-                      <div style={styles.adminEventEntryMeta}>
+                      <div style={blueTheme(styles.adminEventEntryMeta, "surface")}>
                         <b>{entry.answer ? `응답 ${entry.answer}` : "참여 완료"}</b>
                         <span>{entry.submitted_at ? new Date(entry.submitted_at).toLocaleString("ko-KR") : ""}</span>
                       </div>
@@ -5256,38 +5257,38 @@ export default function Home() {
                 setAdminApprovalAlert(null);
                 void openApprovedMemberManager();
               }}
-              style={{
+              style={blueTheme({
                 position:"fixed",top:"10px",left:"50%",transform:"translateX(-50%)",
                 zIndex:2147483647,width:"min(94vw,520px)",border:"1px solid rgba(212,168,89,.78)",
                 borderRadius:"17px",background:"linear-gradient(135deg,#1b2a38 0%,#0f1d29 100%)",
                 boxShadow:"0 14px 38px rgba(0,0,0,.28)",color:"#fff",padding:"12px 14px",
                 display:"flex",alignItems:"center",gap:"11px",textAlign:"left",cursor:"pointer"
-              }}
+              }, "button")}
             >
-              <span style={{
+              <span style={blueTheme({
                 position:"relative",width:"38px",height:"38px",borderRadius:"50%",
                 display:"grid",placeItems:"center",flex:"0 0 auto",
                 background:"linear-gradient(145deg,#f3d391,#b67a25)",color:"#172431",
                 fontSize:"18px",fontWeight:"1000"
-              }}>
+              }, "buttonChild")}>
                 ♛
-                <span style={{
+                <span style={blueTheme({
                   position:"absolute",right:"-6px",top:"-7px",minWidth:"20px",height:"20px",
                   padding:"0 5px",borderRadius:"999px",display:"grid",placeItems:"center",
                   background:"#e32626",color:"#fff",border:"2px solid #fff",
                   fontSize:"9px",fontWeight:"1000",lineHeight:1
-                }}>{adminApprovalAlert.count}</span>
+                }, "buttonChild")}>{adminApprovalAlert.count}</span>
               </span>
-              <span style={{minWidth:0,flex:1}}>
-                <small style={{display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.5px",color:"#e9c77d"}}>NEW MEMBER</small>
-                <b style={{display:"block",marginTop:"2px",fontSize:"12px"}}>신규 회원가입이 들어왔습니다</b>
-                <small style={{display:"block",marginTop:"3px",fontSize:"9px",color:"#c9d1d8"}}>
+              <span style={blueTheme({minWidth:0,flex:1}, "buttonChild")}>
+                <small style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.5px",color:"#e9c77d"}, "buttonChild")}>NEW MEMBER</small>
+                <b style={blueTheme({display:"block",marginTop:"2px",fontSize:"12px"}, "buttonChild")}>신규 회원가입이 들어왔습니다</b>
+                <small style={blueTheme({display:"block",marginTop:"3px",fontSize:"9px",color:"#c9d1d8"}, "buttonChild")}>
                   {adminApprovalAlert.count > 1
                     ? `${adminApprovalAlert.nickname}님 외 ${adminApprovalAlert.count - 1}명 · 승인 대기`
                     : `${adminApprovalAlert.nickname}님 · 승인 대기`}
                 </small>
               </span>
-              <span style={{fontSize:"8px",fontWeight:"1000",color:"#e9c77d"}}>승인 관리 ›</span>
+              <span style={blueTheme({fontSize:"8px",fontWeight:"1000",color:"#e9c77d"}, "buttonChild")}>승인 관리 ›</span>
             </button>,
             document.body
           )}
@@ -5301,62 +5302,62 @@ export default function Home() {
                 window.sessionStorage.setItem("vip-active-tab", "private");
                 openPrivateChat();
               }}
-              style={styles.refPrivateAlert}
+              style={blueTheme(styles.refPrivateAlert, "button")}
             >
-              <img src="/avatars/01.png" alt="" style={styles.refPrivateAlertAvatar} />
-              <span style={styles.refPrivateAlertCopy}>
-                <b style={styles.refPrivateAlertTitle}>{privateAlert.title}</b>
-                <small style={styles.refPrivateAlertBody}>{privateAlert.body}</small>
+              <img src="/avatars/01.png" alt="" style={blueTheme(styles.refPrivateAlertAvatar, "buttonChild")} />
+              <span style={blueTheme(styles.refPrivateAlertCopy, "buttonChild")}>
+                <b style={blueTheme(styles.refPrivateAlertTitle, "buttonChild")}>{privateAlert.title}</b>
+                <small style={blueTheme(styles.refPrivateAlertBody, "buttonChild")}>{privateAlert.body}</small>
               </span>
-              <span style={styles.refPrivateAlertNow}>지금</span>
+              <span style={blueTheme(styles.refPrivateAlertNow, "buttonChild")}>지금</span>
             </button>,
             document.body
           )}
-          <header style={styles.refHeader}>
-            <div style={styles.refBrand}>
-              <div style={{
+          <header style={blueTheme(styles.refHeader, "accentSurface")}>
+            <div style={blueTheme(styles.refBrand, "surface")}>
+              <div style={blueTheme({
                 display:"flex",
                 flexDirection:"column",
                 justifyContent:"center",
                 lineHeight:1,
                 whiteSpace:"nowrap"
-              }}>
-                <span style={{
+              }, "surface")}>
+                <span style={blueTheme({
                   fontSize:"12px",
                   fontWeight:"1000",
                   letterSpacing:"1.6px",
                   color:"#f0cf86"
-                }}>VIP LOUNGE</span>
-                <span style={{
+                }, "surface")}>VIP LOUNGE</span>
+                <span style={blueTheme({
                   marginTop:"4px",
                   fontSize:"6px",
                   fontWeight:"800",
                   letterSpacing:"1.2px",
                   color:"rgba(255,255,255,.45)"
-                }}>PRIVATE MEMBER</span>
+                }, "surface")}>PRIVATE MEMBER</span>
               </div>
             </div>
-            <div style={styles.refHeaderRight}>
+            <div style={blueTheme(styles.refHeaderRight, "surface")}>
               {!isStandaloneApp && (
                 <button
                   type="button"
                   onClick={() => setShowInstallGuide((prev) => !prev)}
-                  style={{
+                  style={blueTheme({
                     height:"42px",minWidth:"58px",padding:"0 9px",borderRadius:"12px",
                     border:"1px solid #e6c98f",background:"#fffaf0",color:"#6f4d24",
                     display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
                     lineHeight:1.05,cursor:"pointer",fontWeight:"1000",whiteSpace:"nowrap"
-                  }}
+                  }, "button")}
                   aria-label="간편 앱 설치방법"
                 >
-                  <span style={{fontSize:"9px"}}>간편 앱</span>
-                  <span style={{marginTop:"3px",fontSize:"8px",color:"#9a6b2b"}}>설치방법</span>
+                  <span style={blueTheme({fontSize:"9px"}, "buttonChild")}>간편 앱</span>
+                  <span style={blueTheme({marginTop:"3px",fontSize:"8px",color:"#9a6b2b"}, "buttonChild")}>설치방법</span>
                 </button>
               )}
               <button
                 type="button"
                 onClick={enablePrivateNotifications}
-                style={{
+                style={blueTheme({
                   height: "42px",
                   minWidth: "72px",
                   padding: "0 12px",
@@ -5374,32 +5375,32 @@ export default function Home() {
                   position: "relative",
                   zIndex: 2147483647,
                   pointerEvents: "auto"
-                }}
+                }, "button")}
                 aria-label="1:1 알림 켜기"
               >
-                <span style={{fontSize:"17px",pointerEvents:"none"}}>🔔</span>
-                <span style={{pointerEvents:"none"}}>{pushEnabled ? "알림 ON" : "알림 켜기"}</span>
+                <span style={blueTheme({fontSize:"17px",pointerEvents:"none"}, "buttonChild")}>🔔</span>
+                <span style={blueTheme({pointerEvents:"none"}, "buttonChild")}>{pushEnabled ? "알림 ON" : "알림 켜기"}</span>
               </button>
               <button
                 type="button"
                 onClick={() => setShowProfileInfo(true)}
-                style={styles.refMyInfoButton}
+                style={blueTheme(styles.refMyInfoButton, "button")}
                 aria-label="내 정보 보기"
               >
                 <img
                   src={avatarSrc(profile.avatar)}
                   alt=""
-                  style={styles.refMyInfoAvatar}
+                  style={blueTheme(styles.refMyInfoAvatar, "buttonChild")}
                 />
                 <span>내 정보</span>
               </button>
-              <button type="button" onClick={handleLogout} style={styles.refLogoutButton} title="로그아웃">
+              <button type="button" onClick={handleLogout} style={blueTheme(styles.refLogoutButton, "button")} title="로그아웃">
                 <span>↪</span><small>로그아웃</small>
               </button>
             </div>
           </header>
 
-          <nav style={styles.refNav}>
+          <nav style={blueTheme(styles.refNav, "accentSurface")}>
             {navItems.map((nav) => {
               const active = chatTab === nav.id;
               return (
@@ -5407,22 +5408,22 @@ export default function Home() {
                   key={nav.id}
                   type="button"
                   onClick={() => changeTab(nav.id)}
-                  style={{...styles.refNavButton, ...(active ? styles.refNavButtonActive : {})}}
+                  style={blueTheme({...styles.refNavButton, ...(active ? styles.refNavButtonActive : {})}, "button")}
                 >
                   {nav.icon === "bars" ? (
-                    <span style={styles.refAiBars} aria-hidden="true">
-                      <i style={{height:"8px",width:"4px",borderRadius:"2px",background:"currentColor",display:"block"}}></i>
-                      <i style={{height:"14px",width:"4px",borderRadius:"2px",background:"currentColor",display:"block"}}></i>
-                      <i style={{height:"20px",width:"4px",borderRadius:"2px",background:"currentColor",display:"block"}}></i>
+                    <span style={blueTheme(styles.refAiBars, "buttonChild")} aria-hidden="true">
+                      <i style={blueTheme({height:"8px",width:"4px",borderRadius:"2px",background:"currentColor",display:"block"}, "buttonChild")}></i>
+                      <i style={blueTheme({height:"14px",width:"4px",borderRadius:"2px",background:"currentColor",display:"block"}, "buttonChild")}></i>
+                      <i style={blueTheme({height:"20px",width:"4px",borderRadius:"2px",background:"currentColor",display:"block"}, "buttonChild")}></i>
                     </span>
                   ) : (
-                    <span style={styles.refNavIcon}>{nav.icon}</span>
+                    <span style={blueTheme(styles.refNavIcon, "buttonChild")}>{nav.icon}</span>
                   )}
                   <span>{nav.label}</span>
                   {nav.id === "group" && groupUnreadCount > 0 && (
-                    <i style={styles.refNavBadge}>{groupUnreadCount > 99 ? "99+" : groupUnreadCount}</i>
+                    <i style={blueTheme(styles.refNavBadge, "buttonChild")}>{groupUnreadCount > 99 ? "99+" : groupUnreadCount}</i>
                   )}
-                  {nav.id === "private" && unreadPrivate > 0 && <i style={styles.refNavBadge}>{unreadPrivate > 99 ? "99+" : unreadPrivate}</i>}
+                  {nav.id === "private" && unreadPrivate > 0 && <i style={blueTheme(styles.refNavBadge, "buttonChild")}>{unreadPrivate > 99 ? "99+" : unreadPrivate}</i>}
                 </button>
               );
             })}
@@ -5434,66 +5435,66 @@ export default function Home() {
               aria-modal="true"
               aria-label="사진 크게 보기"
               onClick={() => setChatImagePreview("")}
-              style={{
+              style={blueTheme({
                 position:"fixed",inset:0,zIndex:2147483646,
                 background:"rgba(0,0,0,.88)",
                 display:"flex",alignItems:"center",justifyContent:"center",
                 padding:"18px",boxSizing:"border-box",
                 cursor:"zoom-out",
-              }}
+              }, "surface")}
             >
               <button
                 type="button"
                 aria-label="사진 닫기"
                 onClick={() => setChatImagePreview("")}
-                style={{
+                style={blueTheme({
                   position:"fixed",top:"max(18px, env(safe-area-inset-top))",right:"18px",
                   zIndex:2147483647,width:"42px",height:"42px",borderRadius:"50%",
                   border:"1px solid rgba(255,255,255,.45)",background:"rgba(0,0,0,.58)",
                   color:"#fff",fontSize:"28px",lineHeight:1,cursor:"pointer",
                   display:"flex",alignItems:"center",justifyContent:"center",
-                }}
+                }, "button")}
               >×</button>
               <img
                 src={chatImagePreview}
                 alt="확대된 전송 이미지"
                 onClick={(event) => event.stopPropagation()}
-                style={{
+                style={blueTheme({
                   display:"block",maxWidth:"96vw",maxHeight:"92vh",
                   width:"auto",height:"auto",objectFit:"contain",
                   borderRadius:"12px",boxShadow:"0 14px 50px rgba(0,0,0,.45)",
                   cursor:"default",
-                }}
+                }, "surface")}
               />
             </div>
           )}
 
           {showInstallGuide && (
-            <div style={styles.installGuideBackdrop} onClick={() => closeInstallGuide({ never: true })}>
-              <div style={styles.installGuideCard} onClick={(e) => e.stopPropagation()}>
-                <button type="button" onClick={() => closeInstallGuide({ never: true })} style={styles.installGuideClose}>×</button>
-                <div style={styles.installGuideEyebrow}>AI PROCESS VIP</div>
-                <h3 style={styles.installGuideTitle}>VIP 전용 앱 설치 방법</h3>
-                <p style={styles.installGuideText}>
+            <div style={blueTheme(styles.installGuideBackdrop, "surface")} onClick={() => closeInstallGuide({ never: true })}>
+              <div style={blueTheme(styles.installGuideCard, "surface")} onClick={(e) => e.stopPropagation()}>
+                <button type="button" onClick={() => closeInstallGuide({ never: true })} style={blueTheme(styles.installGuideClose, "button")}>×</button>
+                <div style={blueTheme(styles.installGuideEyebrow, "surface")}>AI PROCESS VIP</div>
+                <h3 style={blueTheme(styles.installGuideTitle, "surface")}>VIP 전용 앱 설치 방법</h3>
+                <p style={blueTheme(styles.installGuideText, "surface")}>
                   홈 화면에 앱을 설치해두시면<br />
                   <strong>이벤트 및 1:1 고객센터 알림 확인이 더욱 편리합니다.</strong>
                 </p>
 
-                <div style={styles.installGuideImageWrap}>
+                <div style={blueTheme(styles.installGuideImageWrap, "surface")}>
                   <img
                     src="/vip-install-guide.jpg"
                     alt="아이폰과 갤럭시 VIP 홈페이지 설치 방법"
-                    style={styles.installGuideImage}
+                    style={blueTheme(styles.installGuideImage, "surface")}
                   />
                 </div>
 
-                <div style={styles.installGuideTip}>
+                <div style={blueTheme(styles.installGuideTip, "surface")}>
                   아이폰은 <strong>Safari</strong>, 갤럭시는 <strong>Chrome</strong>에서 안내 순서대로 홈 화면에 추가해주세요.
                 </div>
                 <button
                   type="button"
                   onClick={() => closeInstallGuide({ never: true })}
-                  style={styles.installGuideOk}
+                  style={blueTheme(styles.installGuideOk, "button")}
                 >
                   다시는 보지 않기
                 </button>
@@ -5503,57 +5504,57 @@ export default function Home() {
 
           {showApprovedMemberManager && profile?.role === "admin" && (
             <div
-              style={styles.refModalBackdrop}
+              style={blueTheme(styles.refModalBackdrop, "surface")}
               onClick={() => setShowApprovedMemberManager(false)}
             >
               <div
-                style={{
+                style={blueTheme({
                   ...styles.refModalCard,
                   width:"min(94vw,520px)",
                   maxHeight:"82vh",
                   display:"flex",
                   flexDirection:"column",
                   overflow:"hidden",
-                }}
+                }, "surface")}
                 onClick={(event) => event.stopPropagation()}
               >
-                <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:"10px"}}>
+                <div style={blueTheme({display:"flex",alignItems:"center",justifyContent:"space-between",gap:"10px"}, "surface")}>
                   <div>
-                    <span style={{display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.5px",color:"#a16e2a"}}>MEMBER MANAGEMENT</span>
-                    <strong style={{display:"block",marginTop:"3px",fontSize:"17px",color:"#2b2118"}}>전체 회원 관리</strong>
-                    <span style={{display:"block",marginTop:"3px",fontSize:"8px",color:"#8e7d6b"}}>
+                    <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.5px",color:"#a16e2a"}, "surface")}>MEMBER MANAGEMENT</span>
+                    <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:"17px",color:"#2b2118"}, "surface")}>전체 회원 관리</strong>
+                    <span style={blueTheme({display:"block",marginTop:"3px",fontSize:"8px",color:"#8e7d6b"}, "surface")}>
                       가입 닉네임 · 성함 · 승인상태 · 접속/알림 상태를 한 번에 확인합니다
                     </span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setShowApprovedMemberManager(false)}
-                    style={{border:0,background:"#f1e6d5",width:"32px",height:"32px",borderRadius:"50%",fontSize:"17px",cursor:"pointer"}}
+                    style={blueTheme({border:0,background:"#f1e6d5",width:"32px",height:"32px",borderRadius:"50%",fontSize:"17px",cursor:"pointer"}, "button")}
                   >×</button>
                 </div>
 
-                <div style={{position:"relative",marginTop:"13px"}}>
-                  <span style={{position:"absolute",left:"12px",top:"50%",transform:"translateY(-50%)",fontSize:"13px"}}>⌕</span>
+                <div style={blueTheme({position:"relative",marginTop:"13px"}, "surface")}>
+                  <span style={blueTheme({position:"absolute",left:"12px",top:"50%",transform:"translateY(-50%)",fontSize:"13px"}, "surface")}>⌕</span>
                   <input
                     value={approvedMemberManagerSearch}
                     onChange={(event) => setApprovedMemberManagerSearch(event.target.value)}
                     placeholder="닉네임 또는 성함 검색"
-                    style={{
+                    style={blueTheme({
                       width:"100%",boxSizing:"border-box",border:"1px solid #ddc7a6",
                       borderRadius:"13px",padding:"11px 12px 11px 34px",background:"#fff",
                       color:"#2b2118",fontSize:"10px",outline:"none"
-                    }}
+                    }, "surface")}
                   />
                 </div>
 
-                <div style={{
+                <div style={blueTheme({
                   marginTop:"10px",padding:"8px 10px",borderRadius:"11px",
                   background:"#172938",color:"#f4d89e",fontSize:"8px",fontWeight:"900"
-                }}>
+                }, "surface")}>
                   전체 {approvedMemberManagerRows.length.toLocaleString("ko-KR")}명 · 승인완료 {approvedMemberManagerRows.filter((m)=>String(m.approval_status)==="1").length.toLocaleString("ko-KR")}명 · 승인대기 {approvedMemberManagerRows.filter((m)=>String(m.approval_status)==="0").length.toLocaleString("ko-KR")}명
                 </div>
 
-                <div style={{marginTop:"8px",overflowY:"auto",minHeight:0,flex:1}}>
+                <div style={blueTheme({marginTop:"8px",overflowY:"auto",minHeight:0,flex:1}, "surface")}>
                   {approvedMemberManagerRows
                     .filter((member) => {
                       const keyword = approvedMemberManagerSearch.trim().toLowerCase();
@@ -5566,37 +5567,37 @@ export default function Home() {
                       return (
                         <div
                           key={member.member_id}
-                          style={{
+                          style={blueTheme({
                             width:"100%",boxSizing:"border-box",
                             borderBottom:"1px solid #eee1cf",
                             padding:"11px 3px",display:"flex",alignItems:"center",gap:"10px"
-                          }}
+                          }, "surface")}
                         >
                           <img
                             src={avatarSrc(avatar)}
                             alt=""
-                            style={{width:"38px",height:"38px",borderRadius:"50%",objectFit:"cover",border:"1px solid #dfc28f",flex:"0 0 auto"}}
+                            style={blueTheme({width:"38px",height:"38px",borderRadius:"50%",objectFit:"cover",border:"1px solid #dfc28f",flex:"0 0 auto"}, "surface")}
                           />
-                          <div style={{minWidth:0,flex:1}}>
-                            <div style={{display:"flex",alignItems:"center",gap:"6px",flexWrap:"wrap"}}>
-                              <strong style={{fontSize:"10px",color:"#2b2118"}}>{member.nickname || "VIP 회원"}</strong>
-                              <span style={{
+                          <div style={blueTheme({minWidth:0,flex:1}, "surface")}>
+                            <div style={blueTheme({display:"flex",alignItems:"center",gap:"6px",flexWrap:"wrap"}, "surface")}>
+                              <strong style={blueTheme({fontSize:"10px",color:"#2b2118"}, "surface")}>{member.nickname || "VIP 회원"}</strong>
+                              <span style={blueTheme({
                                 padding:"3px 7px",borderRadius:"999px",fontSize:"7px",fontWeight:"1000",
                                 background:approved?"#e5f4ec":"#fff0d8",color:approved?"#176443":"#a46113"
-                              }}>
+                              }, "surface")}>
                                 {approved ? "승인완료 1" : "승인전 0"}
                               </span>
-                              <span style={{padding:"3px 7px",borderRadius:"999px",fontSize:"7px",fontWeight:"1000",background:memberPresence[String(member.member_id)]?"#e5f4ec":"#f0ede8",color:memberPresence[String(member.member_id)]?"#16834f":"#8a8178"}}>
+                              <span style={blueTheme({padding:"3px 7px",borderRadius:"999px",fontSize:"7px",fontWeight:"1000",background:memberPresence[String(member.member_id)]?"#e5f4ec":"#f0ede8",color:memberPresence[String(member.member_id)]?"#16834f":"#8a8178"}, "surface")}>
                                 {memberPresence[String(member.member_id)] ? "🟢 온라인" : "⚫ 오프라인"}
                               </span>
-                              <span style={{padding:"3px 7px",borderRadius:"999px",fontSize:"7px",fontWeight:"1000",background:adminPushStatus[String(member.member_id)]?.enabled?"#e8f1ff":"#f3eee7",color:adminPushStatus[String(member.member_id)]?.enabled?"#1768d8":"#8a8178"}}>
+                              <span style={blueTheme({padding:"3px 7px",borderRadius:"999px",fontSize:"7px",fontWeight:"1000",background:adminPushStatus[String(member.member_id)]?.enabled?"#e8f1ff":"#f3eee7",color:adminPushStatus[String(member.member_id)]?.enabled?"#1768d8":"#8a8178"}, "surface")}>
                                 {adminPushStatus[String(member.member_id)]?.enabled ? "🔔 알림 ON" : "🔕 알림 OFF"}
                               </span>
                             </div>
-                            <div style={{marginTop:"4px",fontSize:"8px",lineHeight:1.6,color:"#756557"}}>
-                              <span>성함 <b style={{color:"#34271e"}}>{member.real_name || "-"}</b></span>
+                            <div style={blueTheme({marginTop:"4px",fontSize:"8px",lineHeight:1.6,color:"#756557"}, "surface")}>
+                              <span>성함 <b style={blueTheme({color:"#34271e"}, "surface")}>{member.real_name || "-"}</b></span>
                               {String(member.member_id) !== String(user?.id) && (
-                                <label style={{marginLeft:"8px",fontSize:"8px",fontWeight:900,color:"#74552c"}}>
+                                <label style={blueTheme({marginLeft:"8px",fontSize:"8px",fontWeight:900,color:"#74552c"}, "surface")}>
                                   상품 지급
                                   <select
                                     value={member.reward_account_type || "real"}
@@ -5627,7 +5628,7 @@ export default function Home() {
                                         setApprovedMemberManagerWorking(false);
                                       }
                                     }}
-                                    style={{marginLeft:"5px",border:"1px solid #d8bd91",borderRadius:"7px",padding:"4px",fontSize:"8px",background:"#fff"}}
+                                    style={blueTheme({marginLeft:"5px",border:"1px solid #d8bd91",borderRadius:"7px",padding:"4px",fontSize:"8px",background:"#fff"}, "surface")}
                                   >
                                     <option value="real">실제 지급</option>
                                     <option value="virtual">가상 지급</option>
@@ -5641,14 +5642,14 @@ export default function Home() {
                                   setAdminEditRealName(member.real_name || "");
                                   setAdminIdentityTarget(member);
                                 }}
-                                style={{marginLeft:"10px",border:"1px solid #d8bd91",borderRadius:"8px",padding:"3px 7px",background:"#fff8ec",color:"#8a5c25",fontSize:"7.5px",fontWeight:"900",cursor:"pointer"}}
+                                style={blueTheme({marginLeft:"10px",border:"1px solid #d8bd91",borderRadius:"8px",padding:"3px 7px",background:"#fff8ec",color:"#8a5c25",fontSize:"7.5px",fontWeight:"900",cursor:"pointer"}, "button")}
                               >
                                 닉네임/성함 변경
                               </button>
                               <button
                                 type="button"
                                 onClick={() => { setAdminNewPassword(""); setAdminPasswordTarget(member); }}
-                                style={{marginLeft:"6px",border:"1px solid #d8bd91",borderRadius:"8px",padding:"3px 7px",background:"#fff8ec",color:"#8a5c25",fontSize:"7.5px",fontWeight:"900",cursor:"pointer"}}
+                                style={blueTheme({marginLeft:"6px",border:"1px solid #d8bd91",borderRadius:"8px",padding:"3px 7px",background:"#fff8ec",color:"#8a5c25",fontSize:"7.5px",fontWeight:"900",cursor:"pointer"}, "button")}
                               >
                                 비밀번호 변경
                               </button>
@@ -5660,7 +5661,7 @@ export default function Home() {
                                 type="button"
                                 disabled={approvedMemberManagerWorking}
                                 onClick={() => adminRevokeApprovedMember(member.member_id, member.nickname || "회원")}
-                                style={{border:0,borderRadius:"10px",padding:"8px 9px",background:"#8b3b34",color:"#fff",fontSize:"7.5px",fontWeight:"1000",cursor:"pointer",whiteSpace:"nowrap"}}
+                                style={blueTheme({border:0,borderRadius:"10px",padding:"8px 9px",background:"#8b3b34",color:"#fff",fontSize:"7.5px",fontWeight:"1000",cursor:"pointer",whiteSpace:"nowrap"}, "button")}
                               >
                                 승인해제
                               </button>
@@ -5669,7 +5670,7 @@ export default function Home() {
                                 type="button"
                                 disabled={adminApprovalWorking}
                                 onClick={() => approveAdminMember(member.member_id, member.nickname || "회원")}
-                                style={{border:0,borderRadius:"10px",padding:"8px 9px",background:"#176443",color:"#fff",fontSize:"7.5px",fontWeight:"1000",cursor:"pointer",whiteSpace:"nowrap"}}
+                                style={blueTheme({border:0,borderRadius:"10px",padding:"8px 9px",background:"#176443",color:"#fff",fontSize:"7.5px",fontWeight:"1000",cursor:"pointer",whiteSpace:"nowrap"}, "button")}
                               >
                                 승인
                               </button>
@@ -5683,7 +5684,7 @@ export default function Home() {
                     if (!keyword) return true;
                     return `${member.nickname || ""} ${member.real_name || ""}`.toLowerCase().includes(keyword);
                   }).length === 0 && (
-                    <div style={{padding:"24px 10px",textAlign:"center",fontSize:"9px",color:"#9a8875"}}>
+                    <div style={blueTheme({padding:"24px 10px",textAlign:"center",fontSize:"9px",color:"#9a8875"}, "surface")}>
                       검색 결과가 없습니다.
                     </div>
                   )}
@@ -5693,19 +5694,19 @@ export default function Home() {
           )}
 
           {showProfileInfo && (
-            <div style={styles.refProfileOverlay} onClick={() => setShowProfileInfo(false)}>
-              <div style={styles.refProfileCard} onClick={(e) => e.stopPropagation()}>
-                <button type="button" onClick={() => setShowProfileInfo(false)} style={styles.refProfileClose}>×</button>
-                <div style={styles.refProfileVip}>AI PROCESS VIP</div>
-                <strong style={styles.refProfileName}>{profile.nickname}</strong>
-                <div style={styles.refProfileRows}>
-                  <div style={{display:"flex",justifyContent:"space-between",padding:"11px 13px",borderBottom:"1px solid #eadbc7"}}><span style={{color:"#8a7768"}}>닉네임</span><b>{profile.nickname || "-"}</b></div>
-                  <div style={{display:"flex",justifyContent:"space-between",padding:"11px 13px",borderBottom:"1px solid #eadbc7"}}><span style={{color:"#8a7768"}}>성함</span><b>{profile.real_name || "-"}</b></div>
-                  <div style={{display:"flex",justifyContent:"space-between",padding:"11px 13px",borderBottom:"1px solid #eadbc7"}}><span style={{color:"#8a7768"}}>회원등급</span><b>{profile.role === "admin" ? "관리자" : "VIP 회원"}</b></div>
-                  <div style={{display:"flex",justifyContent:"space-between",padding:"11px 13px"}}><span style={{color:"#8a7768"}}>승인상태</span><b>{profile.approval_status === "1" ? "승인 완료" : profile.approval_status}</b></div>
+            <div style={blueTheme(styles.refProfileOverlay, "surface")} onClick={() => setShowProfileInfo(false)}>
+              <div style={blueTheme(styles.refProfileCard, "surface")} onClick={(e) => e.stopPropagation()}>
+                <button type="button" onClick={() => setShowProfileInfo(false)} style={blueTheme(styles.refProfileClose, "button")}>×</button>
+                <div style={blueTheme(styles.refProfileVip, "surface")}>AI PROCESS VIP</div>
+                <strong style={blueTheme(styles.refProfileName, "surface")}>{profile.nickname}</strong>
+                <div style={blueTheme(styles.refProfileRows, "surface")}>
+                  <div style={blueTheme({display:"flex",justifyContent:"space-between",padding:"11px 13px",borderBottom:"1px solid #eadbc7"}, "surface")}><span style={blueTheme({color:"#8a7768"}, "surface")}>닉네임</span><b>{profile.nickname || "-"}</b></div>
+                  <div style={blueTheme({display:"flex",justifyContent:"space-between",padding:"11px 13px",borderBottom:"1px solid #eadbc7"}, "surface")}><span style={blueTheme({color:"#8a7768"}, "surface")}>성함</span><b>{profile.real_name || "-"}</b></div>
+                  <div style={blueTheme({display:"flex",justifyContent:"space-between",padding:"11px 13px",borderBottom:"1px solid #eadbc7"}, "surface")}><span style={blueTheme({color:"#8a7768"}, "surface")}>회원등급</span><b>{profile.role === "admin" ? "관리자" : "VIP 회원"}</b></div>
+                  <div style={blueTheme({display:"flex",justifyContent:"space-between",padding:"11px 13px"}, "surface")}><span style={blueTheme({color:"#8a7768"}, "surface")}>승인상태</span><b>{profile.approval_status === "1" ? "승인 완료" : profile.approval_status}</b></div>
                 </div>
-                <p style={styles.refProfileNote}>로그인 비밀번호는 이 화면에서 직접 변경할 수 있습니다.</p>
-                <button type="button" onClick={() => {setShowProfileInfo(false); setNewPassword(""); setNewPasswordConfirm(""); setShowPasswordChange(true);}} style={styles.refProfileEdit}>
+                <p style={blueTheme(styles.refProfileNote, "surface")}>로그인 비밀번호는 이 화면에서 직접 변경할 수 있습니다.</p>
+                <button type="button" onClick={() => {setShowProfileInfo(false); setNewPassword(""); setNewPasswordConfirm(""); setShowPasswordChange(true);}} style={blueTheme(styles.refProfileEdit, "button")}>
                   비밀번호 변경
                 </button>
               </div>
@@ -5713,33 +5714,33 @@ export default function Home() {
           )}
 
           {showPasswordChange && (
-            <div style={{
+            <div style={blueTheme({
                 position:"fixed", inset:0, zIndex:2147483647,
                 background:"rgba(18,13,10,.62)",
                 backdropFilter:"blur(6px)", WebkitBackdropFilter:"blur(6px)",
                 display:"flex", alignItems:"center", justifyContent:"center", padding:"18px"
-              }} onClick={() => !passwordChangeWorking && setShowPasswordChange(false)}>
-              <div style={{
+              }, "surface")} onClick={() => !passwordChangeWorking && setShowPasswordChange(false)}>
+              <div style={blueTheme({
                   width:"min(92vw,420px)", maxHeight:"86vh", overflowY:"auto",
                   boxSizing:"border-box", borderRadius:"20px", padding:"18px",
                   background:"#fffaf2", border:"1px solid #e4c99d",
                   boxShadow:"0 22px 70px rgba(20,14,9,.35)"
-                }} onClick={(e)=>e.stopPropagation()}>
-                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:"10px"}}>
+                }, "surface")} onClick={(e)=>e.stopPropagation()}>
+                <div style={blueTheme({display:"flex",justifyContent:"space-between",alignItems:"center",gap:"10px"}, "surface")}>
                   <div>
-                    <span style={{display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#a16e2a"}}>MY ACCOUNT</span>
-                    <strong style={{display:"block",marginTop:"3px",fontSize:"17px",color:"#2b2118"}}>비밀번호 변경</strong>
+                    <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#a16e2a"}, "surface")}>MY ACCOUNT</span>
+                    <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:"17px",color:"#2b2118"}, "surface")}>비밀번호 변경</strong>
                   </div>
-                  <button type="button" disabled={passwordChangeWorking} onClick={()=>setShowPasswordChange(false)} style={{border:0,background:"#f1e6d5",width:"32px",height:"32px",borderRadius:"50%",fontSize:"17px",cursor:"pointer"}}>×</button>
+                  <button type="button" disabled={passwordChangeWorking} onClick={()=>setShowPasswordChange(false)} style={blueTheme({border:0,background:"#f1e6d5",width:"32px",height:"32px",borderRadius:"50%",fontSize:"17px",cursor:"pointer"}, "button")}>×</button>
                 </div>
-                <div style={{marginTop:"16px",display:"grid",gap:"10px"}}>
+                <div style={blueTheme({marginTop:"16px",display:"grid",gap:"10px"}, "surface")}>
                   <input
                     type="password"
                     value={newPassword}
                     onChange={(e)=>setNewPassword(e.target.value)}
                     placeholder="새 비밀번호 4자리 이상"
                     autoComplete="new-password"
-                    style={{width:"100%",boxSizing:"border-box",border:"1px solid #ddc7a6",borderRadius:"12px",padding:"12px",fontSize:"11px",outline:"none"}}
+                    style={blueTheme({width:"100%",boxSizing:"border-box",border:"1px solid #ddc7a6",borderRadius:"12px",padding:"12px",fontSize:"11px",outline:"none"}, "surface")}
                   />
                   <input
                     type="password"
@@ -5747,9 +5748,9 @@ export default function Home() {
                     onChange={(e)=>setNewPasswordConfirm(e.target.value)}
                     placeholder="새 비밀번호 다시 입력"
                     autoComplete="new-password"
-                    style={{width:"100%",boxSizing:"border-box",border:"1px solid #ddc7a6",borderRadius:"12px",padding:"12px",fontSize:"11px",outline:"none"}}
+                    style={blueTheme({width:"100%",boxSizing:"border-box",border:"1px solid #ddc7a6",borderRadius:"12px",padding:"12px",fontSize:"11px",outline:"none"}, "surface")}
                   />
-                  <button type="button" disabled={passwordChangeWorking} onClick={changeMyPassword} style={{border:0,borderRadius:"12px",padding:"12px",background:"#172938",color:"#f4d89e",fontSize:"10px",fontWeight:"1000",cursor:"pointer"}}>
+                  <button type="button" disabled={passwordChangeWorking} onClick={changeMyPassword} style={blueTheme({border:0,borderRadius:"12px",padding:"12px",background:"#172938",color:"#f4d89e",fontSize:"10px",fontWeight:"1000",cursor:"pointer"}, "button")}>
                     {passwordChangeWorking ? "변경 중..." : "새 비밀번호로 변경"}
                   </button>
                 </div>
@@ -5758,46 +5759,46 @@ export default function Home() {
           )}
 
           {adminIdentityTarget && profile?.role === "admin" && (
-            <div style={{
+            <div style={blueTheme({
                 position:"fixed", inset:0, zIndex:2147483647,
                 background:"rgba(18,13,10,.62)",
                 backdropFilter:"blur(6px)", WebkitBackdropFilter:"blur(6px)",
                 display:"flex", alignItems:"center", justifyContent:"center", padding:"18px"
-              }} onClick={() => !adminIdentityWorking && setAdminIdentityTarget(null)}>
-              <div style={{
+              }, "surface")} onClick={() => !adminIdentityWorking && setAdminIdentityTarget(null)}>
+              <div style={blueTheme({
                   width:"min(92vw,430px)", maxHeight:"86vh", overflowY:"auto",
                   boxSizing:"border-box", borderRadius:"20px", padding:"18px",
                   background:"#fffaf2", border:"1px solid #e4c99d",
                   boxShadow:"0 22px 70px rgba(20,14,9,.35)"
-                }} onClick={(e)=>e.stopPropagation()}>
-                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:"10px"}}>
+                }, "surface")} onClick={(e)=>e.stopPropagation()}>
+                <div style={blueTheme({display:"flex",justifyContent:"space-between",alignItems:"center",gap:"10px"}, "surface")}>
                   <div>
-                    <span style={{display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#a16e2a"}}>ADMIN MEMBER</span>
-                    <strong style={{display:"block",marginTop:"3px",fontSize:"17px",color:"#2b2118"}}>닉네임 / 성함 변경</strong>
+                    <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#a16e2a"}, "surface")}>ADMIN MEMBER</span>
+                    <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:"17px",color:"#2b2118"}, "surface")}>닉네임 / 성함 변경</strong>
                   </div>
-                  <button type="button" disabled={adminIdentityWorking} onClick={()=>setAdminIdentityTarget(null)} style={{border:0,background:"#f1e6d5",width:"32px",height:"32px",borderRadius:"50%",fontSize:"17px",cursor:"pointer"}}>×</button>
+                  <button type="button" disabled={adminIdentityWorking} onClick={()=>setAdminIdentityTarget(null)} style={blueTheme({border:0,background:"#f1e6d5",width:"32px",height:"32px",borderRadius:"50%",fontSize:"17px",cursor:"pointer"}, "button")}>×</button>
                 </div>
-                <div style={{marginTop:"16px",display:"grid",gap:"10px"}}>
-                  <label style={{fontSize:"8px",fontWeight:"900",color:"#756557"}}>닉네임</label>
+                <div style={blueTheme({marginTop:"16px",display:"grid",gap:"10px"}, "surface")}>
+                  <label style={blueTheme({fontSize:"8px",fontWeight:"900",color:"#756557"}, "surface")}>닉네임</label>
                   <input
                     type="text"
                     value={adminEditNickname}
                     onChange={(e)=>setAdminEditNickname(e.target.value)}
                     placeholder="새 닉네임"
-                    style={{width:"100%",boxSizing:"border-box",border:"1px solid #ddc7a6",borderRadius:"12px",padding:"12px",fontSize:"11px",outline:"none"}}
+                    style={blueTheme({width:"100%",boxSizing:"border-box",border:"1px solid #ddc7a6",borderRadius:"12px",padding:"12px",fontSize:"11px",outline:"none"}, "surface")}
                   />
-                  <label style={{fontSize:"8px",fontWeight:"900",color:"#756557"}}>성함 · 로그인 아이디</label>
+                  <label style={blueTheme({fontSize:"8px",fontWeight:"900",color:"#756557"}, "surface")}>성함 · 로그인 아이디</label>
                   <input
                     type="text"
                     value={adminEditRealName}
                     onChange={(e)=>setAdminEditRealName(e.target.value)}
                     placeholder="새 성함"
-                    style={{width:"100%",boxSizing:"border-box",border:"1px solid #ddc7a6",borderRadius:"12px",padding:"12px",fontSize:"11px",outline:"none"}}
+                    style={blueTheme({width:"100%",boxSizing:"border-box",border:"1px solid #ddc7a6",borderRadius:"12px",padding:"12px",fontSize:"11px",outline:"none"}, "surface")}
                   />
-                  <button type="button" disabled={adminIdentityWorking} onClick={adminChangeMemberIdentity} style={{border:0,borderRadius:"12px",padding:"12px",background:"#172938",color:"#f4d89e",fontSize:"10px",fontWeight:"1000",cursor:"pointer"}}>
+                  <button type="button" disabled={adminIdentityWorking} onClick={adminChangeMemberIdentity} style={blueTheme({border:0,borderRadius:"12px",padding:"12px",background:"#172938",color:"#f4d89e",fontSize:"10px",fontWeight:"1000",cursor:"pointer"}, "button")}>
                     {adminIdentityWorking ? "변경 중..." : "닉네임 / 성함 변경"}
                   </button>
-                  <div style={{fontSize:"8px",lineHeight:1.6,color:"#8e7d6b"}}>
+                  <div style={blueTheme({fontSize:"8px",lineHeight:1.6,color:"#8e7d6b"}, "surface")}>
                     성함을 변경하면 다음 로그인부터 변경된 성함 + 기존 비밀번호로 로그인합니다.
                   </div>
                 </div>
@@ -5806,39 +5807,39 @@ export default function Home() {
           )}
 
           {adminPasswordTarget && profile?.role === "admin" && (
-            <div style={{
+            <div style={blueTheme({
                 position:"fixed", inset:0, zIndex:2147483647,
                 background:"rgba(18,13,10,.62)",
                 backdropFilter:"blur(6px)", WebkitBackdropFilter:"blur(6px)",
                 display:"flex", alignItems:"center", justifyContent:"center", padding:"18px"
-              }} onClick={() => !passwordChangeWorking && setAdminPasswordTarget(null)}>
-              <div style={{
+              }, "surface")} onClick={() => !passwordChangeWorking && setAdminPasswordTarget(null)}>
+              <div style={blueTheme({
                   width:"min(92vw,420px)", maxHeight:"86vh", overflowY:"auto",
                   boxSizing:"border-box", borderRadius:"20px", padding:"18px",
                   background:"#fffaf2", border:"1px solid #e4c99d",
                   boxShadow:"0 22px 70px rgba(20,14,9,.35)"
-                }} onClick={(e)=>e.stopPropagation()}>
-                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:"10px"}}>
+                }, "surface")} onClick={(e)=>e.stopPropagation()}>
+                <div style={blueTheme({display:"flex",justifyContent:"space-between",alignItems:"center",gap:"10px"}, "surface")}>
                   <div>
-                    <span style={{display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#a16e2a"}}>ADMIN PASSWORD</span>
-                    <strong style={{display:"block",marginTop:"3px",fontSize:"17px",color:"#2b2118"}}>{adminPasswordTarget.nickname || "회원"} 비밀번호 변경</strong>
-                    <span style={{display:"block",marginTop:"4px",fontSize:"8px",color:"#8e7d6b"}}>성함 {adminPasswordTarget.real_name || "-"}</span>
+                    <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#a16e2a"}, "surface")}>ADMIN PASSWORD</span>
+                    <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:"17px",color:"#2b2118"}, "surface")}>{adminPasswordTarget.nickname || "회원"} 비밀번호 변경</strong>
+                    <span style={blueTheme({display:"block",marginTop:"4px",fontSize:"8px",color:"#8e7d6b"}, "surface")}>성함 {adminPasswordTarget.real_name || "-"}</span>
                   </div>
-                  <button type="button" disabled={passwordChangeWorking} onClick={()=>setAdminPasswordTarget(null)} style={{border:0,background:"#f1e6d5",width:"32px",height:"32px",borderRadius:"50%",fontSize:"17px",cursor:"pointer"}}>×</button>
+                  <button type="button" disabled={passwordChangeWorking} onClick={()=>setAdminPasswordTarget(null)} style={blueTheme({border:0,background:"#f1e6d5",width:"32px",height:"32px",borderRadius:"50%",fontSize:"17px",cursor:"pointer"}, "button")}>×</button>
                 </div>
-                <div style={{marginTop:"16px",display:"grid",gap:"10px"}}>
+                <div style={blueTheme({marginTop:"16px",display:"grid",gap:"10px"}, "surface")}>
                   <input
                     type="password"
                     value={adminNewPassword}
                     onChange={(e)=>setAdminNewPassword(e.target.value)}
                     placeholder="새 비밀번호 4자리 이상"
                     autoComplete="new-password"
-                    style={{width:"100%",boxSizing:"border-box",border:"1px solid #ddc7a6",borderRadius:"12px",padding:"12px",fontSize:"11px",outline:"none"}}
+                    style={blueTheme({width:"100%",boxSizing:"border-box",border:"1px solid #ddc7a6",borderRadius:"12px",padding:"12px",fontSize:"11px",outline:"none"}, "surface")}
                   />
-                  <button type="button" disabled={passwordChangeWorking} onClick={adminChangeMemberPassword} style={{border:0,borderRadius:"12px",padding:"12px",background:"#8b3b34",color:"#fff",fontSize:"10px",fontWeight:"1000",cursor:"pointer"}}>
+                  <button type="button" disabled={passwordChangeWorking} onClick={adminChangeMemberPassword} style={blueTheme({border:0,borderRadius:"12px",padding:"12px",background:"#8b3b34",color:"#fff",fontSize:"10px",fontWeight:"1000",cursor:"pointer"}, "button")}>
                     {passwordChangeWorking ? "변경 중..." : "회원 비밀번호 변경"}
                   </button>
-                  <div style={{fontSize:"8px",lineHeight:1.6,color:"#8e7d6b"}}>
+                  <div style={blueTheme({fontSize:"8px",lineHeight:1.6,color:"#8e7d6b"}, "surface")}>
                     기존 비밀번호 원문은 표시하지 않습니다. 관리자는 새 비밀번호만 지정할 수 있습니다.
                   </div>
                 </div>
@@ -5846,21 +5847,21 @@ export default function Home() {
             </div>
           )}
 
-          <div style={styles.refBody}>
+          <div style={blueTheme(styles.refBody, "surface")}>
             {GROUP_CHAT_ENABLED && chatTab === "group" && (
-              <div style={styles.refScreen}>
-                <div style={styles.refMemberStrip}>
+              <div style={blueTheme(styles.refScreen, "surface")}>
+                <div style={blueTheme(styles.refMemberStrip, "surface")}>
                   <img
                     src={avatarSrc(profile.avatar)}
                     alt=""
-                    style={styles.refMemberStripAvatar}
+                    style={blueTheme(styles.refMemberStripAvatar, "surface")}
                   />
-                  <div style={styles.refRoomIdentity}>
-                    <div style={styles.refRoomNameRow}>
+                  <div style={blueTheme(styles.refRoomIdentity, "surface")}>
+                    <div style={blueTheme(styles.refRoomNameRow, "surface")}>
                       <strong>{profile.nickname}</strong>
-                      <em style={styles.refVipBadge}>VIP</em>
+                      <em style={blueTheme(styles.refVipBadge, "surface")}>VIP</em>
                     </div>
-                    <span style={styles.refOnlineText}><i style={styles.refOnlineDot}></i>온라인</span>
+                    <span style={blueTheme(styles.refOnlineText, "surface")}><i style={blueTheme(styles.refOnlineDot, "surface")}></i>온라인</span>
                   </div>
                   <button
                     type="button"
@@ -5868,26 +5869,26 @@ export default function Home() {
                       setChatTab("event");
                       if (typeof window !== "undefined") window.sessionStorage.setItem("vip-active-tab", "event");
                     }}
-                    style={{
+                    style={blueTheme({
                       marginLeft:"auto",marginRight:"10px",border:0,borderRadius:"999px",
                       padding:"6px 10px",maxWidth:"180px",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",
                       background:nextEventStatus.live?"#fff0ef":"#f7efe3",
                       color:nextEventStatus.live?"#d7352d":"#8a5d24",fontSize:"8px",fontWeight:"1000",cursor:"pointer",
                       boxShadow:"inset 0 0 0 1px rgba(181,132,65,.22)"
-                    }}
+                    }, "button")}
                     title={nextEventStatus.live ? "이벤트 탭에서 바로 참여하기" : nextEventStatus.text}
                   >
                     {nextEventStatus.live ? "🔴 " : "🎁 "}{nextEventStatus.text}
                   </button>
                   <div
-                    style={{
+                    style={blueTheme({
                       ...styles.refMemberCount,
                       cursor: profile?.role === "admin" ? "pointer" : "default",
-                    }}
+                    }, "surface")}
                     onClick={() => profile?.role === "admin" && openApprovedMemberManager()}
                     title={profile?.role === "admin" ? "승인 회원 관리" : undefined}
                   >
-                    <span style={styles.refMemberCountIcon}>
+                    <span style={blueTheme(styles.refMemberCountIcon, "surface")}>
                       <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
                         <circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" strokeWidth="1.7"/>
                         <circle cx="16.5" cy="9" r="2.4" fill="none" stroke="currentColor" strokeWidth="1.5" opacity=".72"/>
@@ -5895,11 +5896,11 @@ export default function Home() {
                         <path d="M14.4 14.2c2.8-.5 4.9.9 5.5 3.3" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity=".72"/>
                       </svg>
                     </span>
-                    <span style={styles.refMemberCountLabel}>MEMBERS</span>
-                    <strong style={styles.refMemberCountNumber}>{approvedMemberCount.toLocaleString("ko-KR")}명</strong>
+                    <span style={blueTheme(styles.refMemberCountLabel, "surface")}>MEMBERS</span>
+                    <strong style={blueTheme(styles.refMemberCountNumber, "surface")}>{approvedMemberCount.toLocaleString("ko-KR")}명</strong>
                   </div>
                   {profile?.role === "admin" && (
-                    <button type="button" onClick={toggleGroupChatFreeze} style={styles.refAdminMini}>
+                    <button type="button" onClick={toggleGroupChatFreeze} style={blueTheme(styles.refAdminMini, "button")}>
                       {chatFrozen ? "채팅 열기" : "채팅 잠금"}
                     </button>
                   )}
@@ -5907,16 +5908,16 @@ export default function Home() {
 
                 {profile?.role !== "admin" && (aiMemberProcess?.status === "running" || aiMemberProcess?.status === "completed") && (
                   <button type="button" onClick={() => { setChatTab("ai"); window.sessionStorage.setItem("vip-active-tab","ai"); }}
-                    style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"space-between",gap:"10px",padding:"10px 14px",border:"none",borderBottom:"1px solid #e4d5bb",background:"#fff8ec",color:"#6c4a1e",cursor:"pointer",textAlign:"left"}}>
-                    <span style={{display:"flex",alignItems:"center",gap:"7px",minWidth:0}}>
-                      <span style={{width:"7px",height:"7px",flexShrink:0,borderRadius:"50%",background:aiMemberProcess.status==="running"?"#16b979":"#5a79d6",boxShadow:aiMemberProcess.status==="running"?"0 0 0 3px rgba(22,185,121,.14)":"0 0 0 3px rgba(90,121,214,.14)"}} />
-                      <span style={{fontWeight:900,fontSize:"12px",color:aiMemberProcess.status==="running"?"#176d4a":"#3858a0",whiteSpace:"nowrap"}}>
+                    style={blueTheme({width:"100%",display:"flex",alignItems:"center",justifyContent:"space-between",gap:"10px",padding:"10px 14px",border:"none",borderBottom:"1px solid #e4d5bb",background:"#fff8ec",color:"#6c4a1e",cursor:"pointer",textAlign:"left"}, "button")}>
+                    <span style={blueTheme({display:"flex",alignItems:"center",gap:"7px",minWidth:0}, "buttonChild")}>
+                      <span style={blueTheme({width:"7px",height:"7px",flexShrink:0,borderRadius:"50%",background:aiMemberProcess.status==="running"?"#16b979":"#5a79d6",boxShadow:aiMemberProcess.status==="running"?"0 0 0 3px rgba(22,185,121,.14)":"0 0 0 3px rgba(90,121,214,.14)"}, "buttonChild")} />
+                      <span style={blueTheme({fontWeight:900,fontSize:"12px",color:aiMemberProcess.status==="running"?"#176d4a":"#3858a0",whiteSpace:"nowrap"}, "buttonChild")}>
                         {aiMemberProcess.status==="running"?"AI프로세스 진행중":"AI프로세스 완료"}
                       </span>
                     </span>
-                    <span style={{display:"flex",alignItems:"center",gap:"5px",justifyContent:"flex-end",minWidth:0,flexWrap:"wrap"}}>
-                      <span style={{fontSize:"10px",fontWeight:700,color:"#927650",whiteSpace:"nowrap"}}>{aiMemberProcess.status==="running"?"수익중인 금액 :":"수익 완료 금액 :"}</span>
-                      <strong style={{fontSize:"12px",whiteSpace:"nowrap"}}>
+                    <span style={blueTheme({display:"flex",alignItems:"center",gap:"5px",justifyContent:"flex-end",minWidth:0,flexWrap:"wrap"}, "buttonChild")}>
+                      <span style={blueTheme({fontSize:"10px",fontWeight:700,color:"#927650",whiteSpace:"nowrap"}, "buttonChild")}>{aiMemberProcess.status==="running"?"수익중인 금액 :":"수익 완료 금액 :"}</span>
+                      <strong style={blueTheme({fontSize:"12px",whiteSpace:"nowrap"}, "buttonChild")}>
                         {aiKrw(getMemberProcessSnapshot(aiMemberProcess).totalAmount)} ›
                       </strong>
                     </span>
@@ -5924,19 +5925,19 @@ export default function Home() {
                 )}
 
                 {memberGroupChatLocked && (
-                  <div style={styles.refLockNotice}>🔒 그룹채팅 운영시간은 11:00 ~ 18:30입니다.</div>
+                  <div style={blueTheme(styles.refLockNotice, "surface")}>🔒 그룹채팅 운영시간은 11:00 ~ 18:30입니다.</div>
                 )}
 
                 <div
                   ref={groupMessagesRef}
-                  style={styles.refMessages}
+                  style={blueTheme(styles.refMessages, "surface")}
                   onWheel={() => markUserChatScroll("group")}
                   onTouchMove={() => markUserChatScroll("group")}
                   onScroll={(e) => handleChatScroll("group", e.currentTarget)}
                 >
                   <FloatingScrollDate value={groupScrollDate} />
                   {messages.length === 0 ? (
-                    <div style={styles.refEmpty}>아직 대화가 없습니다.<br/>첫 메시지를 남겨보세요.</div>
+                    <div style={blueTheme(styles.refEmpty, "surface")}>아직 대화가 없습니다.<br/>첫 메시지를 남겨보세요.</div>
                    ) : messages.map((item, index) => {
                     const dateDivider = shouldShowChatDate(messages, index)
                       ? <ChatDateDivider value={item.created_at} />
@@ -5947,13 +5948,13 @@ export default function Home() {
                       return (
                         <Fragment key={item.id}>
                           {dateDivider}
-                          <div style={{display:"flex",justifyContent:"center",padding:"12px 8px"}}>
-                            <div style={{width:"100%",maxWidth:"340px",padding:"18px 16px",borderRadius:"17px",background:"linear-gradient(145deg,#1b3040,#283d4d)",border:"1px solid #d6b776",boxShadow:"0 6px 20px rgba(0,0,0,.13)",color:"#fff",textAlign:"center"}}>
-                              <div style={{fontSize:"10px",fontWeight:900,letterSpacing:"1.5px",color:"#e9c77f"}}>VIP AI PROCESS · COMPLETE</div>
-                              <div style={{fontSize:"22px",marginTop:"8px"}}>🎊</div>
-                              <div style={{whiteSpace:"pre-line",fontSize:"13px",fontWeight:900,marginTop:"8px",lineHeight:1.6}}>{formatSurpriseCopy(surpriseCopy.group_complete_title || "{닉네임}님 AI프로세스 진행 완료되셨습니다.\\n진심으로 축하드립니다!",winnerName)}</div>
-                              <div style={{whiteSpace:"pre-line",fontSize:"11px",lineHeight:1.7,marginTop:"8px",color:"#e9e4d8"}}>{formatSurpriseCopy(surpriseCopy.group_complete_body || "이벤트 완료 안내는 1:1 고객센터에서 확인해 주세요.",winnerName)}</div>
-                              <button type="button" onClick={() => { setChatTab("private"); window.sessionStorage.setItem("vip-active-tab","private"); }} style={{width:"100%",marginTop:"14px",padding:"11px",borderRadius:"10px",border:"1px solid #e8cb8e",background:"#e8cb8e",color:"#25313a",fontSize:"12px",fontWeight:900,cursor:"pointer"}}>1:1 메시지 확인하기 ›</button>
+                          <div style={blueTheme({display:"flex",justifyContent:"center",padding:"12px 8px"}, "surface")}>
+                            <div style={blueTheme({width:"100%",maxWidth:"340px",padding:"18px 16px",borderRadius:"17px",background:"linear-gradient(145deg,#1b3040,#283d4d)",border:"1px solid #d6b776",boxShadow:"0 6px 20px rgba(0,0,0,.13)",color:"#fff",textAlign:"center"}, "accentSurface")}>
+                              <div style={blueTheme({fontSize:"10px",fontWeight:900,letterSpacing:"1.5px",color:"#e9c77f"}, "surface")}>VIP AI PROCESS · COMPLETE</div>
+                              <div style={blueTheme({fontSize:"22px",marginTop:"8px"}, "surface")}>🎊</div>
+                              <div style={blueTheme({whiteSpace:"pre-line",fontSize:"13px",fontWeight:900,marginTop:"8px",lineHeight:1.6}, "surface")}>{formatSurpriseCopy(surpriseCopy.group_complete_title || "{닉네임}님 AI프로세스 진행 완료되셨습니다.\\n진심으로 축하드립니다!",winnerName)}</div>
+                              <div style={blueTheme({whiteSpace:"pre-line",fontSize:"11px",lineHeight:1.7,marginTop:"8px",color:"#e9e4d8"}, "surface")}>{formatSurpriseCopy(surpriseCopy.group_complete_body || "이벤트 완료 안내는 1:1 고객센터에서 확인해 주세요.",winnerName)}</div>
+                              <button type="button" onClick={() => { setChatTab("private"); window.sessionStorage.setItem("vip-active-tab","private"); }} style={blueTheme({width:"100%",marginTop:"14px",padding:"11px",borderRadius:"10px",border:"1px solid #e8cb8e",background:"#e8cb8e",color:"#25313a",fontSize:"12px",fontWeight:900,cursor:"pointer"}, "button")}>1:1 메시지 확인하기 ›</button>
                             </div>
                           </div>
                         </Fragment>
@@ -5965,13 +5966,13 @@ export default function Home() {
                       return (
                         <Fragment key={item.id}>
                           {dateDivider}
-                          <div style={{display:"flex",justifyContent:"center",padding:"12px 8px"}}>
-                            <div style={{width:"100%",maxWidth:"340px",padding:"18px 16px",borderRadius:"17px",background:"linear-gradient(145deg,#1b3040,#283d4d)",border:"1px solid #d6b776",boxShadow:"0 6px 20px rgba(0,0,0,.13)",color:"#fff",textAlign:"center"}}>
-                              <div style={{fontSize:"10px",fontWeight:900,letterSpacing:"1.5px",color:"#e9c77f"}}>VIP SURPRISE EVENT</div>
-                              <div style={{fontSize:"21px",marginTop:"8px"}}>🎉</div>
-                              <div style={{whiteSpace:"pre-line",fontSize:"14px",fontWeight:900,marginTop:"7px"}}>{formatSurpriseCopy(surpriseCopy.group_start_title || "{닉네임}님 돌발 이벤트 당첨!",winnerName)}</div>
-                              <div style={{whiteSpace:"pre-line",fontSize:"11px",lineHeight:1.7,marginTop:"7px",color:"#e9e4d8"}}>{formatSurpriseCopy(surpriseCopy.group_start_body || "모의 체험 지원금 10,000원으로\\nAI프로세스 진행이 시작되었습니다.",winnerName)}</div>
-                              <button type="button" onClick={() => setChatTab("ai")} style={{width:"100%",marginTop:"14px",padding:"11px",borderRadius:"10px",border:"1px solid #e8cb8e",background:"#e8cb8e",color:"#25313a",fontSize:"12px",fontWeight:900,cursor:"pointer"}}>AI프로세스 확인하기 ›</button>
+                          <div style={blueTheme({display:"flex",justifyContent:"center",padding:"12px 8px"}, "surface")}>
+                            <div style={blueTheme({width:"100%",maxWidth:"340px",padding:"18px 16px",borderRadius:"17px",background:"linear-gradient(145deg,#1b3040,#283d4d)",border:"1px solid #d6b776",boxShadow:"0 6px 20px rgba(0,0,0,.13)",color:"#fff",textAlign:"center"}, "accentSurface")}>
+                              <div style={blueTheme({fontSize:"10px",fontWeight:900,letterSpacing:"1.5px",color:"#e9c77f"}, "surface")}>VIP SURPRISE EVENT</div>
+                              <div style={blueTheme({fontSize:"21px",marginTop:"8px"}, "surface")}>🎉</div>
+                              <div style={blueTheme({whiteSpace:"pre-line",fontSize:"14px",fontWeight:900,marginTop:"7px"}, "surface")}>{formatSurpriseCopy(surpriseCopy.group_start_title || "{닉네임}님 돌발 이벤트 당첨!",winnerName)}</div>
+                              <div style={blueTheme({whiteSpace:"pre-line",fontSize:"11px",lineHeight:1.7,marginTop:"7px",color:"#e9e4d8"}, "surface")}>{formatSurpriseCopy(surpriseCopy.group_start_body || "모의 체험 지원금 10,000원으로\\nAI프로세스 진행이 시작되었습니다.",winnerName)}</div>
+                              <button type="button" onClick={() => setChatTab("ai")} style={blueTheme({width:"100%",marginTop:"14px",padding:"11px",borderRadius:"10px",border:"1px solid #e8cb8e",background:"#e8cb8e",color:"#25313a",fontSize:"12px",fontWeight:900,cursor:"pointer"}, "button")}>AI프로세스 확인하기 ›</button>
                             </div>
                           </div>
                         </Fragment>
@@ -5983,16 +5984,16 @@ export default function Home() {
                         <Fragment key={item.id}>
                           {dateDivider}
                           <div
-                          style={{
+                          style={blueTheme({
                             width:"100%",
                             display:"flex",
                             justifyContent:"center",
                             padding:"7px 10px",
                             boxSizing:"border-box",
-                          }}
+                          }, "surface")}
                         >
                           <div
-                            style={{
+                            style={blueTheme({
                               maxWidth:"88%",
                               padding:"6px 12px",
                               borderRadius:"999px",
@@ -6003,7 +6004,7 @@ export default function Home() {
                               lineHeight:1.4,
                               textAlign:"center",
                               letterSpacing:"-.15px",
-                            }}
+                            }, "surface")}
                           >
                             {item.content}
                           </div>
@@ -6021,21 +6022,21 @@ export default function Home() {
                       <Fragment key={item.id}>
                         {dateDivider}
                       <div
-                        style={{
+                        style={blueTheme({
                           ...styles.refMsgRow,
                           justifyContent: mine ? "flex-end" : "flex-start",
-                        }}
+                        }, "surface")}
                       >
                         {!mine && (
                           <img
                             src={avatarSrc(avatar)}
                             alt=""
-                            style={styles.refMsgAvatar}
+                            style={blueTheme(styles.refMsgAvatar, "surface")}
                             onClick={() => profile?.role === "admin" && adminKickMember(item.member_id, getMessageNickname(item))}
                           />
                         )}
                         <div
-                          style={{
+                          style={blueTheme({
                             flex: "0 1 auto",
                             width: "fit-content",
                             minWidth: 0,
@@ -6046,11 +6047,11 @@ export default function Home() {
                             flexDirection:"column",
                             alignItems: mine ? "flex-end" : "flex-start",
                             boxSizing:"border-box",
-                          }}
+                          }, "surface")}
                         >
-                          {!mine && <div style={styles.refMsgName}>{getMessageNickname(item)}</div>}
+                          {!mine && <div style={blueTheme(styles.refMsgName, "surface")}>{getMessageNickname(item)}</div>}
                           <div
-                            style={{
+                            style={blueTheme({
                               display:"flex",
                               gap:"6px",
                               alignItems:"flex-end",
@@ -6059,14 +6060,14 @@ export default function Home() {
                               maxWidth:"100%",
                               minWidth:0,
                               boxSizing:"border-box",
-                            }}
+                            }, "surface")}
                           >
-                            <div style={{...styles.refBubble,...(mine?styles.refMyBubble:styles.refOtherBubble)}}>
+                            <div style={blueTheme({...styles.refBubble,...(mine?styles.refMyBubble:styles.refOtherBubble)}, "surface")}>
                               {renderMessageContent(item.content)}
                             </div>
-                            <span style={styles.refMsgTime}>{formatChatTime(item.created_at)}</span>
+                            <span style={blueTheme(styles.refMsgTime, "surface")}>{formatChatTime(item.created_at)}</span>
                             {profile?.role === "admin" && (
-                              <button type="button" onClick={() => adminDeleteGroupMessage(item.id)} style={styles.refDelete}>×</button>
+                              <button type="button" onClick={() => adminDeleteGroupMessage(item.id)} style={blueTheme(styles.refDelete, "button")}>×</button>
                             )}
                           </div>
                         </div>
@@ -6074,44 +6075,44 @@ export default function Home() {
                       </Fragment>
                     );
                   })}
-                  <div ref={groupBottomRef} style={{height:"1px",width:"100%"}} />
+                  <div ref={groupBottomRef} style={blueTheme({height:"1px",width:"100%"}, "surface")} />
                 </div>
 
                 <LatestMessageButton kind="group" visible={groupShowLatestButton} />
 
                 {featuredEvent && (
-                  <button type="button" onClick={() => setChatTab("event")} style={styles.refNextEvent}>
-                    <div style={styles.refNextGift}>{eventIcon(featuredEvent.event_type)}</div>
-                    <div style={styles.refNextCopy}>
+                  <button type="button" onClick={() => setChatTab("event")} style={blueTheme(styles.refNextEvent, "button")}>
+                    <div style={blueTheme(styles.refNextGift, "buttonChild")}>{eventIcon(featuredEvent.event_type)}</div>
+                    <div style={blueTheme(styles.refNextCopy, "buttonChild")}>
                       <span>{activeEvent ? "LIVE EVENT" : "NEXT EVENT"}</span>
                       <strong>{featuredEvent.title}</strong>
                       <small>{formatEventTime(featuredEvent.starts_at)} ~ {formatEventTime(featuredEvent.ends_at)}</small>
                     </div>
-                    <div style={styles.refNextArrow}>›</div>
+                    <div style={blueTheme(styles.refNextArrow, "buttonChild")}>›</div>
                   </button>
                 )}
 
-                <form onSubmit={sendMessage} style={styles.refComposer}>
-                  <label style={styles.refPlus}>
+                <form onSubmit={sendMessage} style={blueTheme(styles.refComposer, "surface")}>
+                  <label style={blueTheme(styles.refPlus, "surface")}>
                     +
                     <input type="file" accept="image/*" hidden onChange={(e) => uploadChatImage(e.target.files?.[0], "group")} />
                   </label>
-                  <div ref={groupEmojiRef} style={styles.refEmojiWrap}>
+                  <div ref={groupEmojiRef} style={blueTheme(styles.refEmojiWrap, "surface")}>
                     <button
                       type="button"
                       onClick={() => setShowGroupEmoji((v) => !v)}
-                      style={styles.refEmojiButton}
+                      style={blueTheme(styles.refEmojiButton, "button")}
                       aria-label="이모티콘"
                     >
                       ☺
                     </button>
                     {showGroupEmoji && (
-                      <div style={styles.refEmojiPanel}>
+                      <div style={blueTheme(styles.refEmojiPanel, "surface")}>
                         {CHAT_EMOJIS.map((emoji) => (
                           <button
                             key={emoji}
                             type="button"
-                            style={styles.refEmojiItem}
+                            style={blueTheme(styles.refEmojiItem, "button")}
                             onClick={() => {
                               const input = groupInputRef.current;
                               if (input) {
@@ -6147,211 +6148,211 @@ export default function Home() {
                     }}
                     disabled={memberGroupChatLocked}
                     placeholder={memberGroupChatLocked ? "현재 채팅 이용 시간이 아닙니다." : "메시지를 입력하세요..."}
-                    style={styles.refInput}
+                    style={blueTheme(styles.refInput, "surface")}
                   />
-                  <button type="submit" disabled={memberGroupChatLocked} style={styles.refSend}>➤</button>
+                  <button type="submit" disabled={memberGroupChatLocked} style={blueTheme(styles.refSend, "button")}>➤</button>
                 </form>
               </div>
             )}
 
             {chatTab === "event" && (
-              <div style={styles.refEventScreen}>
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:16}}>
+              <div style={blueTheme(styles.refEventScreen, "surface")}>
+                <div style={blueTheme({display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:16}, "surface")}>
                   {[["live","실시간 이벤트","매시간 새로운 혜택"],["attendance","출석 이벤트","매일 쌓이는 출석 혜택"]].map(([id,title,desc])=>(
-                    <button key={id} type="button" onClick={()=>setEventView(id)} aria-pressed={eventView===id} style={{padding:"18px 12px",borderRadius:16,border:eventView===id?"2px solid #b78a42":"1px solid #e5d8c5",background:eventView===id?"#fff5e4":"#fff",textAlign:"left",color:"#382e23",cursor:"pointer"}}>
-                      <strong style={{display:"block",fontSize:15}}>{title}</strong><span style={{display:"block",marginTop:6,fontSize:11,color:"#88745a"}}>{desc}</span>
+                    <button key={id} type="button" onClick={()=>setEventView(id)} aria-pressed={eventView===id} style={blueTheme({padding:"18px 12px",borderRadius:16,border:eventView===id?"2px solid #b78a42":"1px solid #e5d8c5",background:eventView===id?"#fff5e4":"#fff",textAlign:"left",color:"#382e23",cursor:"pointer"}, "button")}>
+                      <strong style={blueTheme({display:"block",fontSize:15}, "buttonChild")}>{title}</strong><span style={blueTheme({display:"block",marginTop:6,fontSize:11,color:"#88745a"}, "buttonChild")}>{desc}</span>
                     </button>
                   ))}
                 </div>
-                {profile.role === "admin" && <form onSubmit={registerMember} style={{padding:16,marginBottom:16,border:"1px solid #e5d8c5",borderRadius:16,background:"#fff"}}>
-                  <strong style={{display:"block",marginBottom:12}}>회원 사전 등록</strong>
-                  <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-                    <input required maxLength={40} aria-label="등록할 오픈방 닉네임" placeholder="오픈방 닉네임" value={registerNickname} onChange={e=>setRegisterNickname(e.target.value)} style={{...styles.input,flex:"1 1 140px",width:0}}/>
-                    <input required maxLength={80} aria-label="등록할 회원 이름" placeholder="본인 이름" value={registerName} onChange={e=>setRegisterName(e.target.value)} style={{...styles.input,flex:"1 1 120px",width:0}}/>
-                    <button disabled={registerWorking} style={{...styles.primary,width:"auto",padding:"12px 18px"}}>{registerWorking?"등록 중":"회원 등록"}</button>
+                {profile.role === "admin" && <form onSubmit={registerMember} style={blueTheme({padding:16,marginBottom:16,border:"1px solid #e5d8c5",borderRadius:16,background:"#fff"}, "surface")}>
+                  <strong style={blueTheme({display:"block",marginBottom:12}, "surface")}>회원 사전 등록</strong>
+                  <div style={blueTheme({display:"flex",gap:8,flexWrap:"wrap"}, "surface")}>
+                    <input required maxLength={40} aria-label="등록할 오픈방 닉네임" placeholder="오픈방 닉네임" value={registerNickname} onChange={e=>setRegisterNickname(e.target.value)} style={blueTheme({...styles.input,flex:"1 1 140px",width:0}, "surface")}/>
+                    <input required maxLength={80} aria-label="등록할 회원 이름" placeholder="본인 이름" value={registerName} onChange={e=>setRegisterName(e.target.value)} style={blueTheme({...styles.input,flex:"1 1 120px",width:0}, "surface")}/>
+                    <button disabled={registerWorking} style={blueTheme({...styles.primary,width:"auto",padding:"12px 18px"}, "button")}>{registerWorking?"등록 중":"회원 등록"}</button>
                   </div>
-                  {registerNotice && <p role="status" style={{fontSize:12,marginBottom:0}}>{registerNotice}</p>}
+                  {registerNotice && <p role="status" style={blueTheme({fontSize:12,marginBottom:0}, "surface")}>{registerNotice}</p>}
                 </form>}
 
                 {showSurpriseEventGuide && (
                   <div role="presentation" onClick={() => setShowSurpriseEventGuide(false)}
-                    style={{position:"fixed",inset:0,zIndex:2147483647,background:"rgba(12,19,27,.72)",display:"flex",alignItems:"center",justifyContent:"center",padding:"18px"}}>
+                    style={blueTheme({position:"fixed",inset:0,zIndex:2147483647,background:"rgba(12,19,27,.72)",display:"flex",alignItems:"center",justifyContent:"center",padding:"18px"}, "surface")}>
                     <div role="dialog" aria-modal="true" aria-label="AI PROCESS 돌발 체험 이벤트 진행 방법 안내" onClick={(e)=>e.stopPropagation()}
-                      style={{width:"100%",maxWidth:"410px",maxHeight:"85vh",overflowY:"auto",boxSizing:"border-box",background:"#fffaf2",borderRadius:"20px",padding:"22px",boxShadow:"0 18px 60px rgba(0,0,0,.3)"}}>
-                      <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:"12px"}}>
-                        <div><span style={{fontSize:"9px",fontWeight:900,letterSpacing:"1.2px",color:"#a87b35"}}>AI PROCESS · SPECIAL EVENT</span>
-                          <h3 style={{margin:"6px 0 0",fontSize:"18px",color:"#273746"}}>{surpriseGuide.title || "돌발 체험 이벤트 안내"}</h3></div>
+                      style={blueTheme({width:"100%",maxWidth:"410px",maxHeight:"85vh",overflowY:"auto",boxSizing:"border-box",background:"#fffaf2",borderRadius:"20px",padding:"22px",boxShadow:"0 18px 60px rgba(0,0,0,.3)"}, "surface")}>
+                      <div style={blueTheme({display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:"12px"}, "surface")}>
+                        <div><span style={blueTheme({fontSize:"9px",fontWeight:900,letterSpacing:"1.2px",color:"#a87b35"}, "surface")}>AI PROCESS · SPECIAL EVENT</span>
+                          <h3 style={blueTheme({margin:"6px 0 0",fontSize:"18px",color:"#273746"}, "surface")}>{surpriseGuide.title || "돌발 체험 이벤트 안내"}</h3></div>
                         <button type="button" aria-label="안내 닫기" onClick={()=>setShowSurpriseEventGuide(false)}
-                          style={{border:0,background:"#ece4d7",borderRadius:"50%",width:"32px",height:"32px",fontSize:"20px",cursor:"pointer",flexShrink:0}}>×</button>
+                          style={blueTheme({border:0,background:"#ece4d7",borderRadius:"50%",width:"32px",height:"32px",fontSize:"20px",cursor:"pointer",flexShrink:0}, "button")}>×</button>
                       </div>
-                      <div style={{marginTop:"18px",fontSize:"12px",lineHeight:1.9,color:"#394957",whiteSpace:"pre-wrap",overflowWrap:"anywhere"}}>{(surpriseGuide.body || "안내 내용을 불러오는 중입니다.").replace(/\\r\\n|\\n|\\r/g,"\n").split(/\n{2,}/).map((paragraph,index)=>{const lines=paragraph.split("\n");const heading=lines[0].trim();const isHeading=/^(참여\s*방법|진행\s*확인|완료\s*안내|유의\s*사항|참여\s*안내|진행\s*방법|지급\s*안내)$/.test(heading);const isNotice=/^(\(|※|\*|주의|중요)/.test(heading);return <p key={index} style={{margin:index===0?"0 0 12px":"14px 0",color:isNotice?"#946b37":"#394957",fontSize:isNotice?"11px":"12px"}}>{isHeading?<><strong style={{display:"block",marginBottom:"5px",fontSize:"13px",fontWeight:900,color:"#9b6d2d"}}>{heading}</strong>{lines.slice(1).join("\n")}</>:paragraph}</p>})}</div>
+                      <div style={blueTheme({marginTop:"18px",fontSize:"12px",lineHeight:1.9,color:"#394957",whiteSpace:"pre-wrap",overflowWrap:"anywhere"}, "surface")}>{(surpriseGuide.body || "안내 내용을 불러오는 중입니다.").replace(/\\r\\n|\\n|\\r/g,"\n").split(/\n{2,}/).map((paragraph,index)=>{const lines=paragraph.split("\n");const heading=lines[0].trim();const isHeading=/^(참여\s*방법|진행\s*확인|완료\s*안내|유의\s*사항|참여\s*안내|진행\s*방법|지급\s*안내)$/.test(heading);const isNotice=/^(\(|※|\*|주의|중요)/.test(heading);return <p key={index} style={blueTheme({margin:index===0?"0 0 12px":"14px 0",color:isNotice?"#946b37":"#394957",fontSize:isNotice?"11px":"12px"}, "surface")}>{isHeading?<><strong style={blueTheme({display:"block",marginBottom:"5px",fontSize:"13px",fontWeight:900,color:"#9b6d2d"}, "surface")}>{heading}</strong>{lines.slice(1).join("\n")}</>:paragraph}</p>})}</div>
                       <button type="button" onClick={()=>setShowSurpriseEventGuide(false)}
-                        style={{width:"100%",marginTop:"20px",padding:"12px",border:0,borderRadius:"12px",background:"#304756",color:"#fff",fontSize:"12px",fontWeight:900,cursor:"pointer"}}>확인</button>
+                        style={blueTheme({width:"100%",marginTop:"20px",padding:"12px",border:0,borderRadius:"12px",background:"#304756",color:"#fff",fontSize:"12px",fontWeight:900,cursor:"pointer"}, "button")}>확인</button>
                     </div>
                   </div>
                 )}
 
                 <button type="button" onClick={() => {loadSurpriseGuide();setShowSurpriseEventGuide(true);}}
-                  style={{width:"calc(100% - 24px)",margin:"10px 12px",padding:"12px 14px",borderRadius:"14px",border:"1px solid rgba(191,145,69,.38)",background:"linear-gradient(125deg,#263847,#344957)",color:"#fff",textAlign:"left",cursor:"pointer",boxShadow:"0 3px 12px rgba(29,37,44,.10)"}}>
-                  <span style={{display:"block",fontSize:"8px",fontWeight:900,letterSpacing:"1.3px",color:"#e9c780"}}>AI PROCESS · SPECIAL EVENT</span>
-                  <strong style={{display:"block",marginTop:"5px",fontSize:"13px"}}>{surpriseGuide.title || "돌발 체험 이벤트 안내"}</strong>
-                  <span style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginTop:"7px",fontSize:"10px",color:"#e9d6b0",fontWeight:800}}>
+                  style={blueTheme({width:"calc(100% - 24px)",margin:"10px 12px",padding:"12px 14px",borderRadius:"14px",border:"1px solid rgba(191,145,69,.38)",background:"linear-gradient(125deg,#263847,#344957)",color:"#fff",textAlign:"left",cursor:"pointer",boxShadow:"0 3px 12px rgba(29,37,44,.10)"}, "button")}>
+                  <span style={blueTheme({display:"block",fontSize:"8px",fontWeight:900,letterSpacing:"1.3px",color:"#e9c780"}, "buttonChild")}>AI PROCESS · SPECIAL EVENT</span>
+                  <strong style={blueTheme({display:"block",marginTop:"5px",fontSize:"13px"}, "buttonChild")}>{surpriseGuide.title || "돌발 체험 이벤트 안내"}</strong>
+                  <span style={blueTheme({display:"flex",alignItems:"center",justifyContent:"space-between",marginTop:"7px",fontSize:"10px",color:"#e9d6b0",fontWeight:800}, "buttonChild")}>
                     <span>진행방법</span><span aria-hidden="true">›</span>
                   </span>
                 </button>
 
                 {eventSuccess && (
-                  <div style={styles.refEventSuccessToast} role="status">
-                    <div style={styles.refEventSuccessCheck}>✓</div>
-                    <div style={styles.refEventSuccessCopy}>
-                      <strong style={{fontSize:"11px",letterSpacing:".2px"}}>참여 완료</strong>
-                      <span style={{fontSize:"9px",color:"#ccebdd",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{eventSuccess.message}</span>
+                  <div style={blueTheme(styles.refEventSuccessToast, "surface")} role="status">
+                    <div style={blueTheme(styles.refEventSuccessCheck, "surface")}>✓</div>
+                    <div style={blueTheme(styles.refEventSuccessCopy, "surface")}>
+                      <strong style={blueTheme({fontSize:"11px",letterSpacing:".2px"}, "surface")}>참여 완료</strong>
+                      <span style={blueTheme({fontSize:"9px",color:"#ccebdd",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}, "surface")}>{eventSuccess.message}</span>
                     </div>
                   </div>
                 )}
-                <div style={{marginBottom:"10px",padding:"12px 13px",border:"1px solid #e5d3b8",borderRadius:"15px",background:"linear-gradient(180deg,#fffdf9 0%,#faf4ea 100%)",boxShadow:"0 5px 18px rgba(76,50,25,.06)"}}>
-                  <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:"10px"}}>
+                <div style={blueTheme({marginBottom:"10px",padding:"12px 13px",border:"1px solid #e5d3b8",borderRadius:"15px",background:"linear-gradient(180deg,#fffdf9 0%,#faf4ea 100%)",boxShadow:"0 5px 18px rgba(76,50,25,.06)"}, "accentSurface")}>
+                  <div style={blueTheme({display:"flex",alignItems:"center",justifyContent:"space-between",gap:"10px"}, "surface")}>
                     <div>
-                      <span style={{display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#a9742e"}}>TODAY · VIP EVENT</span>
-                      <strong style={{display:"block",marginTop:"3px",fontSize:"13px",color:"#2f241b"}}>오늘의 참여 현황</strong>
+                      <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#a9742e"}, "surface")}>TODAY · VIP EVENT</span>
+                      <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:"13px",color:"#2f241b"}, "surface")}>오늘의 참여 현황</strong>
                     </div>
-                    <button type="button" onClick={()=>loadAutoEvents()} style={{border:"1px solid #dfc9a8",borderRadius:"999px",padding:"5px 8px",background:"#fff",color:"#8a6a43",fontSize:"7px",fontWeight:"900",cursor:"pointer"}}>새로고침</button>
+                    <button type="button" onClick={()=>loadAutoEvents()} style={blueTheme({border:"1px solid #dfc9a8",borderRadius:"999px",padding:"5px 8px",background:"#fff",color:"#8a6a43",fontSize:"7px",fontWeight:"900",cursor:"pointer"}, "button")}>새로고침</button>
                   </div>
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(4,minmax(0,1fr))",gap:"6px",marginTop:"10px"}}>
+                  <div style={blueTheme({display:"grid",gridTemplateColumns:"repeat(4,minmax(0,1fr))",gap:"6px",marginTop:"10px"}, "surface")}>
                     {[
                       ["오늘 이벤트", `${todayEventStats.total}회`],
                       ["내 참여", `${todayEventStats.participated}회`],
                       ["오늘 당첨", `${todayEventStats.wins}회`],
                       ["출석 진행", `${attendanceCycle}/10`],
                     ].map(([label,value])=>(
-                      <div key={label} style={{padding:"9px 5px",borderRadius:"11px",background:"#fff",border:"1px solid #eee0cc",textAlign:"center",minWidth:0}}>
-                        <span style={{display:"block",fontSize:"6.5px",color:"#99836a",fontWeight:"900",whiteSpace:"nowrap"}}>{label}</span>
-                        <strong style={{display:"block",marginTop:"3px",fontSize:"12px",color:"#3c2b1e"}}>{value}</strong>
+                      <div key={label} style={blueTheme({padding:"9px 5px",borderRadius:"11px",background:"#fff",border:"1px solid #eee0cc",textAlign:"center",minWidth:0}, "surface")}>
+                        <span style={blueTheme({display:"block",fontSize:"6.5px",color:"#99836a",fontWeight:"900",whiteSpace:"nowrap"}, "surface")}>{label}</span>
+                        <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:"12px",color:"#3c2b1e"}, "surface")}>{value}</strong>
                       </div>
                     ))}
                   </div>
-                  <div style={{marginTop:"8px",padding:"7px 9px",borderRadius:"10px",background:nextEventStatus.live?"#fff0ef":"#f5ead8",color:nextEventStatus.live?"#c92e28":"#805c2c",fontSize:"8px",fontWeight:"1000",textAlign:"center"}}>
+                  <div style={blueTheme({marginTop:"8px",padding:"7px 9px",borderRadius:"10px",background:nextEventStatus.live?"#fff0ef":"#f5ead8",color:nextEventStatus.live?"#c92e28":"#805c2c",fontSize:"8px",fontWeight:"1000",textAlign:"center"}, "surface")}>
                     {nextEventStatus.live ? "🔴 지금 이벤트 진행 중 · 아래에서 참여해주세요" : `🎁 ${nextEventStatus.text}`}
                   </div>
                 </div>
 
-                <div style={styles.vipPrizeGuide}>
-                  <div style={styles.vipPrizeGuideIcon}>🎁</div>
-                  <div style={styles.vipPrizeGuideCopy}>
-                    <span style={{display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.5px",color:"#e2b762"}}>VIP EVENT REWARD</span>
-                    <strong style={{display:"block",marginTop:"3px",paddingRight:"32px",fontSize:"11px",lineHeight:1.45,color:"#fff4df"}}>3,000원 ~ 100,000원 상당 랜덤 기프티콘</strong>
-                    <p style={{margin:"4px 0 0",fontSize:"8px",lineHeight:1.5,color:"rgba(255,255,255,.65)",wordBreak:"keep-all"}}>이벤트 당첨 시 <b>1:1 고객센터</b>에서 기프티콘이 즉시 지급됩니다.</p>
+                <div style={blueTheme(styles.vipPrizeGuide, "accentSurface")}>
+                  <div style={blueTheme(styles.vipPrizeGuideIcon, "surface")}>🎁</div>
+                  <div style={blueTheme(styles.vipPrizeGuideCopy, "surface")}>
+                    <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.5px",color:"#e2b762"}, "surface")}>VIP EVENT REWARD</span>
+                    <strong style={blueTheme({display:"block",marginTop:"3px",paddingRight:"32px",fontSize:"11px",lineHeight:1.45,color:"#fff4df"}, "surface")}>3,000원 ~ 100,000원 상당 랜덤 기프티콘</strong>
+                    <p style={blueTheme({margin:"4px 0 0",fontSize:"8px",lineHeight:1.5,color:"rgba(255,255,255,.65)",wordBreak:"keep-all"}, "surface")}>이벤트 당첨 시 <b>1:1 고객센터</b>에서 기프티콘이 즉시 지급됩니다.</p>
                   </div>
-                  <div style={styles.vipPrizeGuideBadge}>GIFT</div>
+                  <div style={blueTheme(styles.vipPrizeGuideBadge, "surface")}>GIFT</div>
                 </div>
 
                 {profile?.role === "admin" && (
-                  <div style={styles.giftAdminCard}>
-                    <div style={styles.giftAdminHead}>
-                      <div style={{minWidth:0}}>
-                        <span style={{display:"block",fontSize:"6.5px",fontWeight:"1000",letterSpacing:"1.5px",color:"#d7a95b"}}>ADMIN · AI WINNER DISPLAY</span>
-                        <strong style={{display:"block",marginTop:"3px",fontSize:"12px",color:"#fff3dc"}}>AI 당첨 그룹공지 전용 상품</strong>
-                        <p style={{margin:"5px 0 0",fontSize:"8px",lineHeight:1.55,color:"#a99a88",wordBreak:"keep-all"}}>
-                          AI 캐릭터가 당첨될 때 그룹채팅 공지에 표시할 <b style={{color:"#fff0ce"}}>상품명만</b> 등록합니다.<br/>
+                  <div style={blueTheme(styles.giftAdminCard, "surface")}>
+                    <div style={blueTheme(styles.giftAdminHead, "surface")}>
+                      <div style={blueTheme({minWidth:0}, "surface")}>
+                        <span style={blueTheme({display:"block",fontSize:"6.5px",fontWeight:"1000",letterSpacing:"1.5px",color:"#d7a95b"}, "surface")}>ADMIN · AI WINNER DISPLAY</span>
+                        <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:"12px",color:"#fff3dc"}, "surface")}>AI 당첨 그룹공지 전용 상품</strong>
+                        <p style={blueTheme({margin:"5px 0 0",fontSize:"8px",lineHeight:1.55,color:"#a99a88",wordBreak:"keep-all"}, "surface")}>
+                          AI 캐릭터가 당첨될 때 그룹채팅 공지에 표시할 <b style={blueTheme({color:"#fff0ce"}, "surface")}>상품명만</b> 등록합니다.<br/>
                           실제 기프티콘 링크·1:1 지급·회원용 재고와는 완전히 분리됩니다.
                         </p>
                       </div>
                     </div>
 
-                    <div style={styles.giftInventorySummary}>
-                      <div style={styles.giftSummaryCell}>
-                        <span style={{fontSize:"7px",fontWeight:"900",color:"#a99a88"}}>총 등록</span>
-                        <strong style={{fontSize:"19px",lineHeight:1.1,color:"#f0c777"}}>{aiGiftInventory.length}</strong>
-                        <small style={{fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}}>ITEMS</small>
+                    <div style={blueTheme(styles.giftInventorySummary, "surface")}>
+                      <div style={blueTheme(styles.giftSummaryCell, "surface")}>
+                        <span style={blueTheme({fontSize:"7px",fontWeight:"900",color:"#a99a88"}, "surface")}>총 등록</span>
+                        <strong style={blueTheme({fontSize:"19px",lineHeight:1.1,color:"#f0c777"}, "surface")}>{aiGiftInventory.length}</strong>
+                        <small style={blueTheme({fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}, "surface")}>ITEMS</small>
                       </div>
-                      <div style={styles.giftSummaryDivider} />
-                      <div style={styles.giftSummaryCell}>
-                        <span style={{fontSize:"7px",fontWeight:"900",color:"#a99a88"}}>공지완료</span>
-                        <strong style={{fontSize:"19px",lineHeight:1.1,color:"#a7cfaf"}}>{aiGiftInventory.filter((gift) => gift.status === "assigned").length}</strong>
-                        <small style={{fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}}>USED</small>
+                      <div style={blueTheme(styles.giftSummaryDivider, "surface")} />
+                      <div style={blueTheme(styles.giftSummaryCell, "surface")}>
+                        <span style={blueTheme({fontSize:"7px",fontWeight:"900",color:"#a99a88"}, "surface")}>공지완료</span>
+                        <strong style={blueTheme({fontSize:"19px",lineHeight:1.1,color:"#a7cfaf"}, "surface")}>{aiGiftInventory.filter((gift) => gift.status === "assigned").length}</strong>
+                        <small style={blueTheme({fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}, "surface")}>USED</small>
                       </div>
-                      <div style={styles.giftSummaryDivider} />
-                      <div style={styles.giftSummaryCell}>
-                        <span style={{fontSize:"7px",fontWeight:"900",color:"#a99a88"}}>공지대기</span>
-                        <strong style={{fontSize:"19px",lineHeight:1.1,color:"#efc879"}}>{aiGiftInventory.filter((gift) => gift.status === "available").length}</strong>
-                        <small style={{fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}}>WAITING</small>
+                      <div style={blueTheme(styles.giftSummaryDivider, "surface")} />
+                      <div style={blueTheme(styles.giftSummaryCell, "surface")}>
+                        <span style={blueTheme({fontSize:"7px",fontWeight:"900",color:"#a99a88"}, "surface")}>공지대기</span>
+                        <strong style={blueTheme({fontSize:"19px",lineHeight:1.1,color:"#efc879"}, "surface")}>{aiGiftInventory.filter((gift) => gift.status === "available").length}</strong>
+                        <small style={blueTheme({fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}, "surface")}>WAITING</small>
                       </div>
                     </div>
 
-                    <div style={styles.giftBulkGuide}>
+                    <div style={blueTheme(styles.giftBulkGuide, "surface")}>
                       <strong>메모장 입력 형식</strong>
                       <span>상품명만 한 줄에 1개 · 금액은 상품명에 함께 작성</span>
                       <code>GS25 모바일 3,000원</code>
                     </div>
 
-                    <form onSubmit={addAiGiftInventoryBulk} style={styles.giftAdminForm}>
+                    <form onSubmit={addAiGiftInventoryBulk} style={blueTheme(styles.giftAdminForm, "surface")}>
                       <textarea
                         value={aiGiftBulkText}
                         onChange={(e) => setAiGiftBulkText(e.target.value)}
                         placeholder={"GS25 모바일 3,000원\n신세계 상품권 1만원\n스타벅스 아메리카노 4,500원"}
-                        style={styles.giftBulkTextarea}
+                        style={blueTheme(styles.giftBulkTextarea, "surface")}
                       />
-                      <div style={styles.giftBulkCount}>
+                      <div style={blueTheme(styles.giftBulkCount, "surface")}>
                         현재 입력 <b>{aiGiftBulkText.split(/\r?\n/).filter((line) => line.trim()).length}</b>개
                       </div>
-                      <button type="submit" disabled={aiGiftWorking} style={styles.giftAdminAddButton}>
+                      <button type="submit" disabled={aiGiftWorking} style={blueTheme(styles.giftAdminAddButton, "button")}>
                         {aiGiftWorking ? "등록 중..." : "🤖 AI 전용 상품 등록"}
                       </button>
                       <button
                         type="button"
                         disabled={aiGiftWorking || aiGiftInventory.filter((gift) => gift.status === "available").length === 0}
                         onClick={deleteAllAvailableAiGiftInventory}
-                        style={{
+                        style={blueTheme({
                           width:"100%",marginTop:"8px",padding:"11px 12px",
                           border:"1px solid rgba(255,82,82,.55)",borderRadius:"11px",
                           background:"rgba(151,28,28,.18)",color:"#ff8585",
                           fontSize:"9px",fontWeight:"1000",
                           cursor:aiGiftWorking || aiGiftInventory.filter((gift) => gift.status === "available").length === 0 ? "default" : "pointer",
                           opacity:aiGiftInventory.filter((gift) => gift.status === "available").length === 0 ? .45 : 1
-                        }}
+                        }, "button")}
                       >
                         🗑 AI 지급대기 상품 전체 삭제
                       </button>
                       <button type="button"
                         disabled={aiGiftWorking || aiGiftInventory.filter((gift) => gift.status === "assigned").length === 0}
                         onClick={deleteAllAssignedAiGiftInventory}
-                        style={{width:"100%",marginTop:"8px",padding:"11px 12px",border:"1px solid rgba(102,184,126,.55)",borderRadius:"11px",background:"rgba(34,105,59,.18)",color:"#9bd5aa",fontSize:"9px",fontWeight:"1000",cursor:aiGiftWorking || aiGiftInventory.filter((gift) => gift.status === "assigned").length === 0 ? "default" : "pointer",opacity:aiGiftInventory.filter((gift) => gift.status === "assigned").length === 0 ? .45 : 1}}>
+                        style={blueTheme({width:"100%",marginTop:"8px",padding:"11px 12px",border:"1px solid rgba(102,184,126,.55)",borderRadius:"11px",background:"rgba(34,105,59,.18)",color:"#9bd5aa",fontSize:"9px",fontWeight:"1000",cursor:aiGiftWorking || aiGiftInventory.filter((gift) => gift.status === "assigned").length === 0 ? "default" : "pointer",opacity:aiGiftInventory.filter((gift) => gift.status === "assigned").length === 0 ? .45 : 1}, "button")}>
                         🧹 AI 공지완료 상품 전체 삭제
                       </button>
                     </form>
 
-                    <div style={styles.giftQueueTitle}>
+                    <div style={blueTheme(styles.giftQueueTitle, "surface")}>
                       <div>
-                        <strong style={{display:"block"}}>AI 그룹공지 상품 현황</strong>
-                        <span style={{display:"block",marginTop:"2px"}}>AI 당첨 시 위에서부터 1개씩 그룹공지에 사용됩니다.</span>
+                        <strong style={blueTheme({display:"block"}, "surface")}>AI 그룹공지 상품 현황</strong>
+                        <span style={blueTheme({display:"block",marginTop:"2px"}, "surface")}>AI 당첨 시 위에서부터 1개씩 그룹공지에 사용됩니다.</span>
                       </div>
                     </div>
 
-                    <div style={styles.giftAdminInventoryList}>
+                    <div style={blueTheme(styles.giftAdminInventoryList, "surface")}>
                       {aiGiftInventory.length === 0 ? (
-                        <div style={styles.giftAdminEmpty}>등록된 AI 전용 상품이 없습니다.</div>
+                        <div style={blueTheme(styles.giftAdminEmpty, "surface")}>등록된 AI 전용 상품이 없습니다.</div>
                       ) : aiGiftInventory.slice(0, 100).map((gift) => (
-                        <div key={gift.id} style={styles.giftAdminInventoryRow}>
-                          <div style={gift.status === "available" ? styles.giftQueueNumber : styles.giftQueueNumberSent}>
+                        <div key={gift.id} style={blueTheme(styles.giftAdminInventoryRow, "surface")}>
+                          <div style={blueTheme(gift.status === "available" ? styles.giftQueueNumber : styles.giftQueueNumberSent, "surface")}>
                             {gift.status === "assigned" ? "✓" : `#${gift.queue_no || "-"}`}
                           </div>
-                          <div style={styles.giftAdminInventoryInfo}>
-                            <strong style={{fontSize:"8.5px",color:"#f4e6cf",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>
+                          <div style={blueTheme(styles.giftAdminInventoryInfo, "surface")}>
+                            <strong style={blueTheme({fontSize:"8.5px",color:"#f4e6cf",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}, "surface")}>
                               {gift.product_name}
                             </strong>
-                            <span style={{fontSize:"7px",color:"#998b7b"}}>
+                            <span style={blueTheme({fontSize:"7px",color:"#998b7b"}, "surface")}>
                               {gift.status === "available" ? "AI 당첨 공지 대기" : `공지 사용 완료${gift.assigned_winner_nickname ? ` · ${gift.assigned_winner_nickname}` : ""}`}
                             </span>
                           </div>
-                          <div style={styles.giftAdminInventoryActions}>
-                            <span style={gift.status === "available" ? styles.giftStockAvailable : styles.giftStockAssigned}>
+                          <div style={blueTheme(styles.giftAdminInventoryActions, "surface")}>
+                            <span style={blueTheme(gift.status === "available" ? styles.giftStockAvailable : styles.giftStockAssigned, "surface")}>
                               {gift.status === "available" ? "WAITING" : "USED"}
                             </span>
                             <button
                               type="button"
                               disabled={aiGiftWorking}
                               onClick={() => deleteAiGiftInventory(gift.id)}
-                              style={{border:0,background:"transparent",color:"#d58a82",fontSize:"12px",cursor:"pointer",padding:"2px 4px"}}
+                              style={blueTheme({border:0,background:"transparent",color:"#d58a82",fontSize:"12px",cursor:"pointer",padding:"2px 4px"}, "button")}
                               aria-label="AI 전용 상품 삭제"
                             >×</button>
                           </div>
@@ -6359,69 +6360,69 @@ export default function Home() {
                       ))}
                     </div>
 
-                    <div style={styles.giftAdminSecurityNote}>
+                    <div style={blueTheme(styles.giftAdminSecurityNote, "surface")}>
                       AI 전용 상품에는 실제 기프티콘 링크가 저장되지 않으며 회원용 기프티콘 재고를 차감하지 않습니다.
                     </div>
                   </div>
                 )}
 
                 {profile?.role === "admin" && (
-                  <div style={styles.giftAdminCard}>
-                    <div style={styles.giftAdminHead}>
-                      <div style={{minWidth:0}}>
-                        <span style={{display:"block",fontSize:"6.5px",fontWeight:"1000",letterSpacing:"1.5px",color:"#d7a95b"}}>ADMIN · AUTO GIFT QUEUE</span>
-                        <strong style={{display:"block",marginTop:"3px",fontSize:"12px",color:"#fff3dc"}}>기프티콘 자동 지급 대기열</strong>
-                        <p style={{margin:"5px 0 0",fontSize:"8px",lineHeight:1.55,color:"#a99a88",wordBreak:"keep-all"}}>
-                          메모장 목록을 한 번에 등록하면 <b style={{color:"#e6c27e"}}>위에서부터 순서대로</b> 당첨자에게 자동 지급됩니다.<br/>
-                          <b style={{color:"#fff0ce"}}>일반 하루 이벤트 전용 재고</b> · 출석체크 보상에는 사용되지 않습니다.
+                  <div style={blueTheme(styles.giftAdminCard, "surface")}>
+                    <div style={blueTheme(styles.giftAdminHead, "surface")}>
+                      <div style={blueTheme({minWidth:0}, "surface")}>
+                        <span style={blueTheme({display:"block",fontSize:"6.5px",fontWeight:"1000",letterSpacing:"1.5px",color:"#d7a95b"}, "surface")}>ADMIN · AUTO GIFT QUEUE</span>
+                        <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:"12px",color:"#fff3dc"}, "surface")}>기프티콘 자동 지급 대기열</strong>
+                        <p style={blueTheme({margin:"5px 0 0",fontSize:"8px",lineHeight:1.55,color:"#a99a88",wordBreak:"keep-all"}, "surface")}>
+                          메모장 목록을 한 번에 등록하면 <b style={blueTheme({color:"#e6c27e"}, "surface")}>위에서부터 순서대로</b> 당첨자에게 자동 지급됩니다.<br/>
+                          <b style={blueTheme({color:"#fff0ce"}, "surface")}>일반 하루 이벤트 전용 재고</b> · 출석체크 보상에는 사용되지 않습니다.
                         </p>
                       </div>
                     </div>
 
-                    <div style={styles.giftInventorySummary}>
-                      <div style={styles.giftSummaryCell}>
-                        <span style={{fontSize:"7px",fontWeight:"900",color:"#a99a88"}}>총 등록</span>
-                        <strong style={{fontSize:"19px",lineHeight:1.1,color:"#f0c777"}}>{giftInventory.length}</strong>
-                        <small style={{fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}}>GIFTS</small>
+                    <div style={blueTheme(styles.giftInventorySummary, "surface")}>
+                      <div style={blueTheme(styles.giftSummaryCell, "surface")}>
+                        <span style={blueTheme({fontSize:"7px",fontWeight:"900",color:"#a99a88"}, "surface")}>총 등록</span>
+                        <strong style={blueTheme({fontSize:"19px",lineHeight:1.1,color:"#f0c777"}, "surface")}>{giftInventory.length}</strong>
+                        <small style={blueTheme({fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}, "surface")}>GIFTS</small>
                       </div>
-                      <div style={styles.giftSummaryDivider} />
-                      <div style={styles.giftSummaryCell}>
-                        <span style={{fontSize:"7px",fontWeight:"900",color:"#a99a88"}}>지급완료</span>
-                        <strong style={{fontSize:"19px",lineHeight:1.1,color:"#a7cfaf"}}>{giftInventory.filter((gift) => gift.status === "assigned").length}</strong>
-                        <small style={{fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}}>SENT</small>
+                      <div style={blueTheme(styles.giftSummaryDivider, "surface")} />
+                      <div style={blueTheme(styles.giftSummaryCell, "surface")}>
+                        <span style={blueTheme({fontSize:"7px",fontWeight:"900",color:"#a99a88"}, "surface")}>지급완료</span>
+                        <strong style={blueTheme({fontSize:"19px",lineHeight:1.1,color:"#a7cfaf"}, "surface")}>{giftInventory.filter((gift) => gift.status === "assigned").length}</strong>
+                        <small style={blueTheme({fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}, "surface")}>SENT</small>
                       </div>
-                      <div style={styles.giftSummaryDivider} />
-                      <div style={styles.giftSummaryCell}>
-                        <span style={{fontSize:"7px",fontWeight:"900",color:"#a99a88"}}>지급대기</span>
-                        <strong style={{fontSize:"19px",lineHeight:1.1,color:"#efc879"}}>{giftInventory.filter((gift) => gift.status === "available").length}</strong>
-                        <small style={{fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}}>WAITING</small>
+                      <div style={blueTheme(styles.giftSummaryDivider, "surface")} />
+                      <div style={blueTheme(styles.giftSummaryCell, "surface")}>
+                        <span style={blueTheme({fontSize:"7px",fontWeight:"900",color:"#a99a88"}, "surface")}>지급대기</span>
+                        <strong style={blueTheme({fontSize:"19px",lineHeight:1.1,color:"#efc879"}, "surface")}>{giftInventory.filter((gift) => gift.status === "available").length}</strong>
+                        <small style={blueTheme({fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}, "surface")}>WAITING</small>
                       </div>
                     </div>
 
-                    <div style={styles.giftBulkGuide}>
+                    <div style={blueTheme(styles.giftBulkGuide, "surface")}>
                       <strong>메모장 입력 형식</strong>
                       <span>상품명 | 기프티콘 링크 · 한 줄에 1개 · 여러 줄 한 번에 등록 가능</span>
                       <code>신세계 상품권 1만원 | https://기프티콘링크</code>
                     </div>
 
-                    <form onSubmit={addGiftInventoryBulk} style={styles.giftAdminForm}>
+                    <form onSubmit={addGiftInventoryBulk} style={blueTheme(styles.giftAdminForm, "surface")}>
                       <textarea
                         value={giftBulkText}
                         onChange={(e) => setGiftBulkText(e.target.value)}
                         placeholder={"신세계 상품권 1만원 | https://링크1\nGS25 모바일 3,000원 | https://링크2\nCU 모바일 5,000원 | https://링크3"}
-                        style={styles.giftBulkTextarea}
+                        style={blueTheme(styles.giftBulkTextarea, "surface")}
                       />
-                      <div style={styles.giftBulkCount}>
+                      <div style={blueTheme(styles.giftBulkCount, "surface")}>
                         현재 입력 <b>{giftBulkText.split(/\r?\n/).filter((line) => line.trim()).length}</b>개
                       </div>
-                      <button type="submit" disabled={giftInventoryWorking} style={styles.giftAdminAddButton}>
+                      <button type="submit" disabled={giftInventoryWorking} style={blueTheme(styles.giftAdminAddButton, "button")}>
                         {giftInventoryWorking ? "일괄 등록 중..." : "🎁 목록 전체 일괄 등록"}
                       </button>
                       <button
                         type="button"
                         disabled={giftInventoryWorking || giftInventory.filter((gift) => gift.status === "available").length === 0}
                         onClick={deleteAllGiftInventory}
-                        style={{
+                        style={blueTheme({
                           width:"100%",
                           marginTop:"8px",
                           padding:"11px 12px",
@@ -6433,24 +6434,24 @@ export default function Home() {
                           fontWeight:"1000",
                           cursor:giftInventoryWorking || giftInventory.filter((gift) => gift.status === "available").length === 0 ? "default" : "pointer",
                           opacity:giftInventory.filter((gift) => gift.status === "available").length === 0 ? .45 : 1
-                        }}
+                        }, "button")}
                       >
                         🗑 지급대기 기프티콘 전체 삭제
                       </button>
                       <button type="button"
                         disabled={giftInventoryWorking || giftInventory.filter((gift) => gift.status === "assigned").length === 0}
                         onClick={deleteAllAssignedGiftInventory}
-                        style={{width:"100%",marginTop:"8px",padding:"11px 12px",border:"1px solid rgba(102,184,126,.55)",borderRadius:"11px",background:"rgba(34,105,59,.18)",color:"#9bd5aa",fontSize:"9px",fontWeight:"1000",cursor:giftInventoryWorking || giftInventory.filter((gift) => gift.status === "assigned").length === 0 ? "default" : "pointer",opacity:giftInventory.filter((gift) => gift.status === "assigned").length === 0 ? .45 : 1}}>
+                        style={blueTheme({width:"100%",marginTop:"8px",padding:"11px 12px",border:"1px solid rgba(102,184,126,.55)",borderRadius:"11px",background:"rgba(34,105,59,.18)",color:"#9bd5aa",fontSize:"9px",fontWeight:"1000",cursor:giftInventoryWorking || giftInventory.filter((gift) => gift.status === "assigned").length === 0 ? "default" : "pointer",opacity:giftInventory.filter((gift) => gift.status === "assigned").length === 0 ? .45 : 1}, "button")}>
                         🧹 지급완료 기프티콘 전체 삭제
                       </button>
                     </form>
 
-                    <div style={styles.giftQueueTitle}>
+                    <div style={blueTheme(styles.giftQueueTitle, "surface")}>
                       <div>
-                        <strong style={{display:"block"}}>자동 지급 현황</strong>
-                        <span style={{display:"block",marginTop:"2px"}}>지급완료 내역과 남은 재고를 한눈에 확인할 수 있습니다.</span>
+                        <strong style={blueTheme({display:"block"}, "surface")}>자동 지급 현황</strong>
+                        <span style={blueTheme({display:"block",marginTop:"2px"}, "surface")}>지급완료 내역과 남은 재고를 한눈에 확인할 수 있습니다.</span>
                       </div>
-                      <div style={styles.giftNextQueueBadge}>
+                      <div style={blueTheme(styles.giftNextQueueBadge, "surface")}>
                         NEXT&nbsp;
                         <b>
                           #{giftInventory.find((gift) => gift.status === "available")?.queue_no || "-"}
@@ -6458,46 +6459,46 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div style={styles.giftAdminInventoryList}>
+                    <div style={blueTheme(styles.giftAdminInventoryList, "surface")}>
                       {giftInventory.length === 0 ? (
-                        <div style={styles.giftAdminEmpty}>
+                        <div style={blueTheme(styles.giftAdminEmpty, "surface")}>
                           등록된 기프티콘이 없습니다. 메모장 목록을 위 입력란에 붙여넣어 한 번에 등록해주세요.
                         </div>
                       ) : giftInventory.slice(0, 100).map((gift) => (
-                        <div key={gift.id} style={styles.giftAdminInventoryRow}>
-                          <div style={gift.status === "available" ? styles.giftQueueNumber : styles.giftQueueNumberSent}>
+                        <div key={gift.id} style={blueTheme(styles.giftAdminInventoryRow, "surface")}>
+                          <div style={blueTheme(gift.status === "available" ? styles.giftQueueNumber : styles.giftQueueNumberSent, "surface")}>
                             {gift.status === "assigned" ? "✓" : `#${gift.queue_no || "-"}`}
                           </div>
-                          <div style={styles.giftAdminInventoryInfo}>
-                            <div style={styles.giftInventoryNameLine}>
-                              <strong style={{fontSize:"8.5px",color:"#f4e6cf",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>
+                          <div style={blueTheme(styles.giftAdminInventoryInfo, "surface")}>
+                            <div style={blueTheme(styles.giftInventoryNameLine, "surface")}>
+                              <strong style={blueTheme({fontSize:"8.5px",color:"#f4e6cf",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}, "surface")}>
                                 #{gift.queue_no || "-"} · {gift.product_name}
                               </strong>
                             </div>
                             {gift.status === "assigned" ? (
                               <>
-                                <span style={styles.giftPaidMember}>
+                                <span style={blueTheme(styles.giftPaidMember, "surface")}>
                                   👤 {gift.assigned_member_nickname || "회원"} · {Number(gift.amount || 0).toLocaleString("ko-KR")}원
                                 </span>
-                                <span style={styles.giftPaidTime}>
+                                <span style={blueTheme(styles.giftPaidTime, "surface")}>
                                   {gift.assigned_at ? `${new Date(gift.assigned_at).toLocaleString("ko-KR")} 지급` : "지급완료"}
                                 </span>
                               </>
                             ) : (
-                              <span style={styles.giftWaitingDetail}>
+                              <span style={blueTheme(styles.giftWaitingDetail, "surface")}>
                                 {Number(gift.amount || 0).toLocaleString("ko-KR")}원 · 순차 자동지급 대기
                               </span>
                             )}
                           </div>
-                          <div style={styles.giftAdminInventoryActions}>
-                            <span style={gift.status === "available" ? styles.giftStockAvailable : styles.giftStockAssigned}>
+                          <div style={blueTheme(styles.giftAdminInventoryActions, "surface")}>
+                            <span style={blueTheme(gift.status === "available" ? styles.giftStockAvailable : styles.giftStockAssigned, "surface")}>
                               {gift.status === "available" ? "WAITING" : "지급완료"}
                             </span>
                             <button
                               type="button"
                               onClick={() => deleteGiftInventory(gift.id, gift.status)}
                               title={gift.status === "assigned" ? "지급완료 내역 삭제 · 동일 링크 재등록 가능" : "미지급 기프티콘 삭제"}
-                              style={{
+                              style={blueTheme({
                                 width:"20px",
                                 height:"20px",
                                 border:"1px solid rgba(255,83,83,.42)",
@@ -6513,7 +6514,7 @@ export default function Home() {
                                 justifyContent:"center",
                                 cursor:"pointer",
                                 flex:"0 0 20px"
-                              }}
+                              }, "button")}
                             >
                               ×
                             </button>
@@ -6522,86 +6523,86 @@ export default function Home() {
                       ))}
                     </div>
 
-                    <div style={styles.giftAdminSecurityNote}>
-                      🔒 지급완료 링크는 자동으로 다시 지급되지 않습니다. 관리자가 <b style={{color:"#ff6767"}}>×</b>로 지급완료 내역을 삭제하면 동일 링크를 다시 등록할 수 있습니다. 이미 회원에게 지급된 1:1 메시지는 유지됩니다.
+                    <div style={blueTheme(styles.giftAdminSecurityNote, "surface")}>
+                      🔒 지급완료 링크는 자동으로 다시 지급되지 않습니다. 관리자가 <b style={blueTheme({color:"#ff6767"}, "surface")}>×</b>로 지급완료 내역을 삭제하면 동일 링크를 다시 등록할 수 있습니다. 이미 회원에게 지급된 1:1 메시지는 유지됩니다.
                     </div>
                   </div>
                 )}
 
                 {profile?.role === "admin" && (
-                  <div style={{
+                  <div style={blueTheme({
                     ...styles.giftAdminCard,
                     marginTop:"12px",
                     border:"1px solid rgba(206,161,79,.55)",
                     background:"linear-gradient(180deg,#192d3d 0%,#102230 100%)"
-                  }}>
-                    <div style={styles.giftAdminHead}>
-                      <div style={{minWidth:0}}>
-                        <span style={{display:"block",fontSize:"6.5px",fontWeight:"1000",letterSpacing:"1.5px",color:"#f0c777"}}>
+                  }, "accentSurface")}>
+                    <div style={blueTheme(styles.giftAdminHead, "surface")}>
+                      <div style={blueTheme({minWidth:0}, "surface")}>
+                        <span style={blueTheme({display:"block",fontSize:"6.5px",fontWeight:"1000",letterSpacing:"1.5px",color:"#f0c777"}, "surface")}>
                           ADMIN · DAILY CHECK-IN GIFT
                         </span>
-                        <strong style={{display:"block",marginTop:"3px",fontSize:"12px",color:"#fff3dc"}}>
+                        <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:"12px",color:"#fff3dc"}, "surface")}>
                           🎁 출석체크 10회 보상 전용 기프티콘
                         </strong>
-                        <p style={{margin:"5px 0 0",fontSize:"8px",lineHeight:1.6,color:"#b9aa96",wordBreak:"keep-all"}}>
-                          이곳에 등록한 기프티콘은 <b style={{color:"#f1cc82"}}>출석 10회 · 20회 · 30회...</b> 달성 회원에게만 지급됩니다.<br/>
-                          <b style={{color:"#fff0ce"}}>일반 하루 이벤트 기프티콘과 완전히 분리된 별도 재고</b>입니다.
+                        <p style={blueTheme({margin:"5px 0 0",fontSize:"8px",lineHeight:1.6,color:"#b9aa96",wordBreak:"keep-all"}, "surface")}>
+                          이곳에 등록한 기프티콘은 <b style={blueTheme({color:"#f1cc82"}, "surface")}>출석 10회 · 20회 · 30회...</b> 달성 회원에게만 지급됩니다.<br/>
+                          <b style={blueTheme({color:"#fff0ce"}, "surface")}>일반 하루 이벤트 기프티콘과 완전히 분리된 별도 재고</b>입니다.
                         </p>
                       </div>
                     </div>
 
-                    <div style={styles.giftInventorySummary}>
-                      <div style={styles.giftSummaryCell}>
-                        <span style={{fontSize:"7px",fontWeight:"900",color:"#a99a88"}}>총 등록</span>
-                        <strong style={{fontSize:"19px",lineHeight:1.1,color:"#f0c777"}}>{attendanceGiftInventory.length}</strong>
-                        <small style={{fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}}>CHECK-IN</small>
+                    <div style={blueTheme(styles.giftInventorySummary, "surface")}>
+                      <div style={blueTheme(styles.giftSummaryCell, "surface")}>
+                        <span style={blueTheme({fontSize:"7px",fontWeight:"900",color:"#a99a88"}, "surface")}>총 등록</span>
+                        <strong style={blueTheme({fontSize:"19px",lineHeight:1.1,color:"#f0c777"}, "surface")}>{attendanceGiftInventory.length}</strong>
+                        <small style={blueTheme({fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}, "surface")}>CHECK-IN</small>
                       </div>
-                      <div style={styles.giftSummaryDivider} />
-                      <div style={styles.giftSummaryCell}>
-                        <span style={{fontSize:"7px",fontWeight:"900",color:"#a99a88"}}>지급완료</span>
-                        <strong style={{fontSize:"19px",lineHeight:1.1,color:"#a7cfaf"}}>
+                      <div style={blueTheme(styles.giftSummaryDivider, "surface")} />
+                      <div style={blueTheme(styles.giftSummaryCell, "surface")}>
+                        <span style={blueTheme({fontSize:"7px",fontWeight:"900",color:"#a99a88"}, "surface")}>지급완료</span>
+                        <strong style={blueTheme({fontSize:"19px",lineHeight:1.1,color:"#a7cfaf"}, "surface")}>
                           {attendanceGiftInventory.filter((gift) => gift.status === "assigned").length}
                         </strong>
-                        <small style={{fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}}>SENT</small>
+                        <small style={blueTheme({fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}, "surface")}>SENT</small>
                       </div>
-                      <div style={styles.giftSummaryDivider} />
-                      <div style={styles.giftSummaryCell}>
-                        <span style={{fontSize:"7px",fontWeight:"900",color:"#a99a88"}}>지급대기</span>
-                        <strong style={{fontSize:"19px",lineHeight:1.1,color:"#efc879"}}>
+                      <div style={blueTheme(styles.giftSummaryDivider, "surface")} />
+                      <div style={blueTheme(styles.giftSummaryCell, "surface")}>
+                        <span style={blueTheme({fontSize:"7px",fontWeight:"900",color:"#a99a88"}, "surface")}>지급대기</span>
+                        <strong style={blueTheme({fontSize:"19px",lineHeight:1.1,color:"#efc879"}, "surface")}>
                           {attendanceGiftInventory.filter((gift) => gift.status === "available").length}
                         </strong>
-                        <small style={{fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}}>WAITING</small>
+                        <small style={blueTheme({fontSize:"5.5px",letterSpacing:"1px",color:"#756a5f"}, "surface")}>WAITING</small>
                       </div>
                     </div>
 
-                    <div style={styles.giftBulkGuide}>
+                    <div style={blueTheme(styles.giftBulkGuide, "surface")}>
                       <strong>출석체크 전용 입력 형식</strong>
                       <span>상품명 | 기프티콘 링크 · 한 줄에 1개 · 여러 줄 한 번에 등록 가능</span>
                       <code>신세계 상품권 1만원 | https://출석보상링크</code>
                     </div>
 
-                    <form onSubmit={addAttendanceGiftInventoryBulk} style={styles.giftAdminForm}>
+                    <form onSubmit={addAttendanceGiftInventoryBulk} style={blueTheme(styles.giftAdminForm, "surface")}>
                       <textarea
                         value={attendanceGiftBulkText}
                         onChange={(e) => setAttendanceGiftBulkText(e.target.value)}
                         placeholder={"신세계 상품권 1만원 | https://출석링크1\nGS25 모바일 3,000원 | https://출석링크2\nCU 모바일 5,000원 | https://출석링크3"}
-                        style={styles.giftBulkTextarea}
+                        style={blueTheme(styles.giftBulkTextarea, "surface")}
                       />
-                      <div style={styles.giftBulkCount}>
+                      <div style={blueTheme(styles.giftBulkCount, "surface")}>
                         현재 입력 <b>{String(attendanceGiftBulkText || "").replace(/\u2028|\u2029/g, "\n").replace(/\r\n?/g, "\n").split("\n").filter((line) => line.trim()).length}</b>개
                       </div>
-                      <button type="submit" disabled={attendanceGiftWorking} style={{
+                      <button type="submit" disabled={attendanceGiftWorking} style={blueTheme({
                         ...styles.giftAdminAddButton,
                         background:"linear-gradient(135deg,#d9a94e,#f0cd82)",
                         color:"#30210d"
-                      }}>
+                      }, "button")}>
                         {attendanceGiftWorking ? "출석 보상 등록 중..." : "🎁 출석체크 보상 일괄 등록"}
                       </button>
                       <button
                         type="button"
                         disabled={attendanceGiftWorking || attendanceGiftInventory.filter((gift) => gift.status === "available").length === 0}
                         onClick={deleteAllAttendanceGiftInventory}
-                        style={{
+                        style={blueTheme({
                           width:"100%",
                           marginTop:"8px",
                           padding:"11px 12px",
@@ -6613,74 +6614,74 @@ export default function Home() {
                           fontWeight:"1000",
                           cursor:attendanceGiftWorking || attendanceGiftInventory.filter((gift) => gift.status === "available").length === 0 ? "default" : "pointer",
                           opacity:attendanceGiftInventory.filter((gift) => gift.status === "available").length === 0 ? .45 : 1
-                        }}
+                        }, "button")}
                       >
                         🗑 출석체크 지급대기 전체 삭제
                       </button>
                       <button type="button"
                         disabled={attendanceGiftWorking || attendanceGiftInventory.filter((gift) => gift.status === "assigned").length === 0}
                         onClick={deleteAllAssignedAttendanceGiftInventory}
-                        style={{width:"100%",marginTop:"8px",padding:"11px 12px",border:"1px solid rgba(102,184,126,.55)",borderRadius:"11px",background:"rgba(34,105,59,.18)",color:"#9bd5aa",fontSize:"9px",fontWeight:"1000",cursor:attendanceGiftWorking || attendanceGiftInventory.filter((gift) => gift.status === "assigned").length === 0 ? "default" : "pointer",opacity:attendanceGiftInventory.filter((gift) => gift.status === "assigned").length === 0 ? .45 : 1}}>
+                        style={blueTheme({width:"100%",marginTop:"8px",padding:"11px 12px",border:"1px solid rgba(102,184,126,.55)",borderRadius:"11px",background:"rgba(34,105,59,.18)",color:"#9bd5aa",fontSize:"9px",fontWeight:"1000",cursor:attendanceGiftWorking || attendanceGiftInventory.filter((gift) => gift.status === "assigned").length === 0 ? "default" : "pointer",opacity:attendanceGiftInventory.filter((gift) => gift.status === "assigned").length === 0 ? .45 : 1}, "button")}>
                         🧹 출석체크 지급완료 전체 삭제
                       </button>
                     </form>
 
-                    <div style={styles.giftQueueTitle}>
+                    <div style={blueTheme(styles.giftQueueTitle, "surface")}>
                       <div>
-                        <strong style={{display:"block"}}>출석체크 보상 재고 현황</strong>
-                        <span style={{display:"block",marginTop:"2px"}}>10회 단위 달성자에게 이 재고에서만 자동 지급됩니다.</span>
+                        <strong style={blueTheme({display:"block"}, "surface")}>출석체크 보상 재고 현황</strong>
+                        <span style={blueTheme({display:"block",marginTop:"2px"}, "surface")}>10회 단위 달성자에게 이 재고에서만 자동 지급됩니다.</span>
                       </div>
-                      <div style={styles.giftNextQueueBadge}>
+                      <div style={blueTheme(styles.giftNextQueueBadge, "surface")}>
                         NEXT&nbsp;
                         <b>#{attendanceGiftInventory.find((gift) => gift.status === "available")?.queue_no || "-"}</b>
                       </div>
                     </div>
 
-                    <div style={styles.giftAdminInventoryList}>
+                    <div style={blueTheme(styles.giftAdminInventoryList, "surface")}>
                       {attendanceGiftInventory.length === 0 ? (
-                        <div style={styles.giftAdminEmpty}>
+                        <div style={blueTheme(styles.giftAdminEmpty, "surface")}>
                           출석체크 전용 기프티콘이 없습니다. 위 입력란에 여러 개를 미리 등록해주세요.
                         </div>
                       ) : attendanceGiftInventory.slice(0, 100).map((gift) => (
-                        <div key={gift.id} style={styles.giftAdminInventoryRow}>
-                          <div style={gift.status === "available" ? styles.giftQueueNumber : styles.giftQueueNumberSent}>
+                        <div key={gift.id} style={blueTheme(styles.giftAdminInventoryRow, "surface")}>
+                          <div style={blueTheme(gift.status === "available" ? styles.giftQueueNumber : styles.giftQueueNumberSent, "surface")}>
                             {gift.status === "assigned" ? "✓" : `#${gift.queue_no || "-"}`}
                           </div>
-                          <div style={styles.giftAdminInventoryInfo}>
-                            <div style={styles.giftInventoryNameLine}>
-                              <strong style={{fontSize:"8.5px",color:"#f4e6cf",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>
+                          <div style={blueTheme(styles.giftAdminInventoryInfo, "surface")}>
+                            <div style={blueTheme(styles.giftInventoryNameLine, "surface")}>
+                              <strong style={blueTheme({fontSize:"8.5px",color:"#f4e6cf",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}, "surface")}>
                                 #{gift.queue_no || "-"} · {gift.product_name}
                               </strong>
                             </div>
                             {gift.status === "assigned" ? (
                               <>
-                                <span style={styles.giftPaidMember}>
+                                <span style={blueTheme(styles.giftPaidMember, "surface")}>
                                   👤 {gift.assigned_member_nickname || "회원"} · {Number(gift.amount || 0).toLocaleString("ko-KR")}원
                                 </span>
-                                <span style={styles.giftPaidTime}>
+                                <span style={blueTheme(styles.giftPaidTime, "surface")}>
                                   {gift.assigned_at ? `${new Date(gift.assigned_at).toLocaleString("ko-KR")} 지급` : "지급완료"}
                                 </span>
                               </>
                             ) : (
-                              <span style={styles.giftWaitingDetail}>
+                              <span style={blueTheme(styles.giftWaitingDetail, "surface")}>
                                 {Number(gift.amount || 0).toLocaleString("ko-KR")}원 · 출석 10회 보상 대기
                               </span>
                             )}
                           </div>
-                          <div style={styles.giftAdminInventoryActions}>
-                            <span style={gift.status === "available" ? styles.giftStockAvailable : styles.giftStockAssigned}>
+                          <div style={blueTheme(styles.giftAdminInventoryActions, "surface")}>
+                            <span style={blueTheme(gift.status === "available" ? styles.giftStockAvailable : styles.giftStockAssigned, "surface")}>
                               {gift.status === "available" ? "WAITING" : "지급완료"}
                             </span>
                             <button
                               type="button"
                               onClick={() => deleteAttendanceGiftInventory(gift.id, gift.status)}
-                              style={{
+                              style={blueTheme({
                                 width:"20px",height:"20px",border:"1px solid rgba(255,83,83,.42)",
                                 borderRadius:"50%",padding:0,background:"rgba(190,35,35,.14)",
                                 color:"#ff6767",fontSize:"11px",fontWeight:"1000",lineHeight:1,
                                 display:"inline-flex",alignItems:"center",justifyContent:"center",
                                 cursor:"pointer",flex:"0 0 20px"
-                              }}
+                              }, "button")}
                             >×</button>
                           </div>
                         </div>
@@ -6690,42 +6691,42 @@ export default function Home() {
                 )}
 
                 {eventView === "attendance" && <>
-                <div style={styles.dailyAttendanceCard}>
-                  <div style={styles.dailyAttendanceTop}>
+                <div style={blueTheme(styles.dailyAttendanceCard, "accentSurface")}>
+                  <div style={blueTheme(styles.dailyAttendanceTop, "surface")}>
                     <div>
-                      <span style={styles.dailyAttendanceEyebrow}>VIP DAILY CHECK-IN</span>
-                      <strong style={styles.dailyAttendanceTitle}>매일 출석 혜택</strong>
-                      <p style={styles.dailyAttendanceDesc}>
+                      <span style={blueTheme(styles.dailyAttendanceEyebrow, "surface")}>VIP DAILY CHECK-IN</span>
+                      <strong style={blueTheme(styles.dailyAttendanceTitle, "surface")}>매일 출석 혜택</strong>
+                      <p style={blueTheme(styles.dailyAttendanceDesc, "surface")}>
                         하루 1회 출석할 수 있으며, <b>10회 출석 달성 시 3,000원 ~ 200,000원 상당 랜덤 기프티콘이 1:1 고객센터에서 즉시 지급됩니다.</b>
                       </p>
                     </div>
-                    <div style={styles.dailyAttendanceCount}>
+                    <div style={blueTheme(styles.dailyAttendanceCount, "surface")}>
                       <b>{getAttendanceCycleCount()}</b>
                       <span>/ 10</span>
                     </div>
                   </div>
 
-                  <div style={styles.dailyAttendanceProgress}>
+                  <div style={blueTheme(styles.dailyAttendanceProgress, "surface")}>
                     <div
-                      style={{
+                      style={blueTheme({
                         ...styles.dailyAttendanceProgressFill,
                         width: `${Math.min(100, (attendanceCycle / 10) * 100)}%`,
-                      }}
+                      }, "surface")}
                     />
                   </div>
-                  <div style={{display:"grid",gridTemplateColumns:"repeat(10,1fr)",gap:"4px",marginTop:"8px"}}>
+                  <div style={blueTheme({display:"grid",gridTemplateColumns:"repeat(10,1fr)",gap:"4px",marginTop:"8px"}, "surface")}>
                     {Array.from({length:10}).map((_,index)=>(
-                      <span key={index} style={{height:"7px",borderRadius:"999px",background:index < attendanceCycle?"#d99d3c":"#eadfce",boxShadow:index < attendanceCycle?"0 1px 4px rgba(180,120,35,.22)":"none"}} />
+                      <span key={index} style={blueTheme({height:"7px",borderRadius:"999px",background:index < attendanceCycle?"#d99d3c":"#eadfce",boxShadow:index < attendanceCycle?"0 1px 4px rgba(180,120,35,.22)":"none"}, "surface")} />
                     ))}
                   </div>
-                  <div style={{marginTop:"8px",fontSize:"9px",fontWeight:"1000",color:attendanceRemaining===0?"#16834f":"#8a5d24"}}>
+                  <div style={blueTheme({marginTop:"8px",fontSize:"9px",fontWeight:"1000",color:attendanceRemaining===0?"#16834f":"#8a5d24"}, "surface")}>
                     {attendanceRemaining === 0 ? "🎉 출석 보상 달성!" : `🎁 보상까지 ${attendanceRemaining}회 남았어요!`}
                   </div>
 
-                  <div style={styles.dailyAttendanceBottom}>
+                  <div style={blueTheme(styles.dailyAttendanceBottom, "surface")}>
                     <div>
-                      <strong style={{display:"block",fontSize:"10px",color:"#4a3422"}}>{attendanceStatus.checked_today ? "✓ 오늘 출석 완료" : "오늘의 출석을 완료해주세요"}</strong>
-                      <span style={{display:"block",marginTop:"3px",fontSize:"7.5px",lineHeight:1.45,color:"#8d7862"}}>
+                      <strong style={blueTheme({display:"block",fontSize:"10px",color:"#4a3422"}, "surface")}>{attendanceStatus.checked_today ? "✓ 오늘 출석 완료" : "오늘의 출석을 완료해주세요"}</strong>
+                      <span style={blueTheme({display:"block",marginTop:"3px",fontSize:"7.5px",lineHeight:1.45,color:"#8d7862"}, "surface")}>
                         {attendanceStatus.reward_ready && attendanceStatus.checked_today
                           ? "10회 출석 달성 · 랜덤 기프티콘이 1:1 고객센터로 자동 지급됩니다."
                           : getAttendanceCycleCount() === 0
@@ -6737,7 +6738,7 @@ export default function Home() {
                       type="button"
                       disabled={attendanceWorking || attendanceStatus.checked_today}
                       onClick={checkDailyAttendance}
-                      style={{
+                      style={blueTheme({
                         ...styles.dailyAttendanceButton,
                         minWidth:"116px",
                         padding:"13px 18px",
@@ -6759,7 +6760,7 @@ export default function Home() {
                         transition:"filter .12s ease, transform .12s ease",
                         cursor: attendanceWorking || attendanceStatus.checked_today ? "default" : "pointer",
                         opacity: attendanceWorking ? .72 : 1,
-                      }}
+                      }, "button")}
                       onMouseEnter={(e) => {
                         if (!attendanceWorking && !attendanceStatus.checked_today) {
                           e.currentTarget.style.filter = "brightness(1.09)";
@@ -6774,7 +6775,7 @@ export default function Home() {
                       {attendanceWorking ? "처리 중" : attendanceStatus.checked_today ? "✓ 오늘 출석 완료" : "📅 오늘 출석하기"}
                     </button>
                   </div>
-                  <div style={styles.dailyAttendanceFoot}>
+                  <div style={blueTheme(styles.dailyAttendanceFoot, "surface")}>
                     ※ 출석 혜택 지급은 10회 달성 확인 후 1:1 고객센터를 통해 안내됩니다.
                   </div>
                 </div>
@@ -6783,27 +6784,27 @@ export default function Home() {
 
                 {eventView === "live" && <>
                 {featuredEvent && (
-                  <div style={{...styles.refHeroEvent, backgroundImage:eventHeroBackground(featuredEvent.event_type)}}>
-                    <div style={styles.refHeroEventTop}>
+                  <div style={blueTheme({...styles.refHeroEvent, backgroundImage:eventHeroBackground(featuredEvent.event_type)}, "accentSurface")}>
+                    <div style={blueTheme(styles.refHeroEventTop, "surface")}>
                       <span>{activeEvent ? "◆ LIVE" : "◆ NEXT"}</span>
                       <b>⏱ {formatEventTime(featuredEvent.starts_at)} ~ {formatEventTime(featuredEvent.ends_at)}</b>
                     </div>
-                    <div style={styles.refHeroEventMain}>
-                      <div style={styles.refEventArtwork}>
-                        <div style={styles.refEventArtworkHalo}></div>
-                        <div style={styles.refHeroTarget}>{eventIcon(featuredEvent.event_type)}</div>
+                    <div style={blueTheme(styles.refHeroEventMain, "surface")}>
+                      <div style={blueTheme(styles.refEventArtwork, "surface")}>
+                        <div style={blueTheme(styles.refEventArtworkHalo, "surface")}></div>
+                        <div style={blueTheme(styles.refHeroTarget, "surface")}>{eventIcon(featuredEvent.event_type)}</div>
                         <span>VIP</span>
                       </div>
-                      <div style={{position:"relative",zIndex:2}}>
-                        <strong style={{fontSize:"20px"}}>{featuredEvent.title}</strong>
-                        <p style={{margin:"6px 0 0",lineHeight:1.55,color:"#f0dfd1"}}>{featuredEvent.description}</p>
+                      <div style={blueTheme({position:"relative",zIndex:2}, "surface")}>
+                        <strong style={blueTheme({fontSize:"20px"}, "surface")}>{featuredEvent.title}</strong>
+                        <p style={blueTheme({margin:"6px 0 0",lineHeight:1.55,color:"#f0dfd1"}, "surface")}>{featuredEvent.description}</p>
                       </div>
                     </div>
                     {activeEvent && !featuredEvent.participated ? (
                       <button
                         type="button"
                         onClick={() => document.getElementById(`ref-event-${featuredEvent.event_id}`)?.scrollIntoView({behavior:"smooth"})}
-                        style={{
+                        style={blueTheme({
                           display:"inline-flex",
                           alignItems:"center",
                           justifyContent:"center",
@@ -6822,7 +6823,7 @@ export default function Home() {
                           boxShadow:"0 6px 16px rgba(226,126,18,.30), inset 0 1px 0 rgba(255,255,255,.55)",
                           cursor:"pointer",
                           transition:"filter .12s ease, transform .12s ease"
-                        }}
+                        }, "button")}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.filter = "brightness(1.08)";
                           e.currentTarget.style.transform = "translateY(-1px)";
@@ -6832,24 +6833,24 @@ export default function Home() {
                           e.currentTarget.style.transform = "translateY(0)";
                         }}
                       >
-                        <span style={{fontSize:"14px",lineHeight:1}}>
+                        <span style={blueTheme({fontSize:"14px",lineHeight:1}, "buttonChild")}>
                           {eventIcon(featuredEvent.event_type)}
                         </span>
                         <span>이벤트 참여하기</span>
-                        <span style={{fontSize:"13px",lineHeight:1}}>›</span>
+                        <span style={blueTheme({fontSize:"13px",lineHeight:1}, "buttonChild")}>›</span>
                       </button>
                     ) : (
-                      <div style={styles.refHeroDisabled}>{featuredEvent.participated ? "✓ 참여 완료" : "시작 대기 중"}</div>
+                      <div style={blueTheme(styles.refHeroDisabled, "surface")}>{featuredEvent.participated ? "✓ 참여 완료" : "시작 대기 중"}</div>
                     )}
                   </div>
                 )}
 
-                <div style={styles.refSectionTitle}>
+                <div style={blueTheme(styles.refSectionTitle, "surface")}>
                   <div><strong>실시간 이벤트</strong><span>매 정각 시작 · 1시간 참여 · 마감 후 당첨 발표</span></div>
                   <small>{autoEvents.length}개 회차</small>
                 </div>
 
-                <div style={styles.refEventList}>
+                <div style={blueTheme(styles.refEventList, "surface")}>
                   {getSortedAutoEvents().map((item) => {
                     const active = item.status === "active";
                     const done = item.status === "completed";
@@ -6858,34 +6859,34 @@ export default function Home() {
                       <div
                         id={`ref-event-${item.event_id}`}
                         key={item.event_id}
-                        style={{
+                        style={blueTheme({
                           ...styles.refEventRow,
                           ...(active ? styles.refEventRowActive : {})
-                        }}
+                        }, "surface")}
                       >
-                        <div style={styles.refEventMain}>
-                          <div style={styles.refRound}>{item.round_number}<span>회</span></div>
-                          <div style={styles.refEventIcon}>{eventIcon(item.event_type)}</div>
+                        <div style={blueTheme(styles.refEventMain, "surface")}>
+                          <div style={blueTheme(styles.refRound, "surface")}>{item.round_number}<span>회</span></div>
+                          <div style={blueTheme(styles.refEventIcon, "surface")}>{eventIcon(item.event_type)}</div>
 
-                          <div style={styles.refEventInfo}>
+                          <div style={blueTheme(styles.refEventInfo, "surface")}>
                             <small>{formatEventTime(item.starts_at)} ~ {formatEventTime(item.ends_at)}</small>
                             <strong>{item.title}</strong>
                             {active && !participated && (
-                              <div style={styles.refInlineGame}>{renderEventGame(item, active, participated)}</div>
+                              <div style={blueTheme(styles.refInlineGame, "surface")}>{renderEventGame(item, active, participated)}</div>
                             )}
                           </div>
 
                           {item.winner_nickname && (
-                            <div style={styles.refWinnerBadge}>
+                            <div style={blueTheme(styles.refWinnerBadge, "surface")}>
                               <span>🏆 당첨</span>
                               <strong>{item.winner_nickname}</strong>
                             </div>
                           )}
                         </div>
 
-                        <div style={styles.refEventActions}>
+                        <div style={blueTheme(styles.refEventActions, "surface")}>
                           <div
-                            style={{
+                            style={blueTheme({
                               ...styles.refStatus,
                               ...(participated
                                 ? styles.refStatusParticipated
@@ -6894,7 +6895,7 @@ export default function Home() {
                                   : done
                                     ? styles.refStatusDone
                                     : styles.refStatusWait)
-                            }}
+                            }, "surface")}
                           >
                             {participated ? "참여완료" : active ? "진행중" : done ? "종료" : "대기"}
                           </div>
@@ -6906,39 +6907,39 @@ export default function Home() {
                                 e.stopPropagation();
                                 openAdminEventEntries(item);
                               }}
-                              style={styles.adminEventEntriesButton}
+                              style={blueTheme(styles.adminEventEntriesButton, "button")}
                             >
                               👥 참여자
                             </button>
                           )}
 
-                          <div style={styles.refChevron}>›</div>
+                          <div style={blueTheme(styles.refChevron, "surface")}>›</div>
                         </div>
                       </div>
                     );
                   })}
                 </div>
                 </>}
-                {notice && <div style={styles.refNotice}>{notice}</div>}
+                {notice && <div style={blueTheme(styles.refNotice, "surface")}>{notice}</div>}
               </div>
             )}
 
             {chatTab === "ai" && (
-              <div style={styles.refAiScreen}>
+              <div style={blueTheme(styles.refAiScreen, "surface")}>
                 {profile?.role === "admin" ? (
-                  <div style={{marginBottom:"14px"}}>
-                    <div style={{
+                  <div style={blueTheme({marginBottom:"14px"}, "surface")}>
+                    <div style={blueTheme({
                       padding:"18px 15px",borderRadius:"23px",
                       background:"linear-gradient(145deg,#101923,#172a3c 55%,#0c141c)",
                       border:"1px solid rgba(224,184,104,.44)",boxShadow:"0 15px 36px rgba(15,25,35,.2)",color:"#fff"
-                    }}>
-                      <div style={{display:"flex",alignItems:"flex-start",justifyContent:"space-between",gap:"10px"}}>
+                    }, "accentSurface")}>
+                      <div style={blueTheme({display:"flex",alignItems:"flex-start",justifyContent:"space-between",gap:"10px"}, "surface")}>
                         <div>
-                          <span style={{display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.8px",color:"#dfba72"}}>AI PROCESS · ADMIN CONTROL</span>
-                          <strong style={{display:"block",marginTop:"4px",fontSize:"19px"}}>회원별 진행 관리</strong>
-                          <span style={{display:"block",marginTop:"5px",fontSize:"8px",lineHeight:1.5,color:"rgba(255,255,255,.56)"}}>회원마다 진행 가능 횟수 · 투자금 · 목표수익률 · 상태를 개별 설정합니다.</span>
+                          <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.8px",color:"#dfba72"}, "surface")}>AI PROCESS · ADMIN CONTROL</span>
+                          <strong style={blueTheme({display:"block",marginTop:"4px",fontSize:"19px"}, "surface")}>회원별 진행 관리</strong>
+                          <span style={blueTheme({display:"block",marginTop:"5px",fontSize:"8px",lineHeight:1.5,color:"rgba(255,255,255,.56)"}, "surface")}>회원마다 진행 가능 횟수 · 투자금 · 목표수익률 · 상태를 개별 설정합니다.</span>
                         </div>
-                        <div style={{padding:"6px 9px",borderRadius:"999px",fontSize:"7px",fontWeight:"1000",color:"#f0ca7f",border:"1px solid rgba(224,184,104,.28)"}}>
+                        <div style={blueTheme({padding:"6px 9px",borderRadius:"999px",fontSize:"7px",fontWeight:"1000",color:"#f0ca7f",border:"1px solid rgba(224,184,104,.28)"}, "surface")}>
                           ADMIN
                         </div>
                       </div>
@@ -6947,10 +6948,10 @@ export default function Home() {
                         value={aiAdminSearch}
                         onChange={(e)=>setAiAdminSearch(e.target.value)}
                         placeholder="회원 닉네임 또는 성함 검색"
-                        style={{width:"100%",boxSizing:"border-box",marginTop:"14px",padding:"11px 12px",borderRadius:"12px",border:"1px solid rgba(255,255,255,.12)",background:"rgba(255,255,255,.07)",color:"#fff",outline:"none",fontSize:"10px"}}
+                        style={blueTheme({width:"100%",boxSizing:"border-box",marginTop:"14px",padding:"11px 12px",borderRadius:"12px",border:"1px solid rgba(255,255,255,.12)",background:"rgba(255,255,255,.07)",color:"#fff",outline:"none",fontSize:"10px"}, "surface")}
                       />
 
-                      <div style={{marginTop:"10px",maxHeight:"230px",overflowY:"auto",borderRadius:"14px",border:"1px solid rgba(255,255,255,.08)"}}>
+                      <div style={blueTheme({marginTop:"10px",maxHeight:"230px",overflowY:"auto",borderRadius:"14px",border:"1px solid rgba(255,255,255,.08)"}, "surface")}>
                         {aiAdminRows
                           .filter((member)=>{
                             const q=aiAdminSearch.trim().toLowerCase();
@@ -6961,14 +6962,14 @@ export default function Home() {
                             const row=member.process||{};
                             return (
                               <button key={member.id} type="button" onClick={()=>fillAiAdminForm(member)}
-                                style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"space-between",gap:"8px",padding:"10px 11px",border:0,borderBottom:"1px solid rgba(255,255,255,.07)",background:active?"rgba(225,181,94,.15)":"transparent",color:"#fff",cursor:"pointer",textAlign:"left"}}>
-                                <div style={{minWidth:0}}>
-                                  <strong style={{display:"block",fontSize:"10px"}}>{member.nickname || "VIP 회원"} <span style={{fontSize:"7px",color:"rgba(255,255,255,.42)"}}>{member.real_name || ""}</span></strong>
-                                  <span style={{display:"block",marginTop:"3px",fontSize:"7px",color:"rgba(255,255,255,.48)"}}>
+                                style={blueTheme({width:"100%",display:"flex",alignItems:"center",justifyContent:"space-between",gap:"8px",padding:"10px 11px",border:0,borderBottom:"1px solid rgba(255,255,255,.07)",background:active?"rgba(225,181,94,.15)":"transparent",color:"#fff",cursor:"pointer",textAlign:"left"}, "button")}>
+                                <div style={blueTheme({minWidth:0}, "buttonChild")}>
+                                  <strong style={blueTheme({display:"block",fontSize:"10px"}, "buttonChild")}>{member.nickname || "VIP 회원"} <span style={blueTheme({fontSize:"7px",color:"rgba(255,255,255,.42)"}, "buttonChild")}>{member.real_name || ""}</span></strong>
+                                  <span style={blueTheme({display:"block",marginTop:"3px",fontSize:"7px",color:"rgba(255,255,255,.48)"}, "buttonChild")}>
                                     가능 {Number(row.available_count||0)}회 · {aiProcessStatusLabel(row.status, row.available_count)}
                                   </span>
                                 </div>
-                                <span style={{flex:"0 0 auto",padding:"5px 7px",borderRadius:"999px",fontSize:"7px",fontWeight:"1000",color:row.status==="running"?"#bff6d8":"#e8c985",background:row.status==="running"?"rgba(48,167,103,.15)":"rgba(225,181,94,.09)",border:"1px solid rgba(255,255,255,.08)"}}>
+                                <span style={blueTheme({flex:"0 0 auto",padding:"5px 7px",borderRadius:"999px",fontSize:"7px",fontWeight:"1000",color:row.status==="running"?"#bff6d8":"#e8c985",background:row.status==="running"?"rgba(48,167,103,.15)":"rgba(225,181,94,.09)",border:"1px solid rgba(255,255,255,.08)"}, "buttonChild")}>
                                   {aiProcessStatusLabel(row.status, row.available_count)}
                                 </span>
                               </button>
@@ -6979,51 +6980,51 @@ export default function Home() {
 
                         
                     {aiAdminSelectedId && (
-                      <div style={{marginTop:"10px",padding:"16px 14px",borderRadius:"21px",background:"linear-gradient(180deg,#fffdf8,#f7efe3)",border:"1px solid #e7d4b5",boxShadow:"0 9px 24px rgba(73,52,29,.08)"}}>
-                        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:"10px"}}>
+                      <div style={blueTheme({marginTop:"10px",padding:"16px 14px",borderRadius:"21px",background:"linear-gradient(180deg,#fffdf8,#f7efe3)",border:"1px solid #e7d4b5",boxShadow:"0 9px 24px rgba(73,52,29,.08)"}, "accentSurface")}>
+                        <div style={blueTheme({display:"flex",justifyContent:"space-between",alignItems:"center",gap:"10px"}, "surface")}>
                           <div>
-                            <span style={{display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#9a6b29"}}>MEMBER SETTING</span>
-                            <strong style={{display:"block",marginTop:"3px",fontSize:"15px",color:"#34291f"}}>
+                            <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#9a6b29"}, "surface")}>MEMBER SETTING</span>
+                            <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:"15px",color:"#34291f"}, "surface")}>
                               {aiAdminRows.find((m)=>m.id===aiAdminSelectedId)?.nickname || "선택 회원"} 설정
                             </strong>
                           </div>
-                          <span style={{padding:"6px 8px",borderRadius:"10px",background:"#2a2119",color:"#e9c475",fontSize:"8px",fontWeight:"1000"}}>
+                          <span style={blueTheme({padding:"6px 8px",borderRadius:"10px",background:"#2a2119",color:"#e9c475",fontSize:"8px",fontWeight:"1000"}, "surface")}>
                             {aiProcessStatusLabel(aiAdminForm.status, aiAdminForm.available_count)}
                           </span>
                         </div>
 
-                        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"8px",marginTop:"13px"}}>
-                          <label style={{display:"flex",flexDirection:"column",gap:"5px",fontSize:"8px",fontWeight:"900",color:"#755c43"}}>
+                        <div style={blueTheme({display:"grid",gridTemplateColumns:"1fr 1fr",gap:"8px",marginTop:"13px"}, "surface")}>
+                          <label style={blueTheme({display:"flex",flexDirection:"column",gap:"5px",fontSize:"8px",fontWeight:"900",color:"#755c43"}, "surface")}>
                             진행 가능한 횟수
                             <input type="number" min="0" step="1" value={aiAdminForm.available_count}
                               onChange={(e)=>setAiAdminForm((v)=>({...v,available_count:e.target.value}))}
-                              style={{width:"100%",boxSizing:"border-box",padding:"11px",borderRadius:"11px",border:"1px solid #dfd0bb",background:"#fff",fontWeight:"900",outline:"none"}}/>
+                              style={blueTheme({width:"100%",boxSizing:"border-box",padding:"11px",borderRadius:"11px",border:"1px solid #dfd0bb",background:"#fff",fontWeight:"900",outline:"none"}, "surface")}/>
                           </label>
-                          <label style={{display:"flex",flexDirection:"column",gap:"5px",fontSize:"8px",fontWeight:"900",color:"#755c43"}}>
+                          <label style={blueTheme({display:"flex",flexDirection:"column",gap:"5px",fontSize:"8px",fontWeight:"900",color:"#755c43"}, "surface")}>
                             투자금액 (원)
                             <input type="number" min="0" step="10000" value={aiAdminForm.investment_amount}
                               onChange={(e)=>setAiAdminForm((v)=>({...v,investment_amount:e.target.value}))}
-                              style={{width:"100%",boxSizing:"border-box",padding:"11px",borderRadius:"11px",border:"1px solid #dfd0bb",background:"#fff",fontWeight:"900",outline:"none"}}/>
+                              style={blueTheme({width:"100%",boxSizing:"border-box",padding:"11px",borderRadius:"11px",border:"1px solid #dfd0bb",background:"#fff",fontWeight:"900",outline:"none"}, "surface")}/>
                           </label>
-                          <label style={{display:"flex",flexDirection:"column",gap:"5px",fontSize:"8px",fontWeight:"900",color:"#755c43"}}>
+                          <label style={blueTheme({display:"flex",flexDirection:"column",gap:"5px",fontSize:"8px",fontWeight:"900",color:"#755c43"}, "surface")}>
                             예상 진행기간 (일)
                             <input type="number" min="1" max="30" step="1" value={aiAdminForm.duration_days}
                               onChange={(e)=>setAiAdminForm((v)=>({...v,duration_days:e.target.value}))}
-                              style={{width:"100%",boxSizing:"border-box",padding:"11px",borderRadius:"11px",border:"1px solid #dfd0bb",background:"#fff",fontWeight:"900",outline:"none"}}/>
-                            <span style={{fontSize:"7px",fontWeight:"700",color:"#a08d77"}}>
+                              style={blueTheme({width:"100%",boxSizing:"border-box",padding:"11px",borderRadius:"11px",border:"1px solid #dfd0bb",background:"#fff",fontWeight:"900",outline:"none"}, "surface")}/>
+                            <span style={blueTheme({fontSize:"7px",fontWeight:"700",color:"#a08d77"}, "surface")}>
                               1일 ~ 최대 30일 · 기본값은 30일입니다.
                             </span>
                           </label>
-                          <label style={{display:"flex",flexDirection:"column",gap:"5px",fontSize:"8px",fontWeight:"900",color:"#755c43"}}>
+                          <label style={blueTheme({display:"flex",flexDirection:"column",gap:"5px",fontSize:"8px",fontWeight:"900",color:"#755c43"}, "surface")}>
                             예상 수익률 범위 (%)
-                            <div style={{display:"grid",gridTemplateColumns:"1fr 14px 1fr",alignItems:"center",gap:"4px"}}>
+                            <div style={blueTheme({display:"grid",gridTemplateColumns:"1fr 14px 1fr",alignItems:"center",gap:"4px"}, "surface")}>
                               <input type="number" min="0" step="0.1" value={aiAdminForm.min_return}
                                 onChange={(e)=>setAiAdminForm((v)=>({...v,min_return:e.target.value}))}
-                                style={{width:"100%",boxSizing:"border-box",padding:"11px 7px",borderRadius:"11px",border:"1px solid #dfd0bb",background:"#fff",fontWeight:"900",outline:"none"}}/>
-                              <b style={{textAlign:"center"}}>~</b>
+                                style={blueTheme({width:"100%",boxSizing:"border-box",padding:"11px 7px",borderRadius:"11px",border:"1px solid #dfd0bb",background:"#fff",fontWeight:"900",outline:"none"}, "surface")}/>
+                              <b style={blueTheme({textAlign:"center"}, "surface")}>~</b>
                               <input type="number" min="0" step="0.1" value={aiAdminForm.max_return}
                                 onChange={(e)=>setAiAdminForm((v)=>({...v,max_return:e.target.value}))}
-                                style={{width:"100%",boxSizing:"border-box",padding:"11px 7px",borderRadius:"11px",border:"1px solid #dfd0bb",background:"#fff",fontWeight:"900",outline:"none"}}/>
+                                style={blueTheme({width:"100%",boxSizing:"border-box",padding:"11px 7px",borderRadius:"11px",border:"1px solid #dfd0bb",background:"#fff",fontWeight:"900",outline:"none"}, "surface")}/>
                             </div>
                           </label>
                         </div>
@@ -7031,12 +7032,12 @@ export default function Home() {
                         {aiAdminForm.status==="running" && (()=>{
                           const current=aiAdminRows.find(m=>m.id===aiAdminSelectedId)?.process;
                           const snapshot=current?getMemberProcessSnapshot(current):null;
-                          return <div style={{marginTop:"12px",padding:"12px",borderRadius:"12px",border:"1px solid #d7bd8d",background:"#fff9ee"}}>
-                            <strong style={{fontSize:"11px",color:"#67461c"}}>회원별 모의 수익 금액 조정</strong>
-                            <div style={{fontSize:"10px",marginTop:"7px",color:"#67461c"}}>현재 누적 모의 수익: <b>{Math.round(snapshot?.earnedProfit||0).toLocaleString("ko-KR")}원</b> · 모의 총금액: <b>{Math.round(snapshot?.totalAmount||0).toLocaleString("ko-KR")}원</b></div>
-                            <div style={{fontSize:"8px",marginTop:"5px",color:"#977955"}}>금액을 입력한 후 추가 또는 차감을 선택하세요. 변경액은 DB에 저장되어 3분 후에도 유지됩니다.</div>
-                            <input type="number" min="1" step="1" value={aiProfitAdjustAmount} onChange={e=>setAiProfitAdjustAmount(e.target.value)} placeholder="조정 금액 (원)" style={{marginTop:"9px",width:"100%",boxSizing:"border-box",padding:"10px",borderRadius:"9px",border:"1px solid #dfd0bb"}}/>
-                            <div style={{display:"flex",gap:"8px",marginTop:"8px"}}>
+                          return <div style={blueTheme({marginTop:"12px",padding:"12px",borderRadius:"12px",border:"1px solid #d7bd8d",background:"#fff9ee"}, "surface")}>
+                            <strong style={blueTheme({fontSize:"11px",color:"#67461c"}, "surface")}>회원별 모의 수익 금액 조정</strong>
+                            <div style={blueTheme({fontSize:"10px",marginTop:"7px",color:"#67461c"}, "surface")}>현재 누적 모의 수익: <b>{Math.round(snapshot?.earnedProfit||0).toLocaleString("ko-KR")}원</b> · 모의 총금액: <b>{Math.round(snapshot?.totalAmount||0).toLocaleString("ko-KR")}원</b></div>
+                            <div style={blueTheme({fontSize:"8px",marginTop:"5px",color:"#977955"}, "surface")}>금액을 입력한 후 추가 또는 차감을 선택하세요. 변경액은 DB에 저장되어 3분 후에도 유지됩니다.</div>
+                            <input type="number" min="1" step="1" value={aiProfitAdjustAmount} onChange={e=>setAiProfitAdjustAmount(e.target.value)} placeholder="조정 금액 (원)" style={blueTheme({marginTop:"9px",width:"100%",boxSizing:"border-box",padding:"10px",borderRadius:"9px",border:"1px solid #dfd0bb"}, "surface")}/>
+                            <div style={blueTheme({display:"flex",gap:"8px",marginTop:"8px"}, "surface")}>
                               {["add","subtract"].map(mode=><button key={mode} type="button" disabled={aiProfitAdjustWorking||aiAdminWorking||!(Number(aiProfitAdjustAmount)>0)} onClick={async()=>{
                                 if(!window.confirm(`${aiAdminRows.find(m=>m.id===aiAdminSelectedId)?.nickname||"회원"}님의 모의 수익 ${Number(aiProfitAdjustAmount).toLocaleString("ko-KR")}원을 ${mode==="add"?"추가":"차감"}할까요?`))return;
                                 setAiProfitAdjustWorking(true);
@@ -7048,88 +7049,88 @@ export default function Home() {
                                   setNotice("회원별 모의 수익 금액 조정이 저장됐습니다.");
                                 }catch(e){setNotice("금액 조정 실패: "+e.message);}
                                 finally{setAiProfitAdjustWorking(false);}
-                              }} style={{flex:1,padding:"10px",borderRadius:"9px",border:0,background:mode==="add"?"#256c4d":"#8c513c",color:"#fff",fontWeight:900,cursor:"pointer"}}>{mode==="add"?"+ 수익 추가":"− 수익 차감"}</button>)}
+                              }} style={blueTheme({flex:1,padding:"10px",borderRadius:"9px",border:0,background:mode==="add"?"#256c4d":"#8c513c",color:"#fff",fontWeight:900,cursor:"pointer"}, "button")}>{mode==="add"?"+ 수익 추가":"− 수익 차감"}</button>)}
                             </div>
                           </div>;
                         })()}
 
-                        <div style={{marginTop:"10px",padding:"10px 11px",borderRadius:"12px",background:"#f2e6d3",fontSize:"8px",lineHeight:1.55,color:"#755c43"}}>
+                        <div style={blueTheme({marginTop:"10px",padding:"10px 11px",borderRadius:"12px",background:"#f2e6d3",fontSize:"8px",lineHeight:1.55,color:"#755c43"}, "surface")}>
                           <b>대기</b>는 상담 후 금액·예상 진행기간·예상 수익률 범위를 미리 저장하는 상태입니다. <b>진행중 시작</b>을 누르면 해당 회원에게만 3분 단위 모의 수익 시뮬레이션이 표시됩니다. 각 회원의 최종 모의 수익률은 설정 범위 안에서 회원별로 다르게 결정됩니다.
                         </div>
 
-                        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"7px",marginTop:"11px"}}>
+                        <div style={blueTheme({display:"grid",gridTemplateColumns:"1fr 1fr",gap:"7px",marginTop:"11px"}, "surface")}>
                           <button type="button" disabled={aiAdminWorking} onClick={()=>saveAiAdminSettings("waiting")}
-                            style={{padding:"11px 8px",borderRadius:"12px",border:"1px solid #d7bd8d",background:"#fff7e8",color:"#725021",fontSize:"9px",fontWeight:"1000",cursor:"pointer"}}>대기로 저장</button>
+                            style={blueTheme({padding:"11px 8px",borderRadius:"12px",border:"1px solid #d7bd8d",background:"#fff7e8",color:"#725021",fontSize:"9px",fontWeight:"1000",cursor:"pointer"}, "button")}>대기로 저장</button>
                           <button type="button" disabled={aiAdminWorking || Number(aiAdminForm.investment_amount)<=0 || Number(aiAdminForm.min_return)<0 || Number(aiAdminForm.max_return)<Number(aiAdminForm.min_return) || Number(aiAdminForm.duration_days)<1 || Number(aiAdminForm.duration_days)>30}
                             onClick={()=>saveAiAdminSettings("running")}
-                            style={{padding:"11px 8px",borderRadius:"12px",border:"1px solid #2f7452",background:"linear-gradient(145deg,#184b35,#28734f)",color:"#eafff2",fontSize:"9px",fontWeight:"1000",cursor:"pointer"}}>▶ 진행중 시작</button>
+                            style={blueTheme({padding:"11px 8px",borderRadius:"12px",border:"1px solid #2f7452",background:"linear-gradient(145deg,#184b35,#28734f)",color:"#eafff2",fontSize:"9px",fontWeight:"1000",cursor:"pointer"}, "button")}>▶ 진행중 시작</button>
                           <button type="button" disabled={aiAdminWorking} onClick={()=>saveAiAdminSettings("completed")}
-                            style={{padding:"11px 8px",borderRadius:"12px",border:"1px solid #cab37f",background:"#2d261d",color:"#f1d28e",fontSize:"9px",fontWeight:"1000",cursor:"pointer"}}>✓ 진행완료</button>
+                            style={blueTheme({padding:"11px 8px",borderRadius:"12px",border:"1px solid #cab37f",background:"#2d261d",color:"#f1d28e",fontSize:"9px",fontWeight:"1000",cursor:"pointer"}, "button")}>✓ 진행완료</button>
                           <button type="button" disabled={aiAdminWorking} onClick={resetAiAdminProcess}
-                            style={{padding:"11px 8px",borderRadius:"12px",border:"1px solid #ddd3c5",background:"#fff",color:"#8a7765",fontSize:"9px",fontWeight:"1000",cursor:"pointer"}}>진행 전으로 초기화</button>
+                            style={blueTheme({padding:"11px 8px",borderRadius:"12px",border:"1px solid #ddd3c5",background:"#fff",color:"#8a7765",fontSize:"9px",fontWeight:"1000",cursor:"pointer"}, "button")}>진행 전으로 초기화</button>
                         </div>
 
                         <button type="button" disabled={aiAdminWorking} onClick={()=>saveAiAdminSettings(aiAdminForm.status)}
-                          style={{width:"100%",marginTop:"7px",padding:"11px",borderRadius:"12px",border:0,background:"linear-gradient(145deg,#8f6327,#c79648)",color:"#fff",fontSize:"9px",fontWeight:"1000",cursor:"pointer"}}>
+                          style={blueTheme({width:"100%",marginTop:"7px",padding:"11px",borderRadius:"12px",border:0,background:"linear-gradient(145deg,#8f6327,#c79648)",color:"#fff",fontSize:"9px",fontWeight:"1000",cursor:"pointer"}, "button")}>
                           {aiAdminWorking ? "저장 중..." : "현재 상태 그대로 설정 저장"}
                         </button>
                       </div>
                     )}
-                        <div style={{padding:"14px",marginTop:"14px",marginBottom:"12px",border:"1px solid #d8bd91",borderRadius:"12px",background:"#fff9ee"}}>
-                          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:"8px"}}>
-                            <strong style={{fontSize:"13px",color:"#3e2c19"}}>일반 회원 · AI 돌발 이벤트 진행 현황</strong>
-                            <button type="button" onClick={()=>{setRealSurpriseCollapsed(v=>!v);if(realSurpriseCollapsed)loadRealSurpriseRows();}} style={{padding:"6px 10px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}}>{realSurpriseCollapsed?"펼치기 ▾":"접어두기 ▴"}</button>
+                        <div style={blueTheme({padding:"14px",marginTop:"14px",marginBottom:"12px",border:"1px solid #d8bd91",borderRadius:"12px",background:"#fff9ee"}, "surface")}>
+                          <div style={blueTheme({display:"flex",justifyContent:"space-between",alignItems:"center",gap:"8px"}, "surface")}>
+                            <strong style={blueTheme({fontSize:"13px",color:"#3e2c19"}, "surface")}>일반 회원 · AI 돌발 이벤트 진행 현황</strong>
+                            <button type="button" onClick={()=>{setRealSurpriseCollapsed(v=>!v);if(realSurpriseCollapsed)loadRealSurpriseRows();}} style={blueTheme({padding:"6px 10px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}, "button")}>{realSurpriseCollapsed?"펼치기 ▾":"접어두기 ▴"}</button>
                           </div>
-                          {!realSurpriseCollapsed && <div style={{marginTop:"12px"}}>
-                            <button type="button" onClick={loadRealSurpriseRows} disabled={realSurpriseLoading} style={{padding:"7px 11px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}}>{realSurpriseLoading?"조회 중...":"새로고침 ↻"}</button>
-                            <div style={{marginTop:"8px",fontSize:"11px",color:"#70502d"}}>일반 회원만 표시 · 진행 중 {realSurpriseRows.filter(v=>v.status==="running").length}명 / 완료 {realSurpriseRows.filter(v=>v.status==="completed").length}명</div>
-                            {realSurpriseRows.length===0 ? <div style={{padding:"12px 0",fontSize:"11px",color:"#70502d"}}>진행 중이거나 완료된 일반 회원 기록이 없습니다.</div> :
-                              <div style={{marginTop:"8px",maxHeight:"380px",overflowY:"auto"}}>{realSurpriseRows.map((v,i)=><div key={v.member_id+"-"+i} style={{padding:"11px",marginBottom:"7px",background:"#fff",border:"1px solid #eadcc7",borderRadius:"9px",fontSize:"11px",lineHeight:1.8,color:"#3e2c19"}}>
-                                <strong>{v.nickname || v.real_name || "회원"}</strong> <span style={{color:v.status==="running"?"#a06c14":"#357c4a",fontWeight:800}}>{v.status==="running"?"● 진행 중":"✓ 진행 완료"}</span>
+                          {!realSurpriseCollapsed && <div style={blueTheme({marginTop:"12px"}, "surface")}>
+                            <button type="button" onClick={loadRealSurpriseRows} disabled={realSurpriseLoading} style={blueTheme({padding:"7px 11px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}, "button")}>{realSurpriseLoading?"조회 중...":"새로고침 ↻"}</button>
+                            <div style={blueTheme({marginTop:"8px",fontSize:"11px",color:"#70502d"}, "surface")}>일반 회원만 표시 · 진행 중 {realSurpriseRows.filter(v=>v.status==="running").length}명 / 완료 {realSurpriseRows.filter(v=>v.status==="completed").length}명</div>
+                            {realSurpriseRows.length===0 ? <div style={blueTheme({padding:"12px 0",fontSize:"11px",color:"#70502d"}, "surface")}>진행 중이거나 완료된 일반 회원 기록이 없습니다.</div> :
+                              <div style={blueTheme({marginTop:"8px",maxHeight:"380px",overflowY:"auto"}, "surface")}>{realSurpriseRows.map((v,i)=><div key={v.member_id+"-"+i} style={blueTheme({padding:"11px",marginBottom:"7px",background:"#fff",border:"1px solid #eadcc7",borderRadius:"9px",fontSize:"11px",lineHeight:1.8,color:"#3e2c19"}, "surface")}>
+                                <strong>{v.nickname || v.real_name || "회원"}</strong> <span style={blueTheme({color:v.status==="running"?"#a06c14":"#357c4a",fontWeight:800}, "surface")}>{v.status==="running"?"● 진행 중":"✓ 진행 완료"}</span>
                                 <div>시작: {v.started_at?new Date(v.started_at).toLocaleString("ko-KR",{timeZone:"Asia/Seoul"}):"-"}</div>
                                 <div>{v.status==="completed"?"완료":"완료 예정"}: {(v.status==="completed"?v.finished_at:v.scheduled_finish_at)?new Date(v.status==="completed"?v.finished_at:v.scheduled_finish_at).toLocaleString("ko-KR",{timeZone:"Asia/Seoul"}):"-"}</div>
                               </div>)}</div>}
                           </div>}
                         </div>
-<div style={{padding:"14px",marginTop:"14px",marginBottom:"12px",border:"1px solid #d8bd91",borderRadius:"12px",background:"#fff9ee"}}>
-<div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:"8px"}}><strong style={{fontSize:"13px",color:"#3e2c19"}}>그룹채팅 이벤트 당첨 안내 문구</strong><button type="button" onClick={()=>{setEventWinnerFooterCollapsed(v=>!v);if(eventWinnerFooterCollapsed)loadEventWinnerFooter();}} style={{padding:"6px 10px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}}>{eventWinnerFooterCollapsed?"펼치기 ▾":"접어두기 ▴"}</button></div>
-{!eventWinnerFooterCollapsed&&<div style={{display:"grid",gap:"10px",marginTop:"12px"}}>
-<div style={{fontSize:"11px",color:"#70502d",lineHeight:1.6}}>AI · 가상지급 · 실제 회원 당첨 공지에 공통 적용됩니다. 기존 상품명과 1:1 지급 방식은 바뀌지 않으며, 앞으로 올라오는 당첨 공지 맨 아래에 한 줄 띄어 표시됩니다.</div>
-<label style={{fontSize:"11px",fontWeight:800,color:"#594022"}}>당첨 상품 아래 추가 문구<textarea maxLength={250} value={eventWinnerFooter} onChange={e=>setEventWinnerFooter(e.target.value)} placeholder="💌 당첨 상품은 1:1 고객센터에서 확인해주세요." style={{display:"block",width:"100%",boxSizing:"border-box",padding:"9px",marginTop:"5px",minHeight:"75px",borderRadius:"8px",border:"1px solid #d8bd91",fontSize:"12px"}}/></label>
-<button type="button" onClick={saveEventWinnerFooter} disabled={eventWinnerFooterSaving} style={{padding:"11px",background:"#172938",color:"#fff",border:0,borderRadius:"9px",fontWeight:800,cursor:"pointer"}}>{eventWinnerFooterSaving?"저장 중...":"당첨 안내 문구 저장"}</button></div>}</div>
-<div style={{padding:"14px",marginTop:"14px",marginBottom:"12px",border:"1px solid #d8bd91",borderRadius:"12px",background:"#fff9ee"}}>
-<div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:"8px"}}><strong style={{fontSize:"13px",color:"#3e2c19"}}>돌발 이벤트 자동 공지 문구 관리</strong><button type="button" onClick={()=>{setSurpriseCopyCollapsed(v=>!v);if(surpriseCopyCollapsed)loadSurpriseCopy();}} style={{padding:"6px 10px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}}>{surpriseCopyCollapsed?"펼치기 ▾":"접어두기 ▴"}</button></div>
-{!surpriseCopyCollapsed&&<div style={{display:"grid",gap:"10px",marginTop:"12px"}}>
-<div style={{fontSize:"10px",color:"#70502d"}}>회원 이름은 {"{닉네임}"}, 모의 지원금은 {"{지원금}"}으로 자동 치환됩니다. 변경 내용은 새 1:1 메시지 및 그룹방 카드에 반영됩니다.</div><label style={{fontSize:"11px",fontWeight:800,color:"#594022"}}>그룹방 시작 제목<textarea value={surpriseCopy.group_start_title} onChange={e=>setSurpriseCopy(v=>({...v,group_start_title:e.target.value}))} style={{display:"block",width:"100%",boxSizing:"border-box",padding:"9px",marginTop:"5px",minHeight:"65px",borderRadius:"8px",border:"1px solid #d8bd91",fontSize:"12px"}}/></label><label style={{fontSize:"11px",fontWeight:800,color:"#594022"}}>그룹방 시작 본문<textarea value={surpriseCopy.group_start_body} onChange={e=>setSurpriseCopy(v=>({...v,group_start_body:e.target.value}))} style={{display:"block",width:"100%",boxSizing:"border-box",padding:"9px",marginTop:"5px",minHeight:"65px",borderRadius:"8px",border:"1px solid #d8bd91",fontSize:"12px"}}/></label><label style={{fontSize:"11px",fontWeight:800,color:"#594022"}}>그룹방 완료 제목<textarea value={surpriseCopy.group_complete_title} onChange={e=>setSurpriseCopy(v=>({...v,group_complete_title:e.target.value}))} style={{display:"block",width:"100%",boxSizing:"border-box",padding:"9px",marginTop:"5px",minHeight:"65px",borderRadius:"8px",border:"1px solid #d8bd91",fontSize:"12px"}}/></label><label style={{fontSize:"11px",fontWeight:800,color:"#594022"}}>그룹방 완료 본문<textarea value={surpriseCopy.group_complete_body} onChange={e=>setSurpriseCopy(v=>({...v,group_complete_body:e.target.value}))} style={{display:"block",width:"100%",boxSizing:"border-box",padding:"9px",marginTop:"5px",minHeight:"65px",borderRadius:"8px",border:"1px solid #d8bd91",fontSize:"12px"}}/></label><label style={{fontSize:"11px",fontWeight:800,color:"#594022"}}>1:1 당첨 시작 자동 메시지<textarea value={surpriseCopy.private_start_body} onChange={e=>setSurpriseCopy(v=>({...v,private_start_body:e.target.value}))} style={{display:"block",width:"100%",boxSizing:"border-box",padding:"9px",marginTop:"5px",minHeight:"145px",borderRadius:"8px",border:"1px solid #d8bd91",fontSize:"12px"}}/></label><button type="button" onClick={saveSurpriseCopy} disabled={surpriseCopySaving} style={{padding:"11px",background:"#172938",color:"#fff",border:0,borderRadius:"9px",fontWeight:800}}>{surpriseCopySaving?"저장 중...":"자동 공지 문구 저장"}</button></div>}</div>
-<div style={{padding:"14px",marginTop:"14px",marginBottom:"12px",border:"1px solid #d8bd91",borderRadius:"12px",background:"#fff9ee"}}>
-                          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:"8px"}}><strong style={{fontSize:"13px",color:"#3e2c19"}}>돌발 체험 이벤트 안내 관리</strong><button type="button" onClick={()=>setSurpriseGuideCollapsed(v=>!v)} style={{padding:"6px 10px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}}>{surpriseGuideCollapsed?"펼치기 ▾":"접어두기 ▴"}</button></div>
+<div style={blueTheme({padding:"14px",marginTop:"14px",marginBottom:"12px",border:"1px solid #d8bd91",borderRadius:"12px",background:"#fff9ee"}, "surface")}>
+<div style={blueTheme({display:"flex",justifyContent:"space-between",alignItems:"center",gap:"8px"}, "surface")}><strong style={blueTheme({fontSize:"13px",color:"#3e2c19"}, "surface")}>그룹채팅 이벤트 당첨 안내 문구</strong><button type="button" onClick={()=>{setEventWinnerFooterCollapsed(v=>!v);if(eventWinnerFooterCollapsed)loadEventWinnerFooter();}} style={blueTheme({padding:"6px 10px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}, "button")}>{eventWinnerFooterCollapsed?"펼치기 ▾":"접어두기 ▴"}</button></div>
+{!eventWinnerFooterCollapsed&&<div style={blueTheme({display:"grid",gap:"10px",marginTop:"12px"}, "surface")}>
+<div style={blueTheme({fontSize:"11px",color:"#70502d",lineHeight:1.6}, "surface")}>AI · 가상지급 · 실제 회원 당첨 공지에 공통 적용됩니다. 기존 상품명과 1:1 지급 방식은 바뀌지 않으며, 앞으로 올라오는 당첨 공지 맨 아래에 한 줄 띄어 표시됩니다.</div>
+<label style={blueTheme({fontSize:"11px",fontWeight:800,color:"#594022"}, "surface")}>당첨 상품 아래 추가 문구<textarea maxLength={250} value={eventWinnerFooter} onChange={e=>setEventWinnerFooter(e.target.value)} placeholder="💌 당첨 상품은 1:1 고객센터에서 확인해주세요." style={blueTheme({display:"block",width:"100%",boxSizing:"border-box",padding:"9px",marginTop:"5px",minHeight:"75px",borderRadius:"8px",border:"1px solid #d8bd91",fontSize:"12px"}, "surface")}/></label>
+<button type="button" onClick={saveEventWinnerFooter} disabled={eventWinnerFooterSaving} style={blueTheme({padding:"11px",background:"#172938",color:"#fff",border:0,borderRadius:"9px",fontWeight:800,cursor:"pointer"}, "button")}>{eventWinnerFooterSaving?"저장 중...":"당첨 안내 문구 저장"}</button></div>}</div>
+<div style={blueTheme({padding:"14px",marginTop:"14px",marginBottom:"12px",border:"1px solid #d8bd91",borderRadius:"12px",background:"#fff9ee"}, "surface")}>
+<div style={blueTheme({display:"flex",justifyContent:"space-between",alignItems:"center",gap:"8px"}, "surface")}><strong style={blueTheme({fontSize:"13px",color:"#3e2c19"}, "surface")}>돌발 이벤트 자동 공지 문구 관리</strong><button type="button" onClick={()=>{setSurpriseCopyCollapsed(v=>!v);if(surpriseCopyCollapsed)loadSurpriseCopy();}} style={blueTheme({padding:"6px 10px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}, "button")}>{surpriseCopyCollapsed?"펼치기 ▾":"접어두기 ▴"}</button></div>
+{!surpriseCopyCollapsed&&<div style={blueTheme({display:"grid",gap:"10px",marginTop:"12px"}, "surface")}>
+<div style={blueTheme({fontSize:"10px",color:"#70502d"}, "surface")}>회원 이름은 {"{닉네임}"}, 모의 지원금은 {"{지원금}"}으로 자동 치환됩니다. 변경 내용은 새 1:1 메시지 및 그룹방 카드에 반영됩니다.</div><label style={blueTheme({fontSize:"11px",fontWeight:800,color:"#594022"}, "surface")}>그룹방 시작 제목<textarea value={surpriseCopy.group_start_title} onChange={e=>setSurpriseCopy(v=>({...v,group_start_title:e.target.value}))} style={blueTheme({display:"block",width:"100%",boxSizing:"border-box",padding:"9px",marginTop:"5px",minHeight:"65px",borderRadius:"8px",border:"1px solid #d8bd91",fontSize:"12px"}, "surface")}/></label><label style={blueTheme({fontSize:"11px",fontWeight:800,color:"#594022"}, "surface")}>그룹방 시작 본문<textarea value={surpriseCopy.group_start_body} onChange={e=>setSurpriseCopy(v=>({...v,group_start_body:e.target.value}))} style={blueTheme({display:"block",width:"100%",boxSizing:"border-box",padding:"9px",marginTop:"5px",minHeight:"65px",borderRadius:"8px",border:"1px solid #d8bd91",fontSize:"12px"}, "surface")}/></label><label style={blueTheme({fontSize:"11px",fontWeight:800,color:"#594022"}, "surface")}>그룹방 완료 제목<textarea value={surpriseCopy.group_complete_title} onChange={e=>setSurpriseCopy(v=>({...v,group_complete_title:e.target.value}))} style={blueTheme({display:"block",width:"100%",boxSizing:"border-box",padding:"9px",marginTop:"5px",minHeight:"65px",borderRadius:"8px",border:"1px solid #d8bd91",fontSize:"12px"}, "surface")}/></label><label style={blueTheme({fontSize:"11px",fontWeight:800,color:"#594022"}, "surface")}>그룹방 완료 본문<textarea value={surpriseCopy.group_complete_body} onChange={e=>setSurpriseCopy(v=>({...v,group_complete_body:e.target.value}))} style={blueTheme({display:"block",width:"100%",boxSizing:"border-box",padding:"9px",marginTop:"5px",minHeight:"65px",borderRadius:"8px",border:"1px solid #d8bd91",fontSize:"12px"}, "surface")}/></label><label style={blueTheme({fontSize:"11px",fontWeight:800,color:"#594022"}, "surface")}>1:1 당첨 시작 자동 메시지<textarea value={surpriseCopy.private_start_body} onChange={e=>setSurpriseCopy(v=>({...v,private_start_body:e.target.value}))} style={blueTheme({display:"block",width:"100%",boxSizing:"border-box",padding:"9px",marginTop:"5px",minHeight:"145px",borderRadius:"8px",border:"1px solid #d8bd91",fontSize:"12px"}, "surface")}/></label><button type="button" onClick={saveSurpriseCopy} disabled={surpriseCopySaving} style={blueTheme({padding:"11px",background:"#172938",color:"#fff",border:0,borderRadius:"9px",fontWeight:800}, "button")}>{surpriseCopySaving?"저장 중...":"자동 공지 문구 저장"}</button></div>}</div>
+<div style={blueTheme({padding:"14px",marginTop:"14px",marginBottom:"12px",border:"1px solid #d8bd91",borderRadius:"12px",background:"#fff9ee"}, "surface")}>
+                          <div style={blueTheme({display:"flex",justifyContent:"space-between",alignItems:"center",gap:"8px"}, "surface")}><strong style={blueTheme({fontSize:"13px",color:"#3e2c19"}, "surface")}>돌발 체험 이벤트 안내 관리</strong><button type="button" onClick={()=>setSurpriseGuideCollapsed(v=>!v)} style={blueTheme({padding:"6px 10px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}, "button")}>{surpriseGuideCollapsed?"펼치기 ▾":"접어두기 ▴"}</button></div>
                           {!surpriseGuideCollapsed && <>
-                          <button type="button" onClick={loadSurpriseGuide} style={{marginTop:"8px",padding:"7px 10px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}}>현재 안내문 불러오기</button>
-                          <label style={{display:"block",marginTop:"10px",fontSize:"10px",color:"#70502d"}}>안내 제목</label>
-                          <input value={surpriseGuide.title} onChange={e=>setSurpriseGuide(v=>({...v,title:e.target.value}))} maxLength={100} style={{width:"100%",boxSizing:"border-box",marginTop:"5px",padding:"9px",border:"1px solid #d8bd91",borderRadius:"8px"}}/>
-                          <label style={{display:"block",marginTop:"10px",fontSize:"10px",color:"#70502d"}}>진행방법 팝업 전체 내용</label>
-                          <textarea value={surpriseGuide.body} onChange={e=>setSurpriseGuide(v=>({...v,body:e.target.value}))} rows={9} maxLength={10000} style={{width:"100%",boxSizing:"border-box",marginTop:"5px",padding:"10px",border:"1px solid #d8bd91",borderRadius:"8px",resize:"vertical",fontSize:"11px",lineHeight:1.6}}/>
-                          <button type="button" disabled={surpriseGuideSaving} onClick={saveSurpriseGuide} style={{width:"100%",marginTop:"10px",padding:"11px",border:0,borderRadius:"9px",background:"#304756",color:"#fff",fontWeight:900,cursor:"pointer"}}>{surpriseGuideSaving?"저장 중...":"안내 내용 저장"}</button></>}
+                          <button type="button" onClick={loadSurpriseGuide} style={blueTheme({marginTop:"8px",padding:"7px 10px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}, "button")}>현재 안내문 불러오기</button>
+                          <label style={blueTheme({display:"block",marginTop:"10px",fontSize:"10px",color:"#70502d"}, "surface")}>안내 제목</label>
+                          <input value={surpriseGuide.title} onChange={e=>setSurpriseGuide(v=>({...v,title:e.target.value}))} maxLength={100} style={blueTheme({width:"100%",boxSizing:"border-box",marginTop:"5px",padding:"9px",border:"1px solid #d8bd91",borderRadius:"8px"}, "surface")}/>
+                          <label style={blueTheme({display:"block",marginTop:"10px",fontSize:"10px",color:"#70502d"}, "surface")}>진행방법 팝업 전체 내용</label>
+                          <textarea value={surpriseGuide.body} onChange={e=>setSurpriseGuide(v=>({...v,body:e.target.value}))} rows={9} maxLength={10000} style={blueTheme({width:"100%",boxSizing:"border-box",marginTop:"5px",padding:"10px",border:"1px solid #d8bd91",borderRadius:"8px",resize:"vertical",fontSize:"11px",lineHeight:1.6}, "surface")}/>
+                          <button type="button" disabled={surpriseGuideSaving} onClick={saveSurpriseGuide} style={blueTheme({width:"100%",marginTop:"10px",padding:"11px",border:0,borderRadius:"9px",background:"#304756",color:"#fff",fontWeight:900,cursor:"pointer"}, "button")}>{surpriseGuideSaving?"저장 중...":"안내 내용 저장"}</button></>}
                         </div>
-                        <div style={{padding:"14px",marginTop:"14px",marginBottom:"12px",border:"1px solid #d8bd91",borderRadius:"12px",background:"#fff9ee"}}>
-                          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:"8px"}}><strong style={{fontSize:"11px",color:"#594022"}}>전체 회원 공통 · 돌발 프로세스 안내 설정</strong><button type="button" onClick={()=>setSurpriseSettingsCollapsed(v=>!v)} style={{padding:"6px 10px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}}>{surpriseSettingsCollapsed?"펼치기 ▾":"접어두기 ▴"}</button></div>
+                        <div style={blueTheme({padding:"14px",marginTop:"14px",marginBottom:"12px",border:"1px solid #d8bd91",borderRadius:"12px",background:"#fff9ee"}, "surface")}>
+                          <div style={blueTheme({display:"flex",justifyContent:"space-between",alignItems:"center",gap:"8px"}, "surface")}><strong style={blueTheme({fontSize:"11px",color:"#594022"}, "surface")}>전체 회원 공통 · 돌발 프로세스 안내 설정</strong><button type="button" onClick={()=>setSurpriseSettingsCollapsed(v=>!v)} style={blueTheme({padding:"6px 10px",border:"1px solid #d8bd91",borderRadius:"8px",background:"#fff",cursor:"pointer"}, "button")}>{surpriseSettingsCollapsed?"펼치기 ▾":"접어두기 ▴"}</button></div>
                           {!surpriseSettingsCollapsed && <>
-                          <button type="button" onClick={loadSurpriseSettings} style={{marginLeft:"8px",fontSize:"9px",padding:"5px 8px"}}>설정 불러오기</button>
-                          {surpriseSettingsLoaded && <div style={{display:"grid",gap:"8px",marginTop:"10px"}}>
-                            <label style={{fontSize:"9px"}}>완료 안내 문구
-                              <textarea value={surpriseSettings.completion_message} onChange={(e)=>setSurpriseSettings(v=>({...v,completion_message:e.target.value}))} style={{display:"block",width:"100%",boxSizing:"border-box",padding:"8px",minHeight:"64px"}}/>
+                          <button type="button" onClick={loadSurpriseSettings} style={blueTheme({marginLeft:"8px",fontSize:"9px",padding:"5px 8px"}, "button")}>설정 불러오기</button>
+                          {surpriseSettingsLoaded && <div style={blueTheme({display:"grid",gap:"8px",marginTop:"10px"}, "surface")}>
+                            <label style={blueTheme({fontSize:"9px"}, "surface")}>완료 안내 문구
+                              <textarea value={surpriseSettings.completion_message} onChange={(e)=>setSurpriseSettings(v=>({...v,completion_message:e.target.value}))} style={blueTheme({display:"block",width:"100%",boxSizing:"border-box",padding:"8px",minHeight:"64px"}, "surface")}/>
                             </label>
-                            <label style={{fontSize:"9px"}}>확인 버튼 이름
-                              <input value={surpriseSettings.action_label} onChange={(e)=>setSurpriseSettings(v=>({...v,action_label:e.target.value}))} style={{display:"block",width:"100%",boxSizing:"border-box",padding:"8px"}}/>
+                            <label style={blueTheme({fontSize:"9px"}, "surface")}>확인 버튼 이름
+                              <input value={surpriseSettings.action_label} onChange={(e)=>setSurpriseSettings(v=>({...v,action_label:e.target.value}))} style={blueTheme({display:"block",width:"100%",boxSizing:"border-box",padding:"8px"}, "surface")}/>
                             </label>
-                            <label style={{fontSize:"9px"}}>확인 버튼 주소
-                              <input value={surpriseSettings.action_url} onChange={(e)=>setSurpriseSettings(v=>({...v,action_url:e.target.value}))} style={{display:"block",width:"100%",boxSizing:"border-box",padding:"8px"}}/>
+                            <label style={blueTheme({fontSize:"9px"}, "surface")}>확인 버튼 주소
+                              <input value={surpriseSettings.action_url} onChange={(e)=>setSurpriseSettings(v=>({...v,action_url:e.target.value}))} style={blueTheme({display:"block",width:"100%",boxSizing:"border-box",padding:"8px"}, "surface")}/>
                             </label>
-                            <button type="button" disabled={surpriseSettingsSaving} onClick={saveSurpriseSettings} style={{padding:"9px",background:"#172938",color:"#fff",border:0,borderRadius:"9px"}}>돌발 안내 설정 저장</button>
+                            <button type="button" disabled={surpriseSettingsSaving} onClick={saveSurpriseSettings} style={blueTheme({padding:"9px",background:"#172938",color:"#fff",border:0,borderRadius:"9px"}, "button")}>돌발 안내 설정 저장</button>
                           </div>}</>}
                         </div>
 
-                    {notice && <div style={styles.refNotice}>{notice}</div>}
+                    {notice && <div style={blueTheme(styles.refNotice, "surface")}>{notice}</div>}
                   </div>
                 ) : (() => {
                   const row = aiMemberProcess || {available_count:0,status:"ready",investment_amount:0,duration_hours:720,min_return:800,max_return:1200,available_granted_at:null};
@@ -7139,28 +7140,28 @@ export default function Home() {
 
                   if (status !== "running" && status !== "completed") {
                     return (
-                      <div style={{marginBottom:"14px"}}>
-                        <div style={{
+                      <div style={blueTheme({marginBottom:"14px"}, "surface")}>
+                        <div style={blueTheme({
                           position:"relative",overflow:"hidden",padding:"22px 17px",borderRadius:"24px",
                           background:"linear-gradient(145deg,#111820,#1b2937 56%,#0d151d)",
                           border:"1px solid rgba(225,183,98,.45)",boxShadow:"0 16px 38px rgba(15,25,35,.2)",color:"#fff",textAlign:"center"
-                        }}>
-                          <div style={{position:"absolute",right:"-75px",top:"-95px",width:"230px",height:"230px",borderRadius:"50%",background:"radial-gradient(circle,rgba(229,187,99,.2),transparent 68%)"}}/>
-                          <span style={{position:"relative",display:"inline-flex",padding:"5px 9px",borderRadius:"999px",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#e6c179",border:"1px solid rgba(230,193,121,.25)"}}>AI PROCESS STATUS</span>
-                          <strong style={{
+                        }, "accentSurface")}>
+                          <div style={blueTheme({position:"absolute",right:"-75px",top:"-95px",width:"230px",height:"230px",borderRadius:"50%",background:"radial-gradient(circle,rgba(229,187,99,.2),transparent 68%)"}, "accentSurface")}/>
+                          <span style={blueTheme({position:"relative",display:"inline-flex",padding:"5px 9px",borderRadius:"999px",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#e6c179",border:"1px solid rgba(230,193,121,.25)"}, "surface")}>AI PROCESS STATUS</span>
+                          <strong style={blueTheme({
                             position:"relative",display:"block",marginTop:"12px",
                             fontSize: availableCount <= 0 && status === "ready" ? "20px" : "21px",
                             lineHeight:1.45,letterSpacing:"-.65px",wordBreak:"keep-all",
                             color: availableCount <= 0 && status === "ready" ? "#fff7e8" : "#fff",
                             textShadow: availableCount <= 0 && status === "ready" ? "0 2px 16px rgba(240,202,126,.18)" : "none"
-                          }}>
+                          }, "surface")}>
                             {status === "waiting"
                               ? `${profile?.nickname || "회원"}님, AI프로세스 진행 준비가 완료되었습니다.`
                               : availableCount > 0
                                 ? `${profile?.nickname || "회원"}님, AI프로세스 ${availableCount}회 진행 가능합니다.`
-                                : <>{profile?.nickname || "회원"}님의 AI프로세스<span style={{display:"block"}}>진행 가능한 횟수가 없습니다.</span></>}
+                                : <>{profile?.nickname || "회원"}님의 AI프로세스<span style={blueTheme({display:"block"}, "surface")}>진행 가능한 횟수가 없습니다.</span></>}
                           </strong>
-                          <p style={{position:"relative",margin:"9px auto 0",maxWidth:"350px",fontSize:"10px",lineHeight:1.7,color:"rgba(255,255,255,.68)",wordBreak:"keep-all"}}>
+                          <p style={blueTheme({position:"relative",margin:"9px auto 0",maxWidth:"350px",fontSize:"10px",lineHeight:1.7,color:"rgba(255,255,255,.68)",wordBreak:"keep-all"}, "surface")}>
                             {status === "waiting"
                               ? "상담을 통해 진행 설정이 완료되었습니다. 담당자 확인 후 진행이 시작되면 회원님 전용 AI 수익 현황 화면으로 자동 전환됩니다."
                               : availableCount > 0
@@ -7169,47 +7170,47 @@ export default function Home() {
                           </p>
 
                           {availableCount > 0 && opportunityDday !== null && (
-                            <div style={{
+                            <div style={blueTheme({
                               position:"relative",marginTop:"16px",padding:"13px 14px",
                               borderRadius:"16px",
                               background:"linear-gradient(135deg,rgba(198,145,55,.22),rgba(240,202,126,.10))",
                               border:"1px solid rgba(240,202,126,.38)",
                               boxShadow:"inset 0 1px 0 rgba(255,255,255,.06)"
-                            }}>
-                              <span style={{display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#e8c276"}}>AI PROCESS ACCESS</span>
-                              <div style={{display:"flex",alignItems:"baseline",justifyContent:"center",gap:"7px",marginTop:"4px"}}>
-                                <strong style={{fontSize:"23px",lineHeight:1,color:"#ffd67f"}}>D-{opportunityDday}</strong>
-                                <b style={{fontSize:"11px",color:"#fff"}}>진행 기회 유효기간</b>
+                            }, "accentSurface")}>
+                              <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#e8c276"}, "surface")}>AI PROCESS ACCESS</span>
+                              <div style={blueTheme({display:"flex",alignItems:"baseline",justifyContent:"center",gap:"7px",marginTop:"4px"}, "surface")}>
+                                <strong style={blueTheme({fontSize:"23px",lineHeight:1,color:"#ffd67f"}, "surface")}>D-{opportunityDday}</strong>
+                                <b style={blueTheme({fontSize:"11px",color:"#fff"}, "surface")}>진행 기회 유효기간</b>
                               </div>
-                              <span style={{display:"block",marginTop:"6px",fontSize:"8px",lineHeight:1.55,color:"rgba(255,255,255,.67)"}}>
+                              <span style={blueTheme({display:"block",marginTop:"6px",fontSize:"8px",lineHeight:1.55,color:"rgba(255,255,255,.67)"}, "surface")}>
                                 지급된 날부터 10일간 이용 가능 · D-0 종료 후 미사용 횟수는 자동 소멸됩니다.
                               </span>
                             </div>
                           )}
 
-                          <div style={{position:"relative",display:"grid",gridTemplateColumns:"1fr 1fr",gap:"8px",marginTop:"16px"}}>
-                            <div style={{padding:"12px 9px",borderRadius:"15px",background:"rgba(255,255,255,.055)",border:"1px solid rgba(255,255,255,.08)"}}>
-                              <span style={{display:"block",fontSize:"7px",color:"rgba(255,255,255,.48)"}}>진행 가능한 횟수</span>
-                              <strong style={{display:"block",marginTop:"4px",fontSize:"20px",color:"#f0ca7e"}}>{availableCount}회</strong>
+                          <div style={blueTheme({position:"relative",display:"grid",gridTemplateColumns:"1fr 1fr",gap:"8px",marginTop:"16px"}, "surface")}>
+                            <div style={blueTheme({padding:"12px 9px",borderRadius:"15px",background:"rgba(255,255,255,.055)",border:"1px solid rgba(255,255,255,.08)"}, "surface")}>
+                              <span style={blueTheme({display:"block",fontSize:"7px",color:"rgba(255,255,255,.48)"}, "surface")}>진행 가능한 횟수</span>
+                              <strong style={blueTheme({display:"block",marginTop:"4px",fontSize:"20px",color:"#f0ca7e"}, "surface")}>{availableCount}회</strong>
                             </div>
-                            <div style={{padding:"12px 9px",borderRadius:"15px",background:"rgba(255,255,255,.055)",border:"1px solid rgba(255,255,255,.08)"}}>
-                              <span style={{display:"block",fontSize:"7px",color:"rgba(255,255,255,.48)"}}>현재 상태</span>
-                              <strong style={{display:"block",marginTop:"6px",fontSize:"14px",color:status==="waiting"?"#f0ca7e":"#fff"}}>
+                            <div style={blueTheme({padding:"12px 9px",borderRadius:"15px",background:"rgba(255,255,255,.055)",border:"1px solid rgba(255,255,255,.08)"}, "surface")}>
+                              <span style={blueTheme({display:"block",fontSize:"7px",color:"rgba(255,255,255,.48)"}, "surface")}>현재 상태</span>
+                              <strong style={blueTheme({display:"block",marginTop:"6px",fontSize:"14px",color:status==="waiting"?"#f0ca7e":"#fff"}, "surface")}>
                                 {availableCount <= 0 && status === "ready" ? "본인 자금 진행 불가" : aiProcessStatusLabel(status, availableCount)}
                               </strong>
                             </div>
                           </div>
 
                           {status === "waiting" && Number(row.investment_amount || 0) > 0 && (
-                            <div style={{position:"relative",marginTop:"9px",padding:"10px 11px",borderRadius:"13px",background:"rgba(230,193,121,.08)",border:"1px solid rgba(230,193,121,.18)",fontSize:"8px",color:"#e8d3aa"}}>
-                              시작 모의 금액 <b style={{color:"#fff"}}>{aiKrw(row.investment_amount)}</b> · 완료 시각 및 최종 금액은 진행 완료 후 안내
+                            <div style={blueTheme({position:"relative",marginTop:"9px",padding:"10px 11px",borderRadius:"13px",background:"rgba(230,193,121,.08)",border:"1px solid rgba(230,193,121,.18)",fontSize:"8px",color:"#e8d3aa"}, "surface")}>
+                              시작 모의 금액 <b style={blueTheme({color:"#fff"}, "surface")}>{aiKrw(row.investment_amount)}</b> · 완료 시각 및 최종 금액은 진행 완료 후 안내
                             </div>
                           )}
 
                           <AiProcessMemberGuide compact />
 
                           <button type="button" onClick={()=>{setChatTab("private");window.sessionStorage.setItem("vip-active-tab","private");openPrivateChat();}}
-                            style={{position:"relative",width:"100%",marginTop:"13px",padding:"12px",borderRadius:"13px",border:"1px solid rgba(236,202,137,.42)",background:"linear-gradient(145deg,#9a6b2b,#c99b50)",color:"#fff",fontSize:"10px",fontWeight:"1000",cursor:"pointer"}}>
+                            style={blueTheme({position:"relative",width:"100%",marginTop:"13px",padding:"12px",borderRadius:"13px",border:"1px solid rgba(236,202,137,.42)",background:"linear-gradient(145deg,#9a6b2b,#c99b50)",color:"#fff",fontSize:"10px",fontWeight:"1000",cursor:"pointer"}, "button")}>
                             💬 AI프로세스 진행 문의
                           </button>
                         </div>
@@ -7219,25 +7220,25 @@ export default function Home() {
 
                   const demo = getMemberProcessSnapshot(row);
                   return (
-                    <div style={{marginBottom:"14px"}}>
-                      <div style={{
+                    <div style={blueTheme({marginBottom:"14px"}, "surface")}>
+                      <div style={blueTheme({
                         position:"relative",overflow:"hidden",borderRadius:"24px",
                         background:"linear-gradient(145deg,#111820 0%,#172737 48%,#0c131b 100%)",
                         border:"1px solid rgba(229,190,112,.48)",boxShadow:"0 18px 42px rgba(15,25,35,.22)",color:"#fff"
-                      }}>
-                        <div style={{position:"absolute",right:"-80px",top:"-110px",width:"260px",height:"260px",borderRadius:"50%",background:"radial-gradient(circle,rgba(227,185,96,.22),rgba(227,185,96,0) 68%)"}}/>
-                        <div style={{padding:"18px 16px 15px",position:"relative"}}>
-                          <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:"10px",marginBottom:"13px"}}>
+                      }, "accentSurface")}>
+                        <div style={blueTheme({position:"absolute",right:"-80px",top:"-110px",width:"260px",height:"260px",borderRadius:"50%",background:"radial-gradient(circle,rgba(227,185,96,.22),rgba(227,185,96,0) 68%)"}, "accentSurface")}/>
+                        <div style={blueTheme({padding:"18px 16px 15px",position:"relative"}, "surface")}>
+                          <div style={blueTheme({display:"flex",alignItems:"center",justifyContent:"space-between",gap:"10px",marginBottom:"13px"}, "surface")}>
                             <div>
-                              <span style={{display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"2px",color:"#dfba72"}}>AI PROCESS · MEMBER</span>
-                              <strong style={{display:"block",marginTop:"4px",fontSize:"18px"}}>{profile?.nickname || "회원"}님의 AI 수익 현황</strong>
+                              <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"2px",color:"#dfba72"}, "surface")}>AI PROCESS · MEMBER</span>
+                              <strong style={blueTheme({display:"block",marginTop:"4px",fontSize:"18px"}, "surface")}>{profile?.nickname || "회원"}님의 AI 수익 현황</strong>
                             </div>
-                            <div style={{padding:"6px 9px",borderRadius:"999px",fontSize:"7px",fontWeight:"1000",color:status==="running"?"#c9f5dc":"#f0ca7f",background:status==="running"?"rgba(49,169,104,.13)":"rgba(224,184,104,.10)",border:"1px solid rgba(224,184,104,.25)"}}>
+                            <div style={blueTheme({padding:"6px 9px",borderRadius:"999px",fontSize:"7px",fontWeight:"1000",color:status==="running"?"#c9f5dc":"#f0ca7f",background:status==="running"?"rgba(49,169,104,.13)":"rgba(224,184,104,.10)",border:"1px solid rgba(224,184,104,.25)"}, "surface")}>
                               {status==="running" ? "● 진행중" : "✓ 진행완료"}
                             </div>
                           </div>
 
-                          <div style={{
+                          <div style={blueTheme({
                             marginBottom:"12px",
                             padding:status==="completed" ? "14px 13px" : "11px 12px",
                             borderRadius:"15px",
@@ -7249,23 +7250,23 @@ export default function Home() {
                               ? "1px solid rgba(240,202,126,.52)"
                               : "1px solid rgba(96,211,145,.34)",
                             boxShadow:status==="completed" ? "0 8px 24px rgba(216,169,76,.10)" : "none"
-                          }}>
-                            <strong style={{
+                          }, "surface")}>
+                            <strong style={blueTheme({
                               display:"block",
                               fontSize:status==="completed" ? "17px" : "13px",
                               lineHeight:1.25,
                               color:status==="completed" ? "#ffd77f" : "#bff4d3",
                               letterSpacing:status==="completed" ? "-.3px" : "0"
-                            }}>
+                            }, "surface")}>
                               {status==="completed" ? "✓ AI프로세스 진행완료" : "● AI프로세스 진행중"}
                             </strong>
-                            <span style={{display:"block",marginTop:"5px",fontSize:"8px",lineHeight:1.55,color:"rgba(255,255,255,.72)",wordBreak:"keep-all"}}>
+                            <span style={blueTheme({display:"block",marginTop:"5px",fontSize:"8px",lineHeight:1.55,color:"rgba(255,255,255,.72)",wordBreak:"keep-all"}, "surface")}>
                               {status==="completed"
                                 ? "진행이 정상적으로 완료되었습니다. 완료 시점의 수익금과 총 금액으로 최종 마감되었습니다."
                                 : "현재 AI프로세스가 진행 중입니다. 수익 현황은 3분 단위로 반영됩니다."}
                             </span>
                             {status==="completed" && (
-                              <div style={{
+                              <div style={blueTheme({
                                 marginTop:"10px",
                                 padding:"10px 12px",
                                 borderRadius:"12px",
@@ -7276,75 +7277,75 @@ export default function Home() {
                                 lineHeight:1.4,
                                 color:"#fff",
                                 letterSpacing:"-.2px"
-                              }}>
-                                출금예정금액 : <span style={{color:"#ffd77f",fontSize:"14px"}}>{aiKrw(demo.totalAmount)}</span> 입니다.
+                              }, "surface")}>
+                                출금예정금액 : <span style={blueTheme({color:"#ffd77f",fontSize:"14px"}, "surface")}>{aiKrw(demo.totalAmount)}</span> 입니다.
                               </div>
                             )}
                           </div>
 
-                          <div style={{display:"grid",gridTemplateColumns:"repeat(3,minmax(0,1fr))",gap:"7px"}}>
+                          <div style={blueTheme({display:"grid",gridTemplateColumns:"repeat(3,minmax(0,1fr))",gap:"7px"}, "surface")}>
                             {[
                               ["내 투자금액",aiKrw(demo.investment),"#fff"],
                               ["수익 중인 금액",`+${aiKrw(demo.earnedProfit)}`,"#f3cf84"],
                               ["총 금액",aiKrw(demo.totalAmount),"#fff1ce"]
                             ].map(([label,value,color])=>(
-                              <div key={label} style={{padding:"12px 8px",borderRadius:"15px",background:"rgba(255,255,255,.055)",border:"1px solid rgba(255,255,255,.08)",minWidth:0}}>
-                                <span style={{display:"block",fontSize:"7px",color:"rgba(255,255,255,.52)",fontWeight:"800"}}>{label}</span>
-                                <strong style={{display:"block",marginTop:"5px",fontSize:"12px",whiteSpace:"nowrap",letterSpacing:"-.4px",color}}>{value}</strong>
+                              <div key={label} style={blueTheme({padding:"12px 8px",borderRadius:"15px",background:"rgba(255,255,255,.055)",border:"1px solid rgba(255,255,255,.08)",minWidth:0}, "surface")}>
+                                <span style={blueTheme({display:"block",fontSize:"7px",color:"rgba(255,255,255,.52)",fontWeight:"800"}, "surface")}>{label}</span>
+                                <strong style={blueTheme({display:"block",marginTop:"5px",fontSize:"12px",whiteSpace:"nowrap",letterSpacing:"-.4px",color}, "surface")}>{value}</strong>
                               </div>
                             ))}
                           </div>
 
-                          <div style={{display:"flex",alignItems:"flex-end",justifyContent:"space-between",gap:"12px",marginTop:"17px"}}>
+                          <div style={blueTheme({display:"flex",alignItems:"flex-end",justifyContent:"space-between",gap:"12px",marginTop:"17px"}, "surface")}>
                             <div>
-                              <span style={{display:"block",fontSize:"8px",fontWeight:"900",color:"rgba(255,255,255,.48)"}}>현재 누적 수익률</span>
-                              <strong style={{display:"block",marginTop:"2px",fontSize:"29px",lineHeight:1,color:"#f0c977",letterSpacing:"-1.2px"}}>+{demo.currentReturn.toFixed(2)}%</strong>
+                              <span style={blueTheme({display:"block",fontSize:"8px",fontWeight:"900",color:"rgba(255,255,255,.48)"}, "surface")}>현재 누적 수익률</span>
+                              <strong style={blueTheme({display:"block",marginTop:"2px",fontSize:"29px",lineHeight:1,color:"#f0c977",letterSpacing:"-1.2px"}, "surface")}>+{demo.currentReturn.toFixed(2)}%</strong>
                             </div>
-                            <div style={{textAlign:"right"}}>
-                              <span style={{display:"block",fontSize:"7px",color:"rgba(255,255,255,.42)"}}>예상 수익률</span>
-                              <strong style={{display:"block",marginTop:"2px",fontSize:"15px",color:"#fff"}}>10% ~ 1000%</strong>
-                              <span style={{display:"block",marginTop:"3px",fontSize:"7px",color:"#d8b571"}}>{status==="running" ? `다음 반영 ${demo.nextText}` : "진행 완료"}</span>
+                            <div style={blueTheme({textAlign:"right"}, "surface")}>
+                              <span style={blueTheme({display:"block",fontSize:"7px",color:"rgba(255,255,255,.42)"}, "surface")}>예상 수익률</span>
+                              <strong style={blueTheme({display:"block",marginTop:"2px",fontSize:"15px",color:"#fff"}, "surface")}>10% ~ 1000%</strong>
+                              <span style={blueTheme({display:"block",marginTop:"3px",fontSize:"7px",color:"#d8b571"}, "surface")}>{status==="running" ? `다음 반영 ${demo.nextText}` : "진행 완료"}</span>
                             </div>
                           </div>
 
-                          <div style={{marginTop:"13px"}}>
-                            <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:"8px",marginBottom:"9px"}}>
-                              <span style={{display:"inline-flex",alignItems:"center",gap:"5px",fontSize:"10px",fontWeight:"800",color:"rgba(255,255,255,.85)"}}>
-                                <span style={{color:"#edc777",fontSize:"13px"}}>◷</span> AI PROCESS 진행시간
+                          <div style={blueTheme({marginTop:"13px"}, "surface")}>
+                            <div style={blueTheme({display:"flex",alignItems:"center",justifyContent:"space-between",gap:"8px",marginBottom:"9px"}, "surface")}>
+                              <span style={blueTheme({display:"inline-flex",alignItems:"center",gap:"5px",fontSize:"10px",fontWeight:"800",color:"rgba(255,255,255,.85)"}, "surface")}>
+                                <span style={blueTheme({color:"#edc777",fontSize:"13px"}, "surface")}>◷</span> AI PROCESS 진행시간
                               </span>
-                              <strong style={{fontSize:"11px",fontWeight:"900",color:"#f0c977",whiteSpace:"nowrap",fontVariantNumeric:"tabular-nums"}}>
+                              <strong style={blueTheme({fontSize:"11px",fontWeight:"900",color:"#f0c977",whiteSpace:"nowrap",fontVariantNumeric:"tabular-nums"}, "surface")}>
                                 {(() => { const minutes = Math.max(0, Math.floor((Date.now() - new Date(row.started_at).getTime()) / 60000)); return `${String(Math.floor(minutes / 1440)).padStart(2, "0")}일 ${String(Math.floor((minutes % 1440) / 60)).padStart(2, "0")}시간 ${String(minutes % 60).padStart(2, "0")}분`; })()}
                               </strong>
                             </div>
-                            <div style={{height:"8px",borderRadius:"999px",overflow:"hidden",background:"rgba(255,255,255,.08)",border:"1px solid rgba(255,255,255,.06)"}}>
-                              <div style={{width:`${status === "completed" ? 100 : Math.min(100, Math.max(0, ((Date.now() - new Date(row.started_at).getTime()) / aiProcessDurationMs(row)) * 100))}%`,height:"100%",borderRadius:"999px",background:"linear-gradient(90deg,#a8782e,#f0cf86)",transition:"width .5s ease"}}/>
+                            <div style={blueTheme({height:"8px",borderRadius:"999px",overflow:"hidden",background:"rgba(255,255,255,.08)",border:"1px solid rgba(255,255,255,.06)"}, "surface")}>
+                              <div style={blueTheme({width:`${status === "completed" ? 100 : Math.min(100, Math.max(0, ((Date.now() - new Date(row.started_at).getTime()) / aiProcessDurationMs(row)) * 100))}%`,height:"100%",borderRadius:"999px",background:"linear-gradient(90deg,#a8782e,#f0cf86)",transition:"width .5s ease"}, "accentSurface")}/>
                             </div>
-                            <div style={{display:"flex",justifyContent:"space-between",marginTop:"6px",fontSize:"8px",color:"rgba(255,255,255,.52)"}}>
+                            <div style={blueTheme({display:"flex",justifyContent:"space-between",marginTop:"6px",fontSize:"8px",color:"rgba(255,255,255,.52)"}, "surface")}>
                               <span>PROCESS START</span>
                               <span>{aiProcessDurationLabel(row.duration_hours)} 기준</span>
                             </div>
                           </div>
 
                           {status === "completed" && (
-                            <div style={{
+                            <div style={blueTheme({
                               marginTop:"14px",
                               padding:"15px 13px",
                               borderRadius:"16px",
                               background:"linear-gradient(135deg,rgba(239,197,112,.18),rgba(255,255,255,.06))",
                               border:"1px solid rgba(240,202,126,.42)",
                               textAlign:"center"
-                            }}>
-                              <strong style={{display:"block",fontSize:"13px",lineHeight:1.4,color:"#ffd98c"}}>
+                            }, "accentSurface")}>
+                              <strong style={blueTheme({display:"block",fontSize:"13px",lineHeight:1.4,color:"#ffd98c"}, "surface")}>
                                 1:1 고객센터 메시지를 확인해주세요
                               </strong>
-                              <span style={{display:"block",marginTop:"6px",fontSize:"9px",lineHeight:1.65,color:"rgba(255,255,255,.80)",wordBreak:"keep-all"}}>
+                              <span style={blueTheme({display:"block",marginTop:"6px",fontSize:"9px",lineHeight:1.65,color:"rgba(255,255,255,.80)",wordBreak:"keep-all"}, "surface")}>
                                 AI프로세스 완료 안내와 출금 관련 안내를 1:1 고객센터로 보내드렸습니다.<br />
                                 1:1 고객센터에서 메시지를 확인해주세요.
                               </span>
                               <button
                                 type="button"
                                 onClick={()=>{setChatTab("private");window.sessionStorage.setItem("vip-active-tab","private");openPrivateChat();}}
-                                style={{marginTop:"10px",width:"100%",padding:"11px",border:0,borderRadius:"12px",background:"linear-gradient(145deg,#a8752d,#d1a04d)",color:"#fff",fontSize:"9px",fontWeight:"1000",cursor:"pointer"}}
+                                style={blueTheme({marginTop:"10px",width:"100%",padding:"11px",border:0,borderRadius:"12px",background:"linear-gradient(145deg,#a8752d,#d1a04d)",color:"#fff",fontSize:"9px",fontWeight:"1000",cursor:"pointer"}, "button")}
                               >
                                 1:1 고객센터 메시지 확인
                               </button>
@@ -7354,10 +7355,10 @@ export default function Home() {
                       </div>
 
                 {(aiMemberProcess?.status === "running" || aiMemberProcess?.status === "completed") && (
-                  <div style={{margin:"10px 0 0",borderRadius:"16px",background:"linear-gradient(145deg,#111c28,#192b39)",border:"1px solid rgba(219,180,105,.32)",overflow:"hidden",color:"#f4f5f7"}}>
-                    <button type="button" onClick={() => setMarketPanelOpen((value) => !value)} aria-expanded={marketPanelOpen} style={{display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%",padding:"10px 13px",background:"transparent",border:0,color:"inherit",textAlign:"left",cursor:"pointer"}}>
-                      <span style={{minWidth:0,display:"block"}}><span style={{display:"block",fontSize:"8px",letterSpacing:"1.4px",color:"#d8b678",fontWeight:900}}>AI QUANT TERMINAL</span><strong className="ai-quant-shimmer" style={{display:"block",marginTop:"3px",fontSize:"11px",lineHeight:1.45,color:"#f2d28b"}}>주식 · 코인 AI프로세스 트레이딩 진행 현황</strong><span style={{display:"block",marginTop:"5px",fontSize:"9px",color:"#b8c7d2"}}>↳ AI 시장 분석 확인하기</span></span>
-                      <span style={{display:"flex",flexShrink:0,flexDirection:"column",alignItems:"center",gap:"3px",marginLeft:"8px",color:"#f2d28b"}}><span className={marketPanelOpen ? "" : "ai-quant-chevron"} style={{fontSize:"19px",lineHeight:1}}>{marketPanelOpen ? "⌃" : "⌄"}</span><span style={{fontSize:"8px"}}>{marketPanelOpen ? "접기" : "펼치기"}</span></span>
+                  <div style={blueTheme({margin:"10px 0 0",borderRadius:"16px",background:"linear-gradient(145deg,#111c28,#192b39)",border:"1px solid rgba(219,180,105,.32)",overflow:"hidden",color:"#f4f5f7"}, "accentSurface")}>
+                    <button type="button" onClick={() => setMarketPanelOpen((value) => !value)} aria-expanded={marketPanelOpen} style={blueTheme({display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%",padding:"10px 13px",background:"transparent",border:0,color:"inherit",textAlign:"left",cursor:"pointer"}, "button")}>
+                      <span style={blueTheme({minWidth:0,display:"block"}, "buttonChild")}><span style={blueTheme({display:"block",fontSize:"8px",letterSpacing:"1.4px",color:"#d8b678",fontWeight:900}, "buttonChild")}>AI QUANT TERMINAL</span><strong className="ai-quant-shimmer" style={blueTheme({display:"block",marginTop:"3px",fontSize:"11px",lineHeight:1.45,color:"#f2d28b"}, "buttonChild")}>주식 · 코인 AI프로세스 트레이딩 진행 현황</strong><span style={blueTheme({display:"block",marginTop:"5px",fontSize:"9px",color:"#b8c7d2"}, "buttonChild")}>↳ AI 시장 분석 확인하기</span></span>
+                      <span style={blueTheme({display:"flex",flexShrink:0,flexDirection:"column",alignItems:"center",gap:"3px",marginLeft:"8px",color:"#f2d28b"}, "buttonChild")}><span className={marketPanelOpen ? "" : "ai-quant-chevron"} style={blueTheme({fontSize:"19px",lineHeight:1}, "buttonChild")}>{marketPanelOpen ? "⌃" : "⌄"}</span><span style={blueTheme({fontSize:"8px"}, "buttonChild")}>{marketPanelOpen ? "접기" : "펼치기"}</span></span>
                     </button>
                     <style>{`
                       @keyframes aiQuantShimmer { 0%,75%,100% { filter:brightness(1); } 83% { filter:brightness(1.45); text-shadow:0 0 8px rgba(242,210,139,.5); } }
@@ -7367,62 +7368,62 @@ export default function Home() {
                       @media (prefers-reduced-motion: reduce) { .ai-quant-shimmer,.ai-quant-chevron { animation:none !important; } }
                     `}</style>
                     {marketPanelOpen && (
-                      <div style={{padding:"0 14px 15px"}}>
-                        <div style={{fontSize:"9px",color:"#d8b678",marginBottom:"10px"}}>AI프로세스 현황 · 5분 간격 매수 · 매도 현황 갱신</div>
-                        <div style={{display:"grid",gridTemplateColumns:"repeat(2,minmax(0,1fr))",gap:"8px"}}>
-                          {[marketDemoAssets[0],marketDemoAssets[1]].map((asset) => <div key={asset.symbol} style={{borderRadius:"13px",padding:"12px 10px",background:"rgba(255,255,255,.055)",border:"1px solid rgba(255,255,255,.08)"}}>
-                            <div style={{display:"flex",gap:"7px",alignItems:"center"}}><span style={{display:"grid",placeItems:"center",width:"27px",height:"27px",borderRadius:"50%",background:"rgba(229,183,94,.16)",color:"#f0c878",fontSize:"17px"}}>{asset.kind==="COIN"?"₿":"◈"}</span><div><strong style={{fontSize:"11px"}}>{asset.symbol}</strong><div style={{fontSize:"8px",color:"#a6b6c4"}}>{asset.name} · {asset.kind}</div></div></div>
-                            <div style={{marginTop:"10px",fontSize:"9px",color:"#d9c18c",fontWeight:800}}>◌ AI 시그널 관찰 중</div>
+                      <div style={blueTheme({padding:"0 14px 15px"}, "surface")}>
+                        <div style={blueTheme({fontSize:"9px",color:"#d8b678",marginBottom:"10px"}, "surface")}>AI프로세스 현황 · 5분 간격 매수 · 매도 현황 갱신</div>
+                        <div style={blueTheme({display:"grid",gridTemplateColumns:"repeat(2,minmax(0,1fr))",gap:"8px"}, "surface")}>
+                          {[marketDemoAssets[0],marketDemoAssets[1]].map((asset) => <div key={asset.symbol} style={blueTheme({borderRadius:"13px",padding:"12px 10px",background:"rgba(255,255,255,.055)",border:"1px solid rgba(255,255,255,.08)"}, "surface")}>
+                            <div style={blueTheme({display:"flex",gap:"7px",alignItems:"center"}, "surface")}><span style={blueTheme({display:"grid",placeItems:"center",width:"27px",height:"27px",borderRadius:"50%",background:"rgba(229,183,94,.16)",color:"#f0c878",fontSize:"17px"}, "surface")}>{asset.kind==="COIN"?"₿":"◈"}</span><div><strong style={blueTheme({fontSize:"11px"}, "surface")}>{asset.symbol}</strong><div style={blueTheme({fontSize:"8px",color:"#a6b6c4"}, "surface")}>{asset.name} · {asset.kind}</div></div></div>
+                            <div style={blueTheme({marginTop:"10px",fontSize:"9px",color:"#d9c18c",fontWeight:800}, "surface")}>◌ AI 시그널 관찰 중</div>
                           </div>)}
                         </div>
-                        <div style={{marginTop:"12px",fontSize:"10px",fontWeight:800,color:"#e6c681"}}>› AI프로세스 진행 현황</div>
+                        <div style={blueTheme({marginTop:"12px",fontSize:"10px",fontWeight:800,color:"#e6c681"}, "surface")}>› AI프로세스 진행 현황</div>
 
-                        {marketDemoVisibleRecords.map((item,index) => <div key={item.id} style={{padding:"9px 0",borderBottom:"1px solid rgba(255,255,255,.07)",fontSize:"9px",lineHeight:1.7,color:"#c4d0d9"}}>
-                          <div style={{display:"flex",justifyContent:"space-between",gap:"8px",alignItems:"center"}}><strong>{item.name} · {item.symbol}</strong><span style={{color:item.buy?"#f87171":"#60a5fa",fontWeight:800}}>{item.buy?"↗ 상승세 감지":"↘ 하락세 감지"}</span></div>
-                          <div style={{color:"#e6c681",marginTop:"3px"}}>AI 판단 · {item.buy?"매수":"매도"} 신청 완료</div>
+                        {marketDemoVisibleRecords.map((item,index) => <div key={item.id} style={blueTheme({padding:"9px 0",borderBottom:"1px solid rgba(255,255,255,.07)",fontSize:"9px",lineHeight:1.7,color:"#c4d0d9"}, "surface")}>
+                          <div style={blueTheme({display:"flex",justifyContent:"space-between",gap:"8px",alignItems:"center"}, "surface")}><strong>{item.name} · {item.symbol}</strong><span style={blueTheme({color:item.buy?"#f87171":"#60a5fa",fontWeight:800}, "surface")}>{item.buy?"↗ 상승세 감지":"↘ 하락세 감지"}</span></div>
+                          <div style={blueTheme({color:"#e6c681",marginTop:"3px"}, "surface")}>AI 판단 · {item.buy?"매수":"매도"} 신청 완료</div>
                         </div>)}
-                        <div style={{display:"flex",flexWrap:"wrap",gap:"5px",justifyContent:"center",marginTop:"12px"}}>
-                          {Array.from({length:marketDemoPageCount},(_,index)=><button key={index} type="button" onClick={()=>setMarketDemoPage(index+1)} style={{minWidth:"25px",padding:"5px 7px",borderRadius:"6px",border:"1px solid rgba(229,183,94,.3)",background:marketDemoPage===index+1?"#d8b678":"rgba(255,255,255,.05)",color:marketDemoPage===index+1?"#132431":"#e6c681",cursor:"pointer",fontSize:"9px"}}>{index+1}</button>)}
+                        <div style={blueTheme({display:"flex",flexWrap:"wrap",gap:"5px",justifyContent:"center",marginTop:"12px"}, "surface")}>
+                          {Array.from({length:marketDemoPageCount},(_,index)=><button key={index} type="button" onClick={()=>setMarketDemoPage(index+1)} style={blueTheme({minWidth:"25px",padding:"5px 7px",borderRadius:"6px",border:"1px solid rgba(229,183,94,.3)",background:marketDemoPage===index+1?"#d8b678":"rgba(255,255,255,.05)",color:marketDemoPage===index+1?"#132431":"#e6c681",cursor:"pointer",fontSize:"9px"}, "button")}>{index+1}</button>)}
                         </div>
-                        <div style={{marginTop:"8px",fontSize:"8px",color:"#92a8b7",textAlign:"center"}}>최근 100건 · 10건씩 보기 · 이전 구간 자동 제외</div>
-                        <div style={{marginTop:"10px",fontSize:"8px",color:"#92a8b7"}}>마지막 기록 갱신: {marketDemoClock ? new Date(marketDemoSlot * 5 * 60 * 1000).toLocaleString("ko-KR") : "준비 중"} <button type="button" aria-label="분석 기록 새로고침" onClick={()=>{setMarketDemoClock(Date.now());setMarketDemoPage(1);}} style={{marginLeft:"8px",background:"transparent",border:"1px solid rgba(229,183,94,.4)",borderRadius:"50%",color:"#e6c681",cursor:"pointer",padding:"3px 6px"}}>⟳</button></div>
+                        <div style={blueTheme({marginTop:"8px",fontSize:"8px",color:"#92a8b7",textAlign:"center"}, "surface")}>최근 100건 · 10건씩 보기 · 이전 구간 자동 제외</div>
+                        <div style={blueTheme({marginTop:"10px",fontSize:"8px",color:"#92a8b7"}, "surface")}>마지막 기록 갱신: {marketDemoClock ? new Date(marketDemoSlot * 5 * 60 * 1000).toLocaleString("ko-KR") : "준비 중"} <button type="button" aria-label="분석 기록 새로고침" onClick={()=>{setMarketDemoClock(Date.now());setMarketDemoPage(1);}} style={blueTheme({marginLeft:"8px",background:"transparent",border:"1px solid rgba(229,183,94,.4)",borderRadius:"50%",color:"#e6c681",cursor:"pointer",padding:"3px 6px"}, "button")}>⟳</button></div>
                       </div>
                     )}
                   </div>
                 )}
 
 
-                      <div style={{marginTop:"10px",padding:"16px 13px 13px",borderRadius:"21px",background:"linear-gradient(180deg,#fffdf8,#f8f1e6)",border:"1px solid #e8d8bc",boxShadow:"0 9px 24px rgba(73,52,29,.08)"}}>
-                        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:"10px"}}>
+                      <div style={blueTheme({marginTop:"10px",padding:"16px 13px 13px",borderRadius:"21px",background:"linear-gradient(180deg,#fffdf8,#f8f1e6)",border:"1px solid #e8d8bc",boxShadow:"0 9px 24px rgba(73,52,29,.08)"}, "accentSurface")}>
+                        <div style={blueTheme({display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:"10px"}, "surface")}>
                           <div>
-                            <span style={{display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.5px",color:"#9b6c2c"}}>PROFIT PERFORMANCE</span>
-                            <strong style={{display:"block",marginTop:"3px",fontSize:"15px",color:"#2e2a25"}}>실시간 수익 그래프</strong>
-                            <span style={{display:"block",marginTop:"3px",fontSize:"8px",color:"#8d8174"}}>3분 단위 수익 누적 흐름 · 현재 구간 자동 확대</span>
+                            <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.5px",color:"#9b6c2c"}, "surface")}>PROFIT PERFORMANCE</span>
+                            <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:"15px",color:"#2e2a25"}, "surface")}>실시간 수익 그래프</strong>
+                            <span style={blueTheme({display:"block",marginTop:"3px",fontSize:"8px",color:"#8d8174"}, "surface")}>3분 단위 수익 누적 흐름 · 현재 구간 자동 확대</span>
                           </div>
-                          <div style={{padding:"6px 8px",borderRadius:"10px",background:"#f4e6ca",fontSize:"8px",fontWeight:"1000",color:"#81591f"}}>{status==="running"?"LIVE · 3MIN":"COMPLETED"}</div>
+                          <div style={blueTheme({padding:"6px 8px",borderRadius:"10px",background:"#f4e6ca",fontSize:"8px",fontWeight:"1000",color:"#81591f"}, "surface")}>{status==="running"?"LIVE · 3MIN":"COMPLETED"}</div>
                         </div>
 
-                        <div style={{position:"relative",height:"174px",marginTop:"12px",overflow:"hidden",borderRadius:"15px",background:"linear-gradient(180deg,#16222d,#0e161e)",border:"1px solid rgba(42,67,87,.8)"}}>
-                          {[25,50,75].map((top)=><div key={top} style={{position:"absolute",left:0,right:0,top:`${top}%`,height:"1px",background:"rgba(255,255,255,.055)"}}/>)}
-                          <svg viewBox="0 0 760 220" preserveAspectRatio="none" style={{position:"absolute",inset:"10px 8px 8px",width:"calc(100% - 16px)",height:"calc(100% - 18px)"}}>
-                            <defs><linearGradient id="aiMemberArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#e7bc67" stopOpacity=".34"/><stop offset="100%" stopColor="#e7bc67" stopOpacity="0"/></linearGradient></defs>
-                            {demo.chartPoints && <><polygon points={`18,220 ${demo.chartPoints} 742,220`} fill="url(#aiMemberArea)"/><polyline points={demo.chartPoints} fill="none" stroke="#efc977" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/></>}
+                        <div style={blueTheme({position:"relative",height:"174px",marginTop:"12px",overflow:"hidden",borderRadius:"15px",background:"linear-gradient(180deg,#16222d,#0e161e)",border:"1px solid rgba(42,67,87,.8)"}, "accentSurface")}>
+                          {[25,50,75].map((top)=><div key={top} style={blueTheme({position:"absolute",left:0,right:0,top:`${top}%`,height:"1px",background:"rgba(255,255,255,.055)"}, "surface")}/>)}
+                          <svg viewBox="0 0 760 220" preserveAspectRatio="none" style={blueTheme({position:"absolute",inset:"10px 8px 8px",width:"calc(100% - 16px)",height:"calc(100% - 18px)"}, "surface")}>
+                            <defs><linearGradient id="aiMemberArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#315be8" stopOpacity=".34"/><stop offset="100%" stopColor="#315be8" stopOpacity="0"/></linearGradient></defs>
+                            {demo.chartPoints && <><polygon points={`18,220 ${demo.chartPoints} 742,220`} fill="url(#aiMemberArea)"/><polyline points={demo.chartPoints} fill="none" stroke="#315be8" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/></>}
                           </svg>
-                          <div style={{position:"absolute",left:"12px",top:"10px",fontSize:"7px",color:"rgba(255,255,255,.42)"}}>TOTAL ASSET</div>
-                          <div style={{position:"absolute",right:"12px",top:"9px",fontSize:"11px",fontWeight:"1000",color:"#f0c977"}}>{aiKrw(demo.totalAmount)}</div>
-                          <div style={{position:"absolute",left:"12px",bottom:"9px",fontSize:"7px",color:"rgba(255,255,255,.35)"}}>START {aiKrw(demo.investment)}</div>
-                          <div style={{position:"absolute",right:"12px",bottom:"9px",fontSize:"7px",color:"rgba(255,255,255,.35)"}}>NOW</div>
+                          <div style={blueTheme({position:"absolute",left:"12px",top:"10px",fontSize:"7px",color:"rgba(255,255,255,.42)"}, "surface")}>TOTAL ASSET</div>
+                          <div style={blueTheme({position:"absolute",right:"12px",top:"9px",fontSize:"11px",fontWeight:"1000",color:"#f0c977"}, "surface")}>{aiKrw(demo.totalAmount)}</div>
+                          <div style={blueTheme({position:"absolute",left:"12px",bottom:"9px",fontSize:"7px",color:"rgba(255,255,255,.35)"}, "surface")}>START {aiKrw(demo.investment)}</div>
+                          <div style={blueTheme({position:"absolute",right:"12px",bottom:"9px",fontSize:"7px",color:"rgba(255,255,255,.35)"}, "surface")}>NOW</div>
                         </div>
 
                         <AiProcessMemberGuide compact />
 
-                        <div style={{display:"grid",gridTemplateColumns:"repeat(3,minmax(0,1fr))",gap:"7px",marginTop:"10px"}}>
-                          <div style={{padding:"10px 8px",borderRadius:"13px",background:"#fff",border:"1px solid #eadfcf",textAlign:"center"}}><span style={{display:"block",fontSize:"7px",color:"#9a8d7d"}}>최근 1분 수익</span><strong style={{display:"block",marginTop:"4px",fontSize:"10px",color:"#9a6b28"}}>+{aiKrw(demo.recentIncrement)}</strong></div>
-                          <div style={{padding:"10px 8px",borderRadius:"13px",background:"#fff",border:"1px solid #eadfcf",textAlign:"center"}}><span style={{display:"block",fontSize:"7px",color:"#9a8d7d"}}>1분 평균 수익</span><strong style={{display:"block",marginTop:"4px",fontSize:"10px",color:"#4b443d"}}>+{aiKrw(demo.averagePerStep)}</strong></div>
-                          <div style={{padding:"10px 8px",borderRadius:"13px",background:"#fff",border:"1px solid #eadfcf",textAlign:"center"}}><span style={{display:"block",fontSize:"7px",color:"#9a8d7d"}}>진행 가능 횟수</span><strong style={{display:"block",marginTop:"4px",fontSize:"10px",color:"#4b443d"}}>{availableCount}회</strong></div>
+                        <div style={blueTheme({display:"grid",gridTemplateColumns:"repeat(3,minmax(0,1fr))",gap:"7px",marginTop:"10px"}, "surface")}>
+                          <div style={blueTheme({padding:"10px 8px",borderRadius:"13px",background:"#fff",border:"1px solid #eadfcf",textAlign:"center"}, "surface")}><span style={blueTheme({display:"block",fontSize:"7px",color:"#9a8d7d"}, "surface")}>최근 1분 수익</span><strong style={blueTheme({display:"block",marginTop:"4px",fontSize:"10px",color:"#9a6b28"}, "surface")}>+{aiKrw(demo.recentIncrement)}</strong></div>
+                          <div style={blueTheme({padding:"10px 8px",borderRadius:"13px",background:"#fff",border:"1px solid #eadfcf",textAlign:"center"}, "surface")}><span style={blueTheme({display:"block",fontSize:"7px",color:"#9a8d7d"}, "surface")}>1분 평균 수익</span><strong style={blueTheme({display:"block",marginTop:"4px",fontSize:"10px",color:"#4b443d"}, "surface")}>+{aiKrw(demo.averagePerStep)}</strong></div>
+                          <div style={blueTheme({padding:"10px 8px",borderRadius:"13px",background:"#fff",border:"1px solid #eadfcf",textAlign:"center"}, "surface")}><span style={blueTheme({display:"block",fontSize:"7px",color:"#9a8d7d"}, "surface")}>진행 가능 횟수</span><strong style={blueTheme({display:"block",marginTop:"4px",fontSize:"10px",color:"#4b443d"}, "surface")}>{availableCount}회</strong></div>
                         </div>
 
-                        <div style={{marginTop:"9px",fontSize:"7px",lineHeight:1.5,color:"#9b8b79",textAlign:"center"}}>
+                        <div style={blueTheme({marginTop:"9px",fontSize:"7px",lineHeight:1.5,color:"#9b8b79",textAlign:"center"}, "surface")}>
                           ※ 화면의 수익 값은 운영 설정에 따른 모의 시뮬레이션 표시입니다.
                         </div>
                       </div>
@@ -7430,12 +7431,12 @@ export default function Home() {
                   );
                 })()}
 
-                <div style={styles.aiBenefitStateWrap}>
-                  <div style={styles.aiBenefitDiagonalRibbon}>
-                    <span style={styles.aiBenefitRibbonSmall}>
+                <div style={blueTheme(styles.aiBenefitStateWrap, "surface")}>
+                  <div style={blueTheme(styles.aiBenefitDiagonalRibbon, "surface")}>
+                    <span style={blueTheme(styles.aiBenefitRibbonSmall, "surface")}>
                       {profile?.role === "admin" ? "AI PROCESS · ADMIN" : aiMemberProcess?.status === "running" ? "AI PROCESS · ACTIVE" : aiMemberProcess?.status === "completed" ? "AI PROCESS · COMPLETE" : "AI PROCESS · AVAILABLE"}
                     </span>
-                    <strong style={styles.aiBenefitRibbonTitle}>
+                    <strong style={blueTheme(styles.aiBenefitRibbonTitle, "surface")}>
                       {profile?.role === "admin"
                         ? "회원별 AI프로세스 운영 관리"
                         : aiMemberProcess?.status === "running"
@@ -7446,7 +7447,7 @@ export default function Home() {
                               ? `AI프로세스 ${Number(aiMemberProcess?.available_count || 0)}회 이용 가능합니다`
                               : "AI프로세스 1:1 이용 상담이 가능합니다"}
                     </strong>
-                    <span style={styles.aiBenefitRibbonSub}>
+                    <span style={blueTheme(styles.aiBenefitRibbonSub, "surface")}>
                       {profile?.role === "admin"
                         ? "회원 선택 후 진행 횟수 · 금액 · 목표수익률 · 상태를 설정하세요"
                         : aiMemberProcess?.status === "running"
@@ -7456,25 +7457,25 @@ export default function Home() {
                             : "진행을 원하시면 1:1 고객센터로 문의해 주세요"}
                     </span>
                   </div>
-                  <div style={styles.aiBenefitCornerBadge}>
-                    <span style={{fontSize:"6px",fontWeight:"1000",letterSpacing:"1.3px",color:"rgba(206,226,250,.65)"}}>STATUS</span>
-                    <strong style={{marginTop:"2px",fontSize:"9px",letterSpacing:".7px",color:"#e8bd70"}}>
+                  <div style={blueTheme(styles.aiBenefitCornerBadge, "surface")}>
+                    <span style={blueTheme({fontSize:"6px",fontWeight:"1000",letterSpacing:"1.3px",color:"rgba(206,226,250,.65)"}, "surface")}>STATUS</span>
+                    <strong style={blueTheme({marginTop:"2px",fontSize:"9px",letterSpacing:".7px",color:"#e8bd70"}, "surface")}>
                       {profile?.role === "admin" ? "ADMIN" : aiMemberProcess?.status === "running" ? "ACTIVE" : aiMemberProcess?.status === "completed" ? "COMPLETE" : "AVAILABLE"}
                     </strong>
                   </div>
 
-                  <div style={styles.aiProHero}>
-                  <div style={styles.aiProHeroGlow}></div>
-                  <div style={styles.aiProHeroTag}>AI PROCESS · VIP PRIVATE SYSTEM</div>
-                  <div style={styles.aiProHeroRow}>
-                    <div style={{minWidth:0}}>
-                      <h2 style={styles.aiProTitle}>AI 프로세스</h2>
-                      <strong style={styles.aiProTitleAccent}>AI 기반 자동화 시스템</strong>
-                      <p style={styles.aiProLead}>
+                  <div style={blueTheme(styles.aiProHero, "surface")}>
+                  <div style={blueTheme(styles.aiProHeroGlow, "surface")}></div>
+                  <div style={blueTheme(styles.aiProHeroTag, "surface")}>AI PROCESS · VIP PRIVATE SYSTEM</div>
+                  <div style={blueTheme(styles.aiProHeroRow, "surface")}>
+                    <div style={blueTheme({minWidth:0}, "surface")}>
+                      <h2 style={blueTheme(styles.aiProTitle, "surface")}>AI 프로세스</h2>
+                      <strong style={blueTheme(styles.aiProTitleAccent, "surface")}>AI 기반 자동화 시스템</strong>
+                      <p style={blueTheme(styles.aiProLead, "surface")}>
                         데이터 분석부터 진행 상황 모니터링까지,
                         자체 AI 시스템을 기반으로 설계된 VIP 전용 프로세스입니다.
                       </p>
-                      <div style={styles.aiHeroAvailability}>
+                      <div style={blueTheme(styles.aiHeroAvailability, "surface")}>
                         {profile?.role === "admin"
                           ? "관리자는 상단 회원별 진행 관리에서 각 회원의 이용 횟수와 진행 설정을 직접 관리할 수 있습니다."
                           : aiMemberProcess?.status === "running"
@@ -7486,28 +7487,28 @@ export default function Home() {
                                 : "AI프로세스 이용을 원하시면 1:1 고객센터에서 개별 상담을 신청해 주세요."}
                       </div>
                     </div>
-                    <div style={styles.aiProChip}>
-                      <span style={{fontSize:"22px",fontWeight:"1000",lineHeight:1}}>AI</span>
-                      <small style={{marginTop:"4px",fontSize:"7px",fontWeight:"900",letterSpacing:"1.2px",opacity:.72}}>PROCESS</small>
+                    <div style={blueTheme(styles.aiProChip, "surface")}>
+                      <span style={blueTheme({fontSize:"22px",fontWeight:"1000",lineHeight:1}, "surface")}>AI</span>
+                      <small style={blueTheme({marginTop:"4px",fontSize:"7px",fontWeight:"900",letterSpacing:"1.2px",opacity:.72}, "surface")}>PROCESS</small>
                     </div>
                   </div>
 
-                  <div style={styles.aiProFeatureRow}>
-                    <div style={{textAlign:"center",padding:"8px 2px",borderRight:"1px solid rgba(27,76,134,.12)"}}><b style={{display:"block",fontSize:"8px",color:"#1e63ba"}}>01</b><strong style={{display:"block",fontSize:"8px",marginTop:"3px"}}>데이터 분석</strong><span style={{display:"block",fontSize:"6.5px",marginTop:"2px",color:"#718399"}}>시장 데이터 분석</span></div>
-                    <div style={{textAlign:"center",padding:"8px 2px",borderRight:"1px solid rgba(27,76,134,.12)"}}><b style={{display:"block",fontSize:"8px",color:"#1e63ba"}}>02</b><strong style={{display:"block",fontSize:"8px",marginTop:"3px"}}>기회 포착</strong><span style={{display:"block",fontSize:"6.5px",marginTop:"2px",color:"#718399"}}>조건 기반 탐색</span></div>
-                    <div style={{textAlign:"center",padding:"8px 2px",borderRight:"1px solid rgba(27,76,134,.12)"}}><b style={{display:"block",fontSize:"8px",color:"#1e63ba"}}>03</b><strong style={{display:"block",fontSize:"8px",marginTop:"3px"}}>자동 프로세스</strong><span style={{display:"block",fontSize:"6.5px",marginTop:"2px",color:"#718399"}}>설정 기반 진행</span></div>
-                    <div style={{textAlign:"center",padding:"8px 2px"}}><b style={{display:"block",fontSize:"8px",color:"#1e63ba"}}>04</b><strong style={{display:"block",fontSize:"8px",marginTop:"3px"}}>모니터링</strong><span style={{display:"block",fontSize:"6.5px",marginTop:"2px",color:"#718399"}}>진행 상태 확인</span></div>
+                  <div style={blueTheme(styles.aiProFeatureRow, "surface")}>
+                    <div style={blueTheme({textAlign:"center",padding:"8px 2px",borderRight:"1px solid rgba(27,76,134,.12)"}, "surface")}><b style={blueTheme({display:"block",fontSize:"8px",color:"#1e63ba"}, "surface")}>01</b><strong style={blueTheme({display:"block",fontSize:"8px",marginTop:"3px"}, "surface")}>데이터 분석</strong><span style={blueTheme({display:"block",fontSize:"6.5px",marginTop:"2px",color:"#718399"}, "surface")}>시장 데이터 분석</span></div>
+                    <div style={blueTheme({textAlign:"center",padding:"8px 2px",borderRight:"1px solid rgba(27,76,134,.12)"}, "surface")}><b style={blueTheme({display:"block",fontSize:"8px",color:"#1e63ba"}, "surface")}>02</b><strong style={blueTheme({display:"block",fontSize:"8px",marginTop:"3px"}, "surface")}>기회 포착</strong><span style={blueTheme({display:"block",fontSize:"6.5px",marginTop:"2px",color:"#718399"}, "surface")}>조건 기반 탐색</span></div>
+                    <div style={blueTheme({textAlign:"center",padding:"8px 2px",borderRight:"1px solid rgba(27,76,134,.12)"}, "surface")}><b style={blueTheme({display:"block",fontSize:"8px",color:"#1e63ba"}, "surface")}>03</b><strong style={blueTheme({display:"block",fontSize:"8px",marginTop:"3px"}, "surface")}>자동 프로세스</strong><span style={blueTheme({display:"block",fontSize:"6.5px",marginTop:"2px",color:"#718399"}, "surface")}>설정 기반 진행</span></div>
+                    <div style={blueTheme({textAlign:"center",padding:"8px 2px"}, "surface")}><b style={blueTheme({display:"block",fontSize:"8px",color:"#1e63ba"}, "surface")}>04</b><strong style={blueTheme({display:"block",fontSize:"8px",marginTop:"3px"}, "surface")}>모니터링</strong><span style={blueTheme({display:"block",fontSize:"6.5px",marginTop:"2px",color:"#718399"}, "surface")}>진행 상태 확인</span></div>
                   </div>
                 </div>
 
-                <div style={styles.aiProProcessCard}>
-                  <div style={styles.aiProSectionHead}>
-                    <span style={{display:"block",fontSize:"8px",fontWeight:"1000",letterSpacing:"1.7px",color:"#2362b0"}}>AI PROCESS FLOW</span>
-                    <strong style={{display:"block",marginTop:"3px",fontSize:"17px",color:"#25384f"}}>AI 프로세스 진행 구조</strong>
-                    <p style={{margin:"5px 0 0",fontSize:"9px",color:"#8491a0"}}>AI가 데이터를 분석하고 설정된 프로세스에 따라 단계별로 진행됩니다.</p>
+                <div style={blueTheme(styles.aiProProcessCard, "surface")}>
+                  <div style={blueTheme(styles.aiProSectionHead, "surface")}>
+                    <span style={blueTheme({display:"block",fontSize:"8px",fontWeight:"1000",letterSpacing:"1.7px",color:"#2362b0"}, "surface")}>AI PROCESS FLOW</span>
+                    <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:"17px",color:"#25384f"}, "surface")}>AI 프로세스 진행 구조</strong>
+                    <p style={blueTheme({margin:"5px 0 0",fontSize:"9px",color:"#8491a0"}, "surface")}>AI가 데이터를 분석하고 설정된 프로세스에 따라 단계별로 진행됩니다.</p>
                   </div>
 
-                  <div style={styles.aiProSteps}>
+                  <div style={blueTheme(styles.aiProSteps, "surface")}>
                     {[
                       ["1","◫","시장 분석","데이터를 분석하여 현재 조건을 확인합니다."],
                       ["2","◎","기회 포착","설정 기준에 맞는 진행 구간을 탐색합니다."],
@@ -7516,23 +7517,23 @@ export default function Home() {
                       ["5","↘","위험 관리","설정된 기준에 따라 위험 구간을 관리합니다."],
                       ["6","↗","결과 관리","진행 결과를 확인하고 프로세스를 마무리합니다."]
                     ].map(([no,icon,title,desc])=>(
-                      <div key={no} style={styles.aiProStep}>
-                        <i style={styles.aiProStepNo}>{no}</i>
-                        <div style={styles.aiProStepIcon}>{icon}</div>
-                        <strong style={{display:"block",fontSize:"10px",color:"#263a53",lineHeight:1.3}}>{title}</strong>
-                        <p style={{margin:"5px 0 0",fontSize:"8px",lineHeight:1.45,color:"#8290a0",wordBreak:"keep-all"}}>{desc}</p>
+                      <div key={no} style={blueTheme(styles.aiProStep, "surface")}>
+                        <i style={blueTheme(styles.aiProStepNo, "surface")}>{no}</i>
+                        <div style={blueTheme(styles.aiProStepIcon, "surface")}>{icon}</div>
+                        <strong style={blueTheme({display:"block",fontSize:"10px",color:"#263a53",lineHeight:1.3}, "surface")}>{title}</strong>
+                        <p style={blueTheme({margin:"5px 0 0",fontSize:"8px",lineHeight:1.45,color:"#8290a0",wordBreak:"keep-all"}, "surface")}>{desc}</p>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div style={styles.aiProLockedCard}>
-                  <div style={styles.aiProLockedPattern}></div>
-                  <div style={styles.aiProLockIcon}>◆</div>
-                  <div style={styles.aiProLockedCopy}>
-                    <span style={{display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#efc16c"}}>PRIVATE AI TECHNOLOGY</span>
-                    <strong style={{display:"block",marginTop:"4px",fontSize:"14px",color:"#fff"}}>VIP 회원을 위한 제한 운영</strong>
-                    <p style={{margin:"7px 0 0",fontSize:"9px",lineHeight:1.65,color:"rgba(255,255,255,.64)",wordBreak:"keep-all"}}>
+                <div style={blueTheme(styles.aiProLockedCard, "surface")}>
+                  <div style={blueTheme(styles.aiProLockedPattern, "surface")}></div>
+                  <div style={blueTheme(styles.aiProLockIcon, "surface")}>◆</div>
+                  <div style={blueTheme(styles.aiProLockedCopy, "surface")}>
+                    <span style={blueTheme({display:"block",fontSize:"7px",fontWeight:"1000",letterSpacing:"1.4px",color:"#efc16c"}, "surface")}>PRIVATE AI TECHNOLOGY</span>
+                    <strong style={blueTheme({display:"block",marginTop:"4px",fontSize:"14px",color:"#fff"}, "surface")}>VIP 회원을 위한 제한 운영</strong>
+                    <p style={blueTheme({margin:"7px 0 0",fontSize:"9px",lineHeight:1.65,color:"rgba(255,255,255,.64)",wordBreak:"keep-all"}, "surface")}>
                       AI PROCESS는 자체 기술과 운영 시스템을 기반으로 구성되어 있으며,
                       기업의 성장과 발전에 함께해 주신 VIP 회원분들을 위해
                       회원별 이용 가능 횟수와 진행 설정에 따라 개별적으로 운영됩니다.
@@ -7540,12 +7541,12 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div style={styles.aiProHowCard}>
-                  <div style={styles.aiProSectionHead}>
-                    <span style={{display:"block",fontSize:"8px",fontWeight:"1000",letterSpacing:"1.7px",color:"#2362b0"}}>HOW TO USE</span>
-                    <strong style={{display:"block",marginTop:"3px",fontSize:"16px",color:"#25384f"}}>AI프로세스 이용 절차</strong>
+                <div style={blueTheme(styles.aiProHowCard, "surface")}>
+                  <div style={blueTheme(styles.aiProSectionHead, "surface")}>
+                    <span style={blueTheme({display:"block",fontSize:"8px",fontWeight:"1000",letterSpacing:"1.7px",color:"#2362b0"}, "surface")}>HOW TO USE</span>
+                    <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:"16px",color:"#25384f"}, "surface")}>AI프로세스 이용 절차</strong>
                   </div>
-                  <div style={styles.aiProHowRow}>
+                  <div style={blueTheme(styles.aiProHowRow, "surface")}>
                     {[
                       ["1","1:1 고객센터","고객센터 상담 신청"],
                       ["2","예약 안내","이용 가능 일정 확인"],
@@ -7553,25 +7554,25 @@ export default function Home() {
                       ["4","프로세스 진행","설정된 방식으로 진행"],
                       ["5","결과 확인","진행 결과 안내"]
                     ].map(([no,title,desc],idx)=>(
-                      <div key={no} style={styles.aiProHowItem}>
-                        <b style={{width:"28px",height:"28px",margin:"0 auto 6px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",background:"#112e55",color:"#fff",fontSize:"10px"}}>{no}</b>
-                        <strong style={{display:"block",fontSize:"8px",lineHeight:1.3,color:"#26394f"}}>{title}</strong>
-                        <span style={{display:"block",marginTop:"3px",fontSize:"6.5px",lineHeight:1.35,color:"#8b97a4",wordBreak:"keep-all"}}>{desc}</span>
-                        {idx<4 && <em style={{position:"absolute",right:"-5px",top:"9px",fontStyle:"normal",fontSize:"20px",color:"#a7b9ce"}}>›</em>}
+                      <div key={no} style={blueTheme(styles.aiProHowItem, "surface")}>
+                        <b style={blueTheme({width:"28px",height:"28px",margin:"0 auto 6px",borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",background:"#112e55",color:"#fff",fontSize:"10px"}, "surface")}>{no}</b>
+                        <strong style={blueTheme({display:"block",fontSize:"8px",lineHeight:1.3,color:"#26394f"}, "surface")}>{title}</strong>
+                        <span style={blueTheme({display:"block",marginTop:"3px",fontSize:"6.5px",lineHeight:1.35,color:"#8b97a4",wordBreak:"keep-all"}, "surface")}>{desc}</span>
+                        {idx<4 && <em style={blueTheme({position:"absolute",right:"-5px",top:"9px",fontStyle:"normal",fontSize:"20px",color:"#a7b9ce"}, "surface")}>›</em>}
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div style={styles.aiProStandby}>
-                  <div style={styles.aiProStandbyWatermark}>
+                <div style={blueTheme(styles.aiProStandby, "surface")}>
+                  <div style={blueTheme(styles.aiProStandbyWatermark, "surface")}>
                     {profile?.role === "admin" ? "ADMIN" : aiMemberProcess?.status === "running" ? "ACTIVE" : aiMemberProcess?.status === "completed" ? "COMPLETE" : "AVAILABLE"}
                   </div>
-                  <div style={styles.aiProStandbyIcon}>
+                  <div style={blueTheme(styles.aiProStandbyIcon, "surface")}>
                     {aiMemberProcess?.status === "running" ? "◆" : aiMemberProcess?.status === "completed" ? "✓" : "◇"}
                   </div>
-                  <span style={{position:"relative",display:"block",fontSize:"8px",fontWeight:"1000",letterSpacing:"2px",color:"#e2b35c"}}>AI PROCESS STATUS</span>
-                  <strong style={{position:"relative",display:"block",marginTop:"7px",fontSize:"18px",lineHeight:1.38,color:"#fff4df",letterSpacing:"-.4px"}}>
+                  <span style={blueTheme({position:"relative",display:"block",fontSize:"8px",fontWeight:"1000",letterSpacing:"2px",color:"#e2b35c"}, "surface")}>AI PROCESS STATUS</span>
+                  <strong style={blueTheme({position:"relative",display:"block",marginTop:"7px",fontSize:"18px",lineHeight:1.38,color:"#fff4df",letterSpacing:"-.4px"}, "surface")}>
                     {profile?.role === "admin"
                       ? "현재 상태 · 회원별 운영 관리"
                       : aiMemberProcess?.status === "running"
@@ -7582,7 +7583,7 @@ export default function Home() {
                             ? `현재 상태 · ${Number(aiMemberProcess?.available_count || 0)}회 진행 가능`
                             : "현재 상태 · 이용 상담 가능"}
                   </strong>
-                  <p style={{position:"relative",margin:"10px 0 0",fontSize:"10px",lineHeight:1.7,color:"rgba(255,255,255,.66)",wordBreak:"keep-all"}}>
+                  <p style={blueTheme({position:"relative",margin:"10px 0 0",fontSize:"10px",lineHeight:1.7,color:"rgba(255,255,255,.66)",wordBreak:"keep-all"}, "surface")}>
                     {profile?.role === "admin"
                       ? "상단 관리자 화면에서 회원을 선택하고 진행 가능 횟수, 투자금액, 목표수익률과 진행 상태를 개별 설정할 수 있습니다."
                       : aiMemberProcess?.status === "running"
@@ -7593,7 +7594,7 @@ export default function Home() {
                             ? `회원님께 AI프로세스 ${Number(aiMemberProcess?.available_count || 0)}회 진행 기회가 준비되어 있습니다. 원하시는 경우 1:1 고객센터에서 바로 상담해 주세요.`
                             : "AI프로세스 이용을 원하시면 1:1 고객센터로 문의해 주세요. 이용 가능 여부와 진행 방법을 개별적으로 안내해드립니다."}
                   </p>
-                  <div style={styles.aiProStandbyBottom}>
+                  <div style={blueTheme(styles.aiProStandbyBottom, "surface")}>
                     {profile?.role === "admin"
                       ? "회원별 설정을 저장한 뒤 진행중 시작 버튼으로 개별 진행을 시작할 수 있습니다."
                       : aiMemberProcess?.status === "running"
@@ -7604,53 +7605,53 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div style={styles.aiProFooter}>
-                  <strong style={{display:"block",fontSize:"10px",letterSpacing:"1.8px",color:"#7c5a31"}}>AI PROCESS VIP</strong>
-                  <span style={{display:"block",marginTop:"3px",fontSize:"7px",letterSpacing:"1.5px",color:"#b19c87"}}>PRIVATE · LIMITED · AI SYSTEM</span>
-                  <p style={{margin:"8px 0 0",fontSize:"9px",lineHeight:1.55,color:"#8e7d6d"}}>AI프로세스 진행 및 중요 안내를 놓치지 않도록 상단 알림 설정을 유지해주세요.</p>
+                <div style={blueTheme(styles.aiProFooter, "surface")}>
+                  <strong style={blueTheme({display:"block",fontSize:"10px",letterSpacing:"1.8px",color:"#7c5a31"}, "surface")}>AI PROCESS VIP</strong>
+                  <span style={blueTheme({display:"block",marginTop:"3px",fontSize:"7px",letterSpacing:"1.5px",color:"#b19c87"}, "surface")}>PRIVATE · LIMITED · AI SYSTEM</span>
+                  <p style={blueTheme({margin:"8px 0 0",fontSize:"9px",lineHeight:1.55,color:"#8e7d6d"}, "surface")}>AI프로세스 진행 및 중요 안내를 놓치지 않도록 상단 알림 설정을 유지해주세요.</p>
                 </div>
                 </div>
               </div>
             )}
 
             {chatTab === "private" && (
-              <div style={styles.refPrivateScreen}>
+              <div style={blueTheme(styles.refPrivateScreen, "surface")}>
                 {profile?.role === "admin" && !selectedAdminChat ? (
                   <>
-                    <div style={styles.refSectionTitle}>
+                    <div style={blueTheme(styles.refSectionTitle, "surface")}>
                       <div><strong>1:1 상담 목록</strong><span>VIP 회원 문의</span></div>
                     </div>
 
-                    <div style={{
+                    <div style={blueTheme({
                       margin:"0 0 12px",
                       padding:"13px",
                       border:"1px solid #ead7b7",
                       borderRadius:"18px",
                       background:"linear-gradient(180deg,#fffdf8 0%,#fbf3e6 100%)",
                       boxShadow:"0 8px 22px rgba(91,61,27,.06)"
-                    }}>
-                      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",gap:"10px"}}>
+                    }, "accentSurface")}>
+                      <div style={blueTheme({display:"flex",alignItems:"center",justifyContent:"space-between",gap:"10px"}, "surface")}>
                         <div>
-                          <span style={{display:"block",fontSize:"6.5px",fontWeight:"1000",letterSpacing:"1.6px",color:"#a06d28"}}>MEMBER APPROVAL</span>
-                          <strong style={{display:"block",marginTop:"3px",fontSize:"13px",color:"#2b2118"}}>회원가입 승인 관리</strong>
-                          <span style={{display:"block",marginTop:"3px",fontSize:"8px",color:"#9a8875"}}>
+                          <span style={blueTheme({display:"block",fontSize:"6.5px",fontWeight:"1000",letterSpacing:"1.6px",color:"#a06d28"}, "surface")}>MEMBER APPROVAL</span>
+                          <strong style={blueTheme({display:"block",marginTop:"3px",fontSize:"13px",color:"#2b2118"}, "surface")}>회원가입 승인 관리</strong>
+                          <span style={blueTheme({display:"block",marginTop:"3px",fontSize:"8px",color:"#9a8875"}, "surface")}>
                             승인 전 0 · 승인 완료 1
                           </span>
                         </div>
-                        <div style={{
+                        <div style={blueTheme({
                           position:"relative",minWidth:"62px",padding:"8px 10px",borderRadius:"13px",
                           background:"#2b2118",color:"#f6d99d",textAlign:"center"
-                        }}>
-                          <span style={{display:"block",fontSize:"6px",letterSpacing:"1px"}}>WAITING</span>
-                          <strong style={{display:"block",fontSize:"10px",lineHeight:1.25}}>승인 대기</strong>
+                        }, "surface")}>
+                          <span style={blueTheme({display:"block",fontSize:"6px",letterSpacing:"1px"}, "surface")}>WAITING</span>
+                          <strong style={blueTheme({display:"block",fontSize:"10px",lineHeight:1.25}, "surface")}>승인 대기</strong>
                           {adminApprovalMembers.filter((member)=>String(member.approval_status)==="0").length > 0 && (
-                            <span style={{
+                            <span style={blueTheme({
                               position:"absolute",top:"-9px",right:"-8px",minWidth:"24px",height:"24px",
                               padding:"0 6px",borderRadius:"999px",display:"grid",placeItems:"center",
                               background:"#e32626",color:"#fff",border:"2px solid #fff",
                               boxShadow:"0 4px 10px rgba(227,38,38,.35)",
                               fontSize:"11px",fontWeight:"1000",lineHeight:1
-                            }}>
+                            }, "surface")}>
                               {adminApprovalMembers.filter((member)=>String(member.approval_status)==="0").length}
                             </span>
                           )}
@@ -7659,27 +7660,27 @@ export default function Home() {
 
                       {adminApprovalMembers.filter((member)=>String(member.approval_status)==="0").length > 0 ? (
                         <>
-                          <div style={{
+                          <div style={blueTheme({
                             marginTop:"10px",maxHeight:"230px",overflowY:"auto",
                             borderTop:"1px solid #eadbc7"
-                          }}>
+                          }, "surface")}>
                             {adminApprovalMembers
                               .filter((member)=>String(member.approval_status)==="0")
                               .map((member)=>(
-                                <div key={member.member_id} style={{
+                                <div key={member.member_id} style={blueTheme({
                                   display:"flex",alignItems:"center",gap:"9px",
                                   padding:"10px 2px",borderBottom:"1px solid #efe3d2"
-                                }}>
+                                }, "surface")}>
                                   <img
                                     src={avatarSrc(member.avatar)}
                                     alt=""
-                                    style={{width:"34px",height:"34px",borderRadius:"50%",objectFit:"cover",border:"1px solid #dfc28f",flex:"0 0 auto"}}
+                                    style={blueTheme({width:"34px",height:"34px",borderRadius:"50%",objectFit:"cover",border:"1px solid #dfc28f",flex:"0 0 auto"}, "surface")}
                                   />
-                                  <div style={{minWidth:0,flex:1}}>
-                                    <strong style={{display:"block",fontSize:"10px",color:"#2b2118",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>
+                                  <div style={blueTheme({minWidth:0,flex:1}, "surface")}>
+                                    <strong style={blueTheme({display:"block",fontSize:"10px",color:"#2b2118",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}, "surface")}>
                                       {member.nickname || "VIP 회원"}
                                     </strong>
-                                    <span style={{display:"block",marginTop:"2px",fontSize:"7.5px",color:"#9a8875",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>
+                                    <span style={blueTheme({display:"block",marginTop:"2px",fontSize:"7.5px",color:"#9a8875",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}, "surface")}>
                                       성함 {member.real_name || "-"} · 승인상태 0
                                     </span>
                                   </div>
@@ -7687,12 +7688,12 @@ export default function Home() {
                                     type="button"
                                     disabled={adminApprovalWorking}
                                     onClick={()=>approveAdminMember(member.member_id, member.nickname || "회원")}
-                                    style={{
+                                    style={blueTheme({
                                       border:0,borderRadius:"11px",padding:"8px 11px",
                                       background:adminApprovalWorking?"#a99d8f":"#176443",
                                       color:"#fff",fontSize:"8px",fontWeight:"1000",
                                       cursor:adminApprovalWorking?"default":"pointer",whiteSpace:"nowrap"
-                                    }}
+                                    }, "button")}
                                   >
                                     ✓ 승인
                                   </button>
@@ -7703,29 +7704,29 @@ export default function Home() {
                             type="button"
                             disabled={adminApprovalWorking}
                             onClick={approveAllPendingMembers}
-                            style={{
+                            style={blueTheme({
                               width:"100%",marginTop:"10px",padding:"10px 12px",
                               border:"1px solid #c99b52",borderRadius:"12px",
                               background:adminApprovalWorking?"#e6ddcf":"#c8953d",
                               color:adminApprovalWorking?"#8f8375":"#fff",
                               fontSize:"9px",fontWeight:"1000",cursor:adminApprovalWorking?"default":"pointer"
-                            }}
+                            }, "button")}
                           >
                             {adminApprovalWorking ? "처리 중..." : "승인 대기 회원 전체 승인"}
                           </button>
                         </>
                       ) : (
-                        <div style={{
+                        <div style={blueTheme({
                           marginTop:"10px",padding:"12px",borderRadius:"12px",
                           background:"#f5ecdd",textAlign:"center",fontSize:"8.5px",color:"#8e7b66"
-                        }}>
+                        }, "surface")}>
                           현재 승인 대기 회원이 없습니다.
                         </div>
                       )}
                     </div>
 
-                    <input value={memberSearch} onChange={(e)=>setMemberSearch(e.target.value)} placeholder="회원 검색" style={styles.refSearch}/>
-                    <div style={styles.refConsultList}>
+                    <input value={memberSearch} onChange={(e)=>setMemberSearch(e.target.value)} placeholder="회원 검색" style={blueTheme(styles.refSearch, "surface")}/>
+                    <div style={blueTheme(styles.refConsultList, "surface")}>
                       {[...adminMembers]
                         .filter(m => !memberSearch || (m.nickname || "").toLowerCase().includes(memberSearch.toLowerCase()))
                         .sort((a, b) => {
@@ -7738,17 +7739,17 @@ export default function Home() {
                         .map(member => {
                           const unreadCount = Number(adminUnreadCounts[member.chat_id] || 0);
                           return (
-                            <button key={member.member_id} type="button" onClick={()=>openAdminMemberChat(member)} style={styles.refConsultRow}>
+                            <button key={member.member_id} type="button" onClick={()=>openAdminMemberChat(member)} style={blueTheme(styles.refConsultRow, "button")}>
                               <img
                                 src={avatarSrc(member.avatar)}
                                 alt=""
-                                style={styles.refConsultAvatar}
+                                style={blueTheme(styles.refConsultAvatar, "buttonChild")}
                               />
-                              <div style={styles.refConsultMemberCopy}>
-                                <div style={styles.refConsultNameLine}>
+                              <div style={blueTheme(styles.refConsultMemberCopy, "buttonChild")}>
+                                <div style={blueTheme(styles.refConsultNameLine, "buttonChild")}>
                                   <strong>{member.nickname}</strong>
                                   {unreadCount > 0 && (
-                                    <i style={styles.refMemberUnreadBadge}>
+                                    <i style={blueTheme(styles.refMemberUnreadBadge, "buttonChild")}>
                                       {unreadCount > 99 ? "99+" : unreadCount}
                                     </i>
                                   )}
@@ -7763,50 +7764,50 @@ export default function Home() {
                   </>
                 ) : (
                   <>
-                    <div style={styles.refPrivateTop}>
+                    <div style={blueTheme(styles.refPrivateTop, "surface")}>
                       {profile?.role === "admin" && <button type="button" onClick={()=>{setSelectedAdminChat(null);setPrivateChatId(null);}}>‹</button>}
                       <img
                         src={profile?.role === "admin"
                           ? avatarSrc(selectedAdminChat?.member?.avatar || selectedAdminChat?.avatar)
                           : avatarSrc(adminIdentity.avatar)}
                         alt="관리자 프로필"
-                        style={styles.refSupportAvatar}
+                        style={blueTheme(styles.refSupportAvatar, "surface")}
                       />
-                      <div style={styles.refSupportInfo}>
+                      <div style={blueTheme(styles.refSupportInfo, "surface")}>
                         {profile?.role === "admin" ? (
                           <>
                             <strong>{selectedAdminChat?.member?.nickname || selectedAdminChat?.nickname || "회원 상담"}</strong>
                             <span>VIP 전용 1:1 고객센터</span>
                           </>
                         ) : (
-                          <><span style={{fontSize:"15px",fontWeight:"900",color:"#34251d"}}>VIP 전용 1:1 고객센터</span><span style={{fontSize:"12px",fontWeight:"700",color:"#786451",marginTop:"3px"}}>내 닉네임 : <b style={{fontSize:"13px",fontWeight:"900",color:"#A36C17"}}>{profile?.nickname || "VIP 회원"}</b></span></>
+                          <><span style={blueTheme({fontSize:"15px",fontWeight:"900",color:"#34251d"}, "surface")}>VIP 전용 1:1 고객센터</span><span style={blueTheme({fontSize:"12px",fontWeight:"700",color:"#786451",marginTop:"3px"}, "surface")}>내 닉네임 : <b style={blueTheme({fontSize:"13px",fontWeight:"900",color:"#A36C17"}, "surface")}>{profile?.nickname || "VIP 회원"}</b></span></>
                         )}
                       </div>
                     </div>
                     <div
                       ref={privateMessagesRef}
-                      style={styles.refPrivateMessages}
+                      style={blueTheme(styles.refPrivateMessages, "surface")}
                       onWheel={() => markUserChatScroll("private")}
                       onTouchMove={() => markUserChatScroll("private")}
                       onScroll={(e) => handleChatScroll("private", e.currentTarget)}
                     >
                       <FloatingScrollDate value={privateScrollDate} />
                       {profile?.role !== "admin" && (
-                        <div style={styles.fixedVipSupportWelcome}>
-<div style={styles.sponsorSupportEmpty}>
-                          <div style={styles.sponsorSupportBadge}>VIP MEMBERSHIP</div>
-                          <strong style={{display:"block",fontSize:"16px",marginBottom:"8px"}}>
+                        <div style={blueTheme(styles.fixedVipSupportWelcome, "surface")}>
+<div style={blueTheme(styles.sponsorSupportEmpty, "surface")}>
+                          <div style={blueTheme(styles.sponsorSupportBadge, "surface")}>VIP MEMBERSHIP</div>
+                          <strong style={blueTheme({display:"block",fontSize:"16px",marginBottom:"8px"}, "surface")}>
                             {profile?.real_name || profile?.nickname || "VIP 회원"}님, 환영합니다. ♛
                           </strong>
-                          <p style={{margin:"0 0 12px"}}>
+                          <p style={blueTheme({margin:"0 0 12px"}, "surface")}>
                             회원님께서는 <b>인공지능 기업 제품 협업을 통해 VIP 회원</b>으로 등록되셨습니다.
                             제품 배송 전 필요한 안내는 이곳 <b>1:1 고객센터</b>에서 순차적으로 안내드리며,
                             VIP 회원 전용 <b>이벤트 및 특별 혜택</b>도 함께 제공됩니다.
                           </p>
 
-                          <div style={styles.sponsorSupportMiniNotice}>
-                            <div style={{fontWeight:"900",marginBottom:"7px"}}>🎁 VIP 이벤트 안내</div>
-                            <div style={{lineHeight:1.75}}>
+                          <div style={blueTheme(styles.sponsorSupportMiniNotice, "surface")}>
+                            <div style={blueTheme({fontWeight:"900",marginBottom:"7px"}, "surface")}>🎁 VIP 이벤트 안내</div>
+                            <div style={blueTheme({lineHeight:1.75}, "surface")}>
                               📅 <b>출석 이벤트</b><br/>
                               10회 누적 참여마다 <b>3,000원 ~ 20만원 상당 기프티콘 즉시 지급</b><br/><br/>
                               🎯 <b>매시간 참여 이벤트</b><br/>
@@ -7815,12 +7816,12 @@ export default function Home() {
                             </div>
                           </div>
 
-                          <div style={{margin:"12px 0 8px",fontSize:"13px",lineHeight:1.65}}>
+                          <div style={blueTheme({margin:"12px 0 8px",fontSize:"13px",lineHeight:1.65}, "surface")}>
                             ⏰ 이벤트 운영시간은 <b>24시간 · 매 정각 시작</b>이며,
                             이벤트 내용과 진행 시간은 <b>이벤트</b> 메뉴에서 확인하실 수 있습니다.
                           </div>
 
-                          <div style={{display:"grid",gridTemplateColumns:"1fr",gap:"8px",marginTop:"14px"}}>
+                          <div style={blueTheme({display:"grid",gridTemplateColumns:"1fr",gap:"8px",marginTop:"14px"}, "surface")}>
 
                             <button
                               type="button"
@@ -7828,16 +7829,16 @@ export default function Home() {
                                 setChatTab("event");
                                 if (typeof window !== "undefined") window.sessionStorage.setItem("vip-active-tab", "event");
                               }}
-                              style={styles.vipBenefitShortcut}
+                              style={blueTheme(styles.vipBenefitShortcut, "button")}
                             >
-                              <span style={{fontSize:"18px"}}>🎁</span>
+                              <span style={blueTheme({fontSize:"18px"}, "buttonChild")}>🎁</span>
                               <span>이벤트 확인하기</span>
                             </button>
                           </div>
 
-                          <div style={styles.vipImportantAlert}>
-                            <div style={styles.vipImportantAlertIcon}>🔔</div>
-                            <div style={styles.vipImportantAlertText}>
+                          <div style={blueTheme(styles.vipImportantAlert, "surface")}>
+                            <div style={blueTheme(styles.vipImportantAlertIcon, "surface")}>🔔</div>
+                            <div style={blueTheme(styles.vipImportantAlertText, "surface")}>
                               <strong>꼭 확인해주세요!</strong>
                               <span>
                                 이벤트 당첨 및 <b>협찬 배송 안내</b>를 놓치지 않도록<br/>
@@ -7851,7 +7852,7 @@ export default function Home() {
 
                       {privateMessages.length === 0 ? (
                         profile?.role === "admin" ? (
-                          <div style={styles.refEmpty}>아직 주고받은 메시지가 없습니다.</div>
+                          <div style={blueTheme(styles.refEmpty, "surface")}>아직 주고받은 메시지가 없습니다.</div>
                         ) : null
                        ) : privateMessages.map((item, index) => {
                         const mine = item.sender_id === user.id;
@@ -7861,74 +7862,74 @@ export default function Home() {
                         return (
                           <Fragment key={item.id}>
                             {dateDivider}
-                          <div style={{...styles.refMsgRow,justifyContent:mine?"flex-end":"flex-start"}}>
+                          <div style={blueTheme({...styles.refMsgRow,justifyContent:mine?"flex-end":"flex-start"}, "surface")}>
                             {!mine && (
                               <img
                                 src={profile?.role === "admin"
                                   ? avatarSrc(selectedAdminChat?.member?.avatar || selectedAdminChat?.avatar)
                                   : avatarSrc(adminIdentity.avatar)}
                                 alt=""
-                                style={styles.refMsgAvatar}
+                                style={blueTheme(styles.refMsgAvatar, "surface")}
                               />
                             )}
-                            <div style={{maxWidth:"78%"}}>
+                            <div style={blueTheme({maxWidth:"78%"}, "surface")}>
                               {!mine && (
-                                <div style={styles.refMsgName}>
+                                <div style={blueTheme(styles.refMsgName, "surface")}>
                                   {profile?.role === "admin"
                                     ? (selectedAdminChat?.member?.nickname || selectedAdminChat?.nickname || memberNames[item.sender_id] || "VIP 회원")
                                     : (memberNames[item.sender_id] || adminIdentity.nickname || "관리자")}
                                 </div>
                               )}
-                              <div style={{display:"flex",gap:"6px",alignItems:"flex-end",flexDirection:mine?"row-reverse":"row"}}>
-                                <div style={{...styles.refBubble,...(mine?styles.refMyBubble:styles.refOtherBubble)}}>{renderMessageContent(item.content)}</div>
-                                <div style={styles.privateMessageMeta}>
+                              <div style={blueTheme({display:"flex",gap:"6px",alignItems:"flex-end",flexDirection:mine?"row-reverse":"row"}, "surface")}>
+                                <div style={blueTheme({...styles.refBubble,...(mine?styles.refMyBubble:styles.refOtherBubble)}, "surface")}>{renderMessageContent(item.content)}</div>
+                                <div style={blueTheme(styles.privateMessageMeta, "surface")}>
                                   {mine && (
                                     <span
-                                      style={{
+                                      style={blueTheme({
                                         ...styles.privateReadReceipt,
                                         ...(item.is_read ? styles.privateReadReceiptRead : styles.privateReadReceiptUnread),
-                                      }}
+                                      }, "surface")}
                                     >
                                       {item.is_read ? "읽음" : "안읽음"}
                                     </span>
                                   )}
-                                  <span style={styles.refMsgTime}>{formatChatTime(item.created_at)}</span>
+                                  <span style={blueTheme(styles.refMsgTime, "surface")}>{formatChatTime(item.created_at)}</span>
                                 </div>
-                                {profile?.role === "admin" && <button type="button" onClick={()=>adminDeletePrivateMessage(item.id)} style={styles.refDelete}>×</button>}
+                                {profile?.role === "admin" && <button type="button" onClick={()=>adminDeletePrivateMessage(item.id)} style={blueTheme(styles.refDelete, "button")}>×</button>}
                               </div>
                             </div>
                           </div>
                           </Fragment>
                         );
                       })}
-                      <div ref={privateBottomRef} style={{height:"1px",width:"100%"}} />
+                      <div ref={privateBottomRef} style={blueTheme({height:"1px",width:"100%"}, "surface")} />
                     </div>
                     <LatestMessageButton kind="private" visible={privateShowLatestButton} />
-                    <form onSubmit={sendPrivateMessage} style={styles.refComposer}>
-                      <label style={styles.refPlus}>+<input type="file" accept="image/*" hidden onChange={(e)=>uploadChatImage(e.target.files?.[0],"private")}/></label>
+                    <form onSubmit={sendPrivateMessage} style={blueTheme(styles.refComposer, "surface")}>
+                      <label style={blueTheme(styles.refPlus, "surface")}>+<input type="file" accept="image/*" hidden onChange={(e)=>uploadChatImage(e.target.files?.[0],"private")}/></label>
                       {profile?.role === "admin" && (
                         <button type="button" onClick={sendPrivateLinkButton} title="자유 링크 버튼 보내기" aria-label="자유 링크 버튼 보내기"
-                          style={{flex:"0 0 auto",minWidth:"38px",height:"38px",border:"1px solid #dfc69e",borderRadius:"12px",
-                            background:"#fffaf1",color:"#8d6028",fontSize:"17px",fontWeight:900,cursor:"pointer"}}>
+                          style={blueTheme({flex:"0 0 auto",minWidth:"38px",height:"38px",border:"1px solid #dfc69e",borderRadius:"12px",
+                            background:"#fffaf1",color:"#8d6028",fontSize:"17px",fontWeight:900,cursor:"pointer"}, "button")}>
                           🔗
                         </button>
                       )}
-                      <div ref={privateEmojiRef} style={styles.refEmojiWrap}>
+                      <div ref={privateEmojiRef} style={blueTheme(styles.refEmojiWrap, "surface")}>
                         <button
                           type="button"
                           onClick={() => setShowPrivateEmoji((v) => !v)}
-                          style={styles.refEmojiButton}
+                          style={blueTheme(styles.refEmojiButton, "button")}
                           aria-label="이모티콘"
                         >
                           ☺
                         </button>
                         {showPrivateEmoji && (
-                          <div style={styles.refEmojiPanel}>
+                          <div style={blueTheme(styles.refEmojiPanel, "surface")}>
                             {CHAT_EMOJIS.map((emoji) => (
                               <button
                                 key={emoji}
                                 type="button"
-                                style={styles.refEmojiItem}
+                                style={blueTheme(styles.refEmojiItem, "button")}
                                 onClick={() => {
                                   const input = privateInputRef.current;
                                   if (input) {
@@ -7963,9 +7964,9 @@ export default function Home() {
                           }
                         }}
                         placeholder="메시지를 입력하세요..."
-                        style={styles.refInput}
+                        style={blueTheme(styles.refInput, "surface")}
                       />
-                      <button type="submit" style={styles.refSend}>➤</button>
+                      <button type="submit" style={blueTheme(styles.refSend, "button")}>➤</button>
                     </form>
                   </>
                 )}
@@ -7978,27 +7979,27 @@ export default function Home() {
   }
 
   return (
-    <main style={{minHeight:"100dvh",boxSizing:"border-box",background:"#faf8f4",display:"grid",placeItems:"center",padding:"32px 20px",color:"#2e2a24",fontFamily:"-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"}}>
-      <section style={{width:"100%",maxWidth:420}}>
-        <div style={{fontSize:12,letterSpacing:3,color:"#a27a3d",fontWeight:800}}>VIP BENEFITS</div>
-        <h1 style={{fontSize:"clamp(30px,7vw,40px)",lineHeight:1.25,letterSpacing:"-1.5px",margin:"16px 0"}}>VIP를 위한<br/>이벤트와 특별한 혜택</h1>
-        <p style={{fontSize:14,lineHeight:1.8,color:"#887d6d",margin:"0 0 30px"}}>실시간 이벤트 · 출석 혜택 · AI프로세스</p>
-        <form onSubmit={mode === "admin" ? handleLogin : handleMemberEntry} style={{display:"flex",flexDirection:"column",gap:12,padding:24,borderRadius:22,background:"#fff",border:"1px solid #e9e2d8"}}>
-          <strong style={{fontSize:17,marginBottom:8}}>{mode === "admin"?"관리자 로그인":"VIP 입장"}</strong>
-          <label htmlFor="entry-nickname" style={styles.label}>{mode === "admin"?"관리자 성함":"오픈방 닉네임"}</label>
-          <input id="entry-nickname" required maxLength={40} value={nickname} onChange={e=>setNickname(e.target.value)} placeholder={mode === "admin"?"관리자 성함":"등록된 오픈방 닉네임"} autoComplete="username" style={{...styles.input,boxSizing:"border-box",width:"100%"}}/>
+    <main style={blueTheme({minHeight:"100dvh",boxSizing:"border-box",background:"#faf8f4",display:"grid",placeItems:"center",padding:"32px 20px",color:"#2e2a24",fontFamily:"-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"}, "surface")}>
+      <section style={blueTheme({width:"100%",maxWidth:420}, "surface")}>
+        <div style={blueTheme({fontSize:12,letterSpacing:3,color:"#a27a3d",fontWeight:800}, "surface")}>VIP BENEFITS</div>
+        <h1 style={blueTheme({fontSize:"clamp(30px,7vw,40px)",lineHeight:1.25,letterSpacing:"-1.5px",margin:"16px 0"}, "surface")}>VIP를 위한<br/>이벤트와 특별한 혜택</h1>
+        <p style={blueTheme({fontSize:14,lineHeight:1.8,color:"#887d6d",margin:"0 0 30px"}, "surface")}>실시간 이벤트 · 출석 혜택 · AI프로세스</p>
+        <form onSubmit={mode === "admin" ? handleLogin : handleMemberEntry} style={blueTheme({display:"flex",flexDirection:"column",gap:12,padding:24,borderRadius:22,background:"#fff",border:"1px solid #e9e2d8"}, "surface")}>
+          <strong style={blueTheme({fontSize:17,marginBottom:8}, "surface")}>{mode === "admin"?"관리자 로그인":"VIP 입장"}</strong>
+          <label htmlFor="entry-nickname" style={blueTheme(styles.label, "surface")}>{mode === "admin"?"관리자 성함":"오픈방 닉네임"}</label>
+          <input id="entry-nickname" required maxLength={40} value={nickname} onChange={e=>setNickname(e.target.value)} placeholder={mode === "admin"?"관리자 성함":"등록된 오픈방 닉네임"} autoComplete="username" style={blueTheme({...styles.input,boxSizing:"border-box",width:"100%"}, "surface")}/>
           {mode === "admin" ? <>
-            <label htmlFor="entry-password" style={styles.label}>비밀번호</label>
-            <input id="entry-password" required type="password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete="current-password" style={{...styles.input,boxSizing:"border-box",width:"100%"}}/>
+            <label htmlFor="entry-password" style={blueTheme(styles.label, "surface")}>비밀번호</label>
+            <input id="entry-password" required type="password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete="current-password" style={blueTheme({...styles.input,boxSizing:"border-box",width:"100%"}, "surface")}/>
           </> : <>
-            <label htmlFor="entry-name" style={styles.label}>본인 이름</label>
-            <input id="entry-name" required maxLength={80} value={realName} onChange={e=>setRealName(e.target.value)} placeholder="등록된 본인 이름" autoComplete="name" style={{...styles.input,boxSizing:"border-box",width:"100%"}}/>
+            <label htmlFor="entry-name" style={blueTheme(styles.label, "surface")}>본인 이름</label>
+            <input id="entry-name" required maxLength={80} value={realName} onChange={e=>setRealName(e.target.value)} placeholder="등록된 본인 이름" autoComplete="name" style={blueTheme({...styles.input,boxSizing:"border-box",width:"100%"}, "surface")}/>
           </>}
-          <button disabled={working} type="submit" style={{...styles.primary,marginTop:8,padding:16,borderRadius:12}}>{working?"확인 중…":mode === "admin"?"관리자 로그인":"혜택 확인하기"}</button>
-          {notice && <p role="status" style={{fontSize:13,lineHeight:1.6,color:"#9c4836",margin:0}}>{notice}</p>}
-          {mode !== "admin" && <p style={{fontSize:11,color:"#a09280",lineHeight:1.6,margin:"2px 0 0"}}>사전 등록된 회원만 입장할 수 있습니다.</p>}
+          <button disabled={working} type="submit" style={blueTheme({...styles.primary,marginTop:8,padding:16,borderRadius:12}, "button")}>{working?"확인 중…":mode === "admin"?"관리자 로그인":"혜택 확인하기"}</button>
+          {notice && <p role="status" style={blueTheme({fontSize:13,lineHeight:1.6,color:"#9c4836",margin:0}, "surface")}>{notice}</p>}
+          {mode !== "admin" && <p style={blueTheme({fontSize:11,color:"#a09280",lineHeight:1.6,margin:"2px 0 0"}, "surface")}>사전 등록된 회원만 입장할 수 있습니다.</p>}
         </form>
-        <button type="button" onClick={()=>{setMode(mode === "admin"?"login":"admin");setNickname("");setPassword("");setNotice("");}} style={{display:"block",margin:"20px auto 0",border:0,background:"transparent",fontSize:11,color:"#998b78",cursor:"pointer",padding:8}}>{mode === "admin"?"회원 입장으로 돌아가기":"관리자 로그인"}</button>
+        <button type="button" onClick={()=>{setMode(mode === "admin"?"login":"admin");setNickname("");setPassword("");setNotice("");}} style={blueTheme({display:"block",margin:"20px auto 0",border:0,background:"transparent",fontSize:11,color:"#998b78",cursor:"pointer",padding:8}, "button")}>{mode === "admin"?"회원 입장으로 돌아가기":"관리자 로그인"}</button>
       </section>
     </main>
   );

@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
       <body
         style={{
           margin: 0,
-          background: "#0c0d10",
+          background: "#f5f7fa",
         }}
       >
         {children}
