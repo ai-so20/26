@@ -1,0 +1,68 @@
+.entryShell { display: grid; place-items: center; padding: 28px; }
+.entryPanel { width: min(100%, 360px); }
+.entryCopy { margin-top: 34px; }
+.entryCopy h1 { margin: 6px 0 8px; font-size: 30px; letter-spacing: -.05em; }
+.entryCopy p { margin: 0; color: #7a8798; font-size: 12px; line-height: 1.65; }
+.entryForm { margin-top: 24px; display: grid; gap: 13px; }
+.entryForm label { display: grid; gap: 7px; }
+.entryForm label > span { color: #687588; font-size: 10px; font-weight: 800; }
+.entryForm input { width: 100%; height: 46px; box-sizing: border-box; padding: 0 13px; border-radius: 12px; border: 1px solid #dce3eb; background: #fff; color: #172033; font: inherit; outline: none; }
+.entryForm input:focus { border-color: #9db5ef; box-shadow: 0 0 0 3px rgba(47,111,237,.08); }
+.entryButton { height: 48px; margin-top: 5px; border: 0; border-radius: 12px; background: #2f6fed; color: #fff; font-size: 12px; font-weight: 850; cursor: pointer; }
+.entryButton:disabled { opacity: .62; cursor: default; }
+.entryFoot { margin-top: 15px; color: #919cab; font-size: 9px; line-height: 1.55; text-align: center; }
+.loadingShell { display: grid; place-items: center; align-content: center; gap: 12px; }
+.loadingMark { width: 50px; height: 50px; display: grid; place-items: center; border-radius: 16px; background: #172033; color: #fff; font-size: 11px; font-weight: 900; letter-spacing: .08em; }
+.loadingShell > strong { font-size: 12px; color: #617083; }
+.noticeBox { margin: 0 0 14px; padding: 11px 12px; border: 1px solid #e2e7ed; border-radius: 12px; background: #fff; color: #5f6c7e; font-size: 10px; line-height: 1.55; }
+.noticeSuccess { border-color: #cfe9dd; background: #f3faf7; color: #287058; }
+.avatarImage { width: 30px; height: 30px; object-fit: cover; border-radius: 10px; }
+.profilePopover { position: absolute; z-index: 50; top: 64px; right: 14px; width: 240px; padding: 14px; border: 1px solid #dfe5ec; border-radius: 16px; background: #fff; box-shadow: 0 18px 46px rgba(24,39,59,.15); }
+.profilePopoverHead { display: flex; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid #edf1f5; }
+.profilePopoverHead img { width: 38px; height: 38px; object-fit: cover; border-radius: 12px; }
+.profilePopoverHead div { display: grid; gap: 2px; }
+.profilePopoverHead strong { font-size: 12px; }
+.profilePopoverHead span { color: #8b96a6; font-size: 9px; }
+.profilePopover dl { margin: 9px 0 0; }
+.profilePopover dl > div { display: flex; justify-content: space-between; gap: 12px; padding: 8px 2px; border-bottom: 1px solid #f0f3f6; }
+.profilePopover dt { color: #8b96a6; font-size: 9px; }
+.profilePopover dd { margin: 0; color: #293548; font-size: 9px; font-weight: 750; }
+.profilePopover > button { width: 100%; height: 36px; margin-top: 10px; border: 1px solid #dce3eb; border-radius: 10px; background: #f8fafc; color: #526074; font-size: 10px; font-weight: 800; cursor: pointer; }
+.gameArea { margin-top: 14px; padding: 14px; border: 1px solid #e3e8ef; border-radius: 14px; background: #f9fbfd; }
+.gameLabel { margin-bottom: 10px; color: #5e6a7d; font-size: 10px; line-height: 1.5; }
+.gameFourGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+.gameChoice { min-height: 64px; display: grid; place-items: center; gap: 4px; border: 1px solid #dce4ed; border-radius: 12px; background: #fff; color: #536074; font-size: 10px; font-weight: 800; cursor: pointer; }
+.gameChoiceSelected { border-color: #2f6fed !important; background: #f1f5ff !important; color: #1d4fb8 !important; box-shadow: inset 0 0 0 1px rgba(47,111,237,.08); }
+.gameChoiceIcon { font-size: 18px; }
+.numberRow { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+.gameInput { min-width: 0; height: 40px; padding: 0 11px; border: 1px solid #dce4ed; border-radius: 11px; background: #fff; color: #172033; font: inherit; outline: none; }
+.quizQuestion { margin-bottom: 10px; color: #273449; font-size: 12px; font-weight: 800; line-height: 1.6; }
+.quizGrid { display: grid; gap: 7px; margin-bottom: 10px; }
+.quizChoice { display: grid; grid-template-columns: 24px 1fr; align-items: center; gap: 7px; min-height: 42px; padding: 6px 10px; border: 1px solid #dce4ed; border-radius: 11px; background: #fff; color: #526074; text-align: left; cursor: pointer; }
+.quizChoice > span { width: 22px; height: 22px; display: grid; place-items: center; border-radius: 7px; background: #eef2f7; font-size: 9px; font-weight: 900; }
+.quizChoice strong { font-size: 10px; }
+.rouletteWheel { width: 76px; height: 76px; margin: 3px auto 13px; display: grid; place-items: center; border: 10px solid #e8edf4; border-top-color: #2f6fed; border-radius: 999px; background: #fff; color: #2f6fed; font-size: 25px; transition: transform .9s cubic-bezier(.2,.8,.2,1); }
+.rouletteSpinning { transform: rotate(1080deg); }
+.primaryButtonWide { width: 100%; min-height: 42px; margin-top: 12px; border: 0; border-radius: 12px; background: #2f6fed; color: #fff; font: inherit; font-size: 11px; font-weight: 850; cursor: pointer; }
+.primaryButtonWide:disabled, .primaryButton:disabled { opacity: .55; cursor: default; }
+.emptyCard { margin-top: 12px; padding: 22px 16px; border: 1px solid #e0e6ed; border-radius: 18px; background: #fff; text-align: center; }
+.emptyCard strong { font-size: 13px; }
+.emptyCard p { margin: 5px 0 0; color: #8a95a5; font-size: 10px; }
+.emptyRow { padding: 18px 12px; color: #8a95a5; font-size: 10px; text-align: center; }
+.eventLiveRow { padding: 13px 14px; border-top: 1px solid #edf1f5; background: #fff; }
+.eventLiveRow:first-of-type { border-top: 0; }
+.eventLiveRowActive { background: #fbfdff; }
+.eventRowTop { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.eventRowTitle { min-width: 0; display: flex; align-items: center; gap: 9px; }
+.eventRowTitle > div { min-width: 0; display: grid; gap: 2px; }
+.eventRowTitle small { color: #98a2b0; font-size: 8px; }
+.eventRowTitle strong { overflow: hidden; color: #253145; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.eventEmoji { width: 28px; height: 28px; flex: 0 0 28px; display: grid; place-items: center; border-radius: 9px; background: #f1f4f8; font-size: 14px; }
+.eventGuide { margin: 8px 0 0 38px; color: #7f8a99; font-size: 9px; line-height: 1.55; }
+.winnerLine { margin: 9px 0 0 38px; color: #556375; font-size: 9px; }
+.attendanceDotDone { border-color: #9eb7ef !important; background: #eef4ff !important; color: #2f6fed !important; }
+@media (max-width: 420px) {
+  .entryShell { min-height: 100vh; padding: 22px 18px; }
+  .profilePopover { right: 8px; width: min(240px, calc(100vw - 28px)); }
+  .gameFourGrid { grid-template-columns: repeat(2, 1fr); }
+}
