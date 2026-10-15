@@ -20,7 +20,7 @@ export async function POST(request) {
     const body = await request.json().catch(() => ({}));
     const nickname = cleanText(body?.nickname);
     const realName = cleanText(body?.realName);
-    const password = normalizePasswordInput(body?.password);
+    const password = randomUUID();
 
     if (!nickname || !realName || !password) {
       return Response.json(
@@ -50,6 +50,12 @@ export async function POST(request) {
     const adminClient = createClient(supabaseUrl, serviceKey, {
       auth: { persistSession: false, autoRefreshToken: false },
     });
+
+    const token = (request.headers.get("authorization") || "").replace(/^Bearer /, "");
+    const { data: requester } = await adminClient.auth.getUser(token);
+    if (!requester?.user) return Response.json({ success: false, error: "관리자 로그인이 필요합니다." }, { status: 401 });
+    const { data: operator } = await adminClient.from("profiles").select("role,approval_status").eq("id",requester.user.id).single();
+    if (operator?.role !== "admin" || operator?.approval_status !== "1") return Response.json({ success: false, error: "관리자만 회원을 등록할 수 있습니다." }, { status: 403 });
 
     // 닉네임만 고유하게 사용합니다. 성함(real_name)은 동명이인을 허용합니다.
     const { data: duplicateNickname, error: duplicateError } = await adminClient
@@ -140,7 +146,7 @@ export async function POST(request) {
     const assignedAvatar = pickLeastUsedAvatar([...(profileAvatars || []), ...(aiAvatars || [])]);
     const { error: avatarAssignError } = await adminClient
       .from("profiles")
-      .update({ avatar: assignedAvatar })
+      .update({ avatar: assignedAvatar, approval_status: "1" })
       .eq("id", createdUserId);
 
     if (avatarAssignError) {

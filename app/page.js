@@ -57,6 +57,11 @@ function normalizePasswordInput(value) {
 
 export default function Home() {
   const [mode, setMode] = useState("login");
+  const [eventView, setEventView] = useState("live");
+  const [registerNickname, setRegisterNickname] = useState("");
+  const [registerName, setRegisterName] = useState("");
+  const [registerWorking, setRegisterWorking] = useState(false);
+  const [registerNotice, setRegisterNotice] = useState("");
 
   const [nickname, setNickname] = useState("");
   const [realName, setRealName] = useState("");
@@ -86,7 +91,7 @@ export default function Home() {
   const [showPrivateEmoji, setShowPrivateEmoji] = useState(false);
   const [mediaUploading, setMediaUploading] = useState(false);
 
-  const [chatTab, setChatTab] = useState("private");
+  const [chatTab, setChatTab] = useState("event");
   // 모바일 주소창 높이 변화 시 채팅 하단이 떠 보이지 않도록 실제 가시 영역을 기준으로 맞춘다.
   const [mobileViewportHeight, setMobileViewportHeight] = useState(null);
   useEffect(() => {
@@ -2448,7 +2453,7 @@ export default function Home() {
     if (profile?.role !== "admin" || giftInventoryWorking) return;
     const assignedCount = giftInventory.filter((gift) => gift.status === "assigned").length;
     if (!assignedCount) { setNotice("삭제할 일반 이벤트 지급완료 기프티콘이 없습니다."); return; }
-    if (!window.confirm(`일반 하루 20회 이벤트 지급완료 기프티콘 ${assignedCount}개를 목록에서 모두 삭제할까요?\n\n이미 회원 1:1 채팅으로 지급된 기프티콘 메시지는 삭제되지 않습니다.`)) return;
+    if (!window.confirm(`일반 실시간 이벤트 지급완료 기프티콘 ${assignedCount}개를 목록에서 모두 삭제할까요?\n\n이미 회원 1:1 채팅으로 지급된 기프티콘 메시지는 삭제되지 않습니다.`)) return;
     setGiftInventoryWorking(true);
     try {
       const { data, error } = await supabase.rpc("admin_delete_all_assigned_gift_inventory");
@@ -2985,7 +2990,7 @@ export default function Home() {
       type: "done",
       icon: "🎉",
       title: "오늘의 이벤트가 종료되었습니다",
-      text: "다음 이벤트는 오전 11시부터 시작됩니다.",
+      text: "매 정각 새로운 이벤트가 시작됩니다.",
     };
   }
 
@@ -4592,6 +4597,36 @@ export default function Home() {
     })();
   }
 
+  async function handleMemberEntry(e) {
+    e.preventDefault(); setWorking(true); setNotice("");
+    try {
+      const response = await fetch("/api/auth/member-entry", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nickname,realName})});
+      const result = await response.json();
+      if (!response.ok || !result.session) { setNotice(result.error || "입장 정보를 확인해주세요."); return; }
+      const { data, error } = await supabase.auth.setSession(result.session);
+      if (error || !data.user) { setNotice("입장 중 오류가 발생했습니다."); return; }
+      const {data: member,error: profileError} = await supabase.from("profiles").select("*").eq("id",data.user.id).single();
+      if (profileError || member?.approval_status !== "1") {await supabase.auth.signOut();setNotice("등록 정보를 확인해주세요.");return;}
+      window.sessionStorage.setItem("vip-active-tab","event");
+      window.localStorage.removeItem("vip-ui-locked");
+      setChatTab("event"); setUser(data.user); setProfile(member); setVipLocked(false);
+    } catch {setNotice("입장 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");}
+    finally {setWorking(false);}
+  }
+
+  async function registerMember(e) {
+    e.preventDefault(); setRegisterWorking(true); setRegisterNotice("");
+    try {
+      const {data:{session}} = await supabase.auth.getSession();
+      const response = await fetch("/api/auth/signup",{method:"POST",headers:{"Content-Type":"application/json",Authorization:`Bearer ${session?.access_token || ""}`},body:JSON.stringify({nickname:registerNickname,realName:registerName})});
+      const result=await response.json();
+      if (!response.ok) {setRegisterNotice(result.error || "등록하지 못했습니다.");return;}
+      setRegisterNickname("");setRegisterName("");setRegisterNotice("회원 등록 완료 · 닉네임과 이름으로 바로 입장할 수 있습니다.");
+      loadAdminMembers();
+    } catch {setRegisterNotice("회원 등록 중 오류가 발생했습니다.");}
+    finally {setRegisterWorking(false);}
+  }
+
   async function handleSignup(e) {
     e.preventDefault();
 
@@ -4769,9 +4804,9 @@ export default function Home() {
       }
 
       if (typeof window !== "undefined") {
-        window.sessionStorage.setItem("vip-active-tab", "private");
+        window.sessionStorage.setItem("vip-active-tab", "event");
       }
-      setChatTab("private");
+      setChatTab("event");
       setUser(data.user);
       setProfile(memberProfile);
       setInstallGuideEligibleThisLogin(memberProfile.role !== "admin" && memberProfile.welcome_popup_seen === true);
@@ -4982,11 +5017,11 @@ export default function Home() {
 
 
   function getActiveAutoEvent() {
-    return (autoEvents || []).find((item) => item.status === "active") || null;
+    return (autoEvents || []).find((item) => isEventLiveNow(item)) || null;
   }
 
   function getNextAutoEvent() {
-    return (autoEvents || []).find((item) => item.status === "scheduled") || null;
+    return (autoEvents || []).find((item) => item.status === "scheduled" && new Date(item.starts_at).getTime() > Date.now()) || null;
   }
 
   function getNextEventCountdownLabel() {
@@ -5109,7 +5144,7 @@ export default function Home() {
     const navItems = [
       { id: "event", icon: "🎁", label: "이벤트" },
       { id: "ai", icon: "bars", label: "AI프로세스" },
-      { id: "private", icon: "🎧", label: "1:1 고객센터" },
+      { id: "private", icon: "🎁", label: "상품 지급" },
     ];
 
     const changeTab = async (id) => {
@@ -6121,6 +6156,23 @@ export default function Home() {
 
             {chatTab === "event" && (
               <div style={styles.refEventScreen}>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:16}}>
+                  {[["live","실시간 이벤트","매시간 새로운 혜택"],["attendance","출석 이벤트","매일 쌓이는 출석 혜택"]].map(([id,title,desc])=>(
+                    <button key={id} type="button" onClick={()=>setEventView(id)} aria-pressed={eventView===id} style={{padding:"18px 12px",borderRadius:16,border:eventView===id?"2px solid #b78a42":"1px solid #e5d8c5",background:eventView===id?"#fff5e4":"#fff",textAlign:"left",color:"#382e23",cursor:"pointer"}}>
+                      <strong style={{display:"block",fontSize:15}}>{title}</strong><span style={{display:"block",marginTop:6,fontSize:11,color:"#88745a"}}>{desc}</span>
+                    </button>
+                  ))}
+                </div>
+                {profile.role === "admin" && <form onSubmit={registerMember} style={{padding:16,marginBottom:16,border:"1px solid #e5d8c5",borderRadius:16,background:"#fff"}}>
+                  <strong style={{display:"block",marginBottom:12}}>회원 사전 등록</strong>
+                  <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+                    <input required maxLength={40} aria-label="등록할 오픈방 닉네임" placeholder="오픈방 닉네임" value={registerNickname} onChange={e=>setRegisterNickname(e.target.value)} style={{...styles.input,flex:"1 1 140px",width:0}}/>
+                    <input required maxLength={80} aria-label="등록할 회원 이름" placeholder="본인 이름" value={registerName} onChange={e=>setRegisterName(e.target.value)} style={{...styles.input,flex:"1 1 120px",width:0}}/>
+                    <button disabled={registerWorking} style={{...styles.primary,width:"auto",padding:"12px 18px"}}>{registerWorking?"등록 중":"회원 등록"}</button>
+                  </div>
+                  {registerNotice && <p role="status" style={{fontSize:12,marginBottom:0}}>{registerNotice}</p>}
+                </form>}
+
                 {showSurpriseEventGuide && (
                   <div role="presentation" onClick={() => setShowSurpriseEventGuide(false)}
                     style={{position:"fixed",inset:0,zIndex:2147483647,background:"rgba(12,19,27,.72)",display:"flex",alignItems:"center",justifyContent:"center",padding:"18px"}}>
@@ -6637,6 +6689,7 @@ export default function Home() {
                   </div>
                 )}
 
+                {eventView === "attendance" && <>
                 <div style={styles.dailyAttendanceCard}>
                   <div style={styles.dailyAttendanceTop}>
                     <div>
@@ -6726,6 +6779,9 @@ export default function Home() {
                   </div>
                 </div>
 
+                </>}
+
+                {eventView === "live" && <>
                 {featuredEvent && (
                   <div style={{...styles.refHeroEvent, backgroundImage:eventHeroBackground(featuredEvent.event_type)}}>
                     <div style={styles.refHeroEventTop}>
@@ -6789,7 +6845,7 @@ export default function Home() {
                 )}
 
                 <div style={styles.refSectionTitle}>
-                  <div><strong>오늘의 이벤트</strong><span>시간별 자동 진행 · 출석체크 별도 운영</span></div>
+                  <div><strong>실시간 이벤트</strong><span>매 정각 시작 · 1시간 참여 · 마감 후 당첨 발표</span></div>
                   <small>{autoEvents.length}개 회차</small>
                 </div>
 
@@ -6862,6 +6918,7 @@ export default function Home() {
                     );
                   })}
                 </div>
+                </>}
                 {notice && <div style={styles.refNotice}>{notice}</div>}
               </div>
             )}
@@ -7752,14 +7809,14 @@ export default function Home() {
                             <div style={{lineHeight:1.75}}>
                               📅 <b>출석 이벤트</b><br/>
                               10회 누적 참여마다 <b>3,000원 ~ 20만원 상당 기프티콘 즉시 지급</b><br/><br/>
-                              🎯 <b>하루 20회 참여 이벤트</b><br/>
+                              🎯 <b>매시간 참여 이벤트</b><br/>
                               각 회차마다 참여 가능하며 <b>3,000원 ~ 10만원 상당 기프티콘 즉시 지급</b><br/><br/>
                               당첨 상품은 이곳 <b>1:1 고객센터에서 바로 안내·지급</b>해드립니다. :)
                             </div>
                           </div>
 
                           <div style={{margin:"12px 0 8px",fontSize:"13px",lineHeight:1.65}}>
-                            ⏰ 이벤트 운영시간은 <b>AM 11:00 ~ PM 18:30</b>이며,
+                            ⏰ 이벤트 운영시간은 <b>24시간 · 매 정각 시작</b>이며,
                             이벤트 내용과 진행 시간은 <b>이벤트</b> 메뉴에서 확인하실 수 있습니다.
                           </div>
 
@@ -7921,150 +7978,27 @@ export default function Home() {
   }
 
   return (
-    <main style={styles.page}>
-      <section style={styles.card}>
-        <div style={styles.luxLoginHero}>
-          <div style={styles.luxGlowOne}></div>
-          <div style={styles.luxGlowTwo}></div>
-          <div style={styles.luxCrown}>♛</div>
-          <div style={styles.goldLabel}>{mode === "signup" ? "VIP MEMBERSHIP" : "AI PROCESS"}</div>
-          <h1 style={styles.title}>{mode === "signup" ? "VIP LOUNGE" : "VIP PRIVATE"}</h1>
-          <div style={{maxWidth:"370px",margin:"12px auto 0",textAlign:"center",wordBreak:"keep-all",display:"flex",flexDirection:"column",alignItems:"center",gap:"7px"}}>
-            <p style={{margin:0,color:"#6e5b46",fontSize:"12px",lineHeight:1.7}}>
-              저희 기업의 발전과 협업에 함께해 주신 분들을 위한
-            </p>
-            <strong style={{color:"#a47733",fontSize:"17px",fontWeight:900,lineHeight:1.5}}>
-              프라이빗 VIP 라운지
-            </strong>
-            <p style={{margin:0,color:"#8d806e",fontSize:"12px",lineHeight:1.6}}>
-              특별한 이벤트와 혜택을 만나보세요.
-            </p>
-            <strong style={{color:"#29231e",fontSize:"12px",fontWeight:900,lineHeight:1.6}}>
-              1:1 고객센터 문의
-            </strong>
-          </div>
-          <div style={styles.luxMascotFrame}>
-            <div style={styles.luxMascotRing}></div>
-            <img src="/avatars/admin.png.png" alt="VIP 고객센터" style={styles.luxMascotImage}/>
-            <div style={styles.luxVipSeal}>VIP</div>
-          </div>
-          <div style={styles.luxHeroCaption}>PRIVATE · PREMIUM · COMMUNITY</div>
-        </div>
-
-        <div style={styles.tabs}>
-          <button
-            type="button"
-            onClick={() => {
-              setMode("login");
-              setNotice("");
-            }}
-            style={{
-              ...styles.tab,
-              ...(mode === "login"
-                ? styles.activeTab
-                : {}),
-            }}
-          >
-            로그인
-          </button>
-
-          <button
-            type="button"
-            onClick={() => {
-              setMode("signup");
-              setNotice("");
-            }}
-            style={{
-              ...styles.tab,
-              ...(mode === "signup"
-                ? styles.activeTab
-                : {}),
-            }}
-          >
-            간편 가입
-          </button>
-        </div>
-
-        <form
-          onSubmit={
-            mode === "login"
-              ? handleLogin
-              : handleSignup
-          }
-          style={styles.form}
-        >
-          <label style={styles.label}>{mode === "login" ? "성함" : "닉네임"}</label>
-
-          <input
-            value={nickname}
-            onChange={(e) =>
-              setNickname(e.target.value)
-            }
-            style={styles.input}
-            placeholder={
-              mode === "login"
-                ? "성함"
-                : "채팅에서 사용할 닉네임"
-            }
-          />
-
-          {mode === "signup" && (
-            <>
-              <label style={styles.label}>
-                성함
-              </label>
-
-              <input
-                value={realName}
-                onChange={(e) =>
-                  setRealName(e.target.value)
-                }
-                style={styles.input}
-                placeholder="성함"
-              />
-            </>
-          )}
-
-          <label style={styles.label}>
-            비밀번호
-          </label>
-
-          <input
-            type="password"
-            value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
-            style={styles.input}
-            placeholder={
-              mode === "signup"
-                ? "4자리 이상"
-                : "비밀번호"
-            }
-          />
-
-          <button
-            type="submit"
-            disabled={working}
-            style={styles.primary}
-          >
-            {working
-              ? "처리 중..."
-              : mode === "login"
-                ? "VIP 로그인"
-                : "간편 회원가입"}
-          </button>
+    <main style={{minHeight:"100dvh",boxSizing:"border-box",background:"#faf8f4",display:"grid",placeItems:"center",padding:"32px 20px",color:"#2e2a24",fontFamily:"-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif"}}>
+      <section style={{width:"100%",maxWidth:420}}>
+        <div style={{fontSize:12,letterSpacing:3,color:"#a27a3d",fontWeight:800}}>VIP BENEFITS</div>
+        <h1 style={{fontSize:"clamp(30px,7vw,40px)",lineHeight:1.25,letterSpacing:"-1.5px",margin:"16px 0"}}>VIP를 위한<br/>이벤트와 특별한 혜택</h1>
+        <p style={{fontSize:14,lineHeight:1.8,color:"#887d6d",margin:"0 0 30px"}}>실시간 이벤트 · 출석 혜택 · AI프로세스</p>
+        <form onSubmit={mode === "admin" ? handleLogin : handleMemberEntry} style={{display:"flex",flexDirection:"column",gap:12,padding:24,borderRadius:22,background:"#fff",border:"1px solid #e9e2d8"}}>
+          <strong style={{fontSize:17,marginBottom:8}}>{mode === "admin"?"관리자 로그인":"VIP 입장"}</strong>
+          <label htmlFor="entry-nickname" style={styles.label}>{mode === "admin"?"관리자 성함":"오픈방 닉네임"}</label>
+          <input id="entry-nickname" required maxLength={40} value={nickname} onChange={e=>setNickname(e.target.value)} placeholder={mode === "admin"?"관리자 성함":"등록된 오픈방 닉네임"} autoComplete="username" style={{...styles.input,boxSizing:"border-box",width:"100%"}}/>
+          {mode === "admin" ? <>
+            <label htmlFor="entry-password" style={styles.label}>비밀번호</label>
+            <input id="entry-password" required type="password" value={password} onChange={e=>setPassword(e.target.value)} autoComplete="current-password" style={{...styles.input,boxSizing:"border-box",width:"100%"}}/>
+          </> : <>
+            <label htmlFor="entry-name" style={styles.label}>본인 이름</label>
+            <input id="entry-name" required maxLength={80} value={realName} onChange={e=>setRealName(e.target.value)} placeholder="등록된 본인 이름" autoComplete="name" style={{...styles.input,boxSizing:"border-box",width:"100%"}}/>
+          </>}
+          <button disabled={working} type="submit" style={{...styles.primary,marginTop:8,padding:16,borderRadius:12}}>{working?"확인 중…":mode === "admin"?"관리자 로그인":"혜택 확인하기"}</button>
+          {notice && <p role="status" style={{fontSize:13,lineHeight:1.6,color:"#9c4836",margin:0}}>{notice}</p>}
+          {mode !== "admin" && <p style={{fontSize:11,color:"#a09280",lineHeight:1.6,margin:"2px 0 0"}}>사전 등록된 회원만 입장할 수 있습니다.</p>}
         </form>
-
-        {notice && (
-          <div style={styles.notice}>
-            {notice}
-          </div>
-        )}
-
-        <div style={styles.footer}>
-          {"이벤트 · AI프로세스 · 1:1고객센터"}
-        </div>
+        <button type="button" onClick={()=>{setMode(mode === "admin"?"login":"admin");setNickname("");setPassword("");setNotice("");}} style={{display:"block",margin:"20px auto 0",border:0,background:"transparent",fontSize:11,color:"#998b78",cursor:"pointer",padding:8}}>{mode === "admin"?"회원 입장으로 돌아가기":"관리자 로그인"}</button>
       </section>
     </main>
   );
