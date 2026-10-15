@@ -1053,3 +1053,27 @@
   .twoColumnCards { grid-template-columns: 1fr 1fr; gap: 8px; }
   .metricCard { padding: 14px 12px; }
 }
+
+
+/* AI FINAL MOBILE QA 360 390 430 */
+@media (max-width: 430px) {
+  .aiPart1Hero,
+  .aiPart2Hero,
+  .aiChartCard,
+  .aiPart3History,
+  .aiMarketScanner,
+  .aiStageBoard,
+  .aiIdleSection { max-width: 100%; min-width: 0; box-sizing: border-box; }
+  .aiPart2Primary > div:first-child strong { font-size: clamp(25px, 8vw, 31px); white-space: normal; overflow-wrap: anywhere; }
+  .aiPart3Current strong { font-size: 14px; }
+  .aiPart3HistoryRow { grid-template-columns: 48px 12px minmax(0,1fr); }
+  .aiPart3HistoryValue { grid-column: 3; justify-self: stretch; text-align: left; padding-top: 7px; border-top: 1px solid #EEF1F5; }
+  .aiMarketHistoryRow { min-width: 0; }
+}
+@media (max-width: 360px) {
+  .aiPart1Headline strong { font-size: 36px; }
+  .aiPart1Facts { grid-template-columns: 1fr; }
+  .aiPart1FactWide { grid-column: auto; }
+  .aiPart2Bento { grid-template-columns: 1fr; grid-template-areas: 'investment' 'profit' 'progress' 'remain' 'duration'; }
+  .aiStageItem { grid-template-columns: 30px minmax(0,1fr) auto; gap: 7px; }
+}

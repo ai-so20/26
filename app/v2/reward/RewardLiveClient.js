@@ -131,6 +131,7 @@ export default function RewardLiveClient({ embedded = false, embeddedUser = null
   const [messages, setMessages] = useState([]);
   const [messageText, setMessageText] = useState('');
   const [sending, setSending] = useState(false);
+  const [messageLoading, setMessageLoading] = useState(false);
   const [notice, setNotice] = useState('');
   const [unreadAtOpen, setUnreadAtOpen] = useState(0);
   const [toast, setToast] = useState(null);
@@ -244,18 +245,21 @@ export default function RewardLiveClient({ embedded = false, embeddedUser = null
 
   async function openPrivateChat(userId) {
     setNotice('');
+    setMessageLoading(true);
     const { data: unreadData } = await supabase.rpc('get_my_private_unread_count');
     setUnreadAtOpen(Number(unreadData || 0));
 
     const { data: privateChatId, error } = await supabase.rpc('get_or_create_admin_chat');
     if (error || !privateChatId) {
       setNotice('상품 지급 메시지함을 불러오지 못했습니다.');
+      setMessageLoading(false);
       return;
     }
 
     setChatId(privateChatId);
     await supabase.rpc('mark_private_chat_read', { target_chat_id: privateChatId });
     await loadPrivateMessages(privateChatId, userId);
+    setMessageLoading(false);
   }
 
   async function loadPrivateMessages(targetChatId) {
@@ -350,7 +354,15 @@ export default function RewardLiveClient({ embedded = false, embeddedUser = null
   }
 
   if (loading) {
-    return <main className={styles.canvas}><section className={`${styles.appShell} ${styles.loadingShell}`}><div className={styles.loadingMark}>VIP</div><strong>상품지급센터 정보를 확인하고 있습니다.</strong></section></main>;
+    return (
+      <main className={styles.canvas}>
+        <section className={`${styles.appShell} ${styles.loadingShell}`}>
+          <div className={styles.loadingBrandRow}><div className={styles.loadingMark}>VIP</div><div><strong>상품지급센터 정보를 확인하고 있습니다.</strong><span>지급 내역과 회원 정보를 불러오는 중입니다.</span></div></div>
+          <div className={styles.loadingNavSkeleton}><i /><i /><i /></div>
+          <div className={styles.loadingContentSkeleton} aria-hidden="true"><i className={styles.loadingLineLg} /><i className={styles.loadingLineSm} /><div className={styles.loadingPanelSkeleton}><i /><i /><i /></div><div className={styles.loadingListSkeleton}><i /><i /><i /></div></div>
+        </section>
+      </main>
+    );
   }
 
   if (!user || !profile) {
@@ -386,7 +398,7 @@ export default function RewardLiveClient({ embedded = false, embeddedUser = null
             <span className={styles.statusBadge}><i /> 실시간 연결</span>
           </section>
 
-          {notice && <div className={styles.notice}>{notice}</div>}
+          {notice && <div className={`${styles.notice} ${styles.rewardNotice}`} role="alert"><strong>{notice}</strong>{!chatId && profile.role !== 'admin' ? <button type="button" onClick={() => openPrivateChat(user.id)}>다시 시도</button> : null}</div>}
 
           {profile.role === 'admin' ? (
             <section className={styles.infoCard}><span className={styles.infoIcon}>i</span><div><strong>관리자 상품 지급</strong></div></section>
@@ -438,8 +450,10 @@ export default function RewardLiveClient({ embedded = false, embeddedUser = null
                                     <div><strong>이벤트 당첨 알림</strong><p>상단 알림을 허용하면 이벤트 당첨 및 상품 지급 안내를 바로 확인할 수 있습니다.</p></div>
                                   </div>
                                 </section>
-                  {messages.length === 0 ? (
-                    <div className={styles.empty}>아직 도착한 지급 안내가 없습니다.</div>
+                  {messageLoading ? (
+                    <div className={`${styles.empty} ${styles.rewardStatePanel}`} role="status"><span className={styles.rewardStatePulse} /><strong>지급 안내를 확인하고 있습니다.</strong><p>최신 상품 지급 내역을 불러오는 중입니다.</p></div>
+                  ) : messages.length === 0 ? (
+                    <div className={`${styles.empty} ${styles.rewardStatePanel}`}><span className={styles.rewardStateIcon}>✓</span><strong>현재 도착한 지급 안내가 없습니다.</strong><p>이벤트 당첨 또는 출석 보상 지급 시 이곳에서 바로 확인할 수 있습니다.</p></div>
                   ) : messages.map((item) => {
                     const mine = item.sender_id === user.id;
                     return (
