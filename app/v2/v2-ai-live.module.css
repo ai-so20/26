@@ -655,3 +655,91 @@
   }
   .aiMarketHistoryRow { min-height: 72px; }
 }
+
+/* FINANCIAL UX QA PASS */
+@media (max-width: 520px) {
+  .aiEyebrow,
+  .aiChartHead span,
+  .aiProgressMeta,
+  .aiActivityValue,
+  .aiPart1Topline span,
+  .aiPart1Topline b,
+  .aiPart1Headline small,
+  .aiPart1Flow > span,
+  .aiPart1Flow i,
+  .aiPart2Topline,
+  .aiPart2Primary > div:first-child span,
+  .aiPart2Return span,
+  .aiPart2Bento span,
+  .aiStageHead span,
+  .aiStageItem i,
+  .aiStageItem b,
+  .aiPart3ChartTop > div:first-child > span,
+  .aiPart3Current span,
+  .aiPart3ChartMeta span,
+  .aiPart3ChartFoot,
+  .aiPart3ChartFoot strong,
+  .aiPart3HistoryHead span,
+  .aiPart3HistoryHead > b,
+  .aiPart3Index small,
+  .aiPart3HistoryValue span,
+  .aiProcessBrief > span {
+    font-size: 10px !important;
+  }
+
+  .aiWaitingText,
+  .aiLiveNotice,
+  .aiAdminHold p,
+  .aiPart1Headline p,
+  .aiPart1Facts span,
+  .aiPart1Flow b,
+  .aiProcessBrief > p {
+    font-size: 11.5px !important;
+    line-height: 1.65 !important;
+  }
+
+  .aiStageHead strong { font-size: 12px !important; }
+  .aiStageItem span { font-size: 10.5px !important; }
+  .aiStageItem b { line-height: 1.25; }
+
+  .aiPart3HistoryCopy > strong,
+  .aiPart3HistoryCopy > span,
+  .aiPart3HistoryValue strong {
+    font-size: 11px !important;
+  }
+  .aiPart3HistoryRow { min-height: 66px; }
+
+  .aiMarketScannerHead span,
+  .aiMarketScannerHead small,
+  .aiMarketTelemetry span,
+  .aiMarketTelemetry small,
+  .aiMarketColumns,
+  .aiMarketAsset small,
+  .aiMarketDirection small,
+  .aiMarketState small,
+  .aiMarketHistoryHead span,
+  .aiMarketHistoryHead small,
+  .aiMarketHistoryTime small,
+  .aiMarketHistoryAsset small,
+  .aiMarketHistoryAction small,
+  .aiMarketFootnote {
+    font-size: 10.5px !important;
+    line-height: 1.55 !important;
+  }
+  .aiMarketAsset strong,
+  .aiMarketDirection strong,
+  .aiMarketState strong,
+  .aiMarketHistoryTime strong,
+  .aiMarketHistoryAsset strong,
+  .aiMarketHistoryChange,
+  .aiMarketHistoryAction strong {
+    font-size: 12px !important;
+  }
+
+  .aiMarketScannerToggle,
+  .aiPart3HistoryToggle,
+  .aiMarketPageButton {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+}

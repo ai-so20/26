@@ -481,3 +481,59 @@
   .primaryButtonWide { font-size: 12px; }
   .metricCard strong { font-size: 18px; }
 }
+
+/* FINANCIAL UX QA PASS */
+.infoCard p,
+.attendanceCardLarge p,
+.metricCard small,
+.inboxCopy small,
+.messageBubble > p,
+.giftPlaceholder small,
+.activityRow p,
+.activityTime,
+.balanceTop span,
+.balanceMeta span,
+.metricCard span,
+.rewardSummary span,
+.messageHeader span {
+  color: #5f6d80;
+}
+
+@media (max-width: 520px) {
+  .infoCard strong,
+  .listHeader strong,
+  .messageHeader strong,
+  .messageBubble > strong { font-size: 13px; }
+  .infoCard p,
+  .attendanceCardLarge p,
+  .messageBubble > p,
+  .activityRow p,
+  .giftPlaceholder small {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #536176;
+  }
+  .infoIcon {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+    font-size: 12px;
+  }
+  .metricCard span,
+  .metricCard small,
+  .balanceTop span,
+  .balanceMeta span,
+  .rewardSummary span,
+  .messageHeader span,
+  .inboxCopy small,
+  .activityTime {
+    font-size: 10.5px;
+    color: #647287;
+  }
+  .metricCard strong,
+  .balanceMeta strong { font-size: 13px; }
+  .attendanceThirtyCell { min-height: 38px; }
+  .attendanceThirtyCell b { font-size: 11px; }
+  .primaryButtonWide { min-height: 46px; font-size: 12.5px; }
+  .inboxRow { min-height: 68px; }
+}
