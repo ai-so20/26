@@ -39,3 +39,5 @@ jobs:
           git add app/v2/V2LiveClientStage2.js
           git commit -m 'Fix CSS module style composition regression' || exit 0
           git push origin main
+
+# deploy trigger after composition fix
