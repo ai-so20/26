@@ -1195,7 +1195,7 @@ export default function V2LiveClientStage2() {
           {navItems.map((item) => <button key={item.id} type="button" onClick={() => { setActiveTab(item.id); window.sessionStorage.setItem('vip-active-tab', item.id); }} className={`${styles.navItem} ${activeTab === item.id ? styles.navActive : ''}`}>{item.label}</button>)}
         </nav>
         <div className={styles.content}>
-          {activeTab === 'event' && <EventLive profile={profile} autoEvents={autoEvents} attendanceStatus={attendanceStatus} attendanceWorking={attendanceWorking} eventAnswers={eventAnswers} eventWorkingId={eventWorkingId} rouletteSpins={rouletteSpins} eventSuccess={eventSuccess} notice={notice} mode={eventMode} setMode={setEventMode} onAttendance={checkDailyAttendance} onAnswer={setEventAnswer} onJoin={joinAutoEvent} />}
+          {activeTab === 'event' && <div className={styles.eventPage}><EventLive profile={profile} autoEvents={autoEvents} attendanceStatus={attendanceStatus} attendanceWorking={attendanceWorking} eventAnswers={eventAnswers} eventWorkingId={eventWorkingId} rouletteSpins={rouletteSpins} eventSuccess={eventSuccess} notice={notice} mode={eventMode} setMode={setEventMode} onAttendance={checkDailyAttendance} onAnswer={setEventAnswer} onJoin={joinAutoEvent} /></div>}
           {activeTab === 'ai' && <AiLive profile={profile} userId={user.id} row={aiMemberProcess} tick={aiProcessTick} error={aiLoadError} />}
           {activeTab === 'private' && <RewardLiveClient embedded embeddedUser={user} embeddedProfile={profile} onNavigateTab={(tab) => { setActiveTab(tab); try { window.sessionStorage.setItem('vip-active-tab', tab); } catch {} }} />}
         </div>
