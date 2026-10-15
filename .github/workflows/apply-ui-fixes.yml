@@ -19,6 +19,10 @@ jobs:
           cache: npm
       - name: Apply UI fixes
         run: python3 .github/scripts/apply_ui_fixes.py
+      - name: Normalize generated files
+        run: |
+          sed -i 's/[[:space:]]\+$//' app/v2/V2LiveClientStage2.js app/v2/V2CompatibilityLayer.js app/v2/reward/RewardLiveClient.js app/v2/admin/AdminLiveClient.js app/v2/v2.module.css app/v2/v2-live.module.css app/v2/v2-ai-live.module.css
+          sed -i '/html, body { max-width: 100%; overflow-x: hidden; }/d' app/v2/v2.module.css
       - name: Verify diff
         run: git diff --check
       - name: Install dependencies
