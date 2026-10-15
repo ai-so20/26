@@ -1,0 +1,271 @@
+.aiStatusCard,
+.aiChartCard,
+.aiProgressCard,
+.aiWaitingCard {
+  margin-top: 10px;
+  border: 1px solid #e0e6ed;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 7px 20px rgba(31,45,61,.04);
+}
+
+.aiWaitingCard {
+  padding: 18px;
+}
+
+.aiWaitingTop,
+.aiProgressTop,
+.aiChartHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.aiWaitingTop > div,
+.aiProgressTop > div,
+.aiChartHead > div {
+  min-width: 0;
+}
+
+.aiEyebrow {
+  display: block;
+  color: #8792a2;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.aiWaitingTop h2,
+.aiProgressTop h3,
+.aiChartHead h3 {
+  margin: 4px 0 0;
+  color: #172033;
+  font-size: 16px;
+  letter-spacing: -.03em;
+}
+
+.aiWaitingText {
+  margin: 13px 0 0;
+  color: #788598;
+  font-size: 10px;
+  line-height: 1.65;
+}
+
+.aiAccessGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.aiAccessGrid > div {
+  padding: 13px;
+  border: 1px solid #e4e9ef;
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+.aiAccessGrid span {
+  display: block;
+  color: #8792a2;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.aiAccessGrid strong {
+  display: block;
+  margin-top: 5px;
+  color: #263246;
+  font-size: 15px;
+}
+
+.aiDday {
+  color: #2f6fed !important;
+}
+
+.aiStatusPill,
+.aiStatusComplete,
+.aiStatusWaiting {
+  flex: 0 0 auto;
+  padding: 7px 9px;
+  border-radius: 999px;
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.aiStatusPill {
+  background: #edf8f3;
+  color: #147c57;
+}
+
+.aiStatusComplete {
+  background: #eef4ff;
+  color: #2f6fed;
+}
+
+.aiStatusWaiting {
+  background: #f3f6fa;
+  color: #66758a;
+}
+
+.aiProgressCard {
+  padding: 15px;
+}
+
+.aiProgressTrack {
+  height: 8px;
+  margin-top: 13px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #edf1f5;
+}
+
+.aiProgressTrack > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #2f6fed;
+  transition: width .25s ease;
+}
+
+.aiProgressMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  color: #8a96a5;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.aiChartCard {
+  padding: 15px;
+}
+
+.aiChartHead span {
+  display: block;
+  color: #8792a2;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.aiChartValue {
+  color: #147c57;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.aiChart {
+  width: 100%;
+  height: 150px;
+  margin-top: 12px;
+  display: block;
+  overflow: visible;
+}
+
+.aiChartGrid {
+  stroke: #edf1f5;
+  stroke-width: 1;
+}
+
+.aiChartArea {
+  fill: #f2f6ff;
+}
+
+.aiChartLine {
+  fill: none;
+  stroke: #2f6fed;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.aiChartDot {
+  fill: #ffffff;
+  stroke: #2f6fed;
+  stroke-width: 3;
+}
+
+.aiChartFoot {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 5px;
+  color: #929cab;
+  font-size: 8px;
+}
+
+.aiLiveNotice {
+  margin-top: 10px;
+  padding: 11px 13px;
+  border-radius: 13px;
+  border: 1px solid #dce6f7;
+  background: #f6f9ff;
+  color: #62718a;
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+.aiResultBar {
+  margin-top: 10px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid #dce6f7;
+  border-radius: 14px;
+  background: #f6f9ff;
+}
+
+.aiResultBar span {
+  color: #66758a;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.aiResultBar strong {
+  color: #2f6fed;
+  font-size: 13px;
+}
+
+.aiActivityValue {
+  display: block;
+  margin-top: 4px;
+  color: #46566d;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.aiAdminHold {
+  padding: 18px;
+  border: 1px solid #e0e6ed;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.aiAdminHold strong {
+  display: block;
+  font-size: 13px;
+}
+
+.aiAdminHold p {
+  margin: 6px 0 0;
+  color: #8490a0;
+  font-size: 9px;
+  line-height: 1.6;
+}
+
+@media (max-width: 520px) {
+  .aiChart { height: 130px; }
+}
+
+@media (max-width: 420px) {
+  .aiAccessGrid { grid-template-columns: 1fr 1fr; }
+  .aiWaitingTop h2,
+  .aiProgressTop h3,
+  .aiChartHead h3 { font-size: 14px; }
+  .aiChart { height: 118px; }
+}
