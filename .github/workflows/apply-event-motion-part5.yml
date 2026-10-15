@@ -1,0 +1,37 @@
+name: Apply Event Motion Part 5
+
+on:
+  push:
+    paths:
+      - .github/workflows/apply-event-motion-part5.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Apply patch
+        run: python3 .github/scripts/apply_event_motion_part5.py
+      - name: Verify diff
+        run: git diff --check
+      - name: Install dependencies
+        run: npm ci
+      - name: Production build check
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_build_dummy
+        run: npm run build
+      - name: Commit patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/v2/V2LiveClientStage2.js app/v2/v2-live.module.css
+          git commit -m "Refine live event motion icons"
+          git push origin HEAD:main
