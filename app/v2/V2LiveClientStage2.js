@@ -78,7 +78,7 @@ function EventTypeIcon({ type }) {
     quiz: <><path d="M9.5 9a2.7 2.7 0 1 1 4.7 1.8c-1.3 1.1-2.2 1.6-2.2 3.2"/><circle cx="12" cy="18" r="1"/></>,
     draw: <><path d="M5 6h14v4a2 2 0 0 0 0 4v4H5v-4a2 2 0 0 0 0-4V6Z"/><path d="M12 7v10"/></>,
   };
-  return <span className={styles.eventMotionIcon} aria-hidden="true"><svg viewBox="0 0 24 24">{paths[type] || paths.gift_box}</svg></span>;
+  return <span className={styles.eventMotionIcon} data-event-type={type || 'gift_box'} aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false">{paths[type] || paths.gift_box}</svg></span>;
 }
 
 function eventGuide(type) {
