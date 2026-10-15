@@ -400,3 +400,56 @@
   .aiPart3HistoryValue span { display:inline; margin-right:5px; }
   .aiPart3HistoryValue strong { display:inline; font-size:8px; }
 }
+
+
+/* AI PROCESS PART 4 - compact flow, foldable logs, paged trading */
+.aiProcessBrief { margin-top:10px; padding:14px 16px; border-left:3px solid #2f6fed; border-top:1px solid #e4e9f0; border-right:1px solid #e4e9f0; border-bottom:1px solid #e4e9f0; background:#fff; }
+.aiProcessBrief > span { display:block; color:#2f6fed; font-size:8px; font-weight:900; letter-spacing:.14em; }
+.aiProcessBrief > strong { display:block; margin-top:5px; color:#172033; font-size:12px; letter-spacing:-.025em; }
+.aiProcessBrief > p { margin:5px 0 0; color:#69778c; font-size:9px; line-height:1.55; }
+
+.aiStageBoard { padding:0 !important; overflow:hidden; }
+.aiStageHead { min-height:auto !important; padding:10px 13px !important; align-items:center !important; border-bottom:1px solid #e9eef4; }
+.aiStageHead span { font-size:7px !important; }
+.aiStageHead strong { font-size:11px !important; }
+.aiStageTrack { display:grid !important; grid-template-columns:repeat(6,minmax(0,1fr)) !important; gap:0 !important; }
+.aiStageItem { min-width:0 !important; min-height:auto !important; padding:9px 3px 8px !important; display:grid !important; grid-template-columns:1fr !important; justify-items:center !important; gap:2px !important; text-align:center !important; border-left:0 !important; border-top:0 !important; border-right:1px solid #edf1f5 !important; border-bottom:0 !important; background:#fff !important; }
+.aiStageItem:last-child { border-right:0 !important; }
+.aiStageItem i { width:auto !important; height:auto !important; margin:0 !important; background:transparent !important; color:#9aa6b6 !important; font-size:7px !important; font-style:normal !important; }
+.aiStageItem span { font-size:9px !important; white-space:nowrap; }
+.aiStageItem b { font-size:7px !important; white-space:nowrap; }
+.aiStageItemActive { background:#f2f6ff !important; box-shadow:inset 0 -3px #2f6fed !important; }
+.aiStageItemActive i,.aiStageItemActive span,.aiStageItemActive b { color:#2f6fed !important; }
+.aiStageItemDone i,.aiStageItemDone b { color:#16805d !important; }
+
+.aiFoldHead { width:100%; min-width:0; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px; border:0; border-bottom:1px solid #edf1f5; background:#fff; color:inherit; text-align:left; cursor:pointer; }
+.aiFoldHead > div:first-child { min-width:0; display:grid; gap:3px; }
+.aiFoldHead span { color:#8a96a6; font-size:8px; font-weight:900; letter-spacing:.12em; }
+.aiFoldHead strong { color:#172033; font-size:14px; letter-spacing:-.025em; }
+.aiFoldMeta { flex:0 0 auto; display:flex; align-items:center; gap:8px; }
+.aiFoldMeta b { color:#2f6fed; background:#eef4ff; padding:5px 7px; font-size:8px; }
+.aiFoldMeta i { color:#718096; font-size:8px; font-style:normal; font-weight:800; }
+
+.aiTradingPager { display:grid; grid-template-columns:30px minmax(0,1fr) 30px; align-items:center; gap:6px; padding:10px 12px 12px; border-top:1px solid #edf1f5; }
+.aiTradingPager > div { min-width:0; display:flex; justify-content:center; gap:4px; flex-wrap:wrap; }
+.aiTradingPager button { min-width:26px; height:26px; padding:0 6px; border:1px solid #dde4ed; background:#fff; color:#66758a; font-size:8px; font-weight:800; cursor:pointer; }
+.aiTradingPager button:disabled { opacity:.35; cursor:default; }
+.aiTradingPager .aiTradingPageActive { border-color:#2f6fed; background:#2f6fed; color:#fff; }
+
+.twoColumnCards { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:8px !important; }
+.metricCard { min-height:0 !important; padding:12px 13px !important; }
+.metricCard > span { font-size:8px !important; }
+.metricCard > strong { margin-top:5px !important; font-size:15px !important; }
+.metricCard > small { margin-top:4px !important; font-size:7px !important; }
+
+@media (max-width:520px) {
+  .aiStageHead { padding:9px 10px !important; }
+  .aiStageItem { padding:8px 2px 7px !important; }
+  .aiStageItem span { font-size:8px !important; }
+  .aiStageItem b { font-size:6px !important; }
+  .aiFoldHead { padding:12px 13px; }
+  .aiFoldHead strong { font-size:13px; }
+  .tradingRow { grid-template-columns:30px minmax(0,.85fr) minmax(0,1.15fr) !important; }
+  .twoColumnCards { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+  .metricCard { padding:11px !important; }
+}

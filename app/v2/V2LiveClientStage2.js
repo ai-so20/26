@@ -517,16 +517,21 @@ const aiTradingSignals = [
   ['목표 구간 감지', '매도 신청 완료'],
   ['체결 결과 반영', '재분석 진행'],
 ];
-function buildAiTradingRows(clock, count = 8) {
-  const slot = Math.floor(Number(clock || Date.now()) / 300000);
-  return Array.from({ length: count }, (_, index) => {
-    const asset = aiTradingAssets[(slot + index * 3) % aiTradingAssets.length];
-    const signal = aiTradingSignals[(slot + index) % aiTradingSignals.length];
-    return { id: String(slot) + '-' + String(index), ...asset, signal: signal[0], action: signal[1] };
+function buildAiTradingRows(stepSeed, count = 100) {
+  const latestStep = Math.max(1, Math.floor(Number(stepSeed || 1)));
+  const recordCount = Math.min(100, Math.max(1, Math.floor(Number(count || 1))));
+  return Array.from({ length: recordCount }, (_, index) => {
+    const recordStep = Math.max(1, latestStep - index);
+    const asset = aiTradingAssets[(recordStep * 3 + index) % aiTradingAssets.length];
+    const signal = aiTradingSignals[(recordStep + index) % aiTradingSignals.length];
+    return { id: `trade-${recordStep}-${index}`, recordStep, ...asset, signal: signal[0], action: signal[1] };
   });
 }
 
 function AiLive({ profile, userId, row, tick, error }) {
+  const [tradingOpen, setTradingOpen] = useState(true);
+  const [historyOpen, setHistoryOpen] = useState(true);
+  const [tradingPage, setTradingPage] = useState(1);
   if (profile?.role === 'admin') {
     return (
       <>
@@ -569,6 +574,11 @@ function AiLive({ profile, userId, row, tick, error }) {
             {status === 'waiting' && Number(processRow.investment_amount || 0) > 0 && <div><span>설정 금액</span><strong>{aiKrw(processRow.investment_amount)}</strong></div>}
           </div>
         </section>
+        <section className={styles.aiProcessBrief}>
+          <span>AI PROCESS</span>
+          <strong>주식·코인 흐름을 6단계로 분석하고 3분 단위로 반영합니다.</strong>
+          <p>분석 · 탐색 · 매수 판단 · 보유 관리 · 매도 판단 · 재분석을 반복하며, 설정된 진행기간 동안 평가금액·수익·반영 기록을 확인할 수 있습니다.</p>
+        </section>
         <section className={styles.aiPart1Flow}>
           <span>PROCESS FLOW</span>
           <div>
@@ -590,7 +600,11 @@ function AiLive({ profile, userId, row, tick, error }) {
     return { step: item.step, amount: item.amount, delta, stage: stageLabels[stageIndex] };
   }).reverse();
   const areaPoints = snapshot.chartPoints ? `18,200 ${snapshot.chartPoints} 742,200` : '';
-  const tradingRows = buildAiTradingRows(Date.now() + Number(tick || 0));
+  const tradingRecordCount = Math.min(100, Math.max(1, Number(snapshot.elapsedSteps || 1)));
+  const tradingRowsAll = buildAiTradingRows(snapshot.elapsedSteps, tradingRecordCount);
+  const tradingTotalPages = Math.max(1, Math.ceil(tradingRowsAll.length / 10));
+  const tradingPageSafe = Math.min(Math.max(1, tradingPage), tradingTotalPages);
+  const tradingRows = tradingRowsAll.slice((tradingPageSafe - 1) * 10, tradingPageSafe * 10);
 
   return (
     <>
@@ -623,6 +637,12 @@ function AiLive({ profile, userId, row, tick, error }) {
         </div>
       </section>
 
+      <section className={styles.aiProcessBrief}>
+        <span>AI PROCESS</span>
+        <strong>시장 흐름 분석부터 재분석까지 6단계를 순환합니다.</strong>
+        <p>3분 단위 반영값을 기준으로 평가금액과 수익 흐름이 갱신되며, 주식·코인 트레이딩 현황과 최근 반영 기록을 함께 확인할 수 있습니다.</p>
+      </section>
+
       {status === 'completed' && <div className={styles.aiResultBar}><span>출금예정금액</span><strong>{aiKrw(snapshot.totalAmount)}</strong></div>}
 
       <section className={styles.aiStageBoard}>
@@ -637,8 +657,20 @@ function AiLive({ profile, userId, row, tick, error }) {
       </section>
 
       <section className={styles.tradingCard}>
-        <div className={styles.tradingHead}><div><span>AI TRADING</span><strong>주식 · 코인 트레이딩 현황</strong></div><b>LIVE</b></div>
-        <div className={styles.tradingList}>{tradingRows.map((item) => <div key={item.id} className={styles.tradingRow}><span className={item.market === 'COIN' ? styles.tradingCoin : styles.tradingStock}>{item.market === 'COIN' ? '₿' : '◈'}</span><div className={styles.tradingAsset}><strong>{item.name}</strong><small>{item.symbol} · {item.market}</small></div><div className={styles.tradingAction}><strong>{item.signal}</strong><span>{item.action}</span></div></div>)}</div>
+        <button type="button" className={styles.aiFoldHead} onClick={() => setTradingOpen((value) => !value)} aria-expanded={tradingOpen}>
+          <div><span>AI TRADING</span><strong>주식 · 코인 트레이딩 현황</strong></div>
+          <div className={styles.aiFoldMeta}><b>{tradingRecordCount} / 100</b><i>{tradingOpen ? '접기' : '펼치기'}</i></div>
+        </button>
+        {tradingOpen && (
+          <>
+            <div className={styles.tradingList}>{tradingRows.map((item) => <div key={item.id} className={styles.tradingRow}><span className={item.market === 'COIN' ? styles.tradingCoin : styles.tradingStock}>{item.market === 'COIN' ? '₿' : '◈'}</span><div className={styles.tradingAsset}><strong>{item.name}</strong><small>{item.symbol} · {item.market} · #{String(item.recordStep).padStart(3, '0')}</small></div><div className={styles.tradingAction}><strong>{item.signal}</strong><span>{item.action}</span></div></div>)}</div>
+            <div className={styles.aiTradingPager}>
+              <button type="button" disabled={tradingPageSafe <= 1} onClick={() => setTradingPage((page) => Math.max(1, page - 1))}>‹</button>
+              <div>{Array.from({ length: tradingTotalPages }).map((_, index) => { const page = index + 1; return <button key={page} type="button" className={page === tradingPageSafe ? styles.aiTradingPageActive : ''} onClick={() => setTradingPage(page)}>{page}</button>; })}</div>
+              <button type="button" disabled={tradingPageSafe >= tradingTotalPages} onClick={() => setTradingPage((page) => Math.min(tradingTotalPages, page + 1))}>›</button>
+            </div>
+          </>
+        )}
       </section>
 
       <section className={styles.aiChartCard}>
@@ -668,11 +700,11 @@ function AiLive({ profile, userId, row, tick, error }) {
       </section>
 
       <section className={styles.aiPart3History}>
-        <div className={styles.aiPart3HistoryHead}>
+        <button type="button" className={styles.aiFoldHead} onClick={() => setHistoryOpen((value) => !value)} aria-expanded={historyOpen}>
           <div><span>REFLECTION LOG</span><strong>최근 반영 내역</strong></div>
-          <b>{activities.length}건</b>
-        </div>
-        <div className={styles.aiPart3HistoryList}>
+          <div className={styles.aiFoldMeta}><b>{activities.length}건</b><i>{historyOpen ? '접기' : '펼치기'}</i></div>
+        </button>
+        {historyOpen && <div className={styles.aiPart3HistoryList}>
           {activities.length === 0 ? <div className={styles.emptyRow}>반영 내역이 없습니다.</div> : activities.map((item) => (
             <div key={item.step} className={styles.aiPart3HistoryRow}>
               <div className={styles.aiPart3Index}><span>{String(item.step).padStart(2, '0')}</span><small>회차</small></div>
@@ -684,7 +716,7 @@ function AiLive({ profile, userId, row, tick, error }) {
               <div className={styles.aiPart3HistoryValue}><span>평가금액</span><strong>{aiKrw(item.amount)}</strong></div>
             </div>
           ))}
-        </div>
+        </div>}
       </section>
 
       <div className={styles.twoColumnCards}>
