@@ -1,6 +1,6 @@
 from pathlib import Path
 
-# Preserve the already-applied first financial QA pass, then apply phase 2 idempotently.
+# Preserve the already-applied first financial QA pass, then apply phase 2 and phase 3 idempotently.
 js_path = Path('app/v2/V2LiveClientStage2.js')
 extra_path = Path('app/v2/v2-extra.module.css')
 base_path = Path('app/v2/v2.module.css')
@@ -16,6 +16,27 @@ old_featured = '<div className={styles.cardFooter}><div className={styles.timeBl
 new_featured = '<div className={styles.cardFooter}><div className={styles.timeBlock}><span>참여 상태</span><strong className={`${styles.eventFeaturedState} ${featuredEvent.participated ? styles.eventFeaturedJoined : activeEvent ? styles.eventFeaturedLive : styles.eventFeaturedWaiting}`}>{featuredEvent.participated ? \'참여 완료\' : activeEvent ? \'참여 가능\' : \'시작 대기\'}</strong></div></div>'
 if old_featured in js:
     js = js.replace(old_featured, new_featured)
+
+# Phase 3: reduce developer-style English micro labels without changing functional content.
+replacements = {
+    '<span>PERFORMANCE</span>': '<span>평가 흐름</span>',
+    '<div><span>REFLECTION LOG</span><strong>최근 반영 내역</strong></div>': '<div><span>반영 기록</span><strong>최근 반영 내역</strong></div>',
+    '<span>PROCESS FLOW</span>': '<span>진행 흐름</span>',
+    '<span>AI MARKET SCANNER</span>': '<span>AI 시장 탐색</span>',
+    '<b className={styles.aiMarketPulse}><i /> LIVE SCAN</b>': '<b className={styles.aiMarketPulse}><i /> 실시간</b>',
+    '<span className={styles.cardKicker}>VIP DAILY CHECK-IN</span>': '<span className={styles.cardKicker}>출석 진행</span>',
+}
+for old, new in replacements.items():
+    js = js.replace(old, new)
+
+# Make success/failure feedback explicit and screen-reader friendly in the event surface.
+old_notice = '<div className={`${styles.noticeBox} ${eventSuccess ? styles.noticeSuccess : \'\'}`}>\n          {eventSuccess ? `${eventSuccess.title} · ${eventSuccess.message}` : notice}\n        </div>'
+new_notice = '<div role="status" aria-live="polite" className={`${styles.noticeBox} ${eventSuccess ? styles.noticeSuccess : styles.noticeError}`}>\n          {eventSuccess ? `${eventSuccess.title} · ${eventSuccess.message}` : notice}\n        </div>'
+if old_notice in js:
+    js = js.replace(old_notice, new_notice)
+
+js = js.replace('setNotice(`출석 참여 실패: ${error.message}`);', 'setNotice(`출석 참여에 실패했습니다. 잠시 후 다시 시도해주세요. (${error.message})`);')
+js = js.replace('setNotice(`이벤트 참여 실패: ${error.message}`);', 'setNotice(`이벤트 참여에 실패했습니다. 잠시 후 다시 시도해주세요. (${error.message})`);')
 
 js_path.write_text(js.rstrip() + '\n')
 
@@ -121,6 +142,28 @@ phase2_live = r'''
 }
 '''
 
+phase3_extra = r'''
+
+/* FINANCIAL UX QA PHASE 3 - explicit feedback */
+.noticeError {
+  border-color: #f0caca;
+  background: #fff7f7;
+  color: #b13c3c;
+}
+.noticeSuccess {
+  border-color: #cbe8d9;
+  background: #f4fbf7;
+  color: #196c51;
+}
+@media (max-width: 520px) {
+  .noticeBox {
+    padding: 12px 13px;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+}
+'''
+
 for path, marker, patch in [
     (extra_path, '/* FINANCIAL UX QA PHASE 2 - semantic event status */', phase2_extra),
     (base_path, '/* FINANCIAL UX QA PHASE 2 - interaction feedback */', phase2_base),
@@ -130,3 +173,9 @@ for path, marker, patch in [
     if marker in text:
         text = text.split(marker)[0].rstrip() + '\n'
     path.write_text(text.rstrip() + patch.rstrip() + '\n')
+
+text = extra_path.read_text()
+marker = '/* FINANCIAL UX QA PHASE 3 - explicit feedback */'
+if marker in text:
+    text = text.split(marker)[0].rstrip() + '\n'
+extra_path.write_text(text.rstrip() + phase3_extra.rstrip() + '\n')
