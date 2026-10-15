@@ -81,3 +81,16 @@
 .eventEmoji .eventMotionIcon { width: 28px; height: 28px; border-radius: 9px; }
 .cardKicker .eventMotionIcon { width: 24px; height: 24px; border-radius: 8px; margin-right: 6px; }
 .cardKicker { display:flex; align-items:center; }
+
+
+/* attendance 30-day grid */
+.attendanceLead { margin:6px 0 0; color:#7b8797; font-size:9px; line-height:1.5; }
+.attendanceRemaining { margin:9px 0 12px; color:#6c5a2f; font-size:9px; font-weight:750; }
+.attendanceRemaining strong { color:#2f6fed; }
+.attendanceThirtyGrid { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:6px; margin:12px 0 4px; }
+.attendanceThirtyCell { position:relative; aspect-ratio:1/1; min-width:0; display:grid; place-items:center; overflow:hidden; border:1px solid #dfe6ef; border-radius:10px; background:#f8fafc; color:#8c98a8; font-size:8px; font-weight:850; }
+.attendanceThirtyCell b { position:relative; z-index:1; font:inherit; }
+.attendanceThirtyDone { border-color:#9ab8fb; background:#eef4ff; color:#2f6fed; }
+.attendanceThirtyStamp { position:absolute; inset:50% auto auto 50%; transform:translate(-50%,-50%) rotate(-10deg); width:24px; height:24px; display:grid; place-items:center; border:2px solid #2f6fed; border-radius:50%; background:rgba(255,255,255,.88); color:#2f6fed; font-size:14px; font-style:normal; font-weight:950; opacity:.96; }
+.attendanceThirtyDone b { position:absolute; right:4px; bottom:3px; font-size:7px; }
+@media (max-width:420px) { .attendanceThirtyGrid { grid-template-columns:repeat(5,minmax(0,1fr)); gap:5px; } .attendanceThirtyCell { border-radius:9px; } }

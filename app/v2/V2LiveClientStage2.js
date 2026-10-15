@@ -387,8 +387,8 @@ function MemberEntry({ nickname, realName, working, notice, onNickname, onRealNa
 
 function EventLive({ profile, autoEvents, attendanceStatus, attendanceWorking, eventAnswers, eventWorkingId, rouletteSpins, eventSuccess, notice, mode, setMode, onAttendance, onAnswer, onJoin }) {
   const attendanceTotal = Math.max(0, Number(attendanceStatus?.total_count || 0));
-  const remainder = attendanceTotal % 10;
-  const attendanceCycle = remainder === 0 && attendanceTotal > 0 ? (attendanceStatus?.checked_today ? 10 : 0) : remainder;
+  const remainder = attendanceTotal % 30;
+  const attendanceCycle = remainder === 0 && attendanceTotal > 0 ? (attendanceStatus?.checked_today ? 30 : 0) : remainder;
   const sortedEvents = useMemo(() => {
     const statusOrder = { active: 0, scheduled: 1, completed: 2 };
     return [...(autoEvents || [])].sort((a, b) => {
@@ -484,13 +484,13 @@ function EventLive({ profile, autoEvents, attendanceStatus, attendanceWorking, e
       ) : (
         <>
           <section className={styles.attendanceCardLarge}>
-            <div className={styles.attendanceHeader}><div><span className={styles.cardKicker}>VIP DAILY CHECK-IN</span><h3>매일 출석 혜택</h3></div><strong className={styles.attendanceCount}>{attendanceCycle}<small>/10</small></strong></div>
-            <div className={styles.progressTrack}><span style={{ width: `${Math.min(100, attendanceCycle * 10)}%` }} /></div>
-            <div className={styles.attendanceDots}>{Array.from({ length: 10 }).map((_, index) => { const done = index < attendanceCycle; return <span key={index} className={done ? styles.attendanceDotDone : ''}>{done && <i className={styles.attendanceStamp}>✓</i>}<b>{index + 1}</b></span>; })}</div>
-            <p>하루 1회 출석할 수 있으며, 10회 출석 달성 시 랜덤 기프티콘이 상품 지급 화면으로 안내됩니다.</p>
+            <div className={styles.attendanceHeader}><div><span className={styles.cardKicker}>VIP DAILY CHECK-IN</span><h3>매일 출석 혜택</h3><p className={styles.attendanceLead}>매일 한 번씩 출석하고, 누적 30회 달성 혜택을 받아보세요.</p></div><strong className={styles.attendanceCount}>{attendanceCycle}<small>/30</small></strong></div>
+            <div className={styles.progressTrack}><span style={{ width: `${Math.min(100, (attendanceCycle / 30) * 100)}%` }} /></div>
+            <div className={styles.attendanceRemaining}>🎁 보상까지 <strong>{Math.max(0, 30 - attendanceCycle)}회</strong> 남았어요!</div>
+            <div className={styles.attendanceThirtyGrid}>{Array.from({ length: 30 }).map((_, index) => { const done = index < attendanceCycle; return <span key={index} className={`${styles.attendanceThirtyCell} ${done ? styles.attendanceThirtyDone : ''}`}><b>{index + 1}</b>{done && <i className={styles.attendanceThirtyStamp}>✓</i>}</span>; })}</div>
             <button type="button" onClick={onAttendance} disabled={attendanceWorking || attendanceStatus.checked_today} className={styles.primaryButtonWide}>{attendanceWorking ? '처리 중' : attendanceStatus.checked_today ? '✓ 오늘 출석 완료' : '오늘 출석하기'}</button>
           </section>
-          <section className={styles.infoCard}><span className={styles.infoIcon}>i</span><div><strong>출석 보상 안내</strong><p>현재 {attendanceCycle}/10 · 10회 달성마다 랜덤 기프티콘이 자동 지급됩니다.</p></div></section>
+          <section className={styles.infoCard}><span className={styles.infoIcon}>i</span><div><strong>매일 출석 이벤트 안내</strong><p>하루 1회 출석할 수 있으며, 누적 30회 출석 달성 시 랜덤 기프티콘이 상품 지급 화면으로 지급됩니다. 출석은 매일 자정에 새로 가능하며, 연속 출석이 아니어도 누적 횟수로 인정됩니다.</p></div></section>
         </>
       )}
       <section className={styles.listCard}><div className={styles.listCopy}><span className={styles.listIcon}>AI</span><div><strong>AI PROCESS 돌발 체험 이벤트</strong></div></div><button type="button" onClick={() => setShowSurpriseGuide((value) => !value)} className={styles.chevronButton}>진행방법 <span>›</span></button></section>
