@@ -350,3 +350,53 @@
 .aiStageItemActive i,.aiStageItemActive span,.aiStageItemActive b { color:#2f6fed; }
 .aiStageItemDone i,.aiStageItemDone b { color:#16815f; }
 @media (max-width:420px) { .aiPart2Hero{padding:17px 15px;} .aiPart2Primary{gap:10px;} .aiPart2Primary > div:first-child strong{font-size:29px;} .aiPart2Return strong{font-size:20px;} .aiPart2Bento{grid-template-columns:1.1fr .9fr;} .aiStageItem{grid-template-columns:34px minmax(0,1fr) auto;} }
+
+
+/* AI PROCESS PART 3 - performance & reflection log */
+.aiPart3ChartTop { display:flex; align-items:flex-end; justify-content:space-between; gap:18px; }
+.aiPart3ChartTop > div:first-child { min-width:0; }
+.aiPart3ChartTop > div:first-child > span { display:block; color:#8b97a8; font-size:8px; font-weight:900; letter-spacing:.14em; }
+.aiPart3ChartTop h3 { margin:4px 0 0; color:#172033; font-size:17px; letter-spacing:-.035em; }
+.aiPart3Current { flex:0 0 auto; text-align:right; }
+.aiPart3Current span { display:block; color:#8b97a8; font-size:8px; font-weight:750; }
+.aiPart3Current strong { display:block; margin-top:4px; color:#172033; font-size:16px; letter-spacing:-.03em; }
+.aiPart3ChartMeta { display:grid; grid-template-columns:1fr 1fr; gap:1px; margin:14px 0 2px; background:#e8edf4; border:1px solid #e8edf4; }
+.aiPart3ChartMeta > div { padding:10px 12px; background:#f9fbfd; }
+.aiPart3ChartMeta span { display:block; color:#8d98a8; font-size:8px; font-weight:750; }
+.aiPart3ChartMeta strong { display:block; margin-top:4px; color:#2b394e; font-size:11px; }
+.aiPart3ChartMeta > div:first-child strong { color:#16805d; }
+.aiPart3ChartFoot { display:flex; align-items:center; justify-content:space-between; gap:12px; padding-top:9px; border-top:1px solid #edf1f5; color:#8e99a8; font-size:8px; }
+.aiPart3ChartFoot strong { color:#42516a; font-size:8px; }
+.aiPart3History { margin-top:10px; border:1px solid #dfe5ec; background:#fff; overflow:hidden; }
+.aiPart3HistoryHead { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; padding:15px 16px 13px; border-bottom:1px solid #e9eef4; }
+.aiPart3HistoryHead > div { display:grid; gap:3px; }
+.aiPart3HistoryHead span { color:#8b97a8; font-size:8px; font-weight:900; letter-spacing:.13em; }
+.aiPart3HistoryHead strong { color:#172033; font-size:15px; letter-spacing:-.03em; }
+.aiPart3HistoryHead > b { color:#6d7b90; font-size:9px; }
+.aiPart3HistoryList { display:grid; }
+.aiPart3HistoryRow { display:grid; grid-template-columns:44px 16px minmax(0,1fr) auto; align-items:center; gap:8px; min-width:0; padding:12px 15px; border-bottom:1px solid #edf1f5; }
+.aiPart3HistoryRow:last-child { border-bottom:0; }
+.aiPart3Index { display:grid; justify-items:start; gap:1px; }
+.aiPart3Index span { color:#2f6fed; font-size:13px; font-weight:900; line-height:1; }
+.aiPart3Index small { color:#a0a9b6; font-size:7px; font-weight:800; }
+.aiPart3Rail { position:relative; align-self:stretch; display:grid; place-items:center; }
+.aiPart3Rail::before { content:""; position:absolute; top:-12px; bottom:-12px; width:1px; background:#dce5ef; }
+.aiPart3HistoryRow:first-child .aiPart3Rail::before { top:50%; }
+.aiPart3HistoryRow:last-child .aiPart3Rail::before { bottom:50%; }
+.aiPart3Rail i { position:relative; z-index:1; width:8px; height:8px; border:3px solid #dce9ff; border-radius:50%; background:#2f6fed; box-sizing:content-box; }
+.aiPart3HistoryCopy { min-width:0; display:grid; gap:4px; }
+.aiPart3HistoryCopy > strong { overflow:hidden; color:#263348; font-size:10px; text-overflow:ellipsis; white-space:nowrap; }
+.aiPart3HistoryCopy > span { font-size:9px; font-weight:850; }
+.aiPart3Positive { color:#16805d; }
+.aiPart3Negative { color:#c34f58; }
+.aiPart3HistoryValue { min-width:0; text-align:right; }
+.aiPart3HistoryValue span { display:block; color:#9aa4b2; font-size:7px; }
+.aiPart3HistoryValue strong { display:block; margin-top:3px; color:#46556b; font-size:9px; white-space:nowrap; }
+@media (max-width:420px) {
+  .aiPart3ChartTop { align-items:flex-start; }
+  .aiPart3Current strong { font-size:13px; }
+  .aiPart3HistoryRow { grid-template-columns:36px 14px minmax(0,1fr); padding:11px 12px; gap:7px; }
+  .aiPart3HistoryValue { grid-column:3; text-align:left; padding-top:3px; }
+  .aiPart3HistoryValue span { display:inline; margin-right:5px; }
+  .aiPart3HistoryValue strong { display:inline; font-size:8px; }
+}

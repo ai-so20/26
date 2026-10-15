@@ -430,7 +430,7 @@ function EventLive({ profile, autoEvents, attendanceStatus, attendanceWorking, e
           <Stat label="오늘 이벤트" value={autoEvents.length} suffix="회" />
           <Stat label="내 참여" value={participated} suffix="회" />
           <Stat label="오늘 당첨" value={wins} suffix="회" />
-          <Stat label="출석 진행" value={`${attendanceCycle}/10`} suffix="" />
+          <Stat label="출석 진행" value={`${attendanceCycle}/30`} suffix="" />
         </div>
       </section>
       <section className={styles.section}>
@@ -490,7 +490,7 @@ function EventLive({ profile, autoEvents, attendanceStatus, attendanceWorking, e
             <div className={styles.attendanceThirtyGrid}>{Array.from({ length: 30 }).map((_, index) => { const done = index < attendanceCycle; return <span key={index} className={`${styles.attendanceThirtyCell} ${done ? styles.attendanceThirtyDone : ''}`}><b>{index + 1}</b>{done && <i className={styles.attendanceThirtyStamp}>✓</i>}</span>; })}</div>
             <button type="button" onClick={onAttendance} disabled={attendanceWorking || attendanceStatus.checked_today} className={styles.primaryButtonWide}>{attendanceWorking ? '처리 중' : attendanceStatus.checked_today ? '✓ 오늘 출석 완료' : '오늘 출석하기'}</button>
           </section>
-          <section className={styles.infoCard}><span className={styles.infoIcon}>i</span><div><strong>매일 출석 이벤트 안내</strong><p>하루 1회 출석할 수 있으며, 누적 30회 출석 달성 시 랜덤 기프티콘이 상품 지급 화면으로 지급됩니다. 출석은 매일 자정에 새로 가능하며, 연속 출석이 아니어도 누적 횟수로 인정됩니다.</p></div></section>
+          <section className={styles.infoCard}><span className={styles.infoIcon}>i</span><div><strong>매일 출석 이벤트 안내</strong><p>하루 1회 출석할 수 있으며, 누적 30회 출석 달성 시 3,000원 ~ 500,000원 상당 랜덤 기프티콘 혜택이 제공됩니다. 출석은 매일 자정에 새로 가능하며, 연속 출석이 아니어도 누적 횟수로 인정됩니다. 달성 안내와 지급 상품은 상품지급센터에서 확인할 수 있습니다.</p></div></section>
         </>
       )}
       <section className={styles.listCard}><div className={styles.listCopy}><span className={styles.listIcon}>AI</span><div><strong>AI PROCESS 돌발 체험 이벤트</strong></div></div><button type="button" onClick={() => setShowSurpriseGuide((value) => !value)} className={styles.chevronButton}>진행방법 <span>›</span></button></section>
@@ -642,7 +642,20 @@ function AiLive({ profile, userId, row, tick, error }) {
       </section>
 
       <section className={styles.aiChartCard}>
-        <div className={styles.aiChartHead}><div><span>최근 반영 그래프</span><h3>평가금액 변화</h3></div><strong className={styles.aiChartValue}>+{aiKrw(snapshot.earnedProfit)}</strong></div>
+        <div className={styles.aiPart3ChartTop}>
+          <div>
+            <span>PERFORMANCE</span>
+            <h3>평가금액 변화</h3>
+          </div>
+          <div className={styles.aiPart3Current}>
+            <span>현재 평가금액</span>
+            <strong>{aiKrw(snapshot.totalAmount)}</strong>
+          </div>
+        </div>
+        <div className={styles.aiPart3ChartMeta}>
+          <div><span>누적 수익</span><strong>+{aiKrw(snapshot.earnedProfit)}</strong></div>
+          <div><span>누적 반영</span><strong>{snapshot.elapsedSteps.toLocaleString('ko-KR')}회</strong></div>
+        </div>
         <svg className={styles.aiChart} viewBox="0 0 760 220" role="img" aria-label="AI PROCESS 평가금액 그래프">
           <line className={styles.aiChartGrid} x1="18" y1="55" x2="742" y2="55" />
           <line className={styles.aiChartGrid} x1="18" y1="110" x2="742" y2="110" />
@@ -651,13 +664,26 @@ function AiLive({ profile, userId, row, tick, error }) {
           {snapshot.chartPoints && <polyline className={styles.aiChartLine} points={snapshot.chartPoints} />}
           {snapshot.chartPoints && (() => { const last = snapshot.chartPoints.trim().split(' ').at(-1)?.split(','); return last?.length === 2 ? <circle className={styles.aiChartDot} cx={last[0]} cy={last[1]} r="5" /> : null; })()}
         </svg>
-        <div className={styles.aiChartFoot}><span>최근 최대 48개 반영 구간</span><span>누적 {snapshot.elapsedSteps.toLocaleString('ko-KR')}회 반영</span></div>
+        <div className={styles.aiPart3ChartFoot}><span>최근 최대 48개 반영 흐름</span><strong>{status === 'running' ? '진행 중' : '진행 완료'}</strong></div>
       </section>
 
-      <section className={styles.simpleList}>
-        <div className={styles.listHeader}><span>진행 기록</span><strong>최근 반영 내역</strong></div>
-        <div className={styles.activityList}>
-          {activities.length === 0 ? <div className={styles.emptyRow}>진행 기록을 준비하고 있습니다.</div> : activities.map((item) => <div key={item.step} className={styles.activityRow}><span className={styles.activityTime}>{item.step}회</span><i className={styles.activityDot} /><div><strong>{item.stage} · {item.delta >= 0 ? '상승 반영' : '조정 반영'}</strong><p>{item.delta >= 0 ? '+' : ''}{aiKrw(item.delta)} 반영</p><span className={styles.aiActivityValue}>평가금액 {aiKrw(item.amount)}</span></div></div>)}
+      <section className={styles.aiPart3History}>
+        <div className={styles.aiPart3HistoryHead}>
+          <div><span>REFLECTION LOG</span><strong>최근 반영 내역</strong></div>
+          <b>{activities.length}건</b>
+        </div>
+        <div className={styles.aiPart3HistoryList}>
+          {activities.length === 0 ? <div className={styles.emptyRow}>반영 내역이 없습니다.</div> : activities.map((item) => (
+            <div key={item.step} className={styles.aiPart3HistoryRow}>
+              <div className={styles.aiPart3Index}><span>{String(item.step).padStart(2, '0')}</span><small>회차</small></div>
+              <div className={styles.aiPart3Rail}><i /></div>
+              <div className={styles.aiPart3HistoryCopy}>
+                <strong>{item.stage} · {item.delta >= 0 ? '상승 반영' : '조정 반영'}</strong>
+                <span className={item.delta >= 0 ? styles.aiPart3Positive : styles.aiPart3Negative}>{item.delta >= 0 ? '+' : ''}{aiKrw(item.delta)}</span>
+              </div>
+              <div className={styles.aiPart3HistoryValue}><span>평가금액</span><strong>{aiKrw(item.amount)}</strong></div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -690,7 +716,7 @@ export default function V2LiveClientStage2() {
   const [activeTab, setActiveTab] = useState('event');
   const [eventMode, setEventMode] = useState('live');
   const [autoEvents, setAutoEvents] = useState([]);
-  const [attendanceStatus, setAttendanceStatus] = useState({ checked_today: false, total_count: 0, reward_ready: false, next_reward_at: 10 });
+  const [attendanceStatus, setAttendanceStatus] = useState({ checked_today: false, total_count: 0, reward_ready: false, next_reward_at: 30 });
   const [attendanceWorking, setAttendanceWorking] = useState(false);
   const [eventAnswers, setEventAnswers] = useState({});
   const [eventWorkingId, setEventWorkingId] = useState(null);
