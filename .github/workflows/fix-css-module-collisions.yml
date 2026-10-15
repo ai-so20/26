@@ -1,0 +1,41 @@
+name: Fix CSS Module Collisions
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-css-module-collisions.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Fix CSS module collisions
+        run: python .github/scripts/fix-css-module-collisions.py
+      - name: Verify diff
+        run: git diff --check
+      - name: Install dependencies
+        run: npm ci
+      - name: Production build check
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_build_dummy
+          SUPABASE_SECRET_KEY: sb_secret_build_dummy
+          TWELVE_DATA_API_KEY: build_dummy
+        run: npm run build
+      - name: Commit and push
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app/v2/V2LiveClientStage2.js
+          git commit -m 'Fix CSS module style composition regression' || exit 0
+          git push origin main
