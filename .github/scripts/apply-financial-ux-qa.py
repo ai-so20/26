@@ -4,7 +4,7 @@ patches = {
     Path('app/v2/v2.module.css'): r'''
 
 /* FINANCIAL UX QA PASS */
-:root {
+.canvas {
   --ux-text-strong: #172033;
   --ux-text-body: #4f5d70;
   --ux-text-muted: #647287;
