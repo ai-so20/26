@@ -1,9 +1,9 @@
 {
   "id": "/",
-  "name": "(EVENT) 1:1고객센터",
-  "short_name": "1:1고객센터",
-  "description": "VIP 라운지 1:1 고객센터 알림",
-  "start_url": "/?tab=private",
+  "name": "VIP 이벤트 · 혜택",
+  "short_name": "VIP 혜택",
+  "description": "VIP 이벤트와 출석 혜택",
+  "start_url": "/?tab=event",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",

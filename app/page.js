@@ -3037,7 +3037,7 @@ export default function Home() {
       } else if (["event", "ai", "private"].includes(savedTab)) {
         setChatTab(savedTab);
       } else {
-        setChatTab("private");
+        setChatTab("event");
       }
 
       // 푸시 알림을 눌러 들어온 경우 인증 세션이 살아 있으면 잠금 화면을 건너뜁니다.
@@ -4971,10 +4971,10 @@ export default function Home() {
   function resumeVipSession() {
     if (typeof window !== "undefined") {
       window.localStorage.removeItem("vip-ui-locked");
-      window.sessionStorage.setItem("vip-active-tab", "private");
-      window.history.replaceState({}, "", "/?tab=private");
+      window.sessionStorage.setItem("vip-active-tab", "event");
+      window.history.replaceState({}, "", "/?tab=event");
     }
-    setChatTab("private");
+    setChatTab("event");
     setVipLocked(false);
     setNotice("");
   }
@@ -5081,7 +5081,7 @@ export default function Home() {
 
   if (loading) {
     return (
-      <main style={styles.page}>(EVENT) 1:1 고객센터</main>
+      <main style={styles.page}>VIP 혜택을 준비하고 있습니다…</main>
     );
   }
 

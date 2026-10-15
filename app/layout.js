@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "(EVENT) 1:1 고객센터",
-  description: "회원들과 함께하는 실시간 VIP 이벤트 커뮤니티",
+  title: "VIP 이벤트 · 혜택",
+  description: "매시간 이벤트와 출석 혜택을 만나는 VIP 공간",
   manifest: "/manifest.webmanifest",
   icons: { icon: "/avatars/admin.png.png", shortcut: "/avatars/admin.png.png", apple: "/avatars/admin.png.png" },
 };
