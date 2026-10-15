@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: npm
       - name: Apply design patch
         run: python .github/scripts/apply-final-deai-design.py
@@ -26,7 +26,7 @@ jobs:
       - name: Production build check
         env:
           NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: sb_publishable_build_dummy
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_build_dummy
           SUPABASE_SECRET_KEY: sb_secret_build_dummy
           TWELVE_DATA_API_KEY: build_dummy
         run: npm run build
