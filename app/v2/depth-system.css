@@ -1,0 +1,195 @@
+/* V2 NEUTRAL SURFACE DEPTH SYSTEM
+   Color is reserved for actions/status. Hierarchy comes from surface, border,
+   highlight, shadow and inset contrast. */
+
+[class*="v2_canvas"] {
+  background: #F4F5F7 !important;
+}
+
+/* ---------------- EVENT ---------------- */
+[class*="eventPage"] [class*="summaryCard"] {
+  border-color: #E1E4E9 !important;
+  background: #FFFFFF !important;
+  box-shadow: none !important;
+}
+[class*="eventPage"] [class*="summaryCard"]::before {
+  display: none !important;
+}
+[class*="eventPage"] [class*="summaryCard"]::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  left: 1px !important;
+  right: 1px !important;
+  top: 1px !important;
+  height: 1px !important;
+  background: rgba(255,255,255,.98) !important;
+  pointer-events: none !important;
+}
+[class*="eventPage"] [class*="summaryTop"] {
+  padding-left: 0 !important;
+}
+
+[class*="eventPage"] [class*="primaryCard"] {
+  border-color: #D9DDE3 !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 1px 2px rgba(23,27,36,.035), 0 6px 16px rgba(23,27,36,.075) !important;
+}
+[class*="eventPage"] [class*="primaryCard"]::before {
+  display: none !important;
+}
+[class*="eventPage"] [class*="primaryCard"]::after {
+  left: 1px !important;
+  right: 1px !important;
+  top: 1px !important;
+  height: 1px !important;
+  background: rgba(255,255,255,.98) !important;
+}
+[class*="eventPage"] [class*="cardTopline"],
+[class*="eventPage"] [class*="cardBody"],
+[class*="eventPage"] [class*="cardFooter"] {
+  padding-left: 16px !important;
+}
+[class*="eventPage"] [class*="gameArea"] {
+  border-color: #E0E4E9 !important;
+  background: #F2F4F7 !important;
+  box-shadow: inset 0 1px 2px rgba(23,27,36,.045) !important;
+}
+[class*="eventPage"] [class*="gameChoice"],
+[class*="eventPage"] [class*="quizChoice"],
+[class*="eventPage"] [class*="gameInput"] {
+  background: #FFFFFF !important;
+  box-shadow: 0 1px 2px rgba(23,27,36,.035) !important;
+}
+[class*="eventPage"] [class*="simpleList"],
+[class*="eventPage"] [class*="attendanceCardLarge"] {
+  border-color: #E1E4E9 !important;
+  background: #FFFFFF !important;
+  box-shadow: none !important;
+}
+[class*="eventPage"] [class*="eventLiveRowActive"] {
+  background: #F2F4F7 !important;
+}
+[class*="eventPage"] [class*="eventLiveRowActive"]::before {
+  display: none !important;
+}
+[class*="eventPage"] [class*="primaryButton"] {
+  box-shadow: 0 3px 8px rgba(94,53,28,.14) !important;
+}
+
+/* ---------------- PRODUCT REWARD CENTER ---------------- */
+[class*="rewardEmbeddedShell"] [class*="summary"] {
+  border-color: #E1E4E9 !important;
+  background: #FFFFFF !important;
+  box-shadow: none !important;
+}
+[class*="rewardEmbeddedShell"] [class*="summary"]::before {
+  display: none !important;
+}
+[class*="rewardEmbeddedShell"] [class*="deliveryCard"] {
+  border-color: #E1E4E9 !important;
+  background: #FFFFFF !important;
+  box-shadow: none !important;
+}
+[class*="rewardEmbeddedShell"] [class*="deliveryHead"] {
+  background: #FFFFFF !important;
+}
+[class*="rewardEmbeddedShell"] [class*="messageList"] {
+  background: #F2F4F7 !important;
+  box-shadow: inset 0 1px 3px rgba(23,27,36,.045) !important;
+}
+[class*="rewardEmbeddedShell"] [class*="rewardWelcomeInFeed"] {
+  border-color: #DCE1E7 !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 1px 2px rgba(23,27,36,.03), 0 4px 12px rgba(23,27,36,.06) !important;
+}
+[class*="rewardEmbeddedShell"] [class*="rewardWelcomeTop"] {
+  border-left: 0 !important;
+  background: #FFFFFF !important;
+}
+[class*="rewardEmbeddedShell"] [class*="rewardBenefitPanel"] {
+  border-color: #E0E3E8 !important;
+  background: #F1F2F6 !important;
+  box-shadow: inset 0 1px 2px rgba(23,27,36,.04) !important;
+}
+[class*="rewardEmbeddedShell"] [class*="rewardBenefitIcon"] {
+  border-color: #DDE1E7 !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 1px 2px rgba(23,27,36,.035) !important;
+}
+[class*="rewardEmbeddedShell"] [class*="rewardAlert"] {
+  border-color: #E0E2E8 !important;
+  border-left-color: #E0E2E8 !important;
+  background: #F1F2F6 !important;
+  box-shadow: inset 0 1px 2px rgba(23,27,36,.035) !important;
+}
+[class*="rewardEmbeddedShell"] [class*="giftCard"] {
+  border-color: #D9DDE4 !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 1px 2px rgba(23,27,36,.035), 0 6px 16px rgba(23,27,36,.075) !important;
+}
+[class*="rewardEmbeddedShell"] [class*="giftProduct"] {
+  border: 1px solid #E0E2E8 !important;
+  background: #F1F2F6 !important;
+  box-shadow: inset 0 1px 2px rgba(23,27,36,.04) !important;
+}
+[class*="rewardEmbeddedShell"] [class*="messageRowOther"] [class*="bubble"] {
+  border-left-color: #E0E3E8 !important;
+}
+
+/* ---------------- AI PROCESS ---------------- */
+[class*="aiPart1Hero"],
+[class*="aiPart2Hero"] {
+  border-color: rgba(255,255,255,.08) !important;
+  background: #0D1B31 !important;
+  box-shadow: 0 10px 24px rgba(13,27,49,.12) !important;
+}
+[class*="aiPart1Facts"] {
+  background: rgba(255,255,255,.08) !important;
+  border-color: rgba(255,255,255,.08) !important;
+}
+[class*="aiPart1Facts"] > div,
+[class*="aiPart2Bento"] > div {
+  background: #101F37 !important;
+}
+[class*="aiPart2Bento"] {
+  background: rgba(255,255,255,.08) !important;
+}
+[class*="aiPart2Progress"] > i {
+  background: rgba(255,255,255,.08) !important;
+}
+[class*="aiStageBoard"],
+[class*="aiPart3History"],
+[class*="tradingCard"],
+[class*="aiChartCard"],
+[class*="aiProgressCard"],
+[class*="aiWaitingCard"] {
+  border-color: #E1E4E9 !important;
+  background: #FFFFFF !important;
+  box-shadow: none !important;
+}
+[class*="aiStageItemActive"] {
+  background: #F2F4F7 !important;
+}
+[class*="aiStageItemActive"]::before {
+  display: none !important;
+}
+[class*="aiPart3ChartMeta"] {
+  background: #E2E5EA !important;
+  border-color: #E2E5EA !important;
+}
+[class*="aiPart3ChartMeta"] > div,
+[class*="aiAccessGrid"] > div,
+[class*="aiLiveNotice"],
+[class*="aiResultBar"] {
+  border-color: #E0E3E8 !important;
+  background: #F2F4F7 !important;
+  box-shadow: inset 0 1px 2px rgba(23,27,36,.035) !important;
+}
+
+@media (max-width: 520px) {
+  [class*="eventPage"] [class*="primaryCard"],
+  [class*="rewardEmbeddedShell"] [class*="giftCard"] {
+    box-shadow: 0 1px 2px rgba(23,27,36,.03), 0 5px 14px rgba(23,27,36,.07) !important;
+  }
+}
