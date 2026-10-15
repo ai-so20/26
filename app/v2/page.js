@@ -1,7 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import styles from './v2.module.css';
+import baseStyles from './v2.module.css';
+import extraStyles from './v2-extra.module.css';
+
+const styles = { ...baseStyles, ...extraStyles };
 
 const navItems = [
   { id: 'event', label: '이벤트' },
