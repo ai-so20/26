@@ -1,0 +1,401 @@
+/* FINTECH STRUCTURE V5
+   Focus: stronger numeric hierarchy, process visualization, horizontal information flow,
+   and reward-object styling. No global dark-mode inversion. */
+
+/* ---------------------------------------------------------
+   EVENT / ATTENDANCE — make the important numbers lead.
+--------------------------------------------------------- */
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="summaryCard"] [class*="stat"] > span {
+  color: #697386 !important;
+  font-size: 10px !important;
+  font-weight: 750 !important;
+  letter-spacing: .01em !important;
+}
+
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="summaryCard"] [class*="stat"] > strong {
+  margin-top: 5px !important;
+  color: #171B24 !important;
+  font-size: clamp(28px, 8vw, 34px) !important;
+  font-weight: 900 !important;
+  line-height: .95 !important;
+  letter-spacing: -.055em !important;
+  font-variant-numeric: tabular-nums;
+}
+
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="summaryCard"] [class*="stat"] > strong small {
+  margin-left: 3px !important;
+  color: #7B8491 !important;
+  font-size: 11px !important;
+  font-weight: 750 !important;
+  letter-spacing: -.02em !important;
+}
+
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="statsGrid"] {
+  align-items: stretch !important;
+}
+
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="stat"] {
+  min-height: 72px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="attendanceCount"] {
+  color: #171B24 !important;
+  font-size: clamp(34px, 10vw, 42px) !important;
+  font-weight: 900 !important;
+  line-height: .95 !important;
+  letter-spacing: -.06em !important;
+  font-variant-numeric: tabular-nums;
+}
+
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="attendanceCount"] small {
+  margin-left: 3px !important;
+  color: #7B8491 !important;
+  font-size: 13px !important;
+  font-weight: 750 !important;
+}
+
+/* Keep the first action area compact enough to appear without needless scrolling. */
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="primaryCard"] [class*="cardBody"]::before {
+  margin-bottom: 9px !important;
+  padding: 8px 10px !important;
+  border-radius: 8px !important;
+  font-size: 11px !important;
+}
+
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="cardBody"] h2 {
+  font-size: 18px !important;
+  letter-spacing: -.035em !important;
+}
+
+/* ---------------------------------------------------------
+   AI PROCESS — idle hero pipeline instead of arrow text.
+--------------------------------------------------------- */
+.v2AiLegacyArrowLine {
+  display: none !important;
+}
+
+.v2AiIdlePipeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  width: 100%;
+  margin-top: 18px;
+  padding-top: 2px;
+}
+
+.v2AiIdlePipeline::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 7%;
+  right: 7%;
+  height: 2px;
+  background: rgba(150, 171, 204, .26);
+}
+
+.v2AiIdlePipelineStep {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  text-align: center;
+}
+
+.v2AiIdlePipelineStep i {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 7px;
+  border: 1px solid rgba(163, 184, 217, .32);
+  border-radius: 50%;
+  background: #101F37;
+  color: #8FA2BF;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 800;
+  box-shadow: 0 0 0 4px #0D1B31;
+}
+
+.v2AiIdlePipelineStep span {
+  display: block;
+  overflow: hidden;
+  color: #9DAFC8;
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: -.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.v2AiIdlePipelineStep.isCurrent i {
+  border-color: rgba(75, 139, 255, .7);
+  background: #2F6FED;
+  color: #FFFFFF;
+  box-shadow: 0 0 0 4px #0D1B31, 0 0 18px rgba(47, 111, 237, .26);
+}
+
+.v2AiIdlePipelineStep.isCurrent span {
+  color: #FFFFFF;
+  font-weight: 850;
+}
+
+/* Make the primary availability number unmistakably dominant. */
+[class*="aiPart1Headline"] > div > strong {
+  font-size: clamp(54px, 16vw, 72px) !important;
+  font-weight: 900 !important;
+  line-height: .9 !important;
+  letter-spacing: -.075em !important;
+  font-variant-numeric: tabular-nums;
+}
+
+[class*="aiPart1Headline"] > div > strong em {
+  margin-left: 4px !important;
+  font-size: 15px !important;
+  font-weight: 750 !important;
+  letter-spacing: -.02em !important;
+}
+
+/* ---------------------------------------------------------
+   AI PROCESS — running/completed stage board becomes a real
+   connected progress system instead of six unrelated boxes.
+--------------------------------------------------------- */
+[class*="aiStageBoard"] {
+  overflow: hidden !important;
+}
+
+[class*="aiStageTrack"] {
+  position: relative !important;
+  display: grid !important;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  gap: 0 !important;
+  padding: 8px 2px 2px !important;
+}
+
+[class*="aiStageTrack"]::before {
+  content: '';
+  position: absolute;
+  top: 23px;
+  left: 7%;
+  right: 7%;
+  height: 2px;
+  background: rgba(148, 163, 184, .24);
+}
+
+[class*="aiStageItem"] {
+  position: relative !important;
+  z-index: 1 !important;
+  min-width: 0 !important;
+  padding: 0 2px !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-align: center !important;
+}
+
+[class*="aiStageItem"] > i {
+  display: grid !important;
+  place-items: center !important;
+  width: 30px !important;
+  height: 30px !important;
+  margin: 0 auto 8px !important;
+  border: 1px solid rgba(148, 163, 184, .32) !important;
+  border-radius: 50% !important;
+  background: #101F37 !important;
+  color: #8FA2BF !important;
+  font-size: 9px !important;
+  font-style: normal !important;
+  font-weight: 850 !important;
+  box-shadow: 0 0 0 4px #0D1B31 !important;
+}
+
+[class*="aiStageItem"] > span {
+  display: block !important;
+  color: #A8B8CF !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+}
+
+[class*="aiStageItem"] > b {
+  display: block !important;
+  margin-top: 3px !important;
+  color: #687C9C !important;
+  font-size: 8px !important;
+  font-weight: 700 !important;
+}
+
+[class*="aiStageItemDone"] > i {
+  border-color: rgba(76, 125, 205, .42) !important;
+  background: #183359 !important;
+  color: #D6E3F7 !important;
+}
+
+[class*="aiStageItemActive"] > i {
+  border-color: #4B8BFF !important;
+  background: #2F6FED !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 0 4px #0D1B31, 0 0 18px rgba(47, 111, 237, .32) !important;
+}
+
+[class*="aiStageItemActive"] > span,
+[class*="aiStageItemActive"] > b {
+  color: #FFFFFF !important;
+}
+
+/* ---------------------------------------------------------
+   AI PROCESS — long explanation lists become horizontal,
+   snap-based information strips on mobile.
+--------------------------------------------------------- */
+@media (max-width: 640px) {
+  [class*="aiIdleFlowGrid"],
+  [class*="aiIdleSteps"] {
+    display: flex !important;
+    gap: 10px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    margin-right: -16px !important;
+    padding-right: 16px !important;
+    padding-bottom: 8px !important;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  [class*="aiIdleFlowGrid"]::-webkit-scrollbar,
+  [class*="aiIdleSteps"]::-webkit-scrollbar {
+    display: none;
+  }
+
+  [class*="aiIdleFlowItem"],
+  [class*="aiIdleStep"] {
+    flex: 0 0 min(78vw, 286px) !important;
+    min-width: min(78vw, 286px) !important;
+    scroll-snap-align: start;
+  }
+
+  [class*="aiIdleSection"] [class*="aiIdleSectionHead"] p {
+    max-width: 32ch !important;
+  }
+}
+
+/* ---------------------------------------------------------
+   REWARD CENTER — gift messages should read as objects,
+   not ordinary chat bubbles.
+--------------------------------------------------------- */
+[class*="rewardEmbeddedShell"] [class*="pageHeading"] [class*="statusBadge"] {
+  display: none !important;
+}
+
+.v2RewardObject {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 16px !important;
+  border: 1px solid #DDD7E8 !important;
+  border-radius: 14px !important;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF8FD 100%) !important;
+  box-shadow: 0 8px 22px rgba(48, 35, 67, .08) !important;
+}
+
+.v2RewardObject::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background: #7653A6;
+}
+
+.v2RewardObjectMark {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  margin-bottom: 10px;
+  padding: 0 7px;
+  border: 1px solid #E0D6ED;
+  border-radius: 999px;
+  background: #F5F0FA;
+  color: #6F4A9D;
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.v2RewardObject [class*="giftTitle"] {
+  margin-bottom: 12px !important;
+  color: #433052 !important;
+  font-size: 12px !important;
+  font-weight: 850 !important;
+}
+
+.v2RewardObject [class*="giftProduct"] {
+  display: grid !important;
+  gap: 5px !important;
+  margin-bottom: 14px !important;
+  padding: 13px !important;
+  border: 1px solid #E5E0EA !important;
+  border-radius: 10px !important;
+  background: #FFFFFF !important;
+}
+
+.v2RewardObject [class*="giftProduct"] span {
+  color: #8B8294 !important;
+  font-size: 9px !important;
+  font-weight: 750 !important;
+}
+
+.v2RewardObject [class*="giftProduct"] strong {
+  color: #211B28 !important;
+  font-size: 19px !important;
+  font-weight: 900 !important;
+  letter-spacing: -.035em !important;
+}
+
+.v2RewardObject [class*="linkButton"] {
+  min-height: 42px !important;
+  border-radius: 9px !important;
+  background: #7653A6 !important;
+  color: #FFFFFF !important;
+  font-weight: 850 !important;
+  box-shadow: 0 4px 10px rgba(118, 83, 166, .16) !important;
+}
+
+.v2RewardObject [class*="giftNotice"] {
+  margin-top: 10px !important;
+  color: #7B7383 !important;
+  font-size: 9px !important;
+  line-height: 1.5 !important;
+}
+
+/* Reduce wall-of-text feel without deleting important reward conditions. */
+[class*="rewardEmbeddedShell"] [class*="rewardBenefitRow"] p {
+  display: -webkit-box !important;
+  overflow: hidden !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+  line-clamp: 2 !important;
+}
+
+[class*="rewardEmbeddedShell"] [class*="rewardBenefitFoot"] {
+  display: none !important;
+}
+
+@media (max-width: 420px) {
+  html[data-v2-event-mode="live"] [class*="eventPage"] [class*="summaryCard"] [class*="stat"] > strong {
+    font-size: 30px !important;
+  }
+
+  .v2AiIdlePipelineStep span,
+  [class*="aiStageItem"] > span {
+    font-size: 8px !important;
+  }
+
+  [class*="aiStageItem"] > b {
+    font-size: 7px !important;
+  }
+}
