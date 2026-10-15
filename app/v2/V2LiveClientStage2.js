@@ -8,7 +8,13 @@ import liveStyles from './v2-live.module.css';
 import aiStyles from './v2-ai-live.module.css';
 import RewardLiveClient from './reward/RewardLiveClient';
 
-const styles = { ...baseStyles, ...extraStyles, ...liveStyles, ...aiStyles };
+const styleModules = [baseStyles, extraStyles, liveStyles, aiStyles];
+const styles = Object.fromEntries(
+  [...new Set(styleModules.flatMap((moduleStyles) => Object.keys(moduleStyles)))].map((key) => [
+    key,
+    styleModules.map((moduleStyles) => moduleStyles[key]).filter(Boolean).join(' '),
+  ]),
+);
 const AI_PROCESS_STEP_MINUTES = 3;
 
 const navItems = [
