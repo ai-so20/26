@@ -1,0 +1,185 @@
+/* EVENT / ATTENDANCE SPLIT V4
+   Separate navigation surfaces while preserving existing event and attendance logic. */
+
+/* Four-way navigation */
+.v2FourNav {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+.v2FourNav > button {
+  min-width: 0 !important;
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+  font-size: 11px !important;
+}
+.v2AttendanceNav {
+  position: relative;
+}
+.v2SplitActive,
+.v2SplitEventActive {
+  color: #172033 !important;
+  font-weight: 850 !important;
+}
+.v2SplitActive::after,
+.v2SplitEventActive::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 22% !important;
+  right: 22% !important;
+  bottom: -1px !important;
+  height: 3px !important;
+  border-radius: 999px 999px 0 0 !important;
+  background: #2f6fed !important;
+}
+
+/* The old event/attendance selector is now redundant. */
+[class*="eventPage"] [class*="section"]:has([class*="segmentGrid"]) {
+  display: none !important;
+}
+
+/* Remove duplicated reward notices previously injected in multiple places. */
+[class*="eventPage"] [class*="attendanceCardLarge"]::before,
+[class*="eventPage"] [class*="attendanceCardLarge"] [class*="attendanceHeader"] > div::before {
+  display: none !important;
+  content: none !important;
+}
+[class*="eventPage"] [class*="primaryCard"] [class*="cardBody"]::after {
+  display: none !important;
+  content: none !important;
+}
+[class*="eventPage"] [class*="primaryCard"] [class*="cardBody"]::before {
+  content: "보상 · 3,000원 ~ 300,000원 상당 랜덤 기프티콘" !important;
+  display: block !important;
+  order: -3 !important;
+  margin: 0 0 12px !important;
+  padding: 10px 12px !important;
+  border: 1px solid #E1E4E9 !important;
+  border-radius: 9px !important;
+  background: #F2F4F7 !important;
+  color: #171B24 !important;
+  font-size: 12px !important;
+  font-weight: 850 !important;
+  letter-spacing: -.02em !important;
+  line-height: 1.45 !important;
+}
+
+/* EVENT PAGE: summary + current event should fit before scrolling on common phones. */
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="pageHeading"] {
+  margin-bottom: 10px !important;
+}
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="summaryCard"] {
+  margin-bottom: 10px !important;
+}
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="summaryTop"] {
+  padding-top: 10px !important;
+  padding-bottom: 8px !important;
+}
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="statsGrid"] {
+  min-height: 0 !important;
+}
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="stat"] {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="primaryCard"] {
+  margin-top: 10px !important;
+}
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="cardTopline"] {
+  padding-top: 10px !important;
+  padding-bottom: 9px !important;
+}
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="cardBody"] {
+  padding-top: 12px !important;
+  padding-bottom: 10px !important;
+}
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="cardBody"] h2 {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="cardBody"] p {
+  margin-bottom: 0 !important;
+  line-height: 1.5 !important;
+}
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="gameArea"] {
+  margin-top: 8px !important;
+  margin-bottom: 12px !important;
+  padding: 12px !important;
+}
+
+/* Schedule belongs below the immediate action area. */
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="simpleList"] {
+  margin-top: 18px !important;
+}
+
+/* ATTENDANCE PAGE: make the attendance action the first meaningful surface. */
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="summaryCard"] {
+  display: none !important;
+}
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="pageHeading"] {
+  margin-bottom: 10px !important;
+}
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="attendanceCardLarge"] {
+  margin-top: 0 !important;
+}
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="attendanceHeader"] {
+  padding-top: 14px !important;
+  padding-bottom: 10px !important;
+}
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="attendanceHeader"]::after {
+  content: "30회 달성 · 3,000원 ~ 500,000원 상당 랜덤 기프티콘";
+  display: block;
+  margin-top: 9px;
+  padding: 9px 10px;
+  border: 1px solid #E1E4E9;
+  border-radius: 8px;
+  background: #F2F4F7;
+  color: #303746;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="progressTrack"] {
+  margin-top: 4px !important;
+}
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="attendanceThirtyGrid"] {
+  margin-top: 10px !important;
+}
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="attendanceCardLarge"] > [class*="primaryButtonWide"] {
+  margin-top: 12px !important;
+}
+
+/* Keep the main action visible sooner on mobile by tightening secondary copy. */
+@media (max-width: 520px) {
+  .v2FourNav > button {
+    height: 52px !important;
+    font-size: 10.5px !important;
+  }
+
+  [class*="eventPage"] {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+
+  html[data-v2-event-mode="live"] [class*="eventPage"] [class*="pageHeading"] h1,
+  html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="pageHeading"] h1 {
+    font-size: 24px !important;
+  }
+
+  html[data-v2-event-mode="live"] [class*="eventPage"] [class*="summaryTop"] [class*="muted"] {
+    display: none !important;
+  }
+
+  html[data-v2-event-mode="live"] [class*="eventPage"] [class*="cardBody"] p {
+    font-size: 10px !important;
+  }
+
+  html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="attendanceLead"] {
+    font-size: 10px !important;
+    line-height: 1.45 !important;
+  }
+
+  html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="infoCard"] {
+    margin-top: 12px !important;
+  }
+}
