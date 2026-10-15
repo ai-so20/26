@@ -69,8 +69,8 @@ const required = [
   'privateMessages.map((item, index) =>',
   'openPrivateChat();',
   'sendPrivateMessage',
-  'handleAttendance',
-  'participateAutoEvent',
+  'checkDailyAttendance',
+  'joinAutoEvent',
   'AiProcessMemberGuide compact'
 ];
 for (const token of required) {
