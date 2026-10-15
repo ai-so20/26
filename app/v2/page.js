@@ -1,5 +1,5 @@
-import V2LiveClient from './V2LiveClient';
+import V2LiveClientStage2 from './V2LiveClientStage2';
 
 export default function V2Page() {
-  return <V2LiveClient />;
+  return <V2LiveClientStage2 />;
 }
