@@ -5161,7 +5161,7 @@ export default function Home() {
                 </div>
 
                 <p style={styles.sponsorWelcomeBenefit}>
-                  <b>그룹채팅 · 이벤트 · AI프로세스 · 1:1 고객센터</b><br/>
+                  <b>이벤트 · AI프로세스 · 1:1 고객센터</b><br/>
                   모든 VIP 전용 서비스를 편하게 이용해보세요.
                 </p>
 
@@ -8063,7 +8063,7 @@ export default function Home() {
         )}
 
         <div style={styles.footer}>
-          {"그룹채팅 · 이벤트 · AI프로세스 · 1:1고객센터"}
+          {"이벤트 · AI프로세스 · 1:1고객센터"}
         </div>
       </section>
     </main>
