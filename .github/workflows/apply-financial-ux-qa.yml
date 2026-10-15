@@ -38,4 +38,4 @@ jobs:
           git commit -m 'Refine event status and interaction UX' || exit 0
           git push origin main
 
-# phase 2: semantic event state colors and interaction feedback
+# phase 2 retry after CSS Modules selector fix
