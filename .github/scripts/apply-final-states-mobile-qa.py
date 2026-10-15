@@ -96,7 +96,7 @@ if marker not in s:
   .pageHeading p { font-size: 12px; line-height: 1.65; }
   .statusBadge { max-width: 116px; overflow: hidden; text-overflow: ellipsis; }
   .summaryTop, .cardTopline, .sectionHead { min-width: 0; }
-  button, a { -webkit-tap-highlight-color: transparent; }
+  .appShell button, .appShell a { -webkit-tap-highlight-color: transparent; }
 }
 @media (max-width: 390px) {
   .content { padding-left: 14px; padding-right: 14px; }
