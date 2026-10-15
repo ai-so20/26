@@ -1,0 +1,37 @@
+name: Apply AI PROCESS Part 2
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-ai-part2.yml'
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Apply part 2
+        run: node .github/scripts/apply-ai-part2.cjs
+      - name: Verify diff
+        run: git diff --check
+      - name: Install dependencies
+        run: npm ci
+      - name: Production build check
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV4YW1wbGUiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTcwMDAwMDAwMCwiZXhwIjoyMDAwMDAwMDAwfQ.signature
+        run: npm run build
+      - name: Commit part 2
+        run: |
+          rm -f .github/workflows/apply-ai-part2.yml .github/scripts/apply-ai-part2.cjs
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app/v2/V2LiveClientStage2.js app/v2/v2-ai-live.module.css .github/workflows/apply-ai-part2.yml .github/scripts/apply-ai-part2.cjs
+          git commit -m 'Rebuild AI PROCESS part 2 core data UI'
+          git push origin HEAD:main
