@@ -187,7 +187,70 @@
   box-shadow: inset 0 1px 2px rgba(23,27,36,.035) !important;
 }
 
+/* ---------------- EVENT REWARD FIRST ----------------
+   The reward is intentionally visible before participation details. */
+[class*="eventPage"] [class*="primaryCard"] [class*="cardBody"]::before {
+  content: "VIP EVENT REWARD\A 3,000원 ~ 300,000원 상당 랜덤 기프티콘";
+  display: block;
+  white-space: pre-line;
+  margin: 0 0 14px;
+  padding: 12px 13px;
+  border: 1px solid #E1E4E9;
+  border-radius: 9px;
+  background: #F2F4F7;
+  box-shadow: inset 0 1px 2px rgba(23,27,36,.035);
+  color: #171B24;
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1.6;
+  letter-spacing: -.02em;
+}
+[class*="eventPage"] [class*="primaryCard"] [class*="cardBody"]::first-line {
+  color: #7A5B46;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+[class*="eventPage"] [class*="attendanceCardLarge"] [class*="attendanceHeader"] > div::before {
+  content: "30회 출석 달성 보상\A 3,000원 ~ 500,000원 상당 랜덤 기프티콘";
+  display: block;
+  white-space: pre-line;
+  margin: 0 0 13px;
+  padding: 12px 13px;
+  border: 1px solid #E1E4E9;
+  border-radius: 9px;
+  background: #F2F4F7;
+  box-shadow: inset 0 1px 2px rgba(23,27,36,.035);
+  color: #171B24;
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1.6;
+  letter-spacing: -.02em;
+}
+[class*="eventPage"] [class*="attendanceCardLarge"] [class*="attendanceHeader"] > div::first-line {
+  color: #7A5B46;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+/* ---------------- MOBILE SAFE FRAME ----------------
+   Existing content was already 18px; mobile gets a clearer 20px visual frame. */
 @media (max-width: 520px) {
+  [class*="v2_content"] {
+    box-sizing: border-box !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  [class*="eventPage"] [class*="summaryCard"],
+  [class*="eventPage"] [class*="primaryCard"],
+  [class*="eventPage"] [class*="attendanceCardLarge"],
+  [class*="eventPage"] [class*="simpleList"],
+  [class*="eventPage"] [class*="segmentGrid"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
   [class*="eventPage"] [class*="primaryCard"],
   [class*="rewardEmbeddedShell"] [class*="giftCard"] {
     box-shadow: 0 1px 2px rgba(23,27,36,.03), 0 5px 14px rgba(23,27,36,.07) !important;
