@@ -779,11 +779,15 @@ function AiLive({ profile, userId, row, tick, error }) {
   const stageLabels = ['분석', '탐색', '매수', '관리', '매도', '재분석'];
   const activeStageIndex = status === 'completed' ? 5 : Math.max(0, (Math.max(1, snapshot.elapsedSteps) - 1) % stageLabels.length);
   const recentHistory = snapshot.history.slice(-7);
+  const processStartedMs = processRow.started_at ? new Date(processRow.started_at).getTime() : NaN;
   const activities = recentHistory.slice(1).map((item, index) => {
     const prev = recentHistory[index];
     const delta = item.amount - prev.amount;
     const stageIndex = Math.max(0, (item.step - 1) % stageLabels.length);
-    return { step: item.step, amount: item.amount, delta, stage: stageLabels[stageIndex] };
+    const reflectedAt = Number.isFinite(processStartedMs)
+      ? new Date(processStartedMs + item.step * AI_PROCESS_STEP_MINUTES * 60 * 1000).toISOString()
+      : null;
+    return { step: item.step, amount: item.amount, delta, stage: stageLabels[stageIndex], reflectedAt };
   }).reverse();
   const areaPoints = snapshot.chartPoints ? `18,200 ${snapshot.chartPoints} 742,200` : '';
   const marketStates = buildAiMarketStates(snapshot.elapsedSteps);
@@ -941,7 +945,7 @@ function AiLive({ profile, userId, row, tick, error }) {
         {historyOpen && <div className={styles.aiPart3HistoryList}>
           {activities.length === 0 ? <div className={styles.emptyRow}>반영 내역이 없습니다.</div> : activities.map((item) => (
             <div key={item.step} className={styles.aiPart3HistoryRow}>
-              <div className={styles.aiPart3Index}><span>{String(item.step).padStart(2, '0')}</span><small>회차</small></div>
+              <div className={styles.aiPart3Index}><span>{formatEventTime(item.reflectedAt)}</span><small>반영 시간</small></div>
               <div className={styles.aiPart3Rail}><i /></div>
               <div className={styles.aiPart3HistoryCopy}>
                 <strong>{item.stage} · {item.delta >= 0 ? '상승 반영' : '조정 반영'}</strong>
@@ -1178,7 +1182,20 @@ export default function V2LiveClientStage2() {
     if (eventItem.event_type === 'roulette') setRouletteSpins((current) => ({ ...current, [eventItem.event_id]: false }));
   }
 
-  if (loading) return <main className={styles.canvas}><section className={`${styles.appShell} ${styles.loadingShell}`}><div className={styles.loadingMark}>VIP</div><strong>회원 정보를 확인하고 있습니다.</strong></section></main>;
+  if (loading) return (
+    <main className={styles.canvas}>
+      <section className={`${styles.appShell} ${styles.loadingShell}`}>
+        <div className={styles.loadingBrandRow}><div className={styles.loadingMark}>VIP</div><div><strong>회원 정보를 확인하고 있습니다.</strong><span>잠시만 기다려주세요.</span></div></div>
+        <div className={styles.loadingNavSkeleton}><i /><i /><i /></div>
+        <div className={styles.loadingContentSkeleton} aria-hidden="true">
+          <i className={styles.loadingLineLg} />
+          <i className={styles.loadingLineSm} />
+          <div className={styles.loadingPanelSkeleton}><i /><i /><i /></div>
+          <div className={styles.loadingListSkeleton}><i /><i /><i /></div>
+        </div>
+      </section>
+    </main>
+  );
   if (!user || !profile) return <MemberEntry nickname={nickname} realName={realName} working={entryWorking} notice={notice} onNickname={setNickname} onRealName={setRealName} onSubmit={handleMemberEntry} />;
 
   return (

@@ -940,3 +940,116 @@
     font-size: 11px;
   }
 }
+
+
+/* AI PROCESS DEPTH & DATA POLISH 2026 */
+.aiPart2Hero {
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(13,27,49,.15);
+}
+.aiStageBoard {
+  margin-top: 18px;
+  border: 1px solid #E1E4E9;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: none;
+}
+.aiStageHead {
+  padding: 15px 16px 13px;
+  background: #FAFAFB;
+  border-bottom: 1px solid #E1E4E9;
+}
+.aiStageTrack { background: #fff; }
+.aiStageItem { padding: 0 14px; }
+.aiStageItemActive {
+  background: linear-gradient(90deg,#EDF3FF 0,#FFFFFF 74%);
+}
+.aiMarketScanner,
+.aiChartCard,
+.aiPart3History {
+  margin-top: 18px;
+  border: 1px solid #E1E4E9;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: none;
+}
+.aiMarketScanner {
+  overflow: hidden;
+}
+.aiMarketScannerHead {
+  background: #FAFAFB;
+  border-bottom-color: #E1E4E9;
+}
+.aiChartCard {
+  position: relative;
+  padding: 18px;
+  border-color: #CDD2DA;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(23,27,36,.08);
+}
+.aiChartCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 18px;
+  bottom: 18px;
+  width: 4px;
+  background: #2155CD;
+}
+.aiPart3ChartTop,
+.aiPart3ChartMeta,
+.aiChart,
+.aiPart3ChartFoot { margin-left: 8px; }
+.aiPart3History { overflow: hidden; }
+.aiFoldHead {
+  background: #FAFAFB;
+  border-bottom-color: #E1E4E9;
+}
+.aiPart3HistoryRow {
+  grid-template-columns: 64px 14px minmax(0,1fr) auto;
+  padding: 13px 16px;
+}
+.aiPart3Index span {
+  color: #2155CD;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.02em;
+}
+.aiPart3Index small { font-size: 7px; }
+.twoColumnCards {
+  margin-top: 18px;
+  gap: 10px;
+}
+.metricCard {
+  min-width: 0;
+  padding: 15px 16px;
+  border: 1px solid #E1E4E9;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: none;
+}
+.metricCard span { display: block; margin-bottom: 7px; }
+.metricCard strong { display: block; font-size: 15px; line-height: 1.25; }
+.metricCard small { display: block; margin-top: 7px; color: #626B78; font-size: 9px; line-height: 1.45; }
+.aiProcessBrief {
+  margin-top: 18px;
+  border-left-color: #2155CD;
+  background: #F8FAFD;
+}
+.aiIdleSection {
+  border-color: #E1E4E9;
+}
+.aiIdleConsult { box-shadow: 0 4px 12px rgba(23,27,36,.06); }
+@media (max-width: 520px) {
+  .aiPart2Hero { border-radius: 10px; }
+  .aiStageItem { padding: 0 11px; }
+  .aiChartCard { padding: 16px 13px; }
+  .aiPart3ChartTop,
+  .aiPart3ChartMeta,
+  .aiChart,
+  .aiPart3ChartFoot { margin-left: 6px; }
+  .aiPart3HistoryRow { grid-template-columns: 58px 12px minmax(0,1fr); gap: 7px; padding: 12px 11px; }
+  .aiPart3HistoryValue { grid-column: 3; text-align: left; }
+  .twoColumnCards { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .metricCard { padding: 14px 12px; }
+}
