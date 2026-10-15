@@ -75,7 +75,7 @@ phase2_extra = r'''
 phase2_base = r'''
 
 /* FINANCIAL UX QA PHASE 2 - interaction feedback */
-button:focus-visible {
+.canvas button:focus-visible {
   outline: 2px solid #2f6fed;
   outline-offset: 2px;
 }
