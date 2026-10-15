@@ -453,3 +453,88 @@
   .twoColumnCards { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
   .metricCard { padding:11px !important; }
 }
+
+
+/* AI MARKET SCANNER V2 */
+.aiMarketScanner { margin-top:10px; overflow:hidden; border:1px solid #172b4d; background:#0b1729; color:#eef5ff; box-shadow:0 18px 42px rgba(13,27,49,.16); }
+.aiMarketScannerHead { width:100%; padding:17px 18px; display:flex; align-items:flex-start; justify-content:space-between; gap:18px; border:0; border-bottom:1px solid rgba(255,255,255,.09); background:transparent; color:inherit; text-align:left; cursor:pointer; }
+.aiMarketScannerHead > div:first-child { min-width:0; }
+.aiMarketScannerHead span,.aiMarketHistoryHead span { display:block; color:#6f8fbd; font-size:8px; font-weight:900; letter-spacing:.18em; }
+.aiMarketScannerHead strong { display:block; margin-top:5px; font-size:16px; letter-spacing:-.025em; }
+.aiMarketScannerHead small { display:block; margin-top:5px; color:#8ca0bd; font-size:8px; line-height:1.5; }
+.aiMarketScannerHeadRight { flex:0 0 auto; display:grid; justify-items:end; gap:7px; }
+.aiMarketScannerHeadRight em { color:#8da0bb; font-size:8px; font-style:normal; font-weight:800; }
+.aiMarketPulse { display:flex; align-items:center; gap:6px; color:#8bb6ff; font-size:8px; letter-spacing:.08em; }
+.aiMarketPulse i { width:7px; height:7px; border-radius:50%; background:#4f8cff; box-shadow:0 0 0 0 rgba(79,140,255,.5); animation:aiMarketPulse 1.8s ease-out infinite; }
+@keyframes aiMarketPulse { 0%{box-shadow:0 0 0 0 rgba(79,140,255,.48)} 70%{box-shadow:0 0 0 7px rgba(79,140,255,0)} 100%{box-shadow:0 0 0 0 rgba(79,140,255,0)} }
+.aiMarketTelemetry { display:grid; grid-template-columns:1.25fr repeat(3,.75fr); border-bottom:1px solid rgba(255,255,255,.08); background:#0f1e34; }
+.aiMarketTelemetry > div { min-width:0; padding:12px 14px; border-right:1px solid rgba(255,255,255,.07); }
+.aiMarketTelemetry > div:last-child { border-right:0; }
+.aiMarketTelemetry span { display:block; color:#7188a9; font-size:7px; font-weight:800; }
+.aiMarketTelemetry strong { display:block; margin-top:4px; color:#f3f7fd; font-size:12px; }
+.aiMarketTelemetry strong small { margin-left:3px; color:#8196b3; font-size:7px; }
+.aiMarketTelemetry > div > small { display:block; margin-top:3px; color:#637997; font-size:7px; }
+.aiMarketColumns { display:grid; grid-template-columns:1.05fr .8fr 1.2fr; gap:12px; padding:8px 15px; border-bottom:1px solid rgba(255,255,255,.07); color:#617897; font-size:7px; font-weight:900; letter-spacing:.04em; }
+.aiMarketLiveList { display:grid; }
+.aiMarketLiveRow { position:relative; display:grid; grid-template-columns:1.05fr .8fr 1.2fr; align-items:center; gap:12px; min-width:0; padding:11px 15px; border-bottom:1px solid rgba(255,255,255,.07); }
+.aiMarketLiveRow::before { content:""; position:absolute; left:0; top:0; bottom:0; width:2px; background:#5d789d; }
+.aiMarketLiveRow[data-tone='up']::before { background:#44c49a; }
+.aiMarketLiveRow[data-tone='down']::before { background:#e66d78; }
+.aiMarketLiveRow:last-child { border-bottom:0; }
+.aiMarketAsset,.aiMarketDirection,.aiMarketState { min-width:0; }
+.aiMarketAsset { display:grid; grid-template-columns:30px minmax(0,1fr); align-items:center; gap:9px; }
+.aiMarketCoinMark,.aiMarketStockMark { width:28px; height:28px; display:grid; place-items:center; border:1px solid rgba(132,171,229,.18); background:#122641; color:#77a8f7; font-size:10px; font-weight:900; }
+.aiMarketStockMark { color:#91a9c8; }
+.aiMarketAsset strong,.aiMarketDirection strong,.aiMarketState strong { display:block; color:#eef4fb; font-size:9px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.aiMarketAsset small,.aiMarketDirection small,.aiMarketState small { display:block; margin-top:3px; color:#7186a4; font-size:7px; line-height:1.35; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.aiMarketDirection { display:flex; align-items:center; gap:7px; }
+.aiMarketDirection > i { width:7px; height:7px; flex:0 0 7px; border:1px solid #7c8da3; transform:rotate(45deg); }
+.aiMarketLiveRow[data-tone='up'] .aiMarketDirection > i { border-color:#4ed3a8; background:rgba(78,211,168,.14); }
+.aiMarketLiveRow[data-tone='down'] .aiMarketDirection > i { border-color:#ef7d86; background:rgba(239,125,134,.12); }
+.aiMarketLiveRow[data-tone='up'] .aiMarketDirection strong { color:#6fe0ba; }
+.aiMarketLiveRow[data-tone='down'] .aiMarketDirection strong { color:#f28d95; }
+.aiMarketState { padding-left:12px; border-left:1px solid rgba(255,255,255,.07); }
+.aiMarketState strong { color:#dce9fb; }
+.aiMarketHistoryHead { padding:15px 16px 11px; display:flex; align-items:flex-end; justify-content:space-between; gap:14px; border-top:1px solid rgba(255,255,255,.10); background:#0d1a2d; }
+.aiMarketHistoryHead > div { min-width:0; }
+.aiMarketHistoryHead > div > strong { display:block; margin-top:4px; color:#f0f5fb; font-size:13px; }
+.aiMarketHistoryHead > div > small { display:block; margin-top:4px; color:#6f83a0; font-size:7px; line-height:1.45; }
+.aiMarketHistoryHead > b { flex:0 0 auto; color:#76a7f4; font-size:18px; letter-spacing:-.04em; }
+.aiMarketHistoryHead > b small { margin-left:2px; color:#657b99; font-size:8px; }
+.aiMarketHistoryList { display:grid; background:#0c182a; }
+.aiMarketHistoryRow { display:grid; grid-template-columns:55px .75fr .9fr 1.25fr; align-items:center; gap:10px; padding:10px 14px; border-top:1px solid rgba(255,255,255,.055); min-width:0; }
+.aiMarketHistoryTime,.aiMarketHistoryAsset,.aiMarketHistoryChange,.aiMarketHistoryAction { min-width:0; }
+.aiMarketHistoryTime strong,.aiMarketHistoryAsset strong,.aiMarketHistoryAction strong { display:block; color:#dce8f8; font-size:8px; }
+.aiMarketHistoryTime small,.aiMarketHistoryAsset small,.aiMarketHistoryAction small { display:block; margin-top:2px; color:#667b98; font-size:7px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.aiMarketHistoryChange { display:flex; align-items:center; gap:5px; color:#6f82a0; font-size:7px; white-space:nowrap; overflow:hidden; }
+.aiMarketHistoryChange span,.aiMarketHistoryChange strong { overflow:hidden; text-overflow:ellipsis; }
+.aiMarketHistoryChange strong { color:#a9c3e8; font-size:8px; }
+.aiMarketHistoryChange i { color:#506988; font-style:normal; }
+.aiMarketHistoryRow[data-tone='up'] .aiMarketHistoryAction strong { color:#6fd9b5; }
+.aiMarketHistoryRow[data-tone='down'] .aiMarketHistoryAction strong { color:#ed8991; }
+.aiMarketScanner .aiTradingPager { border-top:1px solid rgba(255,255,255,.08); background:#0e1b2f; }
+.aiMarketScanner .aiTradingPager button { border-color:rgba(255,255,255,.10); background:#101f35; color:#8297b5; }
+.aiMarketScanner .aiTradingPager button:hover:not(:disabled),.aiMarketScanner .aiTradingPageActive { border-color:#4e83d8 !important; background:#17345e !important; color:#a8c9ff !important; }
+.aiMarketFootnote { padding:10px 15px 12px; border-top:1px solid rgba(255,255,255,.07); color:#607693; font-size:7px; line-height:1.5; }
+@media (max-width:620px) {
+  .aiMarketTelemetry { grid-template-columns:1.25fr repeat(3,.75fr); }
+  .aiMarketTelemetry > div { padding:10px 9px; }
+  .aiMarketColumns { display:none; }
+  .aiMarketLiveRow { grid-template-columns:1fr 1fr; gap:8px 10px; padding:11px 12px; }
+  .aiMarketAsset { grid-column:1; }
+  .aiMarketDirection { grid-column:2; }
+  .aiMarketState { grid-column:1 / -1; padding:8px 0 0 39px; border-left:0; border-top:1px solid rgba(255,255,255,.055); }
+  .aiMarketHistoryRow { grid-template-columns:46px .85fr 1.2fr; gap:8px; padding:9px 11px; }
+  .aiMarketHistoryAction { grid-column:2 / -1; padding-left:0; }
+}
+@media (max-width:420px) {
+  .aiMarketScannerHead { padding:15px 13px; }
+  .aiMarketScannerHead strong { font-size:14px; }
+  .aiMarketScannerHead small { max-width:230px; }
+  .aiMarketTelemetry { grid-template-columns:repeat(2,1fr); }
+  .aiMarketTelemetry > div { border-bottom:1px solid rgba(255,255,255,.06); }
+  .aiMarketTelemetry > div:nth-child(2) { border-right:0; }
+  .aiMarketTelemetry > div:nth-child(3),.aiMarketTelemetry > div:nth-child(4) { border-bottom:0; }
+  .aiMarketHistoryHead { align-items:flex-start; }
+}
+@media (prefers-reduced-motion: reduce) { .aiMarketPulse i { animation:none; } }

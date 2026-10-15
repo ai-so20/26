@@ -501,37 +501,173 @@ function EventLive({ profile, autoEvents, attendanceStatus, attendanceWorking, e
 
 const aiTradingAssets = [
   { symbol: 'BTC/USD', name: 'Bitcoin', market: 'COIN' },
-  { symbol: 'NVDA', name: 'NVIDIA', market: 'STOCK' },
   { symbol: 'ETH/USD', name: 'Ethereum', market: 'COIN' },
-  { symbol: '005930', name: '삼성전자', market: 'STOCK' },
   { symbol: 'SOL/USD', name: 'Solana', market: 'COIN' },
-  { symbol: 'AAPL', name: 'Apple', market: 'STOCK' },
   { symbol: 'XRP/USD', name: 'XRP', market: 'COIN' },
-  { symbol: '000660', name: 'SK하이닉스', market: 'STOCK' },
+  { symbol: 'AAPL', name: 'Apple', market: 'STOCK' },
+  { symbol: 'NVDA', name: 'NVIDIA', market: 'STOCK' },
+  { symbol: 'MSFT', name: 'Microsoft', market: 'STOCK' },
+  { symbol: 'TSLA', name: 'Tesla', market: 'STOCK' },
 ];
-const aiTradingSignals = [
-  ['상승세 감지', 'AI 판단 매수 신청 완료'],
-  ['조건 탐색', '진입 구간 탐색 중'],
-  ['매수 조건 충족', '매수 신청 완료'],
-  ['보유 구간 관리', '수익 구간 모니터링'],
-  ['목표 구간 감지', '매도 신청 완료'],
-  ['체결 결과 반영', '재분석 진행'],
-];
-function buildAiTradingRows(stepSeed, count = 100) {
+
+function aiMarketUnit(seed) {
+  return (aiProcessHash(seed) % 10000) / 9999;
+}
+
+function aiMarketDirection(seed, bullishBias = false) {
+  const value = aiMarketUnit(seed);
+  if (bullishBias) {
+    if (value < .16) return { key: 'down', label: '하락 흐름', tone: 'down' };
+    if (value < .36) return { key: 'flat', label: '횡보', tone: 'flat' };
+    if (value < .78) return { key: 'up', label: '상승 흐름', tone: 'up' };
+    return { key: 'strong-up', label: '강한 상승', tone: 'up' };
+  }
+  if (value < .16) return { key: 'strong-down', label: '강한 하락', tone: 'down' };
+  if (value < .38) return { key: 'down', label: '하락 흐름', tone: 'down' };
+  if (value < .62) return { key: 'flat', label: '횡보', tone: 'flat' };
+  if (value < .86) return { key: 'up', label: '상승 흐름', tone: 'up' };
+  return { key: 'strong-up', label: '강한 상승', tone: 'up' };
+}
+
+function aiMarketStateAt(asset, stepSeed) {
+  const step = Math.max(0, Math.floor(Number(stepSeed || 0)));
+  const base = aiProcessHash(asset.symbol);
+  const cycleLength = 20 + (base % 9);
+  const offset = base % cycleLength;
+  const shifted = step + offset;
+  const cycle = Math.floor(shifted / cycleLength);
+  const pos = shifted % cycleLength;
+  const cycleBias = aiMarketUnit(`${asset.symbol}-${cycle}-bias`);
+  const tradeCycle = cycleBias >= .38;
+  const bullishCycle = cycleBias >= .56;
+  const exitRisk = aiMarketUnit(`${asset.symbol}-${cycle}-exit`) < .24;
+  let phase = 'scan';
+  let label = '탐색 중';
+  let action = '시장 구조 · 변동성 동시 분석';
+  let direction = aiMarketDirection(`${asset.symbol}-${cycle}-scan`);
+
+  if (pos < 3) {
+    phase = 'scan';
+    label = '탐색 중';
+    direction = aiMarketDirection(`${asset.symbol}-${cycle}-scan`);
+    action = direction.tone === 'down' ? '하락 구간 감지 · 위험도 분석' : '시장 구조 · 변동성 동시 분석';
+  } else if (pos < 7) {
+    phase = 'watch';
+    label = '진입 관찰';
+    direction = tradeCycle
+      ? aiMarketDirection(`${asset.symbol}-${cycle}-watch`, bullishCycle)
+      : { key: cycleBias < .18 ? 'strong-down' : 'down', label: cycleBias < .18 ? '강한 하락' : '하락 흐름', tone: 'down' };
+    action = direction.tone === 'down' ? '하락세 감지 · 진입 보류' : direction.tone === 'up' ? '진입 조건 확인 중' : '방향성 확인 중';
+  } else if (!tradeCycle) {
+    if (pos < cycleLength - 3) {
+      phase = 'watch';
+      label = '진입 보류';
+      direction = { key: cycleBias < .18 ? 'strong-down' : 'down', label: cycleBias < .18 ? '강한 하락' : '하락 흐름', tone: 'down' };
+      action = '하락세 지속 · 신규 진입 제외';
+    } else {
+      phase = 'cooldown';
+      label = '재탐색 대기';
+      direction = aiMarketDirection(`${asset.symbol}-${cycle}-cooldown`);
+      action = '조건 미충족 · 다음 탐색 주기 준비';
+    }
+  } else if (pos < 9) {
+    phase = 'buy';
+    label = '매수 진행';
+    direction = bullishCycle
+      ? { key: 'strong-up', label: '강한 상승', tone: 'up' }
+      : { key: 'up', label: '상승 전환', tone: 'up' };
+    action = '진입 조건 충족 · 매수 처리 중';
+  } else if (pos < cycleLength - 4) {
+    phase = 'hold';
+    label = '보유 관리';
+    const holdSegment = Math.floor((pos - 9) / 3);
+    direction = aiMarketDirection(`${asset.symbol}-${cycle}-hold-${holdSegment}`, true);
+    action = direction.tone === 'down'
+      ? '하락 전환 감지 · 리스크 재평가'
+      : direction.tone === 'up'
+        ? '수익 구간 추적 · 보유 유지'
+        : '변동성 관리 · 보유 유지';
+  } else if (pos < cycleLength - 2) {
+    phase = 'sell';
+    label = '매도 진행';
+    direction = exitRisk
+      ? { key: 'down', label: '하락 전환', tone: 'down' }
+      : { key: 'up', label: '목표 구간', tone: 'up' };
+    action = exitRisk ? '하락 전환 대응 · 매도 처리 중' : '목표 구간 도달 · 매도 처리 중';
+  } else {
+    phase = 'cooldown';
+    label = '재탐색 대기';
+    direction = aiMarketDirection(`${asset.symbol}-${cycle}-cooldown`);
+    action = '처리 결과 반영 · 다음 탐색 준비';
+  }
+
+  return { ...asset, phase, label, action, direction, cycle, cycleLength, pos };
+}
+
+function buildAiMarketStates(stepSeed) {
+  return aiTradingAssets.map((asset) => aiMarketStateAt(asset, stepSeed));
+}
+
+function buildAiMarketHistory(stepSeed, startedAt, count = 100) {
   const latestStep = Math.max(1, Math.floor(Number(stepSeed || 1)));
-  const recordCount = Math.min(100, Math.max(1, Math.floor(Number(count || 1))));
-  return Array.from({ length: recordCount }, (_, index) => {
-    const recordStep = Math.max(1, latestStep - index);
-    const asset = aiTradingAssets[(recordStep * 3 + index) % aiTradingAssets.length];
-    const signal = aiTradingSignals[(recordStep + index) % aiTradingSignals.length];
-    return { id: `trade-${recordStep}-${index}`, recordStep, ...asset, signal: signal[0], action: signal[1] };
-  });
+  const targetCount = Math.min(100, Math.max(1, Math.floor(Number(count || 100))));
+  const startedMs = startedAt ? new Date(startedAt).getTime() : NaN;
+  const rows = [];
+  const maxLookback = Math.min(latestStep, 720);
+  for (let step = latestStep; step >= Math.max(1, latestStep - maxLookback) && rows.length < targetCount; step -= 1) {
+    for (const asset of aiTradingAssets) {
+      if (rows.length >= targetCount) break;
+      const current = aiMarketStateAt(asset, step);
+      const previous = aiMarketStateAt(asset, step - 1);
+      const changed = current.phase !== previous.phase || current.direction.key !== previous.direction.key;
+      if (!changed) continue;
+      rows.push({
+        id: `${asset.symbol}-${step}-${current.phase}-${current.direction.key}`,
+        step,
+        at: Number.isFinite(startedMs) ? new Date(startedMs + step * AI_PROCESS_STEP_MINUTES * 60 * 1000).toISOString() : null,
+        ...current,
+        previousLabel: previous.label,
+      });
+    }
+  }
+  return rows;
+}
+
+function formatAiMarketPrice(value) {
+  const price = Number(value);
+  if (!Number.isFinite(price) || price <= 0) return '—';
+  if (price < 1) return `$${price.toFixed(4)}`;
+  if (price < 100) return `$${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  return `$${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
 
 function AiLive({ profile, userId, row, tick, error }) {
   const [tradingOpen, setTradingOpen] = useState(true);
   const [historyOpen, setHistoryOpen] = useState(true);
   const [tradingPage, setTradingPage] = useState(1);
+  const [marketFeed, setMarketFeed] = useState({ quotes: [], updatedAt: null, stale: false, loading: true, error: '' });
+
+  useEffect(() => {
+    if (profile?.role === 'admin') return undefined;
+    let active = true;
+    const loadMarketFeed = async () => {
+      try {
+        const response = await fetch('/api/market-sim', { cache: 'no-store' });
+        const data = await response.json().catch(() => null);
+        if (!active) return;
+        if (!response.ok || !data?.success) {
+          setMarketFeed((current) => ({ ...current, loading: false, error: data?.error || '시장가격 연결 대기 중' }));
+          return;
+        }
+        setMarketFeed({ quotes: Array.isArray(data.quotes) ? data.quotes : [], updatedAt: data.updatedAt || null, stale: Boolean(data.stale), loading: false, error: '' });
+      } catch {
+        if (active) setMarketFeed((current) => ({ ...current, loading: false, error: '시장가격 연결 대기 중' }));
+      }
+    };
+    void loadMarketFeed();
+    const timer = window.setInterval(loadMarketFeed, 60000);
+    return () => { active = false; window.clearInterval(timer); };
+  }, [profile?.role]);
   if (profile?.role === 'admin') {
     return (
       <>
@@ -600,11 +736,14 @@ function AiLive({ profile, userId, row, tick, error }) {
     return { step: item.step, amount: item.amount, delta, stage: stageLabels[stageIndex] };
   }).reverse();
   const areaPoints = snapshot.chartPoints ? `18,200 ${snapshot.chartPoints} 742,200` : '';
-  const tradingRecordCount = Math.min(100, Math.max(1, Number(snapshot.elapsedSteps || 1)));
-  const tradingRowsAll = buildAiTradingRows(snapshot.elapsedSteps, tradingRecordCount);
-  const tradingTotalPages = Math.max(1, Math.ceil(tradingRowsAll.length / 10));
+  const marketStates = buildAiMarketStates(snapshot.elapsedSteps);
+  const marketHistoryAll = buildAiMarketHistory(snapshot.elapsedSteps, processRow.started_at, 100);
+  const tradingTotalPages = Math.max(1, Math.ceil(marketHistoryAll.length / 10));
   const tradingPageSafe = Math.min(Math.max(1, tradingPage), tradingTotalPages);
-  const tradingRows = tradingRowsAll.slice((tradingPageSafe - 1) * 10, tradingPageSafe * 10);
+  const tradingRows = marketHistoryAll.slice((tradingPageSafe - 1) * 10, tradingPageSafe * 10);
+  const quoteMap = Object.fromEntries((marketFeed.quotes || []).map((quote) => [quote.symbol, quote]));
+  const marketCounts = marketStates.reduce((acc, item) => { acc[item.phase] = (acc[item.phase] || 0) + 1; return acc; }, {});
+  const marketUpdatedText = marketFeed.updatedAt ? formatEventTime(marketFeed.updatedAt) : '--:--';
 
   return (
     <>
@@ -656,19 +795,64 @@ function AiLive({ profile, userId, row, tick, error }) {
         </div>
       </section>
 
-      <section className={styles.tradingCard}>
-        <button type="button" className={styles.aiFoldHead} onClick={() => setTradingOpen((value) => !value)} aria-expanded={tradingOpen}>
-          <div><span>AI TRADING</span><strong>주식 · 코인 트레이딩 현황</strong></div>
-          <div className={styles.aiFoldMeta}><b>{tradingRecordCount} / 100</b><i>{tradingOpen ? '접기' : '펼치기'}</i></div>
+      <section className={styles.aiMarketScanner}>
+        <button type="button" className={styles.aiMarketScannerHead} onClick={() => setTradingOpen((value) => !value)} aria-expanded={tradingOpen}>
+          <div>
+            <span>AI MARKET SCANNER</span>
+            <strong>실시간 시장 탐색판</strong>
+            <small>8개 자산을 동시에 추적하며 자산별 판단 상태를 유지합니다.</small>
+          </div>
+          <div className={styles.aiMarketScannerHeadRight}>
+            <b className={styles.aiMarketPulse}><i /> LIVE SCAN</b>
+            <em>{tradingOpen ? '접기' : '펼치기'}</em>
+          </div>
         </button>
         {tradingOpen && (
           <>
-            <div className={styles.tradingList}>{tradingRows.map((item) => <div key={item.id} className={styles.tradingRow}><span className={item.market === 'COIN' ? styles.tradingCoin : styles.tradingStock}>{item.market === 'COIN' ? '₿' : '◈'}</span><div className={styles.tradingAsset}><strong>{item.name}</strong><small>{item.symbol} · {item.market} · #{String(item.recordStep).padStart(3, '0')}</small></div><div className={styles.tradingAction}><strong>{item.signal}</strong><span>{item.action}</span></div></div>)}</div>
+            <div className={styles.aiMarketTelemetry}>
+              <div><span>시장가격</span><strong>{marketFeed.loading ? '연결 중' : marketFeed.error ? '대기' : marketFeed.stale ? '최근 정상값' : '연결됨'}</strong><small>{marketUpdatedText} · 5분 갱신</small></div>
+              <div><span>탐색·관찰</span><strong>{Number(marketCounts.scan || 0) + Number(marketCounts.watch || 0)}<small>자산</small></strong></div>
+              <div><span>매수·보유</span><strong>{Number(marketCounts.buy || 0) + Number(marketCounts.hold || 0)}<small>자산</small></strong></div>
+              <div><span>매도·대기</span><strong>{Number(marketCounts.sell || 0) + Number(marketCounts.cooldown || 0)}<small>자산</small></strong></div>
+            </div>
+
+            <div className={styles.aiMarketColumns} aria-hidden="true"><span>자산 / 현재가</span><span>방향 감지</span><span>AI 상태</span></div>
+            <div className={styles.aiMarketLiveList}>
+              {marketStates.map((item) => {
+                const quote = quoteMap[item.symbol];
+                return (
+                  <div key={item.symbol} className={styles.aiMarketLiveRow} data-tone={item.direction.tone} data-phase={item.phase}>
+                    <div className={styles.aiMarketAsset}>
+                      <span className={item.market === 'COIN' ? styles.aiMarketCoinMark : styles.aiMarketStockMark}>{item.market === 'COIN' ? '₿' : 'ST'}</span>
+                      <div><strong>{item.name}</strong><small>{item.symbol} · {formatAiMarketPrice(quote?.price)}</small></div>
+                    </div>
+                    <div className={styles.aiMarketDirection}><i /><div><strong>{item.direction.label}</strong><small>{item.direction.tone === 'down' ? '리스크 우선 분석' : item.direction.tone === 'up' ? '기회 구간 추적' : '방향성 확인'}</small></div></div>
+                    <div className={styles.aiMarketState}><strong>{item.label}</strong><small>{item.action}</small></div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className={styles.aiMarketHistoryHead}>
+              <div><span>STATE CHANGE LOG</span><strong>상태 변화 기록</strong><small>같은 자산은 매수 후 보유·관리·매도 단계를 거친 뒤 다시 탐색합니다.</small></div>
+              <b>{marketHistoryAll.length}<small>/100</small></b>
+            </div>
+            <div className={styles.aiMarketHistoryList}>
+              {tradingRows.length === 0 ? <div className={styles.emptyRow}>아직 상태 변화 기록이 없습니다.</div> : tradingRows.map((item) => (
+                <div key={item.id} className={styles.aiMarketHistoryRow} data-tone={item.direction.tone}>
+                  <div className={styles.aiMarketHistoryTime}><strong>{formatEventTime(item.at)}</strong><small>#{String(item.step).padStart(3, '0')}</small></div>
+                  <div className={styles.aiMarketHistoryAsset}><strong>{item.name}</strong><small>{item.symbol} · {item.market}</small></div>
+                  <div className={styles.aiMarketHistoryChange}><span>{item.previousLabel}</span><i>→</i><strong>{item.label}</strong></div>
+                  <div className={styles.aiMarketHistoryAction}><strong>{item.direction.label}</strong><small>{item.action}</small></div>
+                </div>
+              ))}
+            </div>
             <div className={styles.aiTradingPager}>
               <button type="button" disabled={tradingPageSafe <= 1} onClick={() => setTradingPage((page) => Math.max(1, page - 1))}>‹</button>
               <div>{Array.from({ length: tradingTotalPages }).map((_, index) => { const page = index + 1; return <button key={page} type="button" className={page === tradingPageSafe ? styles.aiTradingPageActive : ''} onClick={() => setTradingPage(page)}>{page}</button>; })}</div>
               <button type="button" disabled={tradingPageSafe >= tradingTotalPages} onClick={() => setTradingPage((page) => Math.min(tradingTotalPages, page + 1))}>›</button>
             </div>
+            <div className={styles.aiMarketFootnote}>시장가격 데이터와 AI PROCESS 내부 판단 상태를 함께 표시합니다. 상태는 3분 반영 주기마다 자산별로 독립 갱신됩니다.</div>
           </>
         )}
       </section>
