@@ -123,10 +123,10 @@ function MessageContent({ content, onOpenAi }) {
   return <PlainText content={raw} />;
 }
 
-export default function RewardLiveClient() {
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
+export default function RewardLiveClient({ embedded = false, embeddedUser = null, embeddedProfile = null, onNavigateTab = null }) {
+  const [loading, setLoading] = useState(!(embedded && embeddedUser && embeddedProfile));
+  const [user, setUser] = useState(embeddedUser || null);
+  const [profile, setProfile] = useState(embeddedProfile || null);
   const [chatId, setChatId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [messageText, setMessageText] = useState('');
@@ -142,6 +142,14 @@ export default function RewardLiveClient() {
     let mounted = true;
 
     const boot = async () => {
+      if (embedded && embeddedUser && embeddedProfile) {
+        setUser(embeddedUser);
+        setProfile(embeddedProfile);
+        setLoading(false);
+        if (embeddedProfile.role !== 'admin') void openPrivateChat(embeddedUser.id);
+        return;
+      }
+
       if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
         try {
           const registration = await navigator.serviceWorker.register('/sw.js?v=20261006-5', { scope: '/', updateViaCache: 'none' });
@@ -177,7 +185,7 @@ export default function RewardLiveClient() {
 
     void boot();
     return () => { mounted = false; };
-  }, []);
+  }, [embedded, embeddedUser?.id, embeddedProfile?.id]);
 
   useEffect(() => {
     if (!chatId || !user?.id) return;
@@ -329,6 +337,10 @@ export default function RewardLiveClient() {
 
   function goTab(tab) {
     try { window.sessionStorage.setItem('vip-active-tab', tab); } catch {}
+    if (embedded && typeof onNavigateTab === 'function') {
+      onNavigateTab(tab);
+      return;
+    }
     window.location.assign('/v2');
   }
 
@@ -352,8 +364,8 @@ export default function RewardLiveClient() {
   }
 
   return (
-    <main className={styles.canvas}>
-      <section className={styles.appShell}>
+    <main className={`${styles.canvas} ${embedded ? styles.rewardEmbeddedCanvas : ''}`}>
+      <section className={`${styles.appShell} ${embedded ? styles.rewardEmbeddedShell : ''}`}>
         <header className={styles.header}>
           <div className={styles.brandBlock}><span className={styles.brandEyebrow}>PRIVATE MEMBER</span><strong className={styles.brand}>VIP LOUNGE</strong></div>
           <div className={styles.headerActions}>
@@ -380,38 +392,6 @@ export default function RewardLiveClient() {
             <section className={styles.infoCard}><span className={styles.infoIcon}>i</span><div><strong>관리자 상품 지급</strong></div></section>
           ) : (
             <>
-              <section className={styles.rewardWelcome}>
-                <div className={styles.rewardWelcomeTop}>
-                  <span>VIP EVENT BENEFITS</span>
-                  <strong>{String(profile?.nickname || profile?.display_name || profile?.name || 'VIP 회원')}님, 환영합니다.</strong>
-                  <p>VIP 이벤트 혜택과 당첨 상품 지급 내역을 상품지급센터에서 확인할 수 있습니다.</p>
-                </div>
-
-                <div className={styles.rewardBenefitPanel}>
-                  <strong>VIP 이벤트 참여 안내</strong>
-                  <div className={styles.rewardBenefitRow}>
-                    <span className={styles.rewardBenefitIcon}>24</span>
-                    <div><b>시간별 이벤트 · 매일 24회</b><p>매일 00:00 ~ 24:00, 총 하루 24회차 이벤트가 진행됩니다. 회차당 1회 참여할 수 있으며 당첨 시 3,000원 ~ 300,000원 상당 랜덤 기프티콘이 지급됩니다.</p></div>
-                  </div>
-                  <div className={styles.rewardBenefitRow}>
-                    <span className={styles.rewardBenefitIcon}>30</span>
-                    <div><b>출석 이벤트 · 누적 30회</b><p>하루 1회 출석할 수 있으며, 누적 30회 출석 달성 시 3,000원 ~ 500,000원 상당 랜덤 기프티콘 혜택이 제공됩니다. 연속 출석이 아니어도 누적 횟수로 인정됩니다.</p></div>
-                  </div>
-                  <p className={styles.rewardBenefitFoot}>당첨 상품과 출석 달성 보상은 이곳 상품지급센터에서 바로 안내·지급됩니다.</p>
-                </div>
-
-                <div className={styles.rewardQuickLinks}>
-                  <button type="button" onClick={() => goTab('event')}><span>EVENT</span><strong>시간별 이벤트</strong></button>
-                  <button type="button" onClick={() => goTab('event')}><span>CHECK-IN</span><strong>출석 이벤트</strong></button>
-                </div>
-
-                <div className={styles.rewardAlert}>
-                  <span className={styles.rewardAlertBell} aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
-                  </span>
-                  <div><strong>이벤트 당첨 알림</strong><p>상단 알림을 허용하면 이벤트 당첨 및 상품 지급 안내를 바로 확인할 수 있습니다.</p></div>
-                </div>
-              </section>
 
               <section className={styles.summary}>
                 <div><span>미확인 안내</span><strong>{unreadAtOpen}<small>건</small></strong></div>
@@ -426,6 +406,38 @@ export default function RewardLiveClient() {
                 </div>
 
                 <div className={styles.messageList} ref={messageBoxRef}>
+                  <section className={`${styles.rewardWelcome} ${styles.rewardWelcomeInFeed}`}>
+                                  <div className={styles.rewardWelcomeTop}>
+                                    <span>VIP EVENT BENEFITS</span>
+                                    <strong>{String(profile?.nickname || profile?.display_name || profile?.name || 'VIP 회원')}님, 환영합니다.</strong>
+                                    <p>VIP 이벤트 혜택과 당첨 상품 지급 내역을 상품지급센터에서 확인할 수 있습니다.</p>
+                                  </div>
+
+                                  <div className={styles.rewardBenefitPanel}>
+                                    <strong>VIP 이벤트 참여 안내</strong>
+                                    <div className={styles.rewardBenefitRow}>
+                                      <span className={styles.rewardBenefitIcon}>24</span>
+                                      <div><b>시간별 이벤트 · 매일 24회</b><p>매일 00:00 ~ 24:00, 총 하루 24회차 이벤트가 진행됩니다. 회차당 1회 참여할 수 있으며 당첨 시 3,000원 ~ 300,000원 상당 랜덤 기프티콘이 지급됩니다.</p></div>
+                                    </div>
+                                    <div className={styles.rewardBenefitRow}>
+                                      <span className={styles.rewardBenefitIcon}>30</span>
+                                      <div><b>출석 이벤트 · 누적 30회</b><p>하루 1회 출석할 수 있으며, 누적 30회 출석 달성 시 3,000원 ~ 500,000원 상당 랜덤 기프티콘 혜택이 제공됩니다. 연속 출석이 아니어도 누적 횟수로 인정됩니다.</p></div>
+                                    </div>
+                                    <p className={styles.rewardBenefitFoot}>당첨 상품과 출석 달성 보상은 이곳 상품지급센터에서 바로 안내·지급됩니다.</p>
+                                  </div>
+
+                                  <div className={styles.rewardQuickLinks}>
+                                    <button type="button" onClick={() => goTab('event')}><span>EVENT</span><strong>시간별 이벤트</strong></button>
+                                    <button type="button" onClick={() => goTab('event')}><span>CHECK-IN</span><strong>출석 이벤트</strong></button>
+                                  </div>
+
+                                  <div className={styles.rewardAlert}>
+                                    <span className={styles.rewardAlertBell} aria-hidden="true">
+                                      <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
+                                    </span>
+                                    <div><strong>이벤트 당첨 알림</strong><p>상단 알림을 허용하면 이벤트 당첨 및 상품 지급 안내를 바로 확인할 수 있습니다.</p></div>
+                                  </div>
+                                </section>
                   {messages.length === 0 ? (
                     <div className={styles.empty}>아직 도착한 지급 안내가 없습니다.</div>
                   ) : messages.map((item) => {

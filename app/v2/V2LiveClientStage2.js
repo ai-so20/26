@@ -6,6 +6,7 @@ import baseStyles from './v2.module.css';
 import extraStyles from './v2-extra.module.css';
 import liveStyles from './v2-live.module.css';
 import aiStyles from './v2-ai-live.module.css';
+import RewardLiveClient from './reward/RewardLiveClient';
 
 const styles = { ...baseStyles, ...extraStyles, ...liveStyles, ...aiStyles };
 const AI_PROCESS_STEP_MINUTES = 3;
@@ -1196,7 +1197,7 @@ export default function V2LiveClientStage2() {
         <div className={styles.content}>
           {activeTab === 'event' && <EventLive profile={profile} autoEvents={autoEvents} attendanceStatus={attendanceStatus} attendanceWorking={attendanceWorking} eventAnswers={eventAnswers} eventWorkingId={eventWorkingId} rouletteSpins={rouletteSpins} eventSuccess={eventSuccess} notice={notice} mode={eventMode} setMode={setEventMode} onAttendance={checkDailyAttendance} onAnswer={setEventAnswer} onJoin={joinAutoEvent} />}
           {activeTab === 'ai' && <AiLive profile={profile} userId={user.id} row={aiMemberProcess} tick={aiProcessTick} error={aiLoadError} />}
-          {activeTab === 'private' && <PrivatePreview />}
+          {activeTab === 'private' && <RewardLiveClient embedded embeddedUser={user} embeddedProfile={profile} onNavigateTab={(tab) => { setActiveTab(tab); try { window.sessionStorage.setItem('vip-active-tab', tab); } catch {} }} />}
         </div>
       </section>
     </main>

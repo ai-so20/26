@@ -311,3 +311,34 @@
   .rewardQuickLinks { padding:0 11px 11px; gap:7px; }
   .rewardAlert { margin:0 11px 11px; }
 }
+
+
+/* REWARD INLINE SPA + VISUAL SEPARATION */
+.rewardEmbeddedCanvas { min-height: 0; background: transparent; }
+.rewardEmbeddedShell { max-width: none; min-height: 0; padding: 0; border: 0; background: transparent; box-shadow: none; }
+.rewardEmbeddedShell > header,
+.rewardEmbeddedShell > nav { display: none !important; }
+.rewardEmbeddedShell > .content { padding: 0 !important; }
+.rewardWelcomeInFeed { margin: 0 0 18px; border: 1px solid #d7e0ec; background: #fff; box-shadow: none; }
+.rewardWelcomeInFeed .rewardWelcomeTop { border-bottom: 3px solid #17345f; background: #fff; }
+.rewardWelcomeInFeed .rewardBenefitPanel { margin: 0; border: 0; border-bottom: 1px solid #e3e8ef; background: #f4f7fb; }
+.rewardWelcomeInFeed .rewardBenefitRow + .rewardBenefitRow { padding-top: 13px; border-top: 1px solid #dfe6ef; }
+.rewardWelcomeInFeed .rewardQuickLinks { padding: 12px 14px; background: #fff; border-bottom: 1px solid #e4e9f0; }
+.rewardWelcomeInFeed .rewardQuickLinks button:first-child { border-left: 3px solid #2f6fed; }
+.rewardWelcomeInFeed .rewardQuickLinks button:last-child { border-left: 3px solid #16a085; }
+.rewardWelcomeInFeed .rewardAlert { margin: 0; border: 0; border-left: 4px solid #f0b429; background: #fff8e7; }
+.deliveryCard { border-radius: 8px; }
+.deliveryHead { background: #fff; border-bottom: 2px solid #172033; }
+.messageList { background: #f3f5f8; }
+.messageRowOther .bubble { border-left: 3px solid #2f6fed; border-radius: 4px 12px 12px 12px; }
+.messageRowMine .bubble { border-radius: 12px 4px 12px 12px; }
+.summary { border-radius: 8px; box-shadow: none; }
+@media (max-width: 520px) {
+  .rewardEmbeddedShell { padding: 0 !important; }
+  .rewardWelcomeInFeed { margin-bottom: 14px; }
+  .rewardWelcomeInFeed .rewardWelcomeTop > p,
+  .rewardWelcomeInFeed .rewardBenefitRow p,
+  .rewardWelcomeInFeed .rewardAlert p { font-size: 11.5px; line-height: 1.7; }
+  .rewardWelcomeInFeed .rewardBenefitRow b,
+  .rewardWelcomeInFeed .rewardAlert strong { font-size: 12px; }
+}
