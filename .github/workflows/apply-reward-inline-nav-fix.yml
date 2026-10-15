@@ -1,0 +1,39 @@
+name: Apply Reward Inline Navigation Fix
+
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-reward-inline-nav-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Apply reward inline navigation patch
+        run: python .github/scripts/apply-reward-inline-nav-fix.py
+      - name: Verify diff
+        run: git diff --check
+      - name: Install dependencies
+        run: npm ci
+      - name: Production build check
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_build_dummy
+          SUPABASE_SECRET_KEY: sb_secret_build_dummy
+          TWELVE_DATA_API_KEY: build_dummy
+        run: npm run build
+      - name: Commit and push
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app/v2/V2LiveClientStage2.js app/v2/page.js app/v2/reward/RewardLiveClient.js app/v2/reward/reward-live.module.css
+          git commit -m 'Inline reward center and remove navigation reloads' || exit 0
+          git push origin main
