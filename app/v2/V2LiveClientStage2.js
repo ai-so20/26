@@ -596,30 +596,43 @@ function AiLive({ profile, userId, row, tick, error }) {
     <>
       <PageHeading kicker="AI PROCESS" title="AI프로세스" status={status === 'running' ? '진행중' : '진행완료'} />
       {error && <div className={styles.noticeBox}>{error}</div>}
-      <section className={styles.balanceCard}>
-        <div className={styles.balanceTop}>
-          <div><span>현재 평가금액</span><strong>{Math.round(snapshot.totalAmount).toLocaleString('ko-KR')}<small>원</small></strong></div>
-          <span className={styles.processBadge}>{status === 'running' ? '● 진행중' : '✓ 진행완료'}</span>
+      <section className={styles.aiPart2Hero}>
+        <div className={styles.aiPart2Topline}>
+          <span>AI PROCESS · {status === 'running' ? 'RUNNING' : 'COMPLETE'}</span>
+          <b>{status === 'running' ? 'LIVE' : 'DONE'}</b>
         </div>
-        <div className={styles.balanceMeta}>
-          <div><span>투자금</span><strong>{aiKrw(snapshot.investment)}</strong></div>
-          <div><span>누적 수익</span><strong className={styles.positive}>+{aiKrw(snapshot.earnedProfit)}</strong></div>
-          <div><span>현재 수익률</span><strong className={styles.positive}>+{snapshot.currentReturn.toFixed(2)}%</strong></div>
+        <div className={styles.aiPart2Primary}>
+          <div>
+            <span>현재 평가금액</span>
+            <strong>{Math.round(snapshot.totalAmount).toLocaleString('ko-KR')}<em>원</em></strong>
+          </div>
+          <div className={styles.aiPart2Return}>
+            <span>누적 수익률</span>
+            <strong>+{snapshot.currentReturn.toFixed(2)}%</strong>
+          </div>
+        </div>
+        <div className={styles.aiPart2Bento}>
+          <div className={styles.aiPart2Investment}><span>투자금</span><strong>{aiKrw(snapshot.investment)}</strong></div>
+          <div className={styles.aiPart2Profit}><span>누적 수익</span><strong>+{aiKrw(snapshot.earnedProfit)}</strong></div>
+          <div className={styles.aiPart2Progress}>
+            <div><span>진행률</span><strong>{snapshot.progress.toFixed(2)}%</strong></div>
+            <i><b style={{ width: `${snapshot.progress}%` }} /></i>
+          </div>
+          <div className={styles.aiPart2Remain}><span>남은 시간</span><strong>{status === 'running' ? snapshot.remainingText : '완료'}</strong></div>
+          <div className={styles.aiPart2Duration}><span>설정 진행기간</span><strong>{aiProcessDurationLabel(processRow.duration_hours)}</strong></div>
         </div>
       </section>
 
       {status === 'completed' && <div className={styles.aiResultBar}><span>출금예정금액</span><strong>{aiKrw(snapshot.totalAmount)}</strong></div>}
 
-      <section className={styles.aiProgressCard}>
-        <div className={styles.aiProgressTop}><div><span className={styles.aiEyebrow}>PROCESS PROGRESS</span><h3>{status === 'completed' ? 'AI프로세스 진행이 완료되었습니다.' : 'AI프로세스가 진행 중입니다.'}</h3></div><span className={status === 'completed' ? styles.aiStatusComplete : styles.aiStatusPill}>{status === 'completed' ? 'COMPLETE' : 'ACTIVE'}</span></div>
-        <div className={styles.aiProgressTrack}><span style={{ width: `${snapshot.progress}%` }} /></div>
-        <div className={styles.aiProgressMeta}><span>진행률 {snapshot.progress.toFixed(2)}%</span><span>{snapshot.remainingText}</span></div>
-      </section>
-
-      <section className={styles.section}>
-        <div className={styles.sectionHead}><div><span>AI 진행 구조</span><strong>분석부터 재분석까지</strong></div></div>
-        <div className={styles.processRail}>
-          {stageLabels.map((label, index) => <div key={label} className={`${styles.processStep} ${index === activeStageIndex || status === 'completed' ? styles.processStepActive : ''}`}><span>{index + 1}</span><strong>{label}</strong><small>{index === activeStageIndex && status === 'running' ? '진행 중' : status === 'completed' ? '완료' : '대기'}</small></div>)}
+      <section className={styles.aiStageBoard}>
+        <div className={styles.aiStageHead}><span>PROCESS FLOW</span><strong>{status === 'completed' ? '진행 완료' : stageLabels[activeStageIndex]}</strong></div>
+        <div className={styles.aiStageTrack}>
+          {stageLabels.map((label, index) => {
+            const active = index === activeStageIndex && status === 'running';
+            const done = status === 'completed' || index < activeStageIndex;
+            return <div key={label} className={`${styles.aiStageItem} ${active ? styles.aiStageItemActive : ''} ${done ? styles.aiStageItemDone : ''}`}><i>{String(index + 1).padStart(2, '0')}</i><span>{label}</span><b>{active ? '진행 중' : done ? '완료' : '대기'}</b></div>;
+          })}
         </div>
       </section>
 

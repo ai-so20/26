@@ -315,3 +315,38 @@
 .aiPart1Flow b:not(:last-child)::after { content:""; position:absolute; top:7px; right:3px; width:8px; height:1px; background:#cbd5e2; }
 .aiPart1Flow i { display:block; margin-bottom:5px; color:#2f6fed; font-size:7px; font-style:normal; letter-spacing:.06em; }
 @media (max-width:420px){ .aiPart1Hero{padding:18px 16px;} .aiPart1Headline{grid-template-columns:1fr; gap:10px;} .aiPart1Headline p{text-align:left;} .aiPart1Facts{grid-template-columns:1fr 1fr;} .aiPart1Flow{padding:14px 12px;} .aiPart1Flow b{font-size:7px;padding-right:4px;} .aiPart1Flow b:not(:last-child)::after{right:1px;width:5px;} }
+
+
+/* AI PROCESS PART 2 - editorial data */
+.aiPart2Hero { margin-top:10px; padding:20px; overflow:hidden; border:1px solid #172b4d; background:#0d1b31; color:#fff; box-shadow:0 16px 34px rgba(13,27,49,.14); }
+.aiPart2Topline { display:flex; align-items:center; justify-content:space-between; gap:12px; color:#91a4bf; font-size:8px; font-weight:900; letter-spacing:.15em; }
+.aiPart2Topline b { padding:5px 8px; border:1px solid rgba(86,154,255,.35); background:rgba(47,111,237,.15); color:#87b5ff; font-size:8px; letter-spacing:.12em; }
+.aiPart2Primary { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; align-items:end; padding:25px 0 20px; border-bottom:1px solid rgba(255,255,255,.1); }
+.aiPart2Primary > div:first-child span,.aiPart2Return span,.aiPart2Bento span { display:block; color:#91a4bf; font-size:9px; font-weight:750; }
+.aiPart2Primary > div:first-child strong { display:block; margin-top:7px; font-size:34px; line-height:1; letter-spacing:-.055em; white-space:nowrap; }
+.aiPart2Primary > div:first-child em { margin-left:5px; color:#91a4bf; font-size:12px; font-style:normal; font-weight:700; letter-spacing:-.02em; }
+.aiPart2Return { text-align:right; }
+.aiPart2Return strong { display:block; margin-top:6px; color:#6ee7b7; font-size:24px; line-height:1; letter-spacing:-.04em; }
+.aiPart2Bento { display:grid; grid-template-columns:1.15fr .85fr; grid-template-areas:'investment profit' 'progress progress' 'remain duration'; gap:1px; margin-top:1px; background:rgba(255,255,255,.09); }
+.aiPart2Bento > div { min-width:0; padding:14px 13px; background:#101f37; }
+.aiPart2Bento strong { display:block; margin-top:6px; color:#f7f9fc; font-size:14px; letter-spacing:-.025em; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.aiPart2Investment { grid-area:investment; } .aiPart2Profit { grid-area:profit; } .aiPart2Progress { grid-area:progress; } .aiPart2Remain { grid-area:remain; } .aiPart2Duration { grid-area:duration; }
+.aiPart2Profit strong { color:#6ee7b7; }
+.aiPart2Progress > div { display:flex; align-items:end; justify-content:space-between; gap:12px; }
+.aiPart2Progress > div strong { margin:0; color:#8bb8ff; font-size:18px; }
+.aiPart2Progress > i { display:block; height:5px; margin-top:10px; overflow:hidden; background:#1e3150; }
+.aiPart2Progress > i b { display:block; height:100%; background:#4384f5; transition:width .25s ease; }
+.aiStageBoard { margin-top:10px; border-top:2px solid #172033; border-bottom:1px solid #dfe5ec; background:#fff; }
+.aiStageHead { display:flex; align-items:end; justify-content:space-between; gap:12px; padding:14px 2px 12px; }
+.aiStageHead span { color:#8b96a5; font-size:8px; font-weight:900; letter-spacing:.15em; }
+.aiStageHead strong { color:#172033; font-size:15px; letter-spacing:-.035em; }
+.aiStageTrack { display:grid; }
+.aiStageItem { position:relative; display:grid; grid-template-columns:38px minmax(0,1fr) auto; align-items:center; gap:10px; min-height:48px; border-top:1px solid #edf1f5; color:#7f8a99; }
+.aiStageItem i { color:#a0a9b6; font-size:9px; font-style:normal; font-weight:850; letter-spacing:.08em; }
+.aiStageItem span { color:#445166; font-size:11px; font-weight:850; }
+.aiStageItem b { color:#a0a9b6; font-size:8px; font-weight:800; }
+.aiStageItemActive { background:linear-gradient(90deg,#f1f6ff 0,#fff 72%); }
+.aiStageItemActive::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:#2f6fed; }
+.aiStageItemActive i,.aiStageItemActive span,.aiStageItemActive b { color:#2f6fed; }
+.aiStageItemDone i,.aiStageItemDone b { color:#16815f; }
+@media (max-width:420px) { .aiPart2Hero{padding:17px 15px;} .aiPart2Primary{gap:10px;} .aiPart2Primary > div:first-child strong{font-size:29px;} .aiPart2Return strong{font-size:20px;} .aiPart2Bento{grid-template-columns:1.1fr .9fr;} .aiStageItem{grid-template-columns:34px minmax(0,1fr) auto;} }
