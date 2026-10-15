@@ -1,0 +1,38 @@
+name: Apply 30-Day Attendance UI
+
+on:
+  push:
+    paths:
+      - .github/workflows/apply-attendance-30.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Apply attendance patch
+        run: python3 .github/scripts/apply_attendance_30.py
+      - name: Verify diff
+        run: git diff --check
+      - name: Install dependencies
+        run: npm ci
+      - name: Production build check
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: sb_publishable_build_dummy
+        run: npm run build
+      - name: Commit attendance patch
+        run: |
+          rm -f .github/workflows/apply-attendance-30.yml .github/scripts/apply_attendance_30.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/v2/V2LiveClientStage2.js app/v2/v2-live.module.css .github/workflows/apply-attendance-30.yml .github/scripts/apply_attendance_30.py
+          git commit -m "Change attendance cycle to 30 days with stamped calendar"
+          git push origin HEAD:main
