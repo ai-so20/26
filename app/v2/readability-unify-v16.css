@@ -1,0 +1,134 @@
+/* V16 — targeted readability + card-language unification.
+   Presentation only. No data, copy, pagination, state transitions, or calculations are changed. */
+
+/* 1) AI market scanner + state-change history: same card language. */
+[class*="aiMarketScanner"] [class*="aiMarketScannerHead"],
+.v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] {
+  min-height: 0 !important;
+  padding: 12px 14px !important;
+  border: 1px solid #d5dee9 !important;
+  background: #ffffff !important;
+  color: #172033 !important;
+  opacity: 1 !important;
+  box-shadow: 0 3px 10px rgba(25,39,61,.045) !important;
+}
+
+.v2AiMarketHistoryCard {
+  border: 1px solid #d5dee9 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 3px 10px rgba(25,39,61,.045) !important;
+}
+
+[class*="aiMarketScannerHead"] > div:first-child > span,
+.v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] span {
+  color: #2f6fed !important;
+  -webkit-text-fill-color: #2f6fed !important;
+  opacity: 1 !important;
+  font-size: 8.5px !important;
+  font-weight: 900 !important;
+  letter-spacing: .08em !important;
+}
+
+[class*="aiMarketScannerHead"] > div:first-child > strong,
+.v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] strong {
+  margin-top: 3px !important;
+  color: #172033 !important;
+  -webkit-text-fill-color: #172033 !important;
+  opacity: 1 !important;
+  font-size: 14px !important;
+  line-height: 1.25 !important;
+  font-weight: 900 !important;
+}
+
+[class*="aiMarketScannerHead"] > div:first-child > small,
+.v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] small {
+  margin-top: 4px !important;
+  color: #596b82 !important;
+  -webkit-text-fill-color: #596b82 !important;
+  opacity: 1 !important;
+  font-size: 8.5px !important;
+  line-height: 1.4 !important;
+  font-weight: 650 !important;
+}
+
+.v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] > b {
+  color: #2f6fed !important;
+  background: #edf3ff !important;
+  border: 1px solid #dbe7ff !important;
+  font-weight: 900 !important;
+}
+
+.v2AiHistoryCardAction,
+[class*="aiMarketScannerHeadRight"] em {
+  color: #41536b !important;
+  -webkit-text-fill-color: #41536b !important;
+  opacity: 1 !important;
+  font-size: 7.5px !important;
+  font-weight: 850 !important;
+}
+
+/* 2) Recent reflection history: make secondary labels readable without overpowering values. */
+[class*="aiPart3Index"] small,
+[class*="aiPart3HistoryValue"] span {
+  color: #667085 !important;
+  -webkit-text-fill-color: #667085 !important;
+  opacity: 1 !important;
+  font-weight: 700 !important;
+}
+
+[class*="aiPart3HistoryValue"] strong {
+  color: #405168 !important;
+  -webkit-text-fill-color: #405168 !important;
+  opacity: 1 !important;
+  font-weight: 800 !important;
+}
+
+/* 3) Running stage board: waiting is a valid next-state, not disabled content. */
+[class*="aiStageItem"]:not([class*="aiStageItemActive"]):not([class*="aiStageItemDone"]) b,
+[class*="aiStageItem"]:not([class*="aiStageItemActive"]):not([class*="aiStageItemDone"]) span {
+  color: #667085 !important;
+  -webkit-text-fill-color: #667085 !important;
+  opacity: 1 !important;
+}
+
+[class*="aiStageItem"]:not([class*="aiStageItemActive"]):not([class*="aiStageItemDone"]) b {
+  font-weight: 750 !important;
+}
+
+/* 4) Attendance / event explanatory copy: preserve hierarchy but improve contrast. */
+[class*="attendanceLead"],
+[class*="eventGuide"],
+.v2MovedEventGuide p,
+[class*="cardBody"] > p {
+  color: #667085 !important;
+  -webkit-text-fill-color: #667085 !important;
+  opacity: 1 !important;
+}
+
+[class*="attendanceLead"],
+.v2MovedEventGuide p {
+  font-weight: 600 !important;
+}
+
+/* Generic muted text used for important metadata should stay visible on white surfaces. */
+[class*="aiPage"] [class*="muted"],
+[class*="aiPage"] small {
+  opacity: 1;
+}
+
+@media (max-width: 520px) {
+  [class*="aiMarketScanner"] [class*="aiMarketScannerHead"],
+  .v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] {
+    padding: 10px 11px !important;
+  }
+
+  [class*="aiMarketScannerHead"] > div:first-child > strong,
+  .v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] strong {
+    font-size: 13px !important;
+  }
+
+  [class*="aiMarketScannerHead"] > div:first-child > small,
+  .v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] small {
+    font-size: 8px !important;
+  }
+}
