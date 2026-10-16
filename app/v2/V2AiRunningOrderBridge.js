@@ -11,6 +11,7 @@ function syncRunningOrder() {
   if (!hero) return;
 
   const market = firstByClassPart('aiMarketScanner');
+  const marketHistory = document.querySelector('.v2AiMarketHistoryCard');
   const chart = firstByClassPart('aiChartCard');
   const history = firstByClassPart('aiPart3History');
   const brief = firstByClassPart('aiProcessBrief');
@@ -20,9 +21,15 @@ function syncRunningOrder() {
   const parent = hero.parentElement;
   if (!parent || !tail || tail.parentElement !== parent) return;
 
-  [market, chart, history, brief, stage].forEach((node) => {
-    if (node && node.parentElement === parent) parent.insertBefore(node, tail);
-  });
+  const desired = [market, marketHistory, chart, history, brief, stage]
+    .filter((node) => node && node.parentElement === parent);
+
+  let anchor = tail;
+  for (let index = desired.length - 1; index >= 0; index -= 1) {
+    const node = desired[index];
+    if (node.nextElementSibling !== anchor) parent.insertBefore(node, anchor);
+    anchor = node;
+  }
 }
 
 export default function V2AiRunningOrderBridge() {
