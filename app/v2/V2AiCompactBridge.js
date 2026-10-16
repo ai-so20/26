@@ -89,6 +89,70 @@ function removeOrphanDetail(kind) {
   document.querySelectorAll(`.v2AiCompactDetail[data-v2-ai-detail="${kind}"]`).forEach((node) => node.remove());
 }
 
+function setHistoryVisibility(scanner, open) {
+  const historyHead = scanner?.querySelector('[class*="aiMarketHistoryHead"]');
+  const historyList = scanner?.querySelector('[class*="aiMarketHistoryList"]');
+  const pager = scanner?.querySelector('[class*="aiTradingPager"]');
+  scanner.dataset.v2MarketHistoryOpen = open ? 'true' : 'false';
+  [historyHead, historyList, pager].forEach((node) => {
+    if (node) node.hidden = !open;
+  });
+  const toggle = scanner?.querySelector('.v2AiMarketHistoryToggle');
+  if (toggle) {
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    const action = toggle.querySelector('[data-v2-market-history-action]');
+    if (action) action.textContent = open ? '접기' : '펼치기';
+  }
+}
+
+function enhanceMarketHistory() {
+  const scanner = document.querySelector('[class*="aiMarketScanner"]');
+  if (!scanner) return;
+
+  const historyHead = scanner.querySelector('[class*="aiMarketHistoryHead"]');
+  if (!historyHead) return;
+
+  let toggle = scanner.querySelector('.v2AiMarketHistoryToggle');
+  if (!toggle) {
+    toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'v2AiMarketHistoryToggle';
+
+    const copy = document.createElement('div');
+    const eyebrow = document.createElement('span');
+    eyebrow.textContent = 'STATE CHANGE LOG';
+    const title = document.createElement('strong');
+    title.textContent = '상태 변화 기록';
+    const description = document.createElement('small');
+    description.textContent = '자산별 판단 상태가 바뀐 기록을 확인합니다.';
+    copy.append(eyebrow, title, description);
+
+    const meta = document.createElement('div');
+    const count = document.createElement('b');
+    count.dataset.v2MarketHistoryCount = 'true';
+    const action = document.createElement('em');
+    action.dataset.v2MarketHistoryAction = 'true';
+    meta.append(count, action);
+
+    toggle.append(copy, meta);
+    historyHead.insertAdjacentElement('beforebegin', toggle);
+    toggle.addEventListener('click', () => {
+      setHistoryVisibility(scanner, scanner.dataset.v2MarketHistoryOpen !== 'true');
+    });
+  }
+
+  const sourceCount = historyHead.querySelector('b');
+  const countNode = toggle.querySelector('[data-v2-market-history-count]');
+  if (countNode) countNode.textContent = text(sourceCount) || '0';
+
+  if (!scanner.dataset.v2MarketHistoryInitialized) {
+    scanner.dataset.v2MarketHistoryInitialized = 'true';
+    setHistoryVisibility(scanner, false);
+  } else {
+    setHistoryVisibility(scanner, scanner.dataset.v2MarketHistoryOpen === 'true');
+  }
+}
+
 function sync() {
   const flow = document.querySelector('[class*="aiIdleFlowGrid"]');
   const steps = document.querySelector('[class*="aiIdleSteps"]');
@@ -98,6 +162,8 @@ function sync() {
 
   if (steps) enhance(steps, 'steps');
   else removeOrphanDetail('steps');
+
+  enhanceMarketHistory();
 }
 
 export default function V2AiCompactBridge() {
