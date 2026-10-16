@@ -1,0 +1,189 @@
+/* V9 — Shared spacing + typography hierarchy polish.
+   Goal: unify gutters, radii, section rhythm and key-number hierarchy without changing app logic. */
+
+:root {
+  --v2-page-gutter: 14px;
+  --v2-card-radius: 14px;
+  --v2-card-border: #dfe6ee;
+  --v2-card-shadow: 0 4px 14px rgba(31,45,61,.045);
+  --v2-section-gap: 14px;
+  --v2-title: #152238;
+  --v2-body: #748297;
+}
+
+/* Shared page rhythm */
+[class*="content"] {
+  padding-left: var(--v2-page-gutter) !important;
+  padding-right: var(--v2-page-gutter) !important;
+}
+
+[class*="pageHeading"] {
+  margin-bottom: 14px !important;
+}
+
+[class*="pageHeading"] h1 {
+  color: var(--v2-title) !important;
+  font-size: 25px !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.045em !important;
+}
+
+[class*="pageHeading"] p {
+  color: var(--v2-body) !important;
+  font-size: 10px !important;
+  line-height: 1.6 !important;
+}
+
+/* Shared surface language */
+[class*="summaryCard"],
+[class*="primaryCard"],
+[class*="attendanceCardLarge"],
+[class*="listCard"],
+[class*="aiIdleSection"],
+[class*="aiStatusCard"],
+[class*="aiChartCard"],
+[class*="aiProgressCard"],
+[class*="aiWaitingCard"],
+[class*="deliveryCard"],
+[class*="summary"] {
+  border-color: var(--v2-card-border) !important;
+  border-radius: var(--v2-card-radius) !important;
+  box-shadow: var(--v2-card-shadow) !important;
+}
+
+/* Keep vertical spacing calm and consistent */
+[class*="primaryCard"] + *,
+[class*="attendanceCardLarge"] + *,
+[class*="aiIdleSection"] + [class*="aiIdleSection"],
+[class*="deliveryCard"] + * {
+  margin-top: var(--v2-section-gap) !important;
+}
+
+/* LIVE — key data hierarchy */
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="summaryCard"] {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="statsGrid"] [class*="stat"] > span {
+  color: #7d899a !important;
+  font-size: 9px !important;
+  font-weight: 750 !important;
+  letter-spacing: -.01em !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="statsGrid"] [class*="stat"] > strong {
+  margin-top: 7px !important;
+  color: #122039 !important;
+  font-size: 25px !important;
+  font-weight: 950 !important;
+  line-height: .95 !important;
+  letter-spacing: -.055em !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="statsGrid"] [class*="stat"] > strong small {
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  color: #7d899a !important;
+}
+
+/* Attendance — key progress value follows the same hierarchy */
+html[data-v2-split-page="attendance"] [class*="attendanceCount"] {
+  font-size: 26px !important;
+  font-weight: 950 !important;
+  line-height: 1 !important;
+  letter-spacing: -.055em !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="attendanceHeader"] h3 {
+  color: var(--v2-title) !important;
+  font-size: 17px !important;
+  letter-spacing: -.035em !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="attendanceLead"] {
+  color: var(--v2-body) !important;
+  font-size: 10px !important;
+  line-height: 1.55 !important;
+}
+
+/* AI PROCESS — headings and focused detail hierarchy only; no functional changes. */
+[class*="aiIdleSectionHead"] > span {
+  font-size: 9px !important;
+  font-weight: 900 !important;
+}
+
+[class*="aiIdleSectionHead"] h3 {
+  font-size: 18px !important;
+  line-height: 1.2 !important;
+}
+
+[class*="aiIdleSectionHead"] p {
+  font-size: 10px !important;
+  line-height: 1.55 !important;
+}
+
+.v2AiCompactDetailText strong {
+  font-size: 12px !important;
+  color: var(--v2-title) !important;
+}
+
+.v2AiCompactDetailText p {
+  font-size: 9.5px !important;
+  color: var(--v2-body) !important;
+}
+
+/* Reward center — align summary and reward object hierarchy with the rest of V2. */
+[class*="summary"] > div {
+  text-align: center !important;
+}
+
+[class*="summary"] span {
+  color: #7d899a !important;
+  font-size: 9px !important;
+  font-weight: 750 !important;
+}
+
+[class*="summary"] strong {
+  margin-top: 7px !important;
+  color: #172033 !important;
+  font-size: 21px !important;
+  font-weight: 900 !important;
+  letter-spacing: -.045em !important;
+}
+
+[class*="giftCard"] {
+  border-radius: var(--v2-card-radius) !important;
+  box-shadow: 0 4px 12px rgba(74,45,140,.055) !important;
+}
+
+[class*="giftTitle"] {
+  font-size: 11px !important;
+  font-weight: 900 !important;
+}
+
+[class*="giftProduct"] strong {
+  font-size: 13px !important;
+  letter-spacing: -.02em !important;
+}
+
+/* Mobile consistency */
+@media (max-width: 520px) {
+  :root {
+    --v2-page-gutter: 12px;
+    --v2-section-gap: 12px;
+  }
+
+  [class*="content"] {
+    padding-top: 16px !important;
+    padding-bottom: 76px !important;
+  }
+
+  [class*="pageHeading"] h1 {
+    font-size: 23px !important;
+  }
+
+  html[data-v2-split-page="live"] [class*="eventPage"] [class*="statsGrid"] [class*="stat"] > strong {
+    font-size: 23px !important;
+  }
+}
