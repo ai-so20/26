@@ -41,10 +41,13 @@ function updateDetail(root, kind, item, index) {
   const indexNode = detail.querySelector('.v2AiCompactDetailIndex');
   const titleNode = detail.querySelector('.v2AiCompactDetailText strong');
   const bodyNode = detail.querySelector('.v2AiCompactDetailText p');
+  const nextIndexText = `STEP ${String(index + 1).padStart(2, '0')}`;
+  const nextTitle = text(title);
+  const nextBody = text(body);
 
-  if (indexNode) indexNode.textContent = `STEP ${String(index + 1).padStart(2, '0')}`;
-  if (titleNode) titleNode.textContent = text(title);
-  if (bodyNode) bodyNode.textContent = text(body);
+  if (indexNode && indexNode.textContent !== nextIndexText) indexNode.textContent = nextIndexText;
+  if (titleNode && titleNode.textContent !== nextTitle) titleNode.textContent = nextTitle;
+  if (bodyNode && bodyNode.textContent !== nextBody) bodyNode.textContent = nextBody;
 }
 
 function enhance(root, kind) {
@@ -61,8 +64,9 @@ function enhance(root, kind) {
     root.dataset.v2AiActiveIndex = String(bounded);
     items.forEach((item, index) => {
       const active = index === bounded;
-      item.dataset.v2AiActive = active ? 'true' : 'false';
-      item.setAttribute('aria-selected', active ? 'true' : 'false');
+      const next = active ? 'true' : 'false';
+      if (item.dataset.v2AiActive !== next) item.dataset.v2AiActive = next;
+      if (item.getAttribute('aria-selected') !== next) item.setAttribute('aria-selected', next);
     });
     updateDetail(root, kind, items[bounded], bounded);
   };
@@ -91,12 +95,15 @@ function removeOrphanDetail(kind) {
 
 function setMarketVisualState(scanner, open) {
   if (!scanner) return;
-  scanner.dataset.v2MarketOpen = open ? 'true' : 'false';
+  const next = open ? 'true' : 'false';
+  if (scanner.dataset.v2MarketOpen !== next) scanner.dataset.v2MarketOpen = next;
+
   const head = scanner.querySelector('[class*="aiMarketScannerHead"]');
   if (head) {
-    head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (head.getAttribute('aria-expanded') !== next) head.setAttribute('aria-expanded', next);
     const action = head.querySelector('[class*="aiMarketScannerHeadRight"] em');
-    if (action) action.textContent = open ? '접기' : '펼치기';
+    const label = open ? '접기' : '펼치기';
+    if (action && action.textContent !== label) action.textContent = label;
   }
 }
 
@@ -115,11 +122,15 @@ function bindMarketFold(scanner) {
 
 function setHistoryCardState(card, open) {
   if (!card) return;
-  card.dataset.v2HistoryOpen = open ? 'true' : 'false';
+  const next = open ? 'true' : 'false';
+  if (card.dataset.v2HistoryOpen !== next) card.dataset.v2HistoryOpen = next;
+
   const head = card.querySelector('[class*="aiMarketHistoryHead"]');
-  if (head) head.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if (head && head.getAttribute('aria-expanded') !== next) head.setAttribute('aria-expanded', next);
+
   const action = card.querySelector('.v2AiHistoryCardAction');
-  if (action) action.textContent = open ? '접기' : '펼치기';
+  const label = open ? '접기' : '펼치기';
+  if (action && action.textContent !== label) action.textContent = label;
 }
 
 function bindHistoryFold(card) {
@@ -161,10 +172,9 @@ function enhanceMarketCards() {
 
   const mounted = Boolean(scanner.querySelector('[class*="aiMarketTelemetry"]'));
   if (!mounted) {
-    if (scanner.dataset.v2MarketOpening !== 'true') {
-      scanner.dataset.v2MarketOpening = 'true';
+    if (!scanner.dataset.v2MarketProbeDone) {
+      scanner.dataset.v2MarketProbeDone = 'true';
       head.click();
-      window.requestAnimationFrame(() => { delete scanner.dataset.v2MarketOpening; });
     }
     return;
   }
