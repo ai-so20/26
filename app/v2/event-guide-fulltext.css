@@ -1,0 +1,11 @@
+/* Ensure moved event guidance is always fully readable. */
+html[data-v2-split-page="live"] .v2MovedEventGuide-live p,
+html[data-v2-split-page="attendance"] .v2MovedEventGuide-attendance p {
+  display: block !important;
+  overflow: visible !important;
+  -webkit-box-orient: initial !important;
+  -webkit-line-clamp: unset !important;
+  line-clamp: unset !important;
+  max-height: none !important;
+  white-space: normal !important;
+}
