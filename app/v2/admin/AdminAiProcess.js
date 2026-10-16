@@ -43,11 +43,18 @@ export default function AdminAiProcess({ onNotice, onStats }) {
     if(!selectedId||working)return;setWorking(true);
     try{
       const current=rows.find(r=>String(r.id)===String(selectedId))?.process;
+      const targetStatus=nextStatus||form.status||'ready';
+      const requestedCount=Math.max(0,Math.floor(Number(form.available_count||0)));
+      const startCount=targetStatus==='running'&&current?.status!=='running'?Math.max(1,requestedCount):requestedCount;
       const anchorProfit=current?.status==='running'?Math.max(0,getMemberProcessSnapshot(current,selectedId).earnedProfit-Number(current.profit_adjustment||0)):0;
-      const payload={p_user_id:selectedId,p_available_count:Math.max(0,Math.floor(Number(form.available_count||0))),p_status:nextStatus||form.status||'ready',p_investment_amount:Math.max(0,Number(form.investment_amount||0)),p_duration_hours:Math.max(1,Math.min(30,Number(form.duration_days||1)))*24,p_min_return:Math.max(0,Number(form.min_return||0)),p_max_return:Math.max(0,Number(form.max_return||0)),p_anchor_profit:anchorProfit};
+      const payload={p_user_id:selectedId,p_available_count:startCount,p_status:targetStatus,p_investment_amount:Math.max(0,Number(form.investment_amount||0)),p_duration_hours:Math.max(1,Math.min(30,Number(form.duration_days||1)))*24,p_min_return:Math.max(0,Number(form.min_return||0)),p_max_return:Math.max(0,Number(form.max_return||0)),p_anchor_profit:anchorProfit};
       const {error}=await supabase.rpc('admin_save_ai_process_member_preserving_profit',payload); if(error)throw error;
       onNotice(payload.p_status==='running'?'AI PROCESS 진행을 시작했습니다.':payload.p_status==='completed'?'AI PROCESS를 진행완료 처리했습니다.':'AI PROCESS 설정을 저장했습니다.');await load();
-    }catch(error){onNotice(`AI PROCESS 저장 실패: ${error?.message||'알 수 없는 오류'}`);}finally{setWorking(false);}
+    }catch(error){
+      const message=String(error?.message||'알 수 없는 오류');
+      if(message.includes('INVESTMENT_REQUIRED')) onNotice('AI PROCESS를 시작하려면 투자금액을 먼저 입력해주세요.');
+      else onNotice(`AI PROCESS 저장 실패: ${message}`);
+    }finally{setWorking(false);}
   }
 
   async function reset(){
@@ -66,12 +73,24 @@ export default function AdminAiProcess({ onNotice, onStats }) {
   return <section className={styles.section}>
     <div className={styles.sectionHead}><div><span>AI PROCESS CONTROL</span><strong>회원별 AI PROCESS 설정</strong><p>진행기회, 투자금, 기간, 수익률, 진행상태와 수익 조정을 기존 로직 그대로 관리합니다.</p></div><div className={styles.toolbar}><input className={styles.search} placeholder="회원 검색" value={search} onChange={e=>setSearch(e.target.value)}/><button className={styles.buttonSoft} onClick={load}>새로고침</button></div></div>
     <div className={styles.split}>
-      <div className={styles.sideList}>{filtered.length?filtered.map(m=>{const p=m.process||{};return <button key={m.id} className={`${styles.sideRow} ${String(m.id)===String(selectedId)?styles.sideRowActive:''}`} onClick={()=>choose(m)}><div className={styles.sideRowTop}><strong>{m.nickname}</strong><span className={p.status==='running'?styles.badgeBlue:p.status==='completed'?styles.badgeGreen:styles.badgeGray}>{aiProcessStatusLabel(p.status,p.available_count)}</span></div><span>{m.real_name||'-'} · 가능 {Number(p.available_count||0)}회</span></button>}):<div className={styles.empty}>회원이 없습니다.</div>}</div>
+      <div className={styles.sideList}>{filtered.length?filtered.map(m=>{const p=m.process||{};return <button key={m.id} className={`${styles.sideRow} ${String(m.id)===String(selectedId)?styles.sideRowActive:''}`} onClick={()=>choose(m)}><div className={styles.sideRowTop}><strong>{m.nickname}</strong><span style={{display:'inline-flex',alignItems:'center',gap:5,marginLeft:6,padding:'2px 7px',border:'1px solid #dbe2ea',borderRadius:6,fontSize:11,fontWeight:800,color:'#536173',background:'#f7f9fb'}}>진행 가능 {Number(p.available_count||0)}회</span><span className={p.status==='running'?styles.badgeBlue:p.status==='completed'?styles.badgeGreen:styles.badgeGray}>{aiProcessStatusLabel(p.status,p.available_count)}</span></div><span>{m.real_name||'-'}</span></button>}):<div className={styles.empty}>회원이 없습니다.</div>}</div>
       <div className={styles.panel}>{selected?<>
-        <div className={styles.sectionHead}><div><span>SELECTED MEMBER</span><strong>{selected.nickname} · {selected.real_name||'-'}</strong></div><span className={selected.process?.status==='running'?styles.badgeBlue:selected.process?.status==='completed'?styles.badgeGreen:styles.badgeGray}>{aiProcessStatusLabel(selected.process?.status,selected.process?.available_count)}</span></div>
+        <div className={styles.sectionHead}>
+          <div>
+            <span>SELECTED MEMBER</span>
+            <div style={{display:'flex',alignItems:'center',gap:10,flexWrap:'wrap',marginTop:2}}>
+              <strong>{selected.nickname} · {selected.real_name||'-'}</strong>
+              <div style={{display:'inline-flex',alignItems:'center',gap:7,padding:'5px 8px',border:'1px solid #dbe2ea',borderRadius:8,background:'#f7f9fb'}}>
+                <label htmlFor="ai-available-count" style={{fontSize:11,fontWeight:800,color:'#637083',whiteSpace:'nowrap'}}>진행 가능 횟수</label>
+                <input id="ai-available-count" className={styles.input} style={{width:68,minHeight:30,padding:'4px 7px'}} type="number" min="0" value={form.available_count} onChange={e=>setForm({...form,available_count:e.target.value})}/>
+                <b style={{fontSize:11,color:'#38465a'}}>회</b>
+              </div>
+            </div>
+          </div>
+          <span className={selected.process?.status==='running'?styles.badgeBlue:selected.process?.status==='completed'?styles.badgeGreen:styles.badgeGray}>{aiProcessStatusLabel(selected.process?.status,selected.process?.available_count)}</span>
+        </div>
         {snapshot&&<div className={styles.kpiRow}><div className={styles.kpi}><span>현재 평가금액</span><strong>{krw(snapshot.totalAmount)}</strong></div><div className={styles.kpi}><span>누적 수익</span><strong>{krw(snapshot.earnedProfit)}</strong></div><div className={styles.kpi}><span>현재 수익률</span><strong>{snapshot.currentReturn.toFixed(2)}%</strong></div></div>}
         <div className={styles.grid3}>
-          <div className={styles.field}><label>진행 가능 횟수</label><input className={styles.input} type="number" min="0" value={form.available_count} onChange={e=>setForm({...form,available_count:e.target.value})}/></div>
           <div className={styles.field}><label>투자금액</label><input className={styles.input} type="number" min="0" value={form.investment_amount} onChange={e=>setForm({...form,investment_amount:e.target.value})}/></div>
           <div className={styles.field}><label>진행기간(일)</label><input className={styles.input} type="number" min="1" max="30" value={form.duration_days} onChange={e=>setForm({...form,duration_days:e.target.value})}/></div>
           <div className={styles.field}><label>최소 수익률(%)</label><input className={styles.input} type="number" min="0" value={form.min_return} onChange={e=>setForm({...form,min_return:e.target.value})}/></div>
