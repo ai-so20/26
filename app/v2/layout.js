@@ -14,6 +14,7 @@ import './event-mobile-layout-hotfix-v12.css';
 import './ai-idle-readability-v12.css';
 import './ai-market-compact-v13.css';
 import './ai-market-split-v14.css';
+import './ai-history-row-compact-v15.css';
 import V2MovedEventGuideBridge from './V2MovedEventGuideBridge';
 import V2SplitNavBridge from './V2SplitNavBridge';
 import V2AiCompactBridge from './V2AiCompactBridge';
