@@ -1,0 +1,82 @@
+/* V12 — event mobile regression hotfix after combined V7-V11 production deploy.
+   Scope is intentionally limited to split Event / Attendance pages. */
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="pageHeading"],
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="pageHeading"] {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="pageHeading"] > div,
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="pageHeading"] > div {
+  min-width: 0 !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="statusBadge"],
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="statusBadge"] {
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  padding: 0 11px !important;
+  display: inline-flex !important;
+  flex: 0 0 auto !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  white-space: nowrap !important;
+  writing-mode: horizontal-tb !important;
+  word-break: keep-all !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="summaryCard"] {
+  width: auto !important;
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="summaryCard"] [class*="statsGrid"] {
+  width: 100% !important;
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  grid-auto-flow: row !important;
+  align-items: stretch !important;
+  gap: 0 !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="summaryCard"] [class*="statsGrid"] > * {
+  width: auto !important;
+  min-width: 0 !important;
+  min-height: 82px !important;
+  margin: 0 !important;
+}
+
+@media (max-width: 520px) {
+  html[data-v2-split-page="live"] [class*="eventPage"] [class*="pageHeading"],
+  html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="pageHeading"] {
+    padding-top: 12px !important;
+    padding-bottom: 10px !important;
+  }
+
+  html[data-v2-split-page="live"] [class*="eventPage"] [class*="statusBadge"],
+  html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="statusBadge"] {
+    height: 32px !important;
+    min-height: 32px !important;
+    padding: 0 9px !important;
+    font-size: 9px !important;
+  }
+
+  html[data-v2-split-page="live"] [class*="eventPage"] [class*="summaryCard"] [class*="statsGrid"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  html[data-v2-split-page="live"] [class*="eventPage"] [class*="summaryCard"] [class*="statsGrid"] > * {
+    min-height: 76px !important;
+    padding: 12px 3px 10px !important;
+  }
+}
