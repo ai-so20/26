@@ -9,6 +9,7 @@ import './design-audit-v7.css';
 import './reference-layout-v8.css';
 import './final-polish-v9.css';
 import './ai-state-language-v10.css';
+import './reward-header-compact-v11.css';
 import V2MovedEventGuideBridge from './V2MovedEventGuideBridge';
 import V2SplitNavBridge from './V2SplitNavBridge';
 import V2AiCompactBridge from './V2AiCompactBridge';
