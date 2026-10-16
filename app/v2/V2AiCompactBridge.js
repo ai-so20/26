@@ -89,67 +89,119 @@ function removeOrphanDetail(kind) {
   document.querySelectorAll(`.v2AiCompactDetail[data-v2-ai-detail="${kind}"]`).forEach((node) => node.remove());
 }
 
-function setHistoryVisibility(scanner, open) {
-  const historyHead = scanner?.querySelector('[class*="aiMarketHistoryHead"]');
-  const historyList = scanner?.querySelector('[class*="aiMarketHistoryList"]');
-  const pager = scanner?.querySelector('[class*="aiTradingPager"]');
-  scanner.dataset.v2MarketHistoryOpen = open ? 'true' : 'false';
-  [historyHead, historyList, pager].forEach((node) => {
-    if (node) node.hidden = !open;
-  });
-  const toggle = scanner?.querySelector('.v2AiMarketHistoryToggle');
-  if (toggle) {
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    const action = toggle.querySelector('[data-v2-market-history-action]');
+function setMarketVisualState(scanner, open) {
+  if (!scanner) return;
+  scanner.dataset.v2MarketOpen = open ? 'true' : 'false';
+  const head = scanner.querySelector('[class*="aiMarketScannerHead"]');
+  if (head) {
+    head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    const action = head.querySelector('[class*="aiMarketScannerHeadRight"] em');
     if (action) action.textContent = open ? '접기' : '펼치기';
   }
 }
 
-function enhanceMarketHistory() {
-  const scanner = document.querySelector('[class*="aiMarketScanner"]');
-  if (!scanner) return;
+function bindMarketFold(scanner) {
+  const head = scanner?.querySelector('[class*="aiMarketScannerHead"]');
+  if (!head || head.dataset.v2MarketFoldBound) return;
+  head.dataset.v2MarketFoldBound = 'true';
+  head.addEventListener('click', (event) => {
+    if (scanner.dataset.v2MarketManaged !== 'true') return;
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    setMarketVisualState(scanner, scanner.dataset.v2MarketOpen !== 'true');
+  }, true);
+}
 
-  const historyHead = scanner.querySelector('[class*="aiMarketHistoryHead"]');
-  if (!historyHead) return;
+function setHistoryCardState(card, open) {
+  if (!card) return;
+  card.dataset.v2HistoryOpen = open ? 'true' : 'false';
+  const head = card.querySelector('[class*="aiMarketHistoryHead"]');
+  if (head) head.setAttribute('aria-expanded', open ? 'true' : 'false');
+  const action = card.querySelector('.v2AiHistoryCardAction');
+  if (action) action.textContent = open ? '접기' : '펼치기';
+}
 
-  let toggle = scanner.querySelector('.v2AiMarketHistoryToggle');
-  if (!toggle) {
-    toggle = document.createElement('button');
-    toggle.type = 'button';
-    toggle.className = 'v2AiMarketHistoryToggle';
+function bindHistoryFold(card) {
+  const head = card?.querySelector('[class*="aiMarketHistoryHead"]');
+  if (!head || head.dataset.v2HistoryFoldBound) return;
+  head.dataset.v2HistoryFoldBound = 'true';
+  head.setAttribute('role', 'button');
+  head.setAttribute('tabindex', '0');
 
-    const copy = document.createElement('div');
-    const eyebrow = document.createElement('span');
-    eyebrow.textContent = 'STATE CHANGE LOG';
-    const title = document.createElement('strong');
-    title.textContent = '상태 변화 기록';
-    const description = document.createElement('small');
-    description.textContent = '자산별 판단 상태가 바뀐 기록을 확인합니다.';
-    copy.append(eyebrow, title, description);
-
-    const meta = document.createElement('div');
-    const count = document.createElement('b');
-    count.dataset.v2MarketHistoryCount = 'true';
-    const action = document.createElement('em');
-    action.dataset.v2MarketHistoryAction = 'true';
-    meta.append(count, action);
-
-    toggle.append(copy, meta);
-    historyHead.insertAdjacentElement('beforebegin', toggle);
-    toggle.addEventListener('click', () => {
-      setHistoryVisibility(scanner, scanner.dataset.v2MarketHistoryOpen !== 'true');
-    });
+  let action = head.querySelector('.v2AiHistoryCardAction');
+  if (!action) {
+    action = document.createElement('em');
+    action.className = 'v2AiHistoryCardAction';
+    head.appendChild(action);
   }
 
-  const sourceCount = historyHead.querySelector('b');
-  const countNode = toggle.querySelector('[data-v2-market-history-count]');
-  if (countNode) countNode.textContent = text(sourceCount) || '0';
+  const toggle = () => setHistoryCardState(card, card.dataset.v2HistoryOpen !== 'true');
+  head.addEventListener('click', toggle);
+  head.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggle();
+    }
+  });
+}
 
-  if (!scanner.dataset.v2MarketHistoryInitialized) {
-    scanner.dataset.v2MarketHistoryInitialized = 'true';
-    setHistoryVisibility(scanner, false);
+function enhanceMarketCards() {
+  const scanner = document.querySelector('[class*="aiMarketScanner"]');
+  if (!scanner) {
+    document.querySelectorAll('.v2AiMarketHistoryCard').forEach((node) => node.remove());
+    return;
+  }
+
+  const head = scanner.querySelector('[class*="aiMarketScannerHead"]');
+  if (!head) return;
+
+  const oldToggle = scanner.querySelector('.v2AiMarketHistoryToggle');
+  if (oldToggle) oldToggle.remove();
+
+  const mounted = Boolean(scanner.querySelector('[class*="aiMarketTelemetry"]'));
+  if (!mounted) {
+    if (scanner.dataset.v2MarketOpening !== 'true') {
+      scanner.dataset.v2MarketOpening = 'true';
+      head.click();
+      window.requestAnimationFrame(() => { delete scanner.dataset.v2MarketOpening; });
+    }
+    return;
+  }
+
+  scanner.dataset.v2MarketManaged = 'true';
+  bindMarketFold(scanner);
+  if (!scanner.dataset.v2MarketVisualInitialized) {
+    scanner.dataset.v2MarketVisualInitialized = 'true';
+    setMarketVisualState(scanner, false);
   } else {
-    setHistoryVisibility(scanner, scanner.dataset.v2MarketHistoryOpen === 'true');
+    setMarketVisualState(scanner, scanner.dataset.v2MarketOpen === 'true');
+  }
+
+  let card = document.querySelector('.v2AiMarketHistoryCard');
+  let historyHead = scanner.querySelector('[class*="aiMarketHistoryHead"]') || card?.querySelector('[class*="aiMarketHistoryHead"]');
+  let historyList = scanner.querySelector('[class*="aiMarketHistoryList"]') || card?.querySelector('[class*="aiMarketHistoryList"]');
+  let pager = scanner.querySelector('[class*="aiTradingPager"]') || card?.querySelector('[class*="aiTradingPager"]');
+  if (!historyHead || !historyList || !pager) return;
+
+  if (!card) {
+    card = document.createElement('section');
+    card.className = 'v2AiMarketHistoryCard';
+    scanner.insertAdjacentElement('afterend', card);
+  } else if (scanner.nextElementSibling !== card) {
+    scanner.insertAdjacentElement('afterend', card);
+  }
+
+  if (historyHead.parentElement !== card) card.appendChild(historyHead);
+  if (historyList.parentElement !== card) card.appendChild(historyList);
+  if (pager.parentElement !== card) card.appendChild(pager);
+
+  bindHistoryFold(card);
+  if (!card.dataset.v2HistoryInitialized) {
+    card.dataset.v2HistoryInitialized = 'true';
+    setHistoryCardState(card, false);
+  } else {
+    setHistoryCardState(card, card.dataset.v2HistoryOpen === 'true');
   }
 }
 
@@ -163,7 +215,7 @@ function sync() {
   if (steps) enhance(steps, 'steps');
   else removeOrphanDetail('steps');
 
-  enhanceMarketHistory();
+  enhanceMarketCards();
 }
 
 export default function V2AiCompactBridge() {
@@ -183,6 +235,7 @@ export default function V2AiCompactBridge() {
       window.cancelAnimationFrame(raf);
       removeOrphanDetail('flow');
       removeOrphanDetail('steps');
+      document.querySelectorAll('.v2AiMarketHistoryCard').forEach((node) => node.remove());
     };
   }, []);
 
