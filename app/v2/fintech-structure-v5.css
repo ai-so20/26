@@ -385,9 +385,82 @@ html[data-v2-event-mode="live"] [class*="eventPage"] [class*="cardBody"] h2 {
   display: none !important;
 }
 
+/* ---------------------------------------------------------
+   V5.1 PRECISION PASS — preserve the V5 concept while fixing
+   mobile action priority and state contrast.
+--------------------------------------------------------- */
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="attendanceCardLarge"] {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="attendanceHeader"] { order: 1; }
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="progressTrack"] { order: 2; }
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="attendanceRemaining"] { order: 3; }
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="primaryButtonWide"] {
+  order: 4;
+  margin-top: 14px !important;
+  margin-bottom: 4px !important;
+}
+html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="attendanceThirtyGrid"] {
+  order: 5;
+  margin-top: 14px !important;
+}
+
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="summaryCard"] {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+}
+
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="statsGrid"] {
+  gap: 8px !important;
+}
+
+html[data-v2-event-mode="live"] [class*="eventPage"] [class*="stat"] {
+  min-height: 66px !important;
+}
+
+[class*="aiStageItemDone"] > span {
+  color: #D1DDF0 !important;
+}
+
+[class*="aiStageItemDone"] > b {
+  color: #8FA4C3 !important;
+}
+
+[class*="aiStageItemActive"] {
+  transform: translateY(-1px);
+}
+
+[class*="aiStageItemActive"] > i {
+  width: 32px !important;
+  height: 32px !important;
+  margin-bottom: 7px !important;
+}
+
+.v2RewardObject [class*="linkButton"] {
+  min-height: 44px !important;
+  letter-spacing: -.01em !important;
+}
+
+.v2RewardObject [class*="giftProduct"] strong {
+  line-height: 1.18 !important;
+}
+
+@media (max-width: 640px) {
+  html[data-v2-event-mode="attendance"] [class*="eventPage"] [class*="primaryButtonWide"] {
+    position: relative;
+    z-index: 1;
+  }
+
+  html[data-v2-event-mode="live"] [class*="eventPage"] [class*="summaryCard"] [class*="stat"] > strong {
+    font-size: clamp(26px, 7.5vw, 31px) !important;
+  }
+}
+
 @media (max-width: 420px) {
   html[data-v2-event-mode="live"] [class*="eventPage"] [class*="summaryCard"] [class*="stat"] > strong {
-    font-size: 30px !important;
+    font-size: 28px !important;
   }
 
   .v2AiIdlePipelineStep span,
