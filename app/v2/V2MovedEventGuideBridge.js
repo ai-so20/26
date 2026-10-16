@@ -28,9 +28,31 @@ function makeGuide(kind) {
   return guide;
 }
 
+function removeGuide(kind) {
+  document.querySelectorAll(`[data-v2-moved-event-guide="${kind}"]`).forEach((node) => node.remove());
+}
+
 function syncMovedGuides() {
   const page = document.querySelector('[class*="eventPage"]');
   if (!page) return;
+
+  const splitMode = document.documentElement.dataset.v2SplitPage;
+  const attendanceMode = splitMode === 'attendance';
+
+  if (attendanceMode) {
+    removeGuide('live');
+
+    const attendanceCard = page.querySelector('[class*="attendanceCardLarge"]');
+    if (attendanceCard && !attendanceCard.querySelector('[data-v2-moved-event-guide="attendance"]')) {
+      const header = attendanceCard.querySelector('[class*="attendanceHeader"]');
+      const guide = makeGuide('attendance');
+      if (header?.nextSibling) attendanceCard.insertBefore(guide, header.nextSibling);
+      else attendanceCard.appendChild(guide);
+    }
+    return;
+  }
+
+  removeGuide('attendance');
 
   const primaryCard = page.querySelector('[class*="primaryCard"]');
   if (primaryCard && !primaryCard.querySelector('[data-v2-moved-event-guide="live"]')) {
@@ -38,14 +60,6 @@ function syncMovedGuides() {
     const guide = makeGuide('live');
     if (cardBody) primaryCard.insertBefore(guide, cardBody);
     else primaryCard.prepend(guide);
-  }
-
-  const attendanceCard = page.querySelector('[class*="attendanceCardLarge"]');
-  if (attendanceCard && !attendanceCard.querySelector('[data-v2-moved-event-guide="attendance"]')) {
-    const header = attendanceCard.querySelector('[class*="attendanceHeader"]');
-    const guide = makeGuide('attendance');
-    if (header?.nextSibling) attendanceCard.insertBefore(guide, header.nextSibling);
-    else attendanceCard.appendChild(guide);
   }
 }
 
@@ -58,7 +72,7 @@ export default function V2MovedEventGuideBridge() {
     };
 
     const observer = new MutationObserver(schedule);
-    observer.observe(document.body, { childList: true, subtree: true });
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'data-v2-split-page'] });
     schedule();
 
     return () => {
