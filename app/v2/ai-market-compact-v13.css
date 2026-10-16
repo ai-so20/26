@@ -1,0 +1,233 @@
+/* AI market compact pass — current market and state-change history */
+
+/* Restore readable contrast in the AI market header. */
+[class*="aiMarketScanner"] [class*="aiMarketScannerHead"] {
+  padding: 14px 16px !important;
+  border-color: #d8e0ea !important;
+  background: #ffffff !important;
+}
+
+[class*="aiMarketScannerHead"] > div:first-child > span {
+  color: #356fda !important;
+  font-size: 9px !important;
+  font-weight: 900 !important;
+  letter-spacing: .12em !important;
+}
+
+[class*="aiMarketScannerHead"] > div:first-child > strong {
+  display: block !important;
+  margin-top: 4px !important;
+  color: #172033 !important;
+  font-size: 15px !important;
+  font-weight: 900 !important;
+  letter-spacing: -.03em !important;
+}
+
+[class*="aiMarketScannerHead"] > div:first-child > small {
+  display: block !important;
+  margin-top: 5px !important;
+  color: #66758a !important;
+  font-size: 9.5px !important;
+  line-height: 1.45 !important;
+}
+
+[class*="aiMarketScannerHeadRight"] [class*="aiMarketPulse"] {
+  color: #2f6fed !important;
+  font-size: 8px !important;
+  font-weight: 900 !important;
+}
+
+[class*="aiMarketScannerHeadRight"] em {
+  color: #5f6e82 !important;
+  font-size: 8px !important;
+  font-style: normal !important;
+  font-weight: 800 !important;
+}
+
+/* Current-state content: reduce bulk without losing scanability. */
+[class*="aiMarketTelemetry"] {
+  gap: 1px !important;
+}
+
+[class*="aiMarketTelemetry"] > div {
+  min-height: 58px !important;
+  padding: 10px 9px !important;
+}
+
+[class*="aiMarketTelemetry"] span,
+[class*="aiMarketTelemetry"] small {
+  font-size: 7.5px !important;
+}
+
+[class*="aiMarketTelemetry"] strong {
+  margin-top: 3px !important;
+  font-size: 11px !important;
+}
+
+[class*="aiMarketColumns"] {
+  min-height: 28px !important;
+  padding: 0 12px !important;
+  color: #7b8798 !important;
+  font-size: 7.5px !important;
+}
+
+[class*="aiMarketLiveRow"] {
+  min-height: 50px !important;
+  padding: 8px 12px !important;
+  gap: 8px !important;
+}
+
+[class*="aiMarketAsset"] strong,
+[class*="aiMarketDirection"] strong,
+[class*="aiMarketState"] strong {
+  font-size: 9px !important;
+}
+
+[class*="aiMarketAsset"] small,
+[class*="aiMarketDirection"] small,
+[class*="aiMarketState"] small {
+  font-size: 7px !important;
+}
+
+/* Separate fold for state-change log. */
+.v2AiMarketHistoryToggle {
+  width: calc(100% - 20px);
+  margin: 12px 10px 0 !important;
+  padding: 12px 13px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  border: 1px solid #dfe5ec !important;
+  border-radius: 10px !important;
+  background: #f9fbfd !important;
+  color: inherit !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  box-shadow: 0 2px 8px rgba(31,45,61,.035) !important;
+}
+
+.v2AiMarketHistoryToggle > div:first-child {
+  min-width: 0 !important;
+  display: grid !important;
+  gap: 2px !important;
+}
+
+.v2AiMarketHistoryToggle span {
+  color: #7f8da0 !important;
+  font-size: 7px !important;
+  font-weight: 900 !important;
+  letter-spacing: .12em !important;
+}
+
+.v2AiMarketHistoryToggle strong {
+  color: #172033 !important;
+  font-size: 11.5px !important;
+  font-weight: 900 !important;
+  letter-spacing: -.02em !important;
+}
+
+.v2AiMarketHistoryToggle small {
+  color: #7a8798 !important;
+  font-size: 7.5px !important;
+  line-height: 1.35 !important;
+}
+
+.v2AiMarketHistoryToggle > div:last-child {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+}
+
+.v2AiMarketHistoryToggle b {
+  padding: 4px 6px !important;
+  border-radius: 999px !important;
+  background: #edf3ff !important;
+  color: #2f6fed !important;
+  font-size: 7.5px !important;
+  font-weight: 900 !important;
+}
+
+.v2AiMarketHistoryToggle em {
+  color: #627087 !important;
+  font-size: 8px !important;
+  font-style: normal !important;
+  font-weight: 850 !important;
+}
+
+/* Original history heading is redundant once the independent fold header exists. */
+[class*="aiMarketHistoryHead"] {
+  display: none !important;
+}
+
+[class*="aiMarketHistoryList"] {
+  margin: 8px 10px 0 !important;
+  overflow: hidden !important;
+  border: 1px solid #e3e8ee !important;
+  border-radius: 9px !important;
+  background: #fff !important;
+}
+
+[class*="aiMarketHistoryRow"] {
+  min-height: 44px !important;
+  padding: 7px 9px !important;
+  gap: 6px !important;
+}
+
+[class*="aiMarketHistoryTime"] strong,
+[class*="aiMarketHistoryAsset"] strong,
+[class*="aiMarketHistoryChange"] strong,
+[class*="aiMarketHistoryAction"] strong {
+  font-size: 8px !important;
+}
+
+[class*="aiMarketHistoryTime"] small,
+[class*="aiMarketHistoryAsset"] small,
+[class*="aiMarketHistoryAction"] small,
+[class*="aiMarketHistoryChange"] span {
+  font-size: 6.8px !important;
+}
+
+[class*="aiTradingPager"] {
+  margin: 7px 10px 10px !important;
+  min-height: 28px !important;
+}
+
+[class*="aiTradingPager"] button {
+  min-width: 26px !important;
+  height: 26px !important;
+  font-size: 8px !important;
+}
+
+[class*="aiMarketFootnote"] {
+  color: #6f7d90 !important;
+  font-size: 7.5px !important;
+  line-height: 1.45 !important;
+}
+
+@media (max-width: 520px) {
+  [class*="aiMarketScanner"] [class*="aiMarketScannerHead"] {
+    padding: 12px 13px !important;
+  }
+
+  [class*="aiMarketScannerHead"] > div:first-child > strong {
+    font-size: 14px !important;
+  }
+
+  [class*="aiMarketScannerHead"] > div:first-child > small {
+    font-size: 9px !important;
+  }
+
+  [class*="aiMarketLiveRow"] {
+    min-height: 47px !important;
+    padding: 7px 9px !important;
+  }
+
+  .v2AiMarketHistoryToggle {
+    width: calc(100% - 16px);
+    margin-left: 8px !important;
+    margin-right: 8px !important;
+    padding: 10px 11px !important;
+  }
+}
