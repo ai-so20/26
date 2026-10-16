@@ -65,8 +65,7 @@ export default function V2SplitNavBridge() {
           attendanceButton.className = withoutReactActiveClass(eventButton.className);
           attendanceButton.dataset.v2SplitAttendance = 'true';
           attendanceButton.addEventListener('click', () => {
-            const eventPage = document.querySelector('[class*="eventPage"]');
-            if (!eventPage) eventButton.click();
+            if (!document.querySelector('[class*="eventPage"]')) eventButton.click();
             try { window.sessionStorage.setItem('vip-event-page-mode', 'attendance'); } catch {}
             document.documentElement.dataset.v2SplitPage = 'attendance';
             eventButton.classList.remove('v2SplitNavActive');
@@ -78,6 +77,12 @@ export default function V2SplitNavBridge() {
           });
           nav.insertBefore(attendanceButton, aiButton);
         }
+
+        const clearSplitActive = () => {
+          eventButton.classList.remove('v2SplitNavActive');
+          attendanceButton.classList.remove('v2SplitNavActive');
+          delete document.documentElement.dataset.v2SplitPage;
+        };
 
         if (!eventButton.dataset.v2SplitBound) {
           eventButton.dataset.v2SplitBound = 'true';
@@ -93,8 +98,22 @@ export default function V2SplitNavBridge() {
           });
         }
 
+        if (!aiButton.dataset.v2SplitClearBound) {
+          aiButton.dataset.v2SplitClearBound = 'true';
+          aiButton.addEventListener('click', clearSplitActive, { capture: true });
+        }
+        if (!rewardButton.dataset.v2SplitClearBound) {
+          rewardButton.dataset.v2SplitClearBound = 'true';
+          rewardButton.addEventListener('click', clearSplitActive, { capture: true });
+        }
+
+        const aiActive = /navActive/i.test(aiButton.className);
+        const rewardActive = /navActive/i.test(rewardButton.className);
         const eventPage = document.querySelector('[class*="eventPage"]');
-        if (eventPage) {
+
+        if (aiActive || rewardActive || !eventPage) {
+          clearSplitActive();
+        } else {
           const attendanceMode = findModeButton('출석 이벤트');
           const liveMode = findModeButton('실시간 이벤트');
           const attendanceActive = Boolean(attendanceMode?.className?.includes('segmentActive'));
@@ -119,9 +138,6 @@ export default function V2SplitNavBridge() {
             if (kicker) kicker.textContent = 'LIVE EVENT';
             if (title) title.textContent = '실시간';
           }
-        } else {
-          eventButton.classList.remove('v2SplitNavActive');
-          attendanceButton.classList.remove('v2SplitNavActive');
         }
 
         document.querySelectorAll('[class*="rewardQuickLinks"] button').forEach((button) => {
@@ -140,7 +156,7 @@ export default function V2SplitNavBridge() {
     const observer = new MutationObserver(() => window.requestAnimationFrame(sync));
     observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
     sync();
-    const timer = window.setInterval(sync, 700);
+    const timer = window.setInterval(sync, 400);
 
     return () => {
       observer.disconnect();
