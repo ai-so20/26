@@ -1,0 +1,238 @@
+/* V10 — AI PROCESS visual language unification.
+   Presentation only. No logic, data, copy, status transitions, or calculations are changed. */
+
+/* Shared AI PROCESS palette / surface language */
+[class*="aiPage"] {
+  --ai-navy: #0d1b31;
+  --ai-navy-2: #101f37;
+  --ai-blue: #2f6fed;
+  --ai-blue-soft: #eef4ff;
+  --ai-border: #dfe6ef;
+  --ai-text: #172033;
+  --ai-muted: #7f8da1;
+  --ai-surface: #ffffff;
+}
+
+/* Waiting / running / complete primary surfaces should feel like the same product state. */
+[class*="aiPart1Hero"],
+[class*="aiPart2Hero"],
+[class*="aiStatusCard"],
+[class*="aiWaitingCard"],
+[class*="aiProgressCard"],
+[class*="aiChartCard"],
+[class*="tradingCard"],
+[class*="aiAdminHold"] {
+  border-radius: 14px !important;
+}
+
+[class*="aiPart1Hero"],
+[class*="aiPart2Hero"] {
+  border: 1px solid #172b4d !important;
+  background: linear-gradient(180deg, #0f1e35 0%, #0d1b31 100%) !important;
+  box-shadow: 0 12px 28px rgba(13,27,49,.13) !important;
+}
+
+[class*="aiStatusCard"],
+[class*="aiWaitingCard"],
+[class*="aiProgressCard"],
+[class*="aiChartCard"],
+[class*="tradingCard"],
+[class*="aiAdminHold"] {
+  border: 1px solid #dfe6ef !important;
+  background: #fff !important;
+  box-shadow: 0 5px 16px rgba(31,45,61,.045) !important;
+}
+
+/* Same label -> title -> value hierarchy across all AI states. */
+[class*="aiEyebrow"],
+[class*="aiPart1Topline"] span,
+[class*="aiPart2Topline"],
+[class*="tradingHead"] span,
+[class*="aiChartHead"] span {
+  font-size: 9px !important;
+  font-weight: 850 !important;
+  letter-spacing: .11em !important;
+}
+
+[class*="aiWaitingTop"] h2,
+[class*="aiProgressTop"] h3,
+[class*="aiChartHead"] h3,
+[class*="tradingHead"] strong {
+  color: #172033 !important;
+  font-size: 16px !important;
+  font-weight: 900 !important;
+  letter-spacing: -.035em !important;
+}
+
+/* Match the large numeric language used before and during processing. */
+[class*="aiPart1Headline"] strong {
+  font-size: 40px !important;
+  line-height: .95 !important;
+  font-weight: 950 !important;
+  letter-spacing: -.065em !important;
+}
+
+[class*="aiPart2Primary"] > div:first-child strong {
+  font-size: 38px !important;
+  line-height: .95 !important;
+  font-weight: 950 !important;
+  letter-spacing: -.06em !important;
+}
+
+[class*="aiPart2Return"] strong,
+[class*="aiChartValue"],
+[class*="aiResultBar"] strong {
+  font-weight: 950 !important;
+  letter-spacing: -.035em !important;
+}
+
+[class*="aiPart2Return"] strong {
+  font-size: 25px !important;
+}
+
+[class*="aiChartValue"] {
+  font-size: 14px !important;
+}
+
+[class*="aiResultBar"] strong {
+  font-size: 15px !important;
+}
+
+/* One status-pill family for READY / RUNNING / COMPLETE. */
+[class*="aiStatusPill"],
+[class*="aiStatusComplete"],
+[class*="aiStatusWaiting"],
+[class*="aiPart2Topline"] b,
+[class*="tradingHead"] b {
+  min-height: 26px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 5px 9px !important;
+  border-radius: 999px !important;
+  border: 1px solid transparent !important;
+  font-size: 8px !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  letter-spacing: .05em !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.65) !important;
+}
+
+[class*="aiStatusWaiting"] {
+  color: #5f6e82 !important;
+  background: #f2f5f8 !important;
+  border-color: #dde4ec !important;
+}
+
+[class*="aiStatusPill"],
+[class*="aiPart2Topline"] b,
+[class*="tradingHead"] b {
+  color: #225ecb !important;
+  background: #eef4ff !important;
+  border-color: #d3e0fb !important;
+}
+
+[class*="aiStatusComplete"] {
+  color: #155f49 !important;
+  background: #edf8f3 !important;
+  border-color: #cfe9dd !important;
+}
+
+/* Progress bars use the same blue and same physical weight. */
+[class*="aiProgressTrack"] {
+  height: 7px !important;
+  border-radius: 999px !important;
+  background: #e9eef5 !important;
+}
+
+[class*="aiProgressTrack"] > span {
+  border-radius: inherit !important;
+  background: linear-gradient(90deg, #2f6fed 0%, #4d83ef 100%) !important;
+}
+
+/* Running information blocks align with the pre-run fact blocks. */
+[class*="aiAccessGrid"] > div,
+[class*="aiPart2Bento"] > div,
+[class*="aiResultBar"],
+[class*="aiLiveNotice"] {
+  border-radius: 11px !important;
+}
+
+[class*="aiAccessGrid"] > div {
+  border-color: #e2e8ef !important;
+  background: #f7f9fc !important;
+}
+
+[class*="aiPart2Bento"] {
+  gap: 1px !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  background: rgba(255,255,255,.08) !important;
+}
+
+[class*="aiPart2Bento"] > div {
+  background: #101f37 !important;
+}
+
+/* Chart and activity surfaces share one edge/rhythm. */
+[class*="aiProgressCard"],
+[class*="aiChartCard"],
+[class*="tradingCard"] {
+  margin-top: 10px !important;
+}
+
+[class*="aiProgressCard"],
+[class*="aiChartCard"] {
+  padding: 16px !important;
+}
+
+[class*="tradingHead"] {
+  padding: 15px 16px !important;
+  border-bottom-color: #edf1f5 !important;
+}
+
+[class*="aiChartLine"] {
+  stroke: #2f6fed !important;
+  stroke-width: 3 !important;
+}
+
+[class*="aiChartArea"] {
+  fill: #f0f5ff !important;
+}
+
+[class*="aiChartDot"] {
+  fill: #fff !important;
+  stroke: #2f6fed !important;
+}
+
+/* The idle guide and the running flow use the same blue/navy cues. */
+.v2AiCompactRail > div[data-v2-ai-active="true"] > i {
+  background: #2f6fed !important;
+  color: #fff !important;
+}
+
+.v2AiCompactDetailIndex {
+  background: #0d1b31 !important;
+  color: #fff !important;
+}
+
+/* Completed-result language stays in the same system instead of introducing a new visual style. */
+[class*="aiResultBar"] {
+  border: 1px solid #d8e3f5 !important;
+  background: #f5f8ff !important;
+  box-shadow: 0 4px 12px rgba(47,111,237,.045) !important;
+}
+
+[class*="aiLiveNotice"] {
+  border: 1px solid #dce6f7 !important;
+  background: #f7f9fd !important;
+  color: #66758a !important;
+}
+
+@media (max-width: 520px) {
+  [class*="aiPart1Headline"] strong { font-size: 36px !important; }
+  [class*="aiPart2Primary"] > div:first-child strong { font-size: 34px !important; }
+  [class*="aiWaitingTop"] h2,
+  [class*="aiProgressTop"] h3,
+  [class*="aiChartHead"] h3,
+  [class*="tradingHead"] strong { font-size: 15px !important; }
+}
