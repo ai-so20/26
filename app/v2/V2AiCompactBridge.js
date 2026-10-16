@@ -85,11 +85,19 @@ function enhance(root, kind) {
   activate(activeIndex);
 }
 
+function removeOrphanDetail(kind) {
+  document.querySelectorAll(`.v2AiCompactDetail[data-v2-ai-detail="${kind}"]`).forEach((node) => node.remove());
+}
+
 function sync() {
   const flow = document.querySelector('[class*="aiIdleFlowGrid"]');
   const steps = document.querySelector('[class*="aiIdleSteps"]');
-  enhance(flow, 'flow');
-  enhance(steps, 'steps');
+
+  if (flow) enhance(flow, 'flow');
+  else removeOrphanDetail('flow');
+
+  if (steps) enhance(steps, 'steps');
+  else removeOrphanDetail('steps');
 }
 
 export default function V2AiCompactBridge() {
@@ -107,6 +115,8 @@ export default function V2AiCompactBridge() {
     return () => {
       observer.disconnect();
       window.cancelAnimationFrame(raf);
+      removeOrphanDetail('flow');
+      removeOrphanDetail('steps');
     };
   }, []);
 
