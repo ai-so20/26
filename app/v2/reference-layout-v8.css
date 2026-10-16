@@ -1,0 +1,477 @@
+/* V8 — Approved reference-image visual pass.
+   Scope: top Live/Attendance surfaces, surprise modal, compact AI guides.
+   Intentionally DOES NOT restyle the existing live event schedule list or attendance stamp grid. */
+
+/* =========================================================
+   LIVE / ATTENDANCE — page rhythm and approved warm-yellow role color
+   ========================================================= */
+html[data-v2-split-page="live"] [class*="eventPage"],
+html[data-v2-split-page="attendance"] [class*="eventPage"] {
+  background: #f7f9fc !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="pageHeading"],
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="pageHeading"] {
+  padding-top: 16px !important;
+  padding-bottom: 12px !important;
+  border-bottom-color: #e8edf3 !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="pageHeading"] [class*="kicker"],
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="pageHeading"] [class*="kicker"] {
+  color: #a47a00 !important;
+  letter-spacing: .08em !important;
+  font-weight: 900 !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="pageHeading"] h1,
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="pageHeading"] h1 {
+  color: #152238 !important;
+  letter-spacing: -.045em !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="statusBadge"],
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="statusBadge"] {
+  min-height: 34px !important;
+  padding: 0 11px !important;
+  border: 1px solid #e0e7ef !important;
+  border-radius: 9px !important;
+  background: #fff !important;
+  box-shadow: 0 3px 10px rgba(27,40,61,.05) !important;
+}
+
+/* Approved yellow introduction card. */
+html[data-v2-split-page="live"] .v2MovedEventGuide-live,
+html[data-v2-split-page="attendance"] .v2MovedEventGuide-attendance {
+  position: relative !important;
+  grid-template-columns: 46px minmax(0,1fr) !important;
+  gap: 12px !important;
+  margin: 10px 14px 12px !important;
+  padding: 13px 14px !important;
+  border: 1px solid #efd777 !important;
+  border-radius: 13px !important;
+  background: linear-gradient(180deg,#fffceb 0%,#fff9d6 100%) !important;
+  box-shadow: 0 4px 13px rgba(112,88,0,.05), inset 0 1px 0 rgba(255,255,255,.9) !important;
+}
+
+html[data-v2-split-page="live"] .v2MovedEventGuide-live .v2MovedEventGuideBadge,
+html[data-v2-split-page="attendance"] .v2MovedEventGuide-attendance .v2MovedEventGuideBadge {
+  width: 42px !important;
+  height: 42px !important;
+  display: grid !important;
+  place-items: center !important;
+  align-self: start !important;
+  border: 1px solid #e5c900 !important;
+  border-radius: 10px !important;
+  background: linear-gradient(180deg,#ffe922,#FEE500) !important;
+  color: #171500 !important;
+  box-shadow: 0 3px 8px rgba(177,151,0,.12) !important;
+  font-size: 12px !important;
+  font-weight: 950 !important;
+}
+
+html[data-v2-split-page="live"] .v2MovedEventGuide-live strong,
+html[data-v2-split-page="attendance"] .v2MovedEventGuide-attendance strong {
+  display: block !important;
+  margin: 0 0 4px !important;
+  color: #18253a !important;
+  font-size: 12px !important;
+  line-height: 1.25 !important;
+  letter-spacing: -.025em !important;
+}
+
+html[data-v2-split-page="live"] .v2MovedEventGuide-live p,
+html[data-v2-split-page="attendance"] .v2MovedEventGuide-attendance p {
+  display: block !important;
+  overflow: visible !important;
+  margin: 0 !important;
+  color: #718096 !important;
+  font-size: 9.5px !important;
+  line-height: 1.6 !important;
+  -webkit-line-clamp: unset !important;
+  line-clamp: unset !important;
+}
+
+/* LIVE summary: balanced 4-way metric panel like the approved image. */
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="summaryCard"] {
+  margin: 0 14px 13px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 1px solid #dfe6ee !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+  box-shadow: 0 5px 16px rgba(31,45,61,.045) !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="statsGrid"] {
+  display: grid !important;
+  grid-template-columns: repeat(4,minmax(0,1fr)) !important;
+  gap: 0 !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="stat"] {
+  position: relative !important;
+  min-height: 82px !important;
+  padding: 14px 5px 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  text-align: center !important;
+  background: #fff !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="stat"]:not(:last-child)::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 16px !important;
+  right: 0 !important;
+  bottom: 16px !important;
+  width: 1px !important;
+  background: #e6ebf1 !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="stat"] > span {
+  color: #78869a !important;
+  font-size: 9px !important;
+  font-weight: 750 !important;
+  line-height: 1.2 !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="stat"] > strong {
+  margin-top: 7px !important;
+  color: #132038 !important;
+  font-size: 24px !important;
+  line-height: .95 !important;
+  font-weight: 950 !important;
+  letter-spacing: -.055em !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="stat"] > strong small {
+  margin-left: 2px !important;
+  color: #718096 !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0 !important;
+}
+
+/* Attendance: keep the existing stamp system; only strengthen the top progress/action area. */
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceCardLarge"] {
+  margin: 0 14px !important;
+  overflow: hidden !important;
+  border: 1px solid #dfe6ee !important;
+  border-radius: 15px !important;
+  background: #fff !important;
+  box-shadow: 0 5px 16px rgba(31,45,61,.045) !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceHeader"] {
+  padding: 14px 14px 10px !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceCount"] {
+  color: #14233b !important;
+  font-size: 25px !important;
+  font-weight: 950 !important;
+  letter-spacing: -.055em !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="progressTrack"] {
+  height: 7px !important;
+  margin-left: 14px !important;
+  margin-right: 14px !important;
+  overflow: hidden !important;
+  border-radius: 999px !important;
+  background: #edf1f5 !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="progressTrack"] > span {
+  background: linear-gradient(90deg,#FEE500,#f6ce00) !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceCardLarge"] > [class*="primaryButtonWide"] {
+  margin: 12px 14px 12px !important;
+  min-height: 48px !important;
+  border: 1px solid #e2c900 !important;
+  border-radius: 11px !important;
+  background: linear-gradient(180deg,#ffe91d,#FEE500) !important;
+  color: #171500 !important;
+  box-shadow: 0 6px 14px rgba(177,151,0,.14), inset 0 1px 0 rgba(255,255,255,.55) !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+}
+
+/* IMPORTANT: no V8 rules target simpleList/eventLiveRow or attendanceThirtyGrid.
+   Existing live schedule and attendance stamps are intentionally preserved. */
+
+/* =========================================================
+   STATUS PILLS — keep the earlier requested softer state language
+   ========================================================= */
+[class*="eventPage"] [class*="rowState"] {
+  min-width: 48px !important;
+  min-height: 25px !important;
+  border-radius: 999px !important;
+  box-shadow: 0 2px 7px rgba(31,45,61,.07), inset 0 1px 0 rgba(255,255,255,.72) !important;
+}
+
+/* =========================================================
+   SURPRISE EVENT — true modal, matching the approved reference
+   ========================================================= */
+[class*="surpriseGuideCard"] {
+  width: min(390px,calc(100vw - 30px)) !important;
+  max-height: min(78vh,620px) !important;
+  padding: 0 16px 16px !important;
+  overflow-y: auto !important;
+  border: 1px solid #dbe2eb !important;
+  border-radius: 20px !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 100vmax rgba(16,25,40,.68),0 26px 72px rgba(9,18,34,.30) !important;
+}
+
+[class*="surpriseGuideHead"] {
+  position: sticky !important;
+  top: 0 !important;
+  margin: 0 -16px 8px !important;
+  padding: 20px 50px 14px 18px !important;
+  border-bottom: 1px solid #edf0f4 !important;
+  background: #fff !important;
+}
+
+[class*="surpriseGuideHead"]::before {
+  content: '✦' !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 40px !important;
+  height: 40px !important;
+  margin: 0 auto 10px !important;
+  border-radius: 50% !important;
+  background: #fff5bd !important;
+  color: #c89500 !important;
+  font-size: 20px !important;
+}
+
+[class*="surpriseGuideHead"] > strong {
+  display: block !important;
+  text-align: center !important;
+  color: #152238 !important;
+  font-size: 15px !important;
+  line-height: 1.3 !important;
+  letter-spacing: -.03em !important;
+}
+
+[class*="surpriseGuideHead"] > button {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  width: 32px !important;
+  height: 32px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: #f4f7fa !important;
+  color: #65758a !important;
+  font-size: 0 !important;
+  box-shadow: inset 0 0 0 1px #e3e8ee !important;
+}
+
+[class*="surpriseGuideHead"] > button::before {
+  content: '×' !important;
+  font-size: 20px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+}
+
+[class*="surpriseGuideBody"] {
+  padding: 10px 4px 4px !important;
+  color: #5f6f84 !important;
+  font-size: 10px !important;
+  line-height: 1.75 !important;
+  white-space: pre-wrap !important;
+}
+
+/* =========================================================
+   AI PROCESS — approved connected step rail + one focused explanation
+   ========================================================= */
+[class*="aiIdleSection"] {
+  margin-top: 10px !important;
+  padding: 18px !important;
+  border: 1px solid #dfe6ef !important;
+  border-radius: 14px !important;
+  background: #fff !important;
+  box-shadow: 0 5px 17px rgba(31,45,61,.04) !important;
+}
+
+[class*="aiIdleSectionHead"] {
+  margin-bottom: 16px !important;
+}
+
+[class*="aiIdleSectionHead"] > span {
+  color: #2f6fed !important;
+  font-size: 9px !important;
+  font-weight: 900 !important;
+}
+
+[class*="aiIdleSectionHead"] h3 {
+  margin: 5px 0 0 !important;
+  color: #152238 !important;
+  font-size: 18px !important;
+  letter-spacing: -.04em !important;
+}
+
+[class*="aiIdleSectionHead"] p {
+  margin: 6px 0 0 !important;
+  color: #7a8799 !important;
+  font-size: 10px !important;
+  line-height: 1.55 !important;
+}
+
+.v2AiCompactRail {
+  position: relative !important;
+  display: grid !important;
+  grid-auto-flow: column !important;
+  grid-auto-columns: minmax(72px,1fr) !important;
+  gap: 0 !important;
+  overflow-x: auto !important;
+  padding: 0 0 9px !important;
+  scrollbar-width: none !important;
+}
+.v2AiCompactRail::-webkit-scrollbar { display:none !important; }
+
+.v2AiCompactRail::before {
+  content: '' !important;
+  position: absolute !important;
+  left: 34px !important;
+  right: 34px !important;
+  top: 17px !important;
+  height: 2px !important;
+  background: #dfe8f4 !important;
+  z-index: 0 !important;
+}
+
+.v2AiCompactRail > div {
+  position: relative !important;
+  z-index: 1 !important;
+  min-height: 66px !important;
+  padding: 0 3px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 7px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.v2AiCompactRail > div > i {
+  width: 34px !important;
+  height: 34px !important;
+  display: grid !important;
+  place-items: center !important;
+  margin: 0 !important;
+  border: 1px solid #d7e0eb !important;
+  border-radius: 50% !important;
+  background: #f4f7fa !important;
+  color: #5c6b80 !important;
+  box-shadow: 0 0 0 4px #fff !important;
+  font-size: 9px !important;
+  font-style: normal !important;
+  font-weight: 900 !important;
+}
+
+.v2AiCompactRail > div[data-v2-ai-active="true"] > i {
+  border-color: #2f6fed !important;
+  background: #2f6fed !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 4px #fff,0 0 0 6px #bcd2ff !important;
+}
+
+.v2AiCompactRail > div > div {
+  min-width: 0 !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+.v2AiCompactRail > div strong {
+  display: block !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  color: #46566c !important;
+  font-size: 8.5px !important;
+  line-height: 1.25 !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.v2AiCompactRail > div[data-v2-ai-active="true"] strong {
+  color: #1e5fc5 !important;
+  font-weight: 900 !important;
+}
+
+.v2AiCompactRail > div[data-v2-ai-active="true"]::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 18% !important;
+  right: 18% !important;
+  bottom: 0 !important;
+  height: 2px !important;
+  border-radius: 999px !important;
+  background: #2f6fed !important;
+}
+
+.v2AiCompactRail > div p { display:none !important; }
+
+.v2AiCompactDetail {
+  margin-top: 8px !important;
+  padding: 15px !important;
+  grid-template-columns: 42px minmax(0,1fr) !important;
+  gap: 13px !important;
+  align-items: center !important;
+  border: 1px solid #cfe0fa !important;
+  border-radius: 12px !important;
+  background: linear-gradient(180deg,#f7fbff,#eef6ff) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9) !important;
+}
+
+.v2AiCompactDetailIndex {
+  width: 42px !important;
+  height: 42px !important;
+  padding: 0 !important;
+  border-radius: 11px !important;
+  background: #dcecff !important;
+  color: #1f65c8 !important;
+  font-size: 7px !important;
+  letter-spacing: .04em !important;
+}
+
+.v2AiCompactDetailText strong {
+  color: #18253a !important;
+  font-size: 11.5px !important;
+  font-weight: 900 !important;
+}
+
+.v2AiCompactDetailText p {
+  margin-top: 5px !important;
+  color: #718096 !important;
+  font-size: 9.5px !important;
+  line-height: 1.6 !important;
+}
+
+@media (max-width:520px) {
+  .v2AiCompactRail {
+    grid-auto-columns: 76px !important;
+  }
+  .v2AiCompactRail::before {
+    left: 36px !important;
+    right: 36px !important;
+  }
+  html[data-v2-split-page="live"] [class*="eventPage"] [class*="stat"] {
+    min-height: 76px !important;
+    padding-left: 3px !important;
+    padding-right: 3px !important;
+  }
+  html[data-v2-split-page="live"] [class*="eventPage"] [class*="stat"] > strong {
+    font-size: 22px !important;
+  }
+}
