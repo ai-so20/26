@@ -15,18 +15,92 @@
   font-size: 11px !important;
 }
 
+/* Split tabs use one consistent blue active indicator. */
 .v2SplitTopNav > button.v2SplitNavActive {
-  color: #191600 !important;
+  color: #172033 !important;
   font-weight: 900 !important;
 }
 
 .v2SplitTopNav > button.v2SplitNavActive::after {
-  background: #F5D400 !important;
+  content: '' !important;
+  position: absolute !important;
+  left: 22% !important;
+  right: 22% !important;
+  bottom: -1px !important;
+  height: 3px !important;
+  border-radius: 999px 999px 0 0 !important;
+  background: #2f6fed !important;
+}
+
+/* When attendance is selected, suppress the original React event-tab underline. */
+html[data-v2-split-page="attendance"] .v2SplitTopNav > button[data-v2-split-live="true"] {
+  color: #7a8696 !important;
+  font-weight: 750 !important;
+}
+html[data-v2-split-page="attendance"] .v2SplitTopNav > button[data-v2-split-live="true"]::after {
+  display: none !important;
+  content: none !important;
 }
 
 /* The old in-page Live / Attendance selector is no longer part of the UX. */
 [class*="eventPage"] [class*="section"]:has([class*="segmentGrid"]) {
   display: none !important;
+}
+
+/* Align live / attendance content with a calmer centered mobile gutter. */
+html[data-v2-split-page="live"] [class*="eventPage"],
+html[data-v2-split-page="attendance"] [class*="eventPage"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="pageHeading"],
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="pageHeading"] {
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+/* Kakao-family role color: stronger, but still limited to event/check-in semantics. */
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="kicker"],
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="kicker"] {
+  color: #8a7300 !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="primaryCard"],
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceCardLarge"] {
+  border-color: #eadb86 !important;
+  box-shadow: 0 5px 16px rgba(91, 74, 0, .06) !important;
+}
+
+html[data-v2-split-page="live"] .v2MovedEventGuide-live,
+html[data-v2-split-page="attendance"] .v2MovedEventGuide-attendance {
+  background: #fff9d9 !important;
+  border-color: #ead98a !important;
+}
+
+html[data-v2-split-page="live"] .v2MovedEventGuide-live .v2MovedEventGuideBadge,
+html[data-v2-split-page="attendance"] .v2MovedEventGuide-attendance .v2MovedEventGuideBadge {
+  background: #FEE500 !important;
+  border-color: #e0c900 !important;
+  color: #2a2500 !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="primaryButtonWide"],
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="primaryButtonWide"] {
+  background: #FEE500 !important;
+  border-color: #e0c900 !important;
+  color: #191600 !important;
+  box-shadow: 0 4px 12px rgba(177, 153, 0, .16) !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="progressTrack"] > span {
+  background: #F5D400 !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceCount"] {
+  color: #6f5e00 !important;
 }
 
 /* LIVE — keep status, reward guidance, current event and action in the first viewport. */
@@ -36,6 +110,7 @@ html[data-v2-split-page="live"] [class*="eventPage"] [class*="pageHeading"] {
 
 html[data-v2-split-page="live"] [class*="eventPage"] [class*="summaryCard"] {
   margin-bottom: 8px !important;
+  border-color: #e7deac !important;
 }
 
 html[data-v2-split-page="live"] [class*="eventPage"] [class*="summaryTop"] {
@@ -201,8 +276,14 @@ html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceTh
 
   html[data-v2-split-page="live"] [class*="eventPage"],
   html[data-v2-split-page="attendance"] [class*="eventPage"] {
-    padding-left: 4px !important;
-    padding-right: 4px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  html[data-v2-split-page="live"] [class*="eventPage"] [class*="pageHeading"],
+  html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="pageHeading"] {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
   }
 
   html[data-v2-split-page="live"] [class*="eventPage"] [class*="pageHeading"] h1,
