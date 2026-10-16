@@ -1,0 +1,54 @@
+/* Reward Center compact heading — scoped to embedded 상품지급센터 only */
+[class*="rewardEmbeddedCanvas"] [class*="pageHeading"] {
+  min-height: 0 !important;
+  margin: 0 0 12px !important;
+  padding: 6px 0 8px !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+/* Remove duplicated small '상품 지급' eyebrow from the reward center heading. */
+[class*="rewardEmbeddedCanvas"] [class*="pageHeading"] [class*="kicker"] {
+  display: none !important;
+}
+
+[class*="rewardEmbeddedCanvas"] [class*="pageHeading"] h1 {
+  margin: 0 !important;
+  color: #7453d6 !important;
+  font-size: clamp(22px, 5.8vw, 28px) !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.045em !important;
+  font-weight: 800 !important;
+}
+
+[class*="rewardEmbeddedCanvas"] [class*="pageHeading"] [class*="statusBadge"] {
+  min-height: 28px !important;
+  padding: 5px 9px !important;
+  border-color: #ddd5f6 !important;
+  background: #f7f4ff !important;
+  color: #7254c9 !important;
+  font-size: 9px !important;
+  line-height: 1 !important;
+}
+
+[class*="rewardEmbeddedCanvas"] [class*="pageHeading"] [class*="statusBadge"] i {
+  width: 6px !important;
+  height: 6px !important;
+  background: #7453d6 !important;
+}
+
+@media (max-width: 520px) {
+  [class*="rewardEmbeddedCanvas"] [class*="pageHeading"] {
+    margin-bottom: 10px !important;
+    padding: 2px 0 6px !important;
+  }
+
+  [class*="rewardEmbeddedCanvas"] [class*="pageHeading"] h1 {
+    font-size: 24px !important;
+  }
+
+  [class*="rewardEmbeddedCanvas"] [class*="pageHeading"] [class*="statusBadge"] {
+    min-height: 26px !important;
+    padding: 4px 8px !important;
+  }
+}
