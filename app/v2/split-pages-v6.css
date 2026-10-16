@@ -15,24 +15,27 @@
   font-size: 11px !important;
 }
 
-/* Split tabs use one consistent blue active indicator. */
-.v2SplitTopNav > button.v2SplitNavActive {
-  color: #172033 !important;
-  font-weight: 900 !important;
-}
-
+/* All four tabs use one consistent top-edge blue active indicator. */
+.v2SplitTopNav > button[class*="navActive"]::after,
 .v2SplitTopNav > button.v2SplitNavActive::after {
   content: '' !important;
   position: absolute !important;
   left: 22% !important;
   right: 22% !important;
-  bottom: -1px !important;
+  top: 0 !important;
+  bottom: auto !important;
   height: 3px !important;
-  border-radius: 999px 999px 0 0 !important;
+  border-radius: 0 0 999px 999px !important;
   background: #2f6fed !important;
+  display: block !important;
 }
 
-/* When attendance is selected, suppress the original React event-tab underline. */
+.v2SplitTopNav > button.v2SplitNavActive {
+  color: #172033 !important;
+  font-weight: 900 !important;
+}
+
+/* When attendance is selected, suppress the original React event-tab state completely. */
 html[data-v2-split-page="attendance"] .v2SplitTopNav > button[data-v2-split-live="true"] {
   color: #7a8696 !important;
   font-weight: 750 !important;
