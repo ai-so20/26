@@ -75,8 +75,51 @@
 
 /* ─────────────────────────────────────────────
    EVENT
-   One mobile x-axis. No heading/card/text may hug the viewport wall.
+   Kakao-family yellow as the role accent only.
+   Keep white/neutral surfaces; yellow is reserved for action/progress/status.
    ───────────────────────────────────────────── */
+[class*="eventPage"] {
+  --event-accent: #FEE500 !important;
+  --event-accent-soft: #FFF9C8 !important;
+  --event-yellow-ink: #191919;
+  --event-yellow-deep: #8A7600;
+  --event-yellow-border: #E6D200;
+}
+
+[class*="eventPage"] [class*="pageHeading"] [class*="kicker"],
+[class*="eventPage"] [class*="cardBody"]::before {
+  color: var(--event-yellow-deep) !important;
+}
+
+[class*="eventPage"] [class*="segmentActive"] [class*="segmentMark"],
+[class*="eventPage"] [class*="progressTrack"] > span {
+  background: var(--event-accent) !important;
+}
+
+[class*="eventPage"] [class*="primaryButtonWide"],
+[class*="eventPage"] [class*="primaryButton"] {
+  border-color: var(--event-yellow-border) !important;
+  background: var(--event-accent) !important;
+  color: var(--event-yellow-ink) !important;
+  box-shadow: 0 3px 8px rgba(191, 172, 0, .18) !important;
+}
+
+[class*="eventPage"] [class*="attendanceRemaining"] strong,
+[class*="eventPage"] [class*="attendanceThirtyDone"],
+[class*="eventPage"] [class*="attendanceThirtyStamp"] {
+  color: var(--event-yellow-deep) !important;
+}
+
+[class*="eventPage"] [class*="attendanceThirtyDone"] {
+  border-color: #E9D94A !important;
+  background: #FFFBE3 !important;
+}
+
+[class*="eventPage"] [class*="attendanceThirtyStamp"] {
+  border-color: var(--event-yellow-deep) !important;
+}
+
+/* One mobile x-axis. No heading/card/text may hug the viewport wall. */
 @media (max-width: 520px) {
   /* Parent content already has 18px in v2.module.css. Keep parent rule as a best-effort
      enhancement, but do NOT rely on :has() for the final gutter. */
