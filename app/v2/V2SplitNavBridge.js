@@ -21,6 +21,14 @@ function findModeButton(label) {
   return [...document.querySelectorAll('button')].find((button) => text(button).includes(label)) || null;
 }
 
+function withoutReactActiveClass(className = '') {
+  return String(className)
+    .split(/\s+/)
+    .filter(Boolean)
+    .filter((name) => !/navActive/i.test(name))
+    .join(' ');
+}
+
 function activateMode(mode) {
   const label = mode === 'attendance' ? '출석 이벤트' : '실시간 이벤트';
   const button = findModeButton(label);
@@ -54,11 +62,15 @@ export default function V2SplitNavBridge() {
           attendanceButton = document.createElement('button');
           attendanceButton.type = 'button';
           attendanceButton.textContent = '출석';
-          attendanceButton.className = eventButton.className;
+          attendanceButton.className = withoutReactActiveClass(eventButton.className);
           attendanceButton.dataset.v2SplitAttendance = 'true';
           attendanceButton.addEventListener('click', () => {
             const eventPage = document.querySelector('[class*="eventPage"]');
             if (!eventPage) eventButton.click();
+            try { window.sessionStorage.setItem('vip-event-page-mode', 'attendance'); } catch {}
+            document.documentElement.dataset.v2SplitPage = 'attendance';
+            eventButton.classList.remove('v2SplitNavActive');
+            attendanceButton.classList.add('v2SplitNavActive');
             window.requestAnimationFrame(() => {
               activateMode('attendance');
               sync();
@@ -70,6 +82,10 @@ export default function V2SplitNavBridge() {
         if (!eventButton.dataset.v2SplitBound) {
           eventButton.dataset.v2SplitBound = 'true';
           eventButton.addEventListener('click', () => {
+            try { window.sessionStorage.setItem('vip-event-page-mode', 'live'); } catch {}
+            document.documentElement.dataset.v2SplitPage = 'live';
+            eventButton.classList.add('v2SplitNavActive');
+            attendanceButton.classList.remove('v2SplitNavActive');
             window.requestAnimationFrame(() => {
               activateMode('live');
               sync();
