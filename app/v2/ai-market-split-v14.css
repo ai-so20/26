@@ -1,0 +1,312 @@
+/* V14 — AI market scanner + independent state-change history card.
+   Keep original 1~10 pagination logic; only restructure presentation and density. */
+
+/* Remove the temporary inline history toggle from V13. */
+.v2AiMarketHistoryToggle { display: none !important; }
+
+/* Strong, explicit header contrast — prevents the washed-out mobile state. */
+[class*="aiMarketScanner"] [class*="aiMarketScannerHead"] {
+  min-height: 0 !important;
+  padding: 12px 14px !important;
+  border: 1px solid #d5dee9 !important;
+  background: #ffffff !important;
+  color: #172033 !important;
+  opacity: 1 !important;
+  box-shadow: 0 3px 10px rgba(25,39,61,.045) !important;
+}
+
+[class*="aiMarketScannerHead"] > div:first-child > span {
+  color: #2f6fed !important;
+  -webkit-text-fill-color: #2f6fed !important;
+  opacity: 1 !important;
+  font-size: 8.5px !important;
+  font-weight: 900 !important;
+}
+
+[class*="aiMarketScannerHead"] > div:first-child > strong {
+  margin-top: 3px !important;
+  color: #172033 !important;
+  -webkit-text-fill-color: #172033 !important;
+  opacity: 1 !important;
+  font-size: 14px !important;
+  line-height: 1.25 !important;
+  font-weight: 900 !important;
+}
+
+[class*="aiMarketScannerHead"] > div:first-child > small {
+  margin-top: 4px !important;
+  color: #596b82 !important;
+  -webkit-text-fill-color: #596b82 !important;
+  opacity: 1 !important;
+  font-size: 8.5px !important;
+  line-height: 1.4 !important;
+  font-weight: 650 !important;
+}
+
+[class*="aiMarketScannerHeadRight"] [class*="aiMarketPulse"] {
+  color: #2f6fed !important;
+  -webkit-text-fill-color: #2f6fed !important;
+  opacity: 1 !important;
+  font-size: 7.5px !important;
+  font-weight: 900 !important;
+}
+
+[class*="aiMarketScannerHeadRight"] em {
+  color: #41536b !important;
+  -webkit-text-fill-color: #41536b !important;
+  opacity: 1 !important;
+  font-size: 7.5px !important;
+  font-style: normal !important;
+  font-weight: 850 !important;
+}
+
+/* React content stays mounted; visual fold is controlled independently. */
+[class*="aiMarketScanner"][data-v2-market-open="false"] > :not([class*="aiMarketScannerHead"]) {
+  display: none !important;
+}
+
+/* Current market data: substantially denser than the previous mobile two-row layout. */
+[class*="aiMarketTelemetry"] {
+  grid-template-columns: repeat(4,minmax(0,1fr)) !important;
+}
+
+[class*="aiMarketTelemetry"] > div {
+  min-height: 44px !important;
+  padding: 7px 6px !important;
+}
+
+[class*="aiMarketTelemetry"] span,
+[class*="aiMarketTelemetry"] small {
+  font-size: 6.5px !important;
+  line-height: 1.25 !important;
+}
+
+[class*="aiMarketTelemetry"] strong {
+  margin-top: 2px !important;
+  font-size: 9px !important;
+  line-height: 1.15 !important;
+}
+
+[class*="aiMarketColumns"] {
+  min-height: 22px !important;
+  padding: 0 8px !important;
+  font-size: 6.5px !important;
+}
+
+[class*="aiMarketLiveList"] {
+  max-height: 248px !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+  scrollbar-width: thin !important;
+}
+
+[class*="aiMarketLiveRow"] {
+  grid-template-columns: minmax(0,1.05fr) minmax(0,.9fr) minmax(0,1fr) !important;
+  align-items: center !important;
+  min-height: 38px !important;
+  padding: 5px 8px !important;
+  gap: 6px !important;
+}
+
+[class*="aiMarketAsset"],
+[class*="aiMarketDirection"],
+[class*="aiMarketState"] {
+  min-width: 0 !important;
+  grid-column: auto !important;
+  padding: 0 !important;
+  border-top: 0 !important;
+}
+
+[class*="aiMarketState"] {
+  border-left: 1px solid rgba(255,255,255,.06) !important;
+  padding-left: 7px !important;
+}
+
+[class*="aiMarketCoinMark"],
+[class*="aiMarketStockMark"] {
+  width: 23px !important;
+  height: 23px !important;
+  min-width: 23px !important;
+  border-radius: 5px !important;
+  font-size: 8px !important;
+}
+
+[class*="aiMarketAsset"], [class*="aiMarketDirection"] { gap: 5px !important; }
+
+[class*="aiMarketAsset"] strong,
+[class*="aiMarketDirection"] strong,
+[class*="aiMarketState"] strong {
+  font-size: 8px !important;
+  line-height: 1.2 !important;
+}
+
+[class*="aiMarketAsset"] small,
+[class*="aiMarketDirection"] small,
+[class*="aiMarketState"] small {
+  margin-top: 1px !important;
+  font-size: 6.3px !important;
+  line-height: 1.2 !important;
+}
+
+[class*="aiMarketFootnote"] {
+  padding: 7px 9px !important;
+  font-size: 6.5px !important;
+  line-height: 1.35 !important;
+}
+
+/* Completely separate state-change-history card. */
+.v2AiMarketHistoryCard {
+  margin-top: 10px !important;
+  overflow: hidden !important;
+  border: 1px solid #d5dee9 !important;
+  border-radius: 12px !important;
+  background: #0b1729 !important;
+  box-shadow: 0 4px 14px rgba(19,34,56,.055) !important;
+}
+
+.v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] {
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) auto auto !important;
+  align-items: center !important;
+  gap: 9px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 11px 13px !important;
+  border: 0 !important;
+  background: #ffffff !important;
+  cursor: pointer !important;
+  outline: none !important;
+}
+
+.v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] > div {
+  min-width: 0 !important;
+  display: grid !important;
+  gap: 2px !important;
+}
+
+.v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] span {
+  color: #2f6fed !important;
+  -webkit-text-fill-color: #2f6fed !important;
+  font-size: 7px !important;
+  font-weight: 900 !important;
+  letter-spacing: .1em !important;
+}
+
+.v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] strong {
+  color: #172033 !important;
+  -webkit-text-fill-color: #172033 !important;
+  font-size: 12px !important;
+  font-weight: 900 !important;
+  line-height: 1.2 !important;
+}
+
+.v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] small {
+  color: #66758a !important;
+  -webkit-text-fill-color: #66758a !important;
+  font-size: 7px !important;
+  line-height: 1.3 !important;
+}
+
+.v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] > b {
+  padding: 4px 6px !important;
+  border-radius: 999px !important;
+  background: #edf3ff !important;
+  color: #2f6fed !important;
+  font-size: 7px !important;
+  font-weight: 900 !important;
+  white-space: nowrap !important;
+}
+
+.v2AiHistoryCardAction {
+  color: #41536b !important;
+  font-size: 7.5px !important;
+  font-style: normal !important;
+  font-weight: 850 !important;
+  white-space: nowrap !important;
+}
+
+.v2AiMarketHistoryCard[data-v2-history-open="false"] [class*="aiMarketHistoryList"],
+.v2AiMarketHistoryCard[data-v2-history-open="false"] [class*="aiTradingPager"] {
+  display: none !important;
+}
+
+.v2AiMarketHistoryCard [class*="aiMarketHistoryList"] {
+  margin: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: #0b1729 !important;
+}
+
+.v2AiMarketHistoryCard [class*="aiMarketHistoryRow"] {
+  min-height: 38px !important;
+  padding: 5px 8px !important;
+  gap: 5px !important;
+}
+
+.v2AiMarketHistoryCard [class*="aiMarketHistoryTime"] strong,
+.v2AiMarketHistoryCard [class*="aiMarketHistoryAsset"] strong,
+.v2AiMarketHistoryCard [class*="aiMarketHistoryChange"] strong,
+.v2AiMarketHistoryCard [class*="aiMarketHistoryAction"] strong {
+  font-size: 7.5px !important;
+  line-height: 1.2 !important;
+}
+
+.v2AiMarketHistoryCard [class*="aiMarketHistoryTime"] small,
+.v2AiMarketHistoryCard [class*="aiMarketHistoryAsset"] small,
+.v2AiMarketHistoryCard [class*="aiMarketHistoryAction"] small,
+.v2AiMarketHistoryCard [class*="aiMarketHistoryChange"] span {
+  font-size: 6px !important;
+  line-height: 1.2 !important;
+}
+
+/* Preserve the original numbered 1~10 pagination; only reduce physical size. */
+.v2AiMarketHistoryCard [class*="aiTradingPager"] {
+  margin: 0 !important;
+  padding: 7px 8px 8px !important;
+  min-height: 0 !important;
+  border-top: 1px solid rgba(255,255,255,.06) !important;
+}
+
+.v2AiMarketHistoryCard [class*="aiTradingPager"] button {
+  min-width: 24px !important;
+  height: 24px !important;
+  padding: 0 5px !important;
+  font-size: 7px !important;
+}
+
+@media (max-width: 520px) {
+  [class*="aiMarketScanner"] [class*="aiMarketScannerHead"] {
+    padding: 10px 11px !important;
+  }
+
+  [class*="aiMarketScannerHead"] > div:first-child > strong {
+    font-size: 13px !important;
+  }
+
+  [class*="aiMarketScannerHead"] > div:first-child > small {
+    font-size: 8px !important;
+  }
+
+  [class*="aiMarketLiveList"] {
+    max-height: 228px !important;
+  }
+
+  [class*="aiMarketLiveRow"] {
+    grid-template-columns: minmax(0,1.05fr) minmax(0,.9fr) minmax(0,1fr) !important;
+    min-height: 36px !important;
+    padding: 4px 7px !important;
+    gap: 5px !important;
+  }
+
+  [class*="aiMarketState"] {
+    grid-column: auto !important;
+    padding: 0 0 0 6px !important;
+    border-top: 0 !important;
+    border-left: 1px solid rgba(255,255,255,.06) !important;
+  }
+
+  .v2AiMarketHistoryCard [class*="aiMarketHistoryHead"] {
+    padding: 10px 11px !important;
+  }
+}
