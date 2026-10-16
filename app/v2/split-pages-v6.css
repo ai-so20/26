@@ -1,0 +1,212 @@
+/* V6 — Live / Attendance / AI PROCESS / Reward Center
+   Split Event and Attendance into top-level navigation surfaces.
+   AI PROCESS internals are intentionally untouched. */
+
+.v2SplitTopNav {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+.v2SplitTopNav > button {
+  min-width: 0 !important;
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+  font-size: 11px !important;
+}
+
+.v2SplitTopNav > button.v2SplitNavActive {
+  color: #191600 !important;
+  font-weight: 900 !important;
+}
+
+.v2SplitTopNav > button.v2SplitNavActive::after {
+  background: #F5D400 !important;
+}
+
+/* The old in-page Live / Attendance selector is no longer part of the UX. */
+[class*="eventPage"] [class*="section"]:has([class*="segmentGrid"]) {
+  display: none !important;
+}
+
+/* LIVE — keep status, reward guidance, current event and action in the first viewport. */
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="pageHeading"] {
+  margin-bottom: 8px !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="summaryCard"] {
+  margin-bottom: 8px !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="summaryTop"] {
+  display: none !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="statsGrid"] {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  min-height: 0 !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="stat"] {
+  min-height: 56px !important;
+  padding: 8px 4px !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="stat"] > span {
+  font-size: 9px !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="stat"] > strong {
+  margin-top: 3px !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="stat"] > strong small {
+  font-size: 9px !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="primaryCard"] {
+  margin-top: 8px !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="cardTopline"] {
+  padding-top: 9px !important;
+  padding-bottom: 8px !important;
+}
+
+html[data-v2-split-page="live"] .v2MovedEventGuide-live {
+  grid-template-columns: 30px minmax(0, 1fr) !important;
+  gap: 9px !important;
+  margin: 0 14px 8px !important;
+  padding: 9px 10px !important;
+}
+
+html[data-v2-split-page="live"] .v2MovedEventGuide-live .v2MovedEventGuideBadge {
+  width: 28px !important;
+  height: 28px !important;
+  font-size: 9px !important;
+}
+
+html[data-v2-split-page="live"] .v2MovedEventGuide-live strong {
+  margin-bottom: 2px !important;
+  font-size: 11px !important;
+}
+
+html[data-v2-split-page="live"] .v2MovedEventGuide-live p {
+  display: -webkit-box !important;
+  overflow: hidden !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+  line-clamp: 2 !important;
+  font-size: 9.5px !important;
+  line-height: 1.45 !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="cardBody"] {
+  padding: 10px 14px !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="cardBody"] h2 {
+  margin: 4px 0 !important;
+  font-size: 18px !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="cardBody"] p {
+  margin: 0 !important;
+  font-size: 10px !important;
+  line-height: 1.45 !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="gameArea"] {
+  margin: 0 14px 12px !important;
+  padding: 10px !important;
+}
+
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="primaryButtonWide"] {
+  min-height: 44px !important;
+}
+
+/* The detailed day schedule is secondary to the immediate action. */
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="simpleList"] {
+  margin-top: 16px !important;
+}
+
+/* Avoid rendering a second participation control for the featured live round in the schedule. */
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="simpleList"] [class*="gameArea"] {
+  display: none !important;
+}
+
+/* ATTENDANCE — no live-event summary; progress and today's action lead. */
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="summaryCard"] {
+  display: none !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="pageHeading"] {
+  margin-bottom: 8px !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceCardLarge"] {
+  margin-top: 0 !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceHeader"] {
+  padding: 12px 14px 8px !important;
+}
+
+html[data-v2-split-page="attendance"] .v2MovedEventGuide-attendance {
+  margin: 0 14px 8px !important;
+  padding: 9px 10px !important;
+}
+
+html[data-v2-split-page="attendance"] .v2MovedEventGuide-attendance p {
+  font-size: 9.5px !important;
+  line-height: 1.45 !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="progressTrack"] {
+  margin-top: 2px !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceRemaining"] {
+  margin-top: 8px !important;
+}
+
+/* Put today's attendance action before the 30-cell history visually. */
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceCardLarge"] {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceHeader"] { order: 1; }
+html[data-v2-split-page="attendance"] .v2MovedEventGuide-attendance { order: 2; }
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="progressTrack"] { order: 3; }
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceRemaining"] { order: 4; }
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceCardLarge"] > [class*="primaryButtonWide"] {
+  order: 5;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+  min-height: 44px !important;
+}
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="attendanceThirtyGrid"] {
+  order: 6;
+  margin-top: 2px !important;
+}
+
+@media (max-width: 520px) {
+  .v2SplitTopNav > button {
+    height: 52px !important;
+    font-size: 10.5px !important;
+  }
+
+  html[data-v2-split-page="live"] [class*="eventPage"],
+  html[data-v2-split-page="attendance"] [class*="eventPage"] {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+
+  html[data-v2-split-page="live"] [class*="eventPage"] [class*="pageHeading"] h1,
+  html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="pageHeading"] h1 {
+    font-size: 23px !important;
+  }
+}
