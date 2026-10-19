@@ -19,6 +19,7 @@ import './readability-unify-v16.css';
 import './financial-editorial-foundation.css';
 import './financial-editorial-event.css';
 import './financial-editorial-ai.css';
+import './financial-editorial-reward.css';
 import V2MovedEventGuideBridge from './V2MovedEventGuideBridge';
 import V2SplitNavBridge from './V2SplitNavBridge';
 import V2AiCompactBridge from './V2AiCompactBridge';
