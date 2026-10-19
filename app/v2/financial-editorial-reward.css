@@ -1,0 +1,61 @@
+/* Part 4 — BENEFITS / Private Ledger */
+.v2-financial-editorial [class*="rewardEmbedded"] [class*="pageHeading"],
+.v2-financial-editorial [class*="rewardEmbedded"] [class*="pageHeading"] { margin-bottom:18px; }
+.v2-financial-editorial [class*="rewardEmbedded"] [class*="pageHeading"] [class*="kicker"] { display:none !important; }
+.v2-financial-editorial [class*="rewardEmbedded"] [class*="pageHeading"] h1 { color:var(--fe-violet) !important; }
+.v2-financial-editorial [class*="rewardEmbedded"] [class*="statusBadge"] { color:var(--fe-text-2) !important; }
+.v2-financial-editorial [class*="rewardEmbedded"] [class*="statusBadge"] i { background:var(--fe-violet) !important; animation:none !important; }
+
+/* Three summary cards become one compact ledger rail. */
+.v2-financial-editorial [class*="summary"] {
+  display:grid !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; gap:0 !important;
+  margin:0 0 24px !important; border-top:1px solid var(--fe-line); border-bottom:1px solid var(--fe-line);
+  background:transparent !important; border-radius:0 !important; box-shadow:none !important;
+}
+.v2-financial-editorial [class*="summary"] > div { padding:16px 14px !important; border:0 !important; border-radius:0 !important; background:transparent !important; box-shadow:none !important; }
+.v2-financial-editorial [class*="summary"] > div + div { border-left:1px solid var(--fe-line) !important; }
+.v2-financial-editorial [class*="summary"] span { color:var(--fe-text-3) !important; font-size:9px !important; letter-spacing:.04em; }
+.v2-financial-editorial [class*="summary"] strong { color:var(--fe-text) !important; font-size:20px !important; font-variant-numeric:tabular-nums; }
+.v2-financial-editorial [class*="summary"] small { color:var(--fe-text-3) !important; }
+
+.v2-financial-editorial [class*="deliveryCard"] { border:0 !important; border-top:1px solid var(--fe-line) !important; border-bottom:1px solid var(--fe-line) !important; border-radius:0 !important; background:transparent !important; box-shadow:none !important; }
+.v2-financial-editorial [class*="deliveryHead"] { min-height:66px; padding:14px 0 !important; border-bottom:1px solid var(--fe-line) !important; }
+.v2-financial-editorial [class*="deliveryHead"] span { color:var(--fe-violet) !important; letter-spacing:.1em; }
+.v2-financial-editorial [class*="deliveryHead"] strong { color:var(--fe-text) !important; }
+.v2-financial-editorial [class*="liveBadge"] { border:1px solid rgba(123,106,168,.16) !important; background:rgba(123,106,168,.05) !important; color:var(--fe-violet) !important; }
+
+/* Welcome content is informational, not another stack of product cards. */
+.v2-financial-editorial [class*="rewardWelcome"] { padding:20px 0 !important; border:0 !important; border-bottom:1px solid var(--fe-line) !important; border-radius:0 !important; background:transparent !important; box-shadow:none !important; }
+.v2-financial-editorial [class*="rewardWelcomeTop"] > span { color:var(--fe-violet) !important; letter-spacing:.1em; }
+.v2-financial-editorial [class*="rewardWelcomeTop"] > strong { color:var(--fe-text) !important; }
+.v2-financial-editorial [class*="rewardWelcomeTop"] > p { color:var(--fe-text-2) !important; }
+.v2-financial-editorial [class*="rewardBenefitPanel"] { margin-top:18px !important; padding:0 !important; border:0 !important; border-radius:0 !important; background:transparent !important; box-shadow:none !important; }
+.v2-financial-editorial [class*="rewardBenefitPanel"] > strong { display:block; padding-bottom:10px; border-bottom:1px solid var(--fe-line); color:var(--fe-text) !important; }
+.v2-financial-editorial [class*="rewardBenefitRow"] { padding:14px 0 !important; border-bottom:1px solid var(--fe-line); }
+.v2-financial-editorial [class*="rewardBenefitIcon"] { width:auto !important; min-width:28px; height:auto !important; border:0 !important; border-radius:0 !important; background:transparent !important; color:var(--fe-violet) !important; font-size:10px !important; letter-spacing:.05em; }
+.v2-financial-editorial [class*="rewardBenefitRow"] b { color:var(--fe-text) !important; }
+.v2-financial-editorial [class*="rewardBenefitRow"] p,
+.v2-financial-editorial [class*="rewardBenefitFoot"] { color:var(--fe-text-2) !important; }
+.v2-financial-editorial [class*="rewardQuickLinks"] { gap:0 !important; border-top:1px solid var(--fe-line); border-bottom:1px solid var(--fe-line); }
+.v2-financial-editorial [class*="rewardQuickLinks"] button { border:0 !important; border-radius:0 !important; background:transparent !important; box-shadow:none !important; }
+.v2-financial-editorial [class*="rewardQuickLinks"] button + button { border-left:1px solid var(--fe-line) !important; }
+.v2-financial-editorial [class*="rewardQuickLinks"] button span { color:var(--fe-violet) !important; }
+.v2-financial-editorial [class*="rewardAlert"] { margin-top:18px !important; padding:14px 0 !important; border:0 !important; border-top:1px solid var(--fe-line) !important; border-radius:0 !important; background:transparent !important; }
+.v2-financial-editorial [class*="rewardAlertBell"] { border:0 !important; background:transparent !important; color:var(--fe-violet) !important; }
+
+/* Messages read like private ledger entries while preserving chat actions/content. */
+.v2-financial-editorial [class*="messageList"] { background:transparent !important; }
+.v2-financial-editorial [class*="messageRow"] { margin:0 !important; padding:16px 0 !important; border-bottom:1px solid var(--fe-line); }
+.v2-financial-editorial [class*="bubbleWrap"] { width:100% !important; max-width:none !important; }
+.v2-financial-editorial [class*="bubble"] { max-width:none !important; padding:0 !important; border:0 !important; border-radius:0 !important; background:transparent !important; box-shadow:none !important; color:var(--fe-text) !important; }
+.v2-financial-editorial [class*="sender"] { color:var(--fe-violet) !important; font-size:9px !important; letter-spacing:.08em; }
+.v2-financial-editorial [class*="meta"] { color:var(--fe-text-3) !important; font-variant-numeric:tabular-nums; }
+.v2-financial-editorial [class*="giftCard"],
+.v2-financial-editorial [class*="specialCard"] { margin:0 !important; padding:14px 0 !important; border:0 !important; border-top:1px solid var(--fe-line) !important; border-bottom:1px solid var(--fe-line) !important; border-radius:0 !important; background:transparent !important; box-shadow:none !important; }
+.v2-financial-editorial [class*="linkButton"] { border-radius:var(--fe-r1) !important; background:var(--fe-midnight) !important; color:#fff !important; box-shadow:none !important; }
+.v2-financial-editorial [class*="rewardFooterNotice"] { margin-top:24px !important; padding:16px 0 !important; border:0 !important; border-top:1px solid var(--fe-line) !important; border-radius:0 !important; background:transparent !important; }
+
+@media(max-width:520px){
+  .v2-financial-editorial [class*="summary"] > div{padding:14px 10px!important}
+  .v2-financial-editorial [class*="summary"] strong{font-size:18px!important}
+}
