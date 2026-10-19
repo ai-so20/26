@@ -16,6 +16,7 @@ import './ai-market-compact-v13.css';
 import './ai-market-split-v14.css';
 import './ai-history-row-compact-v15.css';
 import './readability-unify-v16.css';
+import './attendance-editorial-stage5.css';
 import V2MovedEventGuideBridge from './V2MovedEventGuideBridge';
 import V2SplitNavBridge from './V2SplitNavBridge';
 import V2AiCompactBridge from './V2AiCompactBridge';
