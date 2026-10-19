@@ -7,14 +7,16 @@ import './v3-predeploy-hardening-2026.css';
 import './v3-navigation-integrity-2026.css';
 import V2SplitNavBridge from './V2SplitNavBridge';
 import V2CompletedProgressBridge from './V2CompletedProgressBridge';
+import V3EventValidationBridge from './V3EventValidationBridge';
 
 // V3 rebuild: legacy presentation-mutating bridges are disconnected.
-// Only interaction/state bridges that still preserve required behavior remain.
+// Only interaction/state bridges that preserve required behavior remain.
 export default function V2Layout({ children }) {
   return (
     <>
       <V2SplitNavBridge />
       <V2CompletedProgressBridge />
+      <V3EventValidationBridge />
       {children}
     </>
   );
