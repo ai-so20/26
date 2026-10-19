@@ -16,14 +16,9 @@ import './ai-market-compact-v13.css';
 import './ai-market-split-v14.css';
 import './ai-history-row-compact-v15.css';
 import './readability-unify-v16.css';
-import './financial-editorial-foundation.css';
-import './financial-editorial-event.css';
-import './financial-editorial-ai.css';
-import './financial-editorial-reward.css';
+import './financial-editorial-system.css';
 import V2MovedEventGuideBridge from './V2MovedEventGuideBridge';
 import V2SplitNavBridge from './V2SplitNavBridge';
-import V2AiCompactBridge from './V2AiCompactBridge';
-import V2AiRunningOrderBridge from './V2AiRunningOrderBridge';
 import V2CompletedProgressBridge from './V2CompletedProgressBridge';
 
 export default function V2Layout({ children }) {
@@ -31,8 +26,6 @@ export default function V2Layout({ children }) {
     <div className="v2-financial-editorial">
       <V2MovedEventGuideBridge />
       <V2SplitNavBridge />
-      <V2AiCompactBridge />
-      <V2AiRunningOrderBridge />
       <V2CompletedProgressBridge />
       {children}
     </div>
