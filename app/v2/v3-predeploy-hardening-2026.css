@@ -1,0 +1,33 @@
+/* V3 pre-deploy hardening — no visual redesign, no business-logic changes. */
+:root{--v3-focus:#174b8f;--v3-touch:44px}
+
+/* Keep interactive controls usable without reintroducing generic rounded UI. */
+button,a,[role="button"],input,select,textarea{-webkit-tap-highlight-color:transparent}
+button,a,[role="button"]{touch-action:manipulation}
+button:focus-visible,a:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--v3-focus)!important;outline-offset:3px!important}
+button:focus:not(:focus-visible),a:focus:not(:focus-visible),[role="button"]:focus:not(:focus-visible){outline:none}
+
+/* Financial values should not jump as realtime data changes. */
+[class*="amount"],[class*="Amount"],[class*="profit"],[class*="Profit"],[class*="return"],[class*="Return"],[class*="value"],[class*="Value"],time{font-variant-numeric:tabular-nums}
+
+/* Prevent long names, account-like values and status text from breaking the mobile canvas. */
+[class*="eventPage"] *,[class*="aiPage"] *,[class*="rewardEmbedded"] *{min-width:0}
+[class*="eventPage"] p,[class*="aiPage"] p,[class*="rewardEmbedded"] p,[class*="eventPage"] strong,[class*="aiPage"] strong,[class*="rewardEmbedded"] strong{overflow-wrap:anywhere}
+
+/* Preserve clear action targets at compact widths. */
+@media (max-width:430px){
+  nav.v2SplitTopNav button,nav[class*="nav"] button,[class*="eventPage"] button,[class*="aiPage"] button,[class*="rewardEmbedded"] button{min-height:var(--v3-touch)}
+  [class*="pageHeading"]{grid-template-columns:minmax(0,1fr) auto!important}
+}
+
+/* Motion is decorative; financial state remains readable without it. */
+@media (prefers-reduced-motion:reduce){
+  *,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+/* Print/export fallback keeps records legible if a user prints a screen. */
+@media print{
+  html,body{background:#fff!important}
+  nav.v2SplitTopNav,nav[class*="nav"]{position:static!important;backdrop-filter:none!important}
+  [class*="eventPage"],[class*="aiPage"],[class*="rewardEmbedded"]{width:100%!important;max-width:none!important;min-height:0!important;padding-bottom:0!important;background:#fff!important}
+}
