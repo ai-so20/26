@@ -16,20 +16,20 @@ import './ai-market-compact-v13.css';
 import './ai-market-split-v14.css';
 import './ai-history-row-compact-v15.css';
 import './readability-unify-v16.css';
+import './financial-editorial-foundation.css';
 import V2MovedEventGuideBridge from './V2MovedEventGuideBridge';
 import V2SplitNavBridge from './V2SplitNavBridge';
 import V2AiCompactBridge from './V2AiCompactBridge';
 import V2AiRunningOrderBridge from './V2AiRunningOrderBridge';
 
-// V2 visual layers: shared depth, reward/event passes, scoped guidance and split navigation.
 export default function V2Layout({ children }) {
   return (
-    <>
+    <div className="v2-financial-editorial">
       <V2MovedEventGuideBridge />
       <V2SplitNavBridge />
       <V2AiCompactBridge />
       <V2AiRunningOrderBridge />
       {children}
-    </>
+    </div>
   );
 }
