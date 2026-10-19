@@ -7,7 +7,6 @@ import './v3-predeploy-hardening-2026.css';
 import './v3-navigation-integrity-2026.css';
 import './v3-attendance-integrity-2026.css';
 import V2SplitNavBridge from './V2SplitNavBridge';
-import V2CompletedProgressBridge from './V2CompletedProgressBridge';
 import V3EventValidationBridge from './V3EventValidationBridge';
 import V3AiStateIntegrityBridge from './V3AiStateIntegrityBridge';
 import V3AiRefreshIntegrityBridge from './V3AiRefreshIntegrityBridge';
@@ -19,7 +18,6 @@ export default function V2Layout({ children }) {
   return (
     <>
       <V2SplitNavBridge />
-      <V2CompletedProgressBridge />
       <V3EventValidationBridge />
       <V3AiStateIntegrityBridge />
       <V3AiRefreshIntegrityBridge />
