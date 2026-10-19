@@ -4,21 +4,15 @@ import './v3-ai-process-2026.css';
 import './v3-reward-ledger-2026.css';
 import './v3-mobile-final-2026.css';
 import './v3-predeploy-hardening-2026.css';
-import V2MovedEventGuideBridge from './V2MovedEventGuideBridge';
 import V2SplitNavBridge from './V2SplitNavBridge';
-import V2AiCompactBridge from './V2AiCompactBridge';
-import V2AiRunningOrderBridge from './V2AiRunningOrderBridge';
 import V2CompletedProgressBridge from './V2CompletedProgressBridge';
 
-// V3 rebuild: previous global design passes are intentionally disconnected.
-// Bridges remain only where they preserve existing interaction/content behavior.
+// V3 rebuild: legacy presentation-mutating bridges are disconnected.
+// Only interaction/state bridges that still preserve required behavior remain.
 export default function V2Layout({ children }) {
   return (
     <>
-      <V2MovedEventGuideBridge />
       <V2SplitNavBridge />
-      <V2AiCompactBridge />
-      <V2AiRunningOrderBridge />
       <V2CompletedProgressBridge />
       {children}
     </>
