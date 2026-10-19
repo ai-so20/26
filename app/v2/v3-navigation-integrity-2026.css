@@ -1,0 +1,39 @@
+/* V3 navigation integrity — keep the one remaining functional bridge visually native.
+   No business/data behavior is changed here. */
+
+/* Four destinations must remain stable when the attendance button is inserted. */
+nav.v2SplitTopNav{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;align-items:stretch!important}
+nav.v2SplitTopNav>button{width:100%!important;min-width:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+nav.v2SplitTopNav>button[data-v2-split-live="true"],
+nav.v2SplitTopNav>button[data-v2-split-attendance="true"]{font-variant-numeric:tabular-nums}
+nav.v2SplitTopNav>button.v2SplitNavActive{color:var(--f-ink)!important}
+nav.v2SplitTopNav>button.v2SplitNavActive:after{content:""!important;position:absolute!important;left:31%!important;right:31%!important;bottom:-1px!important;height:1px!important;background:var(--f-ink)!important}
+
+/* React's original event/attendance mode control is only an implementation control
+   after the split top navigation is active. Keep it in the DOM for state handling,
+   but prevent duplicate navigation from competing with the financial header. */
+html[data-v2-split-page="live"] [class*="eventPage"] [class*="segmentGrid"],
+html[data-v2-split-page="attendance"] [class*="eventPage"] [class*="segmentGrid"]{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+
+/* Page switches should never inherit stale page-specific width/background rules. */
+[class*="content"]>[class*="eventPage"],
+[class*="content"]>[class*="aiPage"],
+[class*="content"]>[class*="rewardEmbedded"]{isolation:isolate}
+
+/* Avoid horizontal movement when switching between pages with different content height. */
+html{scrollbar-gutter:stable}
+
+/* The sticky navigation is the sole persistent layer. */
+nav.v2SplitTopNav{isolation:isolate;contain:layout paint}
+
+/* Keyboard users must see which split destination is focused independently of active state. */
+nav.v2SplitTopNav>button:focus-visible{outline:2px solid #174b8f!important;outline-offset:-4px!important}
+
+@media(max-width:430px){
+  nav.v2SplitTopNav{padding-left:8px!important;padding-right:8px!important}
+  nav.v2SplitTopNav>button{padding-left:2px!important;padding-right:2px!important;font-size:10px!important;letter-spacing:-.035em!important}
+}
+@media(max-width:360px){
+  nav.v2SplitTopNav{padding-left:4px!important;padding-right:4px!important}
+  nav.v2SplitTopNav>button{font-size:9.5px!important}
+}
