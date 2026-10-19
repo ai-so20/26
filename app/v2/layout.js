@@ -4,6 +4,7 @@ import './v3-ai-process-2026.css';
 import './v3-reward-ledger-2026.css';
 import './v3-mobile-final-2026.css';
 import './v3-predeploy-hardening-2026.css';
+import './v3-navigation-integrity-2026.css';
 import V2SplitNavBridge from './V2SplitNavBridge';
 import V2CompletedProgressBridge from './V2CompletedProgressBridge';
 
