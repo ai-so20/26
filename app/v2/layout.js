@@ -9,6 +9,7 @@ import './v3-attendance-integrity-2026.css';
 import V2SplitNavBridge from './V2SplitNavBridge';
 import V2CompletedProgressBridge from './V2CompletedProgressBridge';
 import V3EventValidationBridge from './V3EventValidationBridge';
+import V3AiStateIntegrityBridge from './V3AiStateIntegrityBridge';
 
 // V3 rebuild: legacy presentation-mutating bridges are disconnected.
 // Only interaction/state bridges that preserve required behavior remain.
@@ -18,6 +19,7 @@ export default function V2Layout({ children }) {
       <V2SplitNavBridge />
       <V2CompletedProgressBridge />
       <V3EventValidationBridge />
+      <V3AiStateIntegrityBridge />
       {children}
     </>
   );
