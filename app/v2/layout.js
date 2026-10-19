@@ -1,32 +1,12 @@
-import './depth-system.css';
-import './reward-depth-v2.css';
-import './event-depth-v3.css';
-import './event-reward-hotfix.css';
-import './moved-event-guide.css';
-import './split-pages-v6.css';
-import './event-guide-fulltext.css';
-import './design-audit-v7.css';
-import './reference-layout-v8.css';
-import './final-polish-v9.css';
-import './ai-state-language-v10.css';
-import './reward-header-compact-v11.css';
-import './event-mobile-layout-hotfix-v12.css';
-import './ai-idle-readability-v12.css';
-import './ai-market-compact-v13.css';
-import './ai-market-split-v14.css';
-import './ai-history-row-compact-v15.css';
-import './readability-unify-v16.css';
-import './attendance-editorial-stage5.css';
-import './ai-financial-stage6.css';
-import './reward-ledger-stage7.css';
-import './final-integration-stage8.css';
+import './v3-88-rebuild.css';
 import V2MovedEventGuideBridge from './V2MovedEventGuideBridge';
 import V2SplitNavBridge from './V2SplitNavBridge';
 import V2AiCompactBridge from './V2AiCompactBridge';
 import V2AiRunningOrderBridge from './V2AiRunningOrderBridge';
 import V2CompletedProgressBridge from './V2CompletedProgressBridge';
 
-// V2 visual layers: shared depth, reward/event passes, scoped guidance and split navigation.
+// V3 rebuild: previous global design passes are intentionally disconnected.
+// Bridges remain only where they preserve existing interaction/content behavior.
 export default function V2Layout({ children }) {
   return (
     <>
