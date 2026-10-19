@@ -1,0 +1,37 @@
+/* V3 final mobile pass — 360 / 390 / 430. Keep hierarchy stable, vary density only. */
+@media (max-width:430px){
+  :root{--v3-side:20px}
+  .v3EventExperience,.rewardEmbeddedShell,.aiPart1Hero,.aiIdleSection,.aiStageBoard,.aiMarketScanner,.aiPart3ChartCard,.aiPart3HistoryCard{font-variant-numeric:tabular-nums}
+  .v3EventSwitch button,.v3AttendanceBottom button,.rewardEmbeddedShell button{min-height:44px}
+  .v3EventLedger{margin-bottom:28px}.v3EventLedger>div{min-width:0}.v3EventLedger strong{white-space:nowrap}
+  .v3FeaturedEvent,.v3AttendanceSheet,.aiPart2Hero{margin-left:-20px!important;margin-right:-20px!important;padding-left:20px!important;padding-right:20px!important}
+  .v3FeaturedMeta{gap:12px}.v3FeaturedMeta time{white-space:nowrap}
+  .v3FeaturedCopy p,.v3ScheduleMain p,.v3AttendanceSheet header p,.v3AttendanceGuide p,.aiPart1Headline p,.aiIdleSection p,.aiProcessBrief p,.rewardEmbeddedShell .rewardWelcomeTop>p,.rewardEmbeddedShell .rewardBenefitRow p{line-height:1.55!important}
+  .v3ScheduleRow{padding:18px 0}.v3ScheduleMain strong{font-size:14px}.v3ScheduleMain p{font-size:10px}
+  .v3AttendanceSheet{padding-top:28px!important;padding-bottom:26px!important}.v3AttendanceSheet>header>strong{font-size:38px}.v3AttendanceGrid>span{min-height:45px}
+  .aiPart1Headline{padding:28px 0 25px!important}.aiPart1Headline>div strong{font-size:clamp(43px,12vw,50px)!important}.aiPart1Facts>div{min-height:68px!important}
+  .aiPart2Hero{padding-top:25px!important}.aiPart2Primary{padding:29px 0 27px!important}.aiPart2Primary>div>strong{font-size:clamp(34px,9.5vw,40px)!important}.aiPart2Return strong{font-size:25px!important}
+  .aiPart2Bento>div{min-height:76px!important}.aiStageBoard,.aiPart3ChartCard,.aiPart3HistoryCard{padding-top:27px!important;padding-bottom:27px!important}
+  .aiMarketScannerHead{padding:24px 0!important}.aiMarketTelemetry>div{min-width:0}.aiMarketTelemetry strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rewardEmbeddedShell .summary{margin-bottom:27px!important}.rewardEmbeddedShell .summary>div{min-width:0}.rewardEmbeddedShell .summary strong{white-space:nowrap}.rewardEmbeddedShell .rewardWelcome{padding:27px 0!important}.rewardEmbeddedShell .messageRow{padding:17px 0!important}.rewardEmbeddedShell .linkButton{min-height:42px!important;align-items:center!important}
+}
+@media (max-width:390px){
+  :root{--v3-side:18px}
+  .v3FeaturedEvent,.v3AttendanceSheet,.aiPart2Hero{margin-left:-18px!important;margin-right:-18px!important;padding-left:18px!important;padding-right:18px!important}
+  .v3EventLedger>div{padding-right:6px}.v3EventLedger>div+div{padding-left:7px}.v3EventLedger span{font-size:8.5px}.v3EventLedger strong{font-size:17px}
+  .v3EventSwitch{gap:22px;margin-bottom:30px}.v3FeaturedBody{padding:28px 0 27px}.v3FeaturedCopy h2{font-size:24px}
+  .v3AttendanceSheet h2{font-size:23px}.v3AttendanceGrid>span{min-height:43px}
+  .aiPart1Headline>div strong{font-size:45px!important}.aiPart1Facts strong{font-size:13px!important}.aiIdleFlowGrid{grid-template-columns:1fr!important}.aiIdleFlowItem:nth-child(even){padding-left:0!important;border-left:0!important}
+  .aiPart2Primary>div>strong{font-size:36px!important}.aiPart2Bento span{font-size:8.5px!important}.aiPart2Bento strong{font-size:10.5px!important}
+  .aiMarketTelemetry span,.aiMarketTelemetry small{font-size:7.5px!important}.rewardEmbeddedShell .summary span{font-size:9px!important}.rewardEmbeddedShell .summary strong{font-size:18px!important}
+}
+@media (max-width:360px){
+  :root{--v3-side:16px}
+  .v3FeaturedEvent,.v3AttendanceSheet,.aiPart2Hero{margin-left:-16px!important;margin-right:-16px!important;padding-left:16px!important;padding-right:16px!important}
+  .v3EventLedger{grid-template-columns:1fr 1fr}.v3EventLedger>div{padding:14px 10px 14px 0;border-bottom:1px solid #e7e9ed}.v3EventLedger>div:nth-child(2){border-right:0}.v3EventLedger>div:nth-child(3){padding-left:0}.v3EventLedger>div:nth-child(3),.v3EventLedger>div:nth-child(4){border-bottom:0}
+  .v3FeaturedMeta{align-items:flex-start;flex-direction:column;gap:5px}.v3FeaturedBody{grid-template-columns:38px minmax(0,1fr)}.v3FeaturedIndex{font-size:28px}.v3FeaturedCopy h2{font-size:22px}
+  .v3ScheduleRow{grid-template-columns:28px minmax(0,1fr)}.v3ScheduleState{grid-column:2;margin-top:8px}.v3ScheduleGame{grid-column:2}
+  .v3AttendanceSheet>header{gap:12px}.v3AttendanceSheet>header>strong{font-size:34px}.v3AttendanceGrid>span{min-height:41px}.v3AttendanceBottom{align-items:stretch;flex-direction:column}.v3AttendanceBottom button{width:100%}
+  .aiPart1Headline>div strong{font-size:42px!important}.aiPart1Facts{grid-template-columns:1fr!important}.aiPart1Facts>div:nth-child(even){padding-left:0!important;border-left:0!important}.aiPart2Primary>div>strong{font-size:33px!important}.aiPart2Bento{grid-template-columns:1fr!important}.aiPart2Bento>div{padding-left:0!important;border-right:0!important}.aiStageTrack{grid-template-columns:1fr 1fr!important}.aiMarketTelemetry{grid-template-columns:1fr!important}.aiMarketTelemetry>div,.aiMarketTelemetry>div+div{padding-left:0!important;border-right:0!important;border-bottom:1px solid #e5e8ec!important}
+  .rewardEmbeddedShell .summary{grid-template-columns:1fr!important}.rewardEmbeddedShell .summary>div,.rewardEmbeddedShell .summary>div+div{padding:13px 0!important;border-right:0!important;border-bottom:1px solid #e4e7eb!important}.rewardEmbeddedShell .summary>div:last-child{border-bottom:0!important}.rewardEmbeddedShell .rewardQuickLinks{grid-template-columns:1fr!important}.rewardEmbeddedShell .rewardQuickLinks button+button{border-left:0!important;border-top:1px solid #d9dde2!important}.rewardEmbeddedShell .bubbleWrap{max-width:100%!important}
+}
