@@ -87,12 +87,18 @@ export default function V2SplitNavBridge() {
         if (!eventButton.dataset.v2SplitBound) {
           eventButton.dataset.v2SplitBound = 'true';
           eventButton.addEventListener('click', () => {
-            try { window.sessionStorage.setItem('vip-event-page-mode', 'live'); } catch {}
-            document.documentElement.dataset.v2SplitPage = 'live';
-            eventButton.classList.add('v2SplitNavActive');
-            attendanceButton.classList.remove('v2SplitNavActive');
+            let requestedMode = 'live';
+            try {
+              const pending = window.sessionStorage.getItem('vip-event-shortcut-mode');
+              if (pending === 'attendance') requestedMode = 'attendance';
+              window.sessionStorage.removeItem('vip-event-shortcut-mode');
+              window.sessionStorage.setItem('vip-event-page-mode', requestedMode);
+            } catch {}
+            document.documentElement.dataset.v2SplitPage = requestedMode;
+            eventButton.classList.toggle('v2SplitNavActive', requestedMode === 'live');
+            attendanceButton.classList.toggle('v2SplitNavActive', requestedMode === 'attendance');
             window.requestAnimationFrame(() => {
-              activateMode('live');
+              activateMode(requestedMode);
               sync();
             });
           });
@@ -145,7 +151,10 @@ export default function V2SplitNavBridge() {
           if (!value.includes('출석') || button.dataset.v2SplitAttendanceShortcut) return;
           button.dataset.v2SplitAttendanceShortcut = 'true';
           button.addEventListener('click', () => {
-            try { window.sessionStorage.setItem('vip-event-page-mode', 'attendance'); } catch {}
+            try {
+              window.sessionStorage.setItem('vip-event-page-mode', 'attendance');
+              window.sessionStorage.setItem('vip-event-shortcut-mode', 'attendance');
+            } catch {}
           }, { capture: true });
         });
       } finally {
