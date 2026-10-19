@@ -6,7 +6,7 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/v2"
+      "destination": "/member"
     }
   ]
 }

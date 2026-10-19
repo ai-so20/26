@@ -1,5 +1,2 @@
-import RewardLiveClient from './RewardLiveClient';
-
-export default function RewardPage() {
-  return <RewardLiveClient />;
-}
+import {redirect} from 'next/navigation';
+export default function Page(){redirect('/member?view=reward');}
