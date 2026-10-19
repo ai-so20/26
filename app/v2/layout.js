@@ -1,5 +1,6 @@
 import './v3-88-rebuild.css';
 import './v3-event-editorial.css';
+import './v3-ai-process-2026.css';
 import V2MovedEventGuideBridge from './V2MovedEventGuideBridge';
 import V2SplitNavBridge from './V2SplitNavBridge';
 import V2AiCompactBridge from './V2AiCompactBridge';
