@@ -2,149 +2,33 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { supabase } from '../supabase';
+import V3AiProcess from './V3AiProcess';
 import styles from './v3.module.css';
 
-const menu = [
-  ['home', '홈', '⌂'], ['event', '이벤트', '◎'], ['attendance', '출석', '✓'], ['ai', 'AI PROCESS', '↗'], ['reward', '지급센터', '◇'],
-];
+const menu=[['home','홈','⌂'],['event','이벤트','◎'],['attendance','출석','✓'],['ai','AI PROCESS','↗'],['reward','지급센터','◇']];
+function eventGuide(type){return({gift_box:'4개의 선물상자 중 하나를 선택해주세요.',number:'1~10 중 숫자 하나를 선택해주세요.',roulette:'룰렛을 돌려 이번 회차에 참여해주세요.',first_come:'참여 버튼을 가장 먼저 누른 회원이 당첨됩니다.',quiz:'문제를 읽고 정답 하나를 선택해주세요.',draw:'응모하기를 누르면 참여가 완료됩니다.'})[type]||'회차당 한 번 참여할 수 있습니다.';}
+function krTime(value){if(!value)return'--:--';return new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(value));}
+function EventAction({event,answer,working,onAnswer,onJoin}){if(!event)return null;if(event.event_type==='number')return <><div className={styles.numberGrid}>{Array.from({length:10},(_,i)=>String(i+1)).map(n=><button key={n} className={answer===n?styles.numberActive:''} onClick={()=>onAnswer(event.event_id,n)}>{n}</button>)}</div><button className={styles.primary} disabled={working} onClick={()=>onJoin(event)}>선택 완료하기</button></>;if(event.event_type==='gift_box'||event.event_type==='quiz')return <><div className={styles.choiceRow}>{['1','2','3','4'].map(n=><button key={n} className={answer===n?styles.numberActive:''} onClick={()=>onAnswer(event.event_id,n)}>{event.event_type==='gift_box'?`${n}번`:n}</button>)}</div><button className={styles.primary} disabled={working} onClick={()=>onJoin(event)}>선택 완료하기</button></>;return <button className={styles.primary} disabled={working} onClick={()=>onJoin(event,event.event_type==='roulette'?'roulette':null)}>{event.event_type==='roulette'?'룰렛 참여하기':event.event_type==='first_come'?'지금 참여하기':'응모하기'}</button>;}
 
-function eventGuide(type) {
-  return ({
-    gift_box: '4개의 선물상자 중 하나를 선택해주세요.',
-    number: '1~10 중 숫자 하나를 선택해주세요.',
-    roulette: '룰렛을 돌려 이번 회차에 참여해주세요.',
-    first_come: '참여 버튼을 가장 먼저 누른 회원이 당첨됩니다.',
-    quiz: '문제를 읽고 정답 하나를 선택해주세요.',
-    draw: '응모하기를 누르면 참여가 완료됩니다.',
-  })[type] || '회차당 한 번 참여할 수 있습니다.';
+export default function V3FinanceClient(){
+ const[loading,setLoading]=useState(true),[user,setUser]=useState(null),[profile,setProfile]=useState(null),[nickname,setNickname]=useState(''),[realName,setRealName]=useState(''),[notice,setNotice]=useState(''),[working,setWorking]=useState(false),[tab,setTab]=useState('home'),[events,setEvents]=useState([]),[attendance,setAttendance]=useState({checked_today:false,total_count:0,reward_ready:false,next_reward_at:30}),[answers,setAnswers]=useState({}),[eventWorking,setEventWorking]=useState(null),[aiRow,setAiRow]=useState(null),[aiError,setAiError]=useState('');
+ useEffect(()=>{void boot();},[]);
+ useEffect(()=>{if(!user||!profile)return;void refresh();const t=setInterval(refresh,30000);return()=>clearInterval(t);},[user?.id,profile?.id]);
+ useEffect(()=>{if(!user||profile?.role==='admin')return;const channel=supabase.channel(`v3-ai-${user.id}`).on('postgres_changes',{event:'*',schema:'public',table:'ai_process_members',filter:`user_id=eq.${user.id}`},()=>void loadAi()).subscribe();const t=setInterval(()=>{if(tab==='ai')void loadAi();},10000);return()=>{clearInterval(t);supabase.removeChannel(channel);};},[user?.id,profile?.role,tab]);
+ async function boot(){const{data:{session}}=await supabase.auth.getSession();if(!session?.user){setLoading(false);return;}const{data}=await supabase.from('profiles').select('*').eq('id',session.user.id).single();if(!data||data.approval_status!=='1'){await supabase.auth.signOut();setLoading(false);return;}setUser(session.user);setProfile(data);setLoading(false);const saved=window.sessionStorage.getItem('vip-v3-active-tab');if(menu.some(([id])=>id===saved))setTab(saved);}
+ async function loadAi(){if(!user)return;const{data,error}=await supabase.from('ai_process_members').select('*').eq('user_id',user.id).maybeSingle();if(error){setAiError('AI PROCESS 정보를 불러오지 못했습니다.');return;}setAiRow(data);setAiError('');}
+ async function refresh(){const jobs=[supabase.rpc('get_auto_events'),supabase.rpc('get_daily_attendance_status')];if(profile?.role!=='admin')jobs.push(supabase.from('ai_process_members').select('*').eq('user_id',user.id).maybeSingle());const[resultEvents,resultAttendance,resultAi]=await Promise.all(jobs);setEvents((resultEvents.data||[]).filter(x=>x.event_type!=='attendance'));const row=Array.isArray(resultAttendance.data)?resultAttendance.data[0]:resultAttendance.data;if(row)setAttendance({checked_today:Boolean(row.checked_today),total_count:Number(row.total_count||0),reward_ready:Boolean(row.reward_ready),next_reward_at:Number(row.next_reward_at||30)});if(resultAi){if(resultAi.error)setAiError('AI PROCESS 정보를 불러오지 못했습니다.');else{setAiRow(resultAi.data);setAiError('');}}}
+ async function enter(e){e.preventDefault();setWorking(true);setNotice('');try{const r=await fetch('/api/auth/member-entry',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({nickname,realName})});const result=await r.json();if(!r.ok||!result.session){setNotice(result.error||'입장 정보를 확인해주세요.');return;}const{data}=await supabase.auth.setSession(result.session);const{data:member}=await supabase.from('profiles').select('*').eq('id',data.user.id).single();if(!member||member.approval_status!=='1'){await supabase.auth.signOut();setNotice('등록 정보를 확인해주세요.');return;}setUser(data.user);setProfile(member);setTab('home');}catch{setNotice('입장 중 오류가 발생했습니다.');}finally{setWorking(false);}}
+ function go(next){setTab(next);window.sessionStorage.setItem('vip-v3-active-tab',next);window.scrollTo({top:0,behavior:'smooth'});}
+ async function checkAttendance(){if(attendance.checked_today||working)return;setWorking(true);setNotice('');const{error}=await supabase.rpc('check_daily_attendance');if(error)setNotice('출석 처리에 실패했습니다. 잠시 후 다시 시도해주세요.');else{setNotice('오늘의 출석이 완료되었습니다.');await refresh();}setWorking(false);}
+ async function joinEvent(event,direct){if(!event?.event_id||eventWorking)return;let answer=direct===undefined?(answers[event.event_id]??null):direct;if(event.event_type==='number'){const n=Number(answer);if(!Number.isInteger(n)||n<1||n>10){setNotice('1부터 10까지 숫자 하나를 선택해주세요.');return;}answer=String(n);}if(['gift_box','quiz'].includes(event.event_type)&&!['1','2','3','4'].includes(String(answer))){setNotice('먼저 하나를 선택해주세요.');return;}setEventWorking(event.event_id);setNotice('');const{error}=await supabase.rpc('join_auto_event',{target_event_id:event.event_id,submitted_answer:answer});setNotice(error?'이벤트 참여에 실패했습니다. 잠시 후 다시 시도해주세요.':`${event.title||'이벤트'} 참여가 완료되었습니다.`);if(!error)await refresh();setEventWorking(null);}
+ const currentEvent=events.find(x=>x.status!=='completed')||events[0];const attendanceCycle=useMemo(()=>{const total=Math.max(0,attendance.total_count),r=total%30;return r===0&&total>0?(attendance.checked_today?30:0):r;},[attendance]);
+ if(loading)return <main className={styles.loading}>VIP 서비스를 불러오고 있습니다.</main>;
+ if(!user||!profile)return <main className={styles.entry}><form onSubmit={enter}><span>PRIVATE MEMBER</span><h1>VIP 서비스 입장</h1><p>등록된 닉네임과 성함을 입력해주세요.</p><label>오픈방 닉네임<input value={nickname} onChange={e=>setNickname(e.target.value)} required/></label><label>성함<input value={realName} onChange={e=>setRealName(e.target.value)} required/></label>{notice&&<div className={styles.notice}>{notice}</div>}<button disabled={working}>입장하기</button></form></main>;
+ return <main className={styles.page}><div className={styles.phone}><header className={styles.top}><div><span>VIP PRIVATE</span><strong>{profile.real_name||profile.name||profile.nickname||'회원'}님</strong></div><button onClick={async()=>{await supabase.auth.signOut();setUser(null);setProfile(null);}}>로그아웃</button></header>{notice&&<div className={styles.noticeBar}>{notice}</div>}{aiError&&tab==='ai'&&<div className={styles.noticeBar}>{aiError}</div>}{tab==='home'&&<Home event={currentEvent} attendanceCycle={attendanceCycle} attendance={attendance} aiRow={aiRow} go={go}/>} {tab==='event'&&<EventScreen event={currentEvent} answer={answers[currentEvent?.event_id]} working={eventWorking===currentEvent?.event_id} onAnswer={(id,v)=>setAnswers(a=>({...a,[id]:v}))} onJoin={joinEvent}/>} {tab==='attendance'&&<AttendanceScreen count={attendanceCycle} attendance={attendance} working={working} onCheck={checkAttendance}/>} {tab==='ai'&&<V3AiProcess row={aiRow} userId={user.id} profile={profile}/>} {tab==='reward'&&<Placeholder title="상품지급센터" copy="지급 내역을 금융 거래내역 방식으로 재구성해 연결합니다."/>}<nav className={styles.bottom}>{menu.map(([id,label,icon])=><button key={id} className={tab===id?styles.bottomActive:''} onClick={()=>go(id)}><i>{icon}</i><span>{label}</span></button>)}</nav></div></main>;
 }
 
-function krTime(value) {
-  if (!value) return '--:--';
-  return new Intl.DateTimeFormat('ko-KR', { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit', hour12: false }).format(new Date(value));
-}
-
-function EventAction({ event, answer, working, onAnswer, onJoin }) {
-  if (!event) return null;
-  if (event.event_type === 'number') return <><div className={styles.numberGrid}>{Array.from({ length: 10 }, (_, i) => String(i + 1)).map((n) => <button key={n} className={answer === n ? styles.numberActive : ''} onClick={() => onAnswer(event.event_id, n)}>{n}</button>)}</div><button className={styles.primary} disabled={working} onClick={() => onJoin(event)}>선택 완료하기</button></>;
-  if (event.event_type === 'gift_box' || event.event_type === 'quiz') return <><div className={styles.choiceRow}>{['1','2','3','4'].map((n) => <button key={n} className={answer === n ? styles.numberActive : ''} onClick={() => onAnswer(event.event_id, n)}>{event.event_type === 'gift_box' ? `${n}번` : n}</button>)}</div><button className={styles.primary} disabled={working} onClick={() => onJoin(event)}>선택 완료하기</button></>;
-  return <button className={styles.primary} disabled={working} onClick={() => onJoin(event, event.event_type === 'roulette' ? 'roulette' : null)}>{event.event_type === 'roulette' ? '룰렛 참여하기' : event.event_type === 'first_come' ? '지금 참여하기' : '응모하기'}</button>;
-}
-
-export default function V3FinanceClient() {
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
-  const [nickname, setNickname] = useState('');
-  const [realName, setRealName] = useState('');
-  const [notice, setNotice] = useState('');
-  const [working, setWorking] = useState(false);
-  const [tab, setTab] = useState('home');
-  const [events, setEvents] = useState([]);
-  const [attendance, setAttendance] = useState({ checked_today: false, total_count: 0, reward_ready: false, next_reward_at: 30 });
-  const [answers, setAnswers] = useState({});
-  const [eventWorking, setEventWorking] = useState(null);
-
-  useEffect(() => { void boot(); }, []);
-  useEffect(() => {
-    if (!user || !profile) return;
-    void refresh();
-    const timer = window.setInterval(refresh, 30000);
-    return () => window.clearInterval(timer);
-  }, [user?.id, profile?.id]);
-
-  async function boot() {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session?.user) { setLoading(false); return; }
-    const { data } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
-    if (!data || data.approval_status !== '1') { await supabase.auth.signOut(); setLoading(false); return; }
-    setUser(session.user); setProfile(data); setLoading(false);
-    const saved = window.sessionStorage.getItem('vip-v3-active-tab');
-    if (menu.some(([id]) => id === saved)) setTab(saved);
-  }
-
-  async function refresh() {
-    const [{ data: eventData }, { data: attendanceData }] = await Promise.all([supabase.rpc('get_auto_events'), supabase.rpc('get_daily_attendance_status')]);
-    setEvents((eventData || []).filter((item) => item.event_type !== 'attendance'));
-    const row = Array.isArray(attendanceData) ? attendanceData[0] : attendanceData;
-    if (row) setAttendance({ checked_today: Boolean(row.checked_today), total_count: Number(row.total_count || 0), reward_ready: Boolean(row.reward_ready), next_reward_at: Number(row.next_reward_at || 30) });
-  }
-
-  async function enter(e) {
-    e.preventDefault(); setWorking(true); setNotice('');
-    try {
-      const response = await fetch('/api/auth/member-entry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nickname, realName }) });
-      const result = await response.json();
-      if (!response.ok || !result.session) { setNotice(result.error || '입장 정보를 확인해주세요.'); return; }
-      const { data } = await supabase.auth.setSession(result.session);
-      const { data: member } = await supabase.from('profiles').select('*').eq('id', data.user.id).single();
-      if (!member || member.approval_status !== '1') { await supabase.auth.signOut(); setNotice('등록 정보를 확인해주세요.'); return; }
-      setUser(data.user); setProfile(member); setTab('home');
-    } catch { setNotice('입장 중 오류가 발생했습니다.'); } finally { setWorking(false); }
-  }
-
-  function go(next) { setTab(next); window.sessionStorage.setItem('vip-v3-active-tab', next); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
-  async function checkAttendance() {
-    if (attendance.checked_today || working) return;
-    setWorking(true); setNotice('');
-    const { error } = await supabase.rpc('check_daily_attendance');
-    if (error) setNotice('출석 처리에 실패했습니다. 잠시 후 다시 시도해주세요.'); else { setNotice('오늘의 출석이 완료되었습니다.'); await refresh(); }
-    setWorking(false);
-  }
-
-  async function joinEvent(event, direct) {
-    if (!event?.event_id || eventWorking) return;
-    let answer = direct === undefined ? (answers[event.event_id] ?? null) : direct;
-    if (event.event_type === 'number') {
-      const n = Number(answer);
-      if (!Number.isInteger(n) || n < 1 || n > 10) { setNotice('1부터 10까지 숫자 하나를 선택해주세요.'); return; }
-      answer = String(n);
-    }
-    if (['gift_box','quiz'].includes(event.event_type) && !['1','2','3','4'].includes(String(answer))) { setNotice('먼저 하나를 선택해주세요.'); return; }
-    setEventWorking(event.event_id); setNotice('');
-    const { error } = await supabase.rpc('join_auto_event', { target_event_id: event.event_id, submitted_answer: answer });
-    setNotice(error ? '이벤트 참여에 실패했습니다. 잠시 후 다시 시도해주세요.' : `${event.title || '이벤트'} 참여가 완료되었습니다.`);
-    if (!error) await refresh();
-    setEventWorking(null);
-  }
-
-  const currentEvent = events.find((item) => item.status !== 'completed') || events[0];
-  const attendanceCycle = useMemo(() => { const total = Math.max(0, attendance.total_count); const r = total % 30; return r === 0 && total > 0 ? (attendance.checked_today ? 30 : 0) : r; }, [attendance]);
-
-  if (loading) return <main className={styles.loading}>VIP 서비스를 불러오고 있습니다.</main>;
-  if (!user || !profile) return <main className={styles.entry}><form onSubmit={enter}><span>PRIVATE MEMBER</span><h1>VIP 서비스 입장</h1><p>등록된 닉네임과 성함을 입력해주세요.</p><label>오픈방 닉네임<input value={nickname} onChange={(e) => setNickname(e.target.value)} required /></label><label>성함<input value={realName} onChange={(e) => setRealName(e.target.value)} required /></label>{notice && <div className={styles.notice}>{notice}</div>}<button disabled={working}>입장하기</button></form></main>;
-
-  return <main className={styles.page}><div className={styles.phone}>
-    <header className={styles.top}><div><span>VIP PRIVATE</span><strong>{profile.real_name || profile.name || profile.nickname || '회원'}님</strong></div><button onClick={async () => { await supabase.auth.signOut(); setUser(null); setProfile(null); }}>로그아웃</button></header>
-    {notice && <div className={styles.noticeBar}>{notice}</div>}
-
-    {tab === 'home' && <Home profile={profile} event={currentEvent} attendanceCycle={attendanceCycle} attendance={attendance} go={go} />}
-    {tab === 'event' && <EventScreen event={currentEvent} answer={answers[currentEvent?.event_id]} working={eventWorking === currentEvent?.event_id} onAnswer={(id,v) => setAnswers((a) => ({ ...a, [id]: v }))} onJoin={joinEvent} />}
-    {tab === 'attendance' && <AttendanceScreen count={attendanceCycle} attendance={attendance} working={working} onCheck={checkAttendance} />}
-    {tab === 'ai' && <Placeholder title="AI PROCESS" copy="평가금액 · 그래프 · 최근 반영 · AI 트레이딩 현황을 다음 디자인 게이트에서 연결합니다." />}
-    {tab === 'reward' && <Placeholder title="상품지급센터" copy="지급 내역을 금융 거래내역 방식으로 재구성해 연결합니다." />}
-
-    <nav className={styles.bottom}>{menu.map(([id,label,icon]) => <button key={id} className={tab === id ? styles.bottomActive : ''} onClick={() => go(id)}><i>{icon}</i><span>{label}</span></button>)}</nav>
-  </div></main>;
-}
-
-function Home({ profile, event, attendanceCycle, attendance, go }) {
-  return <div className={styles.content}>
-    <section className={styles.hero}><span>오늘의 VIP 서비스</span><h1>필요한 혜택을<br/>한눈에 확인하세요.</h1><p>이벤트 참여부터 AI PROCESS 진행 현황까지 빠르게 확인할 수 있습니다.</p></section>
-    <section className={styles.quick}>{menu.slice(1).map(([id,label,icon]) => <button key={id} onClick={() => go(id)}><i>{icon}</i><span>{label}</span><b>›</b></button>)}</section>
-    <section className={styles.feature} onClick={() => go('event')} role="button" tabIndex="0"><div className={styles.featureTop}><span>오늘의 이벤트</span><b>진행 중</b></div><h2>{event?.title || '다음 이벤트를 준비하고 있습니다.'}</h2><p>{event ? eventGuide(event.event_type) : '새로운 이벤트가 시작되면 이곳에서 바로 확인할 수 있습니다.'}</p>{event && <div className={styles.featureMeta}><strong>{krTime(event.starts_at)} 회차</strong><span>혜택 확인하고 참여하기 ›</span></div>}</section>
-    <section className={styles.ledger}><div><span>출석 현황</span><strong>{attendanceCycle}<small>/30회</small></strong></div><div className={styles.progress}><i style={{ width: `${Math.min(100, attendanceCycle / 30 * 100)}%` }} /></div><button onClick={() => go('attendance')}>{attendance.checked_today ? '오늘 출석 완료' : '오늘 출석하기'} <b>›</b></button></section>
-    <section className={styles.processTeaser}><div><span>AI PROCESS</span><h2>진행 현황을 확인하세요</h2><p>평가금액, 수익률, 남은 시간과 최근 반영 내역을 한곳에서 확인합니다.</p></div><button onClick={() => go('ai')}>확인하기 ›</button></section>
-  </div>;
-}
-
-function EventScreen({ event, answer, working, onAnswer, onJoin }) {
-  return <div className={styles.content}><div className={styles.sectionTitle}><span>EVENT</span><h1>실시간 이벤트</h1><p>상품을 확인하고 간단하게 참여하세요.</p></div>{event ? <><section className={styles.prize}><span>이번 회차 혜택</span><h2>{event.reward_name || event.prize_name || event.reward || 'VIP 이벤트 상품'}</h2><p>{event.description || '회차 종료 후 당첨 결과와 상품 지급 안내를 확인할 수 있습니다.'}</p><div><strong>{krTime(event.starts_at)} 회차</strong><b>진행 중</b></div></section><section className={styles.eventPlay}><div className={styles.eventPlayHead}><span>참여 방법</span><h2>{eventGuide(event.event_type)}</h2></div><EventAction event={event} answer={answer} working={working} onAnswer={onAnswer} onJoin={onJoin} /></section><section className={styles.simpleRows}><div><span>현재 회차</span><strong>{krTime(event.starts_at)}</strong></div><div><span>참여 상태</span><strong>{event.joined ? '참여 완료' : '참여 가능'}</strong></div><div><span>회차 상태</span><strong>진행 중</strong></div></section></> : <Placeholder title="이벤트 준비 중" copy="현재 진행 중인 회차가 없습니다." />}</div>;
-}
-
-function AttendanceScreen({ count, attendance, working, onCheck }) {
-  return <div className={styles.content}><div className={styles.sectionTitle}><span>ATTENDANCE</span><h1>출석 혜택</h1><p>매일 한 번 출석하고 누적 혜택을 확인하세요.</p></div><section className={styles.attendanceHead}><div><span>이번 달 누적 출석</span><strong>{count}<small>/30회</small></strong></div><div className={styles.progress}><i style={{ width: `${Math.min(100, count / 30 * 100)}%` }} /></div></section><section className={styles.days}>{Array.from({ length: 30 }, (_, i) => i + 1).map((day) => <div key={day} className={day <= count ? styles.dayDone : ''}><span>{day}</span><i>{day <= count ? '✓' : ''}</i></div>)}</section><button className={styles.primary} disabled={attendance.checked_today || working} onClick={onCheck}>{attendance.checked_today ? '오늘 출석 완료' : '오늘 출석하기'}</button><section className={styles.rewards}><h2>출석 달성 혜택</h2>{[10,20,30].map((n) => <div key={n}><span>{n}회 달성</span><strong>{n === 10 ? '1차 혜택' : n === 20 ? '2차 혜택' : '최종 혜택'}</strong><b>{count >= n ? '달성' : `${n-count > 0 ? n-count : 0}회 남음`}</b></div>)}</section></div>;
-}
-
-function Placeholder({ title, copy }) { return <div className={styles.content}><div className={styles.sectionTitle}><span>V3</span><h1>{title}</h1><p>{copy}</p></div></div>; }
+function Home({event,attendanceCycle,attendance,aiRow,go}){const running=['running','completed'].includes(aiRow?.status);return <div className={styles.content}><section className={styles.hero}><span>오늘의 VIP 서비스</span><h1>필요한 혜택을<br/>한눈에 확인하세요.</h1><p>이벤트 참여부터 AI PROCESS 진행 현황까지 빠르게 확인할 수 있습니다.</p></section><section className={styles.quick}>{menu.slice(1).map(([id,label,icon])=><button key={id} onClick={()=>go(id)}><i>{icon}</i><span>{label}</span><b>›</b></button>)}</section><section className={styles.feature} onClick={()=>go('event')} role="button" tabIndex="0"><div className={styles.featureTop}><span>오늘의 이벤트</span><b>{event?'진행 중':'대기'}</b></div><h2>{event?.title||'다음 이벤트를 준비하고 있습니다.'}</h2><p>{event?eventGuide(event.event_type):'새로운 이벤트가 시작되면 이곳에서 바로 확인할 수 있습니다.'}</p>{event&&<div className={styles.featureMeta}><strong>{krTime(event.starts_at)} 회차</strong><span>혜택 확인하고 참여하기 ›</span></div>}</section><section className={styles.ledger}><div><span>출석 현황</span><strong>{attendanceCycle}<small>/30회</small></strong></div><div className={styles.progress}><i style={{width:`${Math.min(100,attendanceCycle/30*100)}%`}}/></div><button onClick={()=>go('attendance')}>{attendance.checked_today?'오늘 출석 완료':'오늘 출석하기'} <b>›</b></button></section><section className={styles.processTeaser}><div><span>AI PROCESS</span><h2>{running?'진행 현황을 확인하세요':'AI PROCESS 이용 현황'}</h2><p>{running?'평가금액, 수익률, 남은 시간과 최근 반영 내역을 확인합니다.':'진행 가능 횟수와 이용 상태를 확인합니다.'}</p></div><button onClick={()=>go('ai')}>확인하기 ›</button></section></div>;}
+function EventScreen({event,answer,working,onAnswer,onJoin}){return <div className={styles.content}><div className={styles.sectionTitle}><span>EVENT</span><h1>실시간 이벤트</h1><p>상품을 확인하고 간단하게 참여하세요.</p></div>{event?<><section className={styles.prize}><span>이번 회차 혜택</span><h2>{event.reward_name||event.prize_name||event.reward||'VIP 이벤트 상품'}</h2><p>{event.description||'회차 종료 후 당첨 결과와 상품 지급 안내를 확인할 수 있습니다.'}</p><div><strong>{krTime(event.starts_at)} 회차</strong><b>진행 중</b></div></section><section className={styles.eventPlay}><div className={styles.eventPlayHead}><span>참여 방법</span><h2>{eventGuide(event.event_type)}</h2></div><EventAction event={event} answer={answer} working={working} onAnswer={onAnswer} onJoin={onJoin}/></section><section className={styles.simpleRows}><div><span>현재 회차</span><strong>{krTime(event.starts_at)}</strong></div><div><span>참여 상태</span><strong>{event.joined?'참여 완료':'참여 가능'}</strong></div><div><span>회차 상태</span><strong>진행 중</strong></div></section></>:<Placeholder title="이벤트 준비 중" copy="현재 진행 중인 회차가 없습니다."/>}</div>;}
+function AttendanceScreen({count,attendance,working,onCheck}){return <div className={styles.content}><div className={styles.sectionTitle}><span>ATTENDANCE</span><h1>출석 혜택</h1><p>매일 한 번 출석하고 누적 혜택을 확인하세요.</p></div><section className={styles.attendanceHead}><div><span>이번 달 누적 출석</span><strong>{count}<small>/30회</small></strong></div><div className={styles.progress}><i style={{width:`${Math.min(100,count/30*100)}%`}}/></div></section><section className={styles.days}>{Array.from({length:30},(_,i)=>i+1).map(day=><div key={day} className={day<=count?styles.dayDone:''}><span>{day}</span><i>{day<=count?'✓':''}</i></div>)}</section><button className={styles.primary} disabled={attendance.checked_today||working} onClick={onCheck}>{attendance.checked_today?'오늘 출석 완료':'오늘 출석하기'}</button><section className={styles.rewards}><h2>출석 달성 혜택</h2>{[10,20,30].map(n=><div key={n}><span>{n}회 달성</span><strong>{n===10?'1차 혜택':n===20?'2차 혜택':'최종 혜택'}</strong><b>{count>=n?'달성':`${Math.max(0,n-count)}회 남음`}</b></div>)}</section></div>;}
+function Placeholder({title,copy}){return <div className={styles.content}><div className={styles.sectionTitle}><span>V3</span><h1>{title}</h1><p>{copy}</p></div></div>;}
