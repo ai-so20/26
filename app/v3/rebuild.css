@@ -1,0 +1,68 @@
+/* Reference-locked rebuild: image #10 is the layout authority. Existing v3.module.css is not a design source. */
+:root{--r-blue:#1468f3;--r-blue-soft:#eaf2ff;--r-ink:#121722;--r-muted:#7c8798;--r-line:#e8edf4;--r-bg:#f5f7fa;--r-green:#22a06b;--r-red:#f04452}
+body{margin:0;background:var(--r-bg)}
+[class*="page"]{background:var(--r-bg)!important;color:var(--r-ink)!important}
+[class*="phone"]{width:min(100%,430px)!important;background:#fff!important;box-shadow:none!important;padding-bottom:82px!important}
+/* compact member header: remove the dead space called out in review */
+[class*="top"]{height:58px!important;padding:8px 18px!important;align-items:center!important;border-bottom:0!important;background:#fff!important;position:sticky!important;top:0!important}
+[class*="top"] strong{font-size:15px!important;font-weight:800!important}
+[class*="top"] button{width:34px;height:34px;border:1px solid var(--r-line)!important;border-radius:12px!important;font-size:0!important;position:relative}
+[class*="top"] button:after{content:'•••';font-size:12px;color:#566273;position:absolute;inset:0;display:grid;place-items:center;letter-spacing:1px}
+[class*="content"]{padding:14px 18px 28px!important}
+/* bottom navigation follows the supplied reference; profile is not a page */
+[class*="bottom"]{width:min(100%,430px)!important;height:66px!important;grid-template-columns:repeat(4,1fr)!important;background:#fff!important;border-top:1px solid var(--r-line)!important;box-shadow:0 -8px 24px rgba(21,39,74,.04)!important}
+[class*="bottom"] button{font-size:9px!important;color:#8792a3!important}
+[class*="bottom"] button:last-child{display:none!important}
+[class*="bottomActive"]{color:var(--r-blue)!important}
+/* home is a briefing screen, not a duplicate menu */
+[class*="hero"]{padding:4px 0 16px!important}
+[class*="hero"] h1{font-size:22px!important;line-height:1.25!important;margin:6px 0!important}
+[class*="hero"] p{font-size:11px!important;line-height:1.55!important}
+[class*="quick"]{display:none!important}
+[class*="feature"],[class*="ledger"],[class*="processTeaser"]{border:1px solid var(--r-line)!important;border-radius:16px!important;padding:17px!important;margin:10px 0!important;background:#fff!important}
+[class*="feature"] h2,[class*="prize"] h2{font-size:18px!important;margin:9px 0 6px!important}
+[class*="feature"] p,[class*="processTeaser"] p,[class*="prize"] p{font-size:11px!important;line-height:1.55!important}
+/* event screen: reward first, action second */
+[class*="sectionTitle"]{padding:4px 0 15px!important;border:0!important}
+[class*="sectionTitle"] h1{font-size:22px!important;margin:4px 0!important}
+[class*="prize"]{border:0!important;border-radius:16px!important;background:#f7f9fc!important;padding:17px!important;margin-bottom:12px!important}
+[class*="eventPlay"]{border:1px solid var(--r-line)!important;border-radius:16px!important;padding:18px!important;margin-bottom:14px!important}
+[class*="numberGrid"]{gap:8px!important}
+[class*="numberGrid"] button,[class*="choiceRow"] button{border:0!important;background:#f2f4f7!important;border-radius:12px!important;min-height:44px!important}
+[class*="numberActive"]{background:var(--r-blue)!important;color:#fff!important}
+[class*="primary"]{height:48px!important;border-radius:10px!important;background:var(--r-blue)!important}
+/* attendance reference */
+[class*="attendanceHead"]{padding:8px 0 12px!important}
+[class*="attendanceHead"] strong{font-size:32px!important}
+[class*="days"]{grid-template-columns:repeat(7,1fr)!important;gap:9px!important;border:0!important;padding:8px 0 18px!important}
+[class*="days"] div{background:#f0f3f7!important;color:#7f8998!important}
+[class*="days"] [class*="dayDone"]{background:var(--r-blue)!important;color:#fff!important}
+/* AI dashboard: reference image #4/#5 */
+[class*="aiTitle"]{padding:4px 0 12px!important;align-items:center!important}
+[class*="aiTitle"] h1{font-size:20px!important;margin:2px 0!important}
+[class*="aiBalance"]{margin:0!important;border:1px solid var(--r-line)!important;border-radius:16px!important;background:#fff!important;color:var(--r-ink)!important;padding:18px!important}
+[class*="aiBalance"]>span{color:var(--r-muted)!important}
+[class*="aiBalance"]>strong{font-size:32px!important;margin:8px 0 5px!important}
+[class*="aiBalance"]>em{color:var(--r-red)!important;font-weight:700!important}
+[class*="aiFacts"]{grid-template-columns:repeat(4,1fr)!important;border:0!important;margin:8px 0 2px!important}
+[class*="aiFacts"] div{padding:10px 5px!important;border:0!important;text-align:center!important}
+[class*="aiFacts"] strong{font-size:11px!important}
+[class*="aiProgress"]{margin:8px 0 18px!important;height:6px!important;border-radius:99px!important;overflow:hidden!important}
+/* six AI stages must be a single compact horizontal process, never a tall vertical list */
+[class*="aiStages"]{display:grid!important;grid-template-columns:repeat(6,1fr)!important;border:0!important;margin:0 0 16px!important;gap:0!important;position:relative!important}
+[class*="aiStages"]:before{content:'';position:absolute;left:7%;right:7%;top:13px;height:2px;background:#e5eaf1;z-index:0}
+[class*="aiStages"]>div{height:auto!important;min-width:0!important;display:flex!important;flex-direction:column!important;gap:5px!important;align-items:center!important;border:0!important;position:relative!important;z-index:1!important;font-size:9px!important}
+[class*="aiStages"] i{width:26px;height:26px;border-radius:50%;background:#eef2f7;display:grid;place-items:center!important;color:#8c96a5!important}
+[class*="aiStages"] span{font-size:9px!important;white-space:nowrap!important}
+[class*="aiStages"] b{display:none!important}
+[class*="aiStageActive"] i{background:var(--r-blue)!important;color:#fff!important}
+[class*="aiChartPanel"]{border:1px solid var(--r-line)!important;border-radius:16px!important;padding:16px!important;margin:0 0 12px!important}
+/* collapsed sections still look important */
+[class*="aiSection"]{border:1px solid var(--r-line)!important;border-radius:14px!important;margin:10px 0!important;overflow:hidden!important}
+[class*="aiSectionHead"]{padding:15px!important;background:#fff!important}
+[class*="aiSectionHead"] strong{font-size:13px!important}
+[class*="aiSectionHead"]>b{color:var(--r-blue)!important;font-weight:800!important}
+/* reward center: timeline/list like supplied reference */
+[class*="rewardSummary"]{border:0!important;background:#f7f9fc!important;border-radius:14px!important;padding:14px!important;margin-bottom:10px!important}
+[class*="reward"] [class*="card"], [class*="rewardRow"]{border-radius:0!important;box-shadow:none!important}
+@media(max-width:380px){[class*="content"]{padding-left:14px!important;padding-right:14px!important}[class*="aiFacts"]{grid-template-columns:1fr 1fr!important}[class*="aiStages"] span{font-size:8px!important}}
