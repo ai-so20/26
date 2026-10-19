@@ -1,0 +1,179 @@
+/* Stage 8 — Final integration pass.
+   Presentation only. Unifies spacing, typography, controls and mobile rhythm across Event, AI PROCESS and Reward Center.
+   No business logic, data, auth, realtime behavior or page copy is changed. */
+
+:root {
+  --v2-final-ink:#151b26;
+  --v2-final-body:#596273;
+  --v2-final-muted:#818a98;
+  --v2-final-line:rgba(20,30,45,.10);
+  --v2-final-line-strong:rgba(20,30,45,.16);
+  --v2-final-navy:#182337;
+  --v2-final-radius:12px;
+}
+
+/* One editorial reading width and vertical rhythm across the three product surfaces. */
+[class*="eventPage"],
+[class*="aiPage"],
+[class*="rewardEmbedded"] {
+  color:var(--v2-final-ink);
+  text-rendering:optimizeLegibility;
+}
+
+[class*="eventPage"] [class*="pageHeading"],
+[class*="aiPage"] [class*="pageHeading"],
+[class*="rewardEmbedded"] [class*="pageHeading"] {
+  min-height:0 !important;
+  padding-top:2px !important;
+  padding-bottom:14px !important;
+}
+
+[class*="eventPage"] [class*="pageHeading"] h1,
+[class*="aiPage"] [class*="pageHeading"] h1,
+[class*="rewardEmbedded"] [class*="pageHeading"] h1 {
+  font-size:27px !important;
+  line-height:1.08 !important;
+  font-weight:820 !important;
+  letter-spacing:-.045em !important;
+}
+
+/* Keep secondary copy readable: earlier passes used 8–10px labels heavily. */
+[class*="eventPage"] p,
+[class*="aiPage"] p,
+[class*="rewardEmbedded"] p {
+  word-break:keep-all;
+}
+
+/* Interactive controls share one restrained financial-app geometry. */
+[class*="eventPage"] button,
+[class*="aiPage"] button,
+[class*="rewardEmbedded"] button,
+[class*="eventPage"] a[class*="Button"],
+[class*="aiPage"] a[class*="Button"],
+[class*="rewardEmbedded"] a[class*="Button"] {
+  -webkit-tap-highlight-color:transparent;
+}
+
+/* Prevent legacy decorative layers from creating accidental horizontal overflow. */
+[class*="eventPage"],
+[class*="aiPage"],
+[class*="rewardEmbedded"] {
+  max-width:100%;
+  overflow-x:clip;
+}
+
+/* Numeric surfaces align like financial data rather than marketing cards. */
+[class*="eventPage"] strong,
+[class*="aiPage"] strong,
+[class*="rewardEmbedded"] strong {
+  font-variant-numeric:tabular-nums;
+}
+
+/* Final mobile QA targets: 360 / 390 / 430. */
+@media (max-width:430px) {
+  [class*="eventPage"] [class*="pageHeading"] h1,
+  [class*="aiPage"] [class*="pageHeading"] h1,
+  [class*="rewardEmbedded"] [class*="pageHeading"] h1 {
+    font-size:25px !important;
+  }
+
+  [class*="aiPage"] [class*="aiPart1Hero"],
+  [class*="aiPage"] [class*="aiPart2Hero"] {
+    border-radius:12px !important;
+  }
+
+  [class*="aiPage"] [class*="aiPart1Headline"] strong {
+    font-size:34px !important;
+  }
+
+  [class*="aiPage"] [class*="aiPart2Primary"] > div:first-child strong {
+    font-size:31px !important;
+  }
+
+  /* Six process steps must stay inside narrow devices without clipping. */
+  .v2AiCompactRail {
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  }
+  .v2AiCompactRail > div:nth-child(3n) {
+    border-right:0 !important;
+  }
+  .v2AiCompactRail > div:nth-child(-n+3) {
+    border-bottom:1px solid var(--v2-final-line) !important;
+  }
+
+  [class*="rewardEmbedded"] [class*="summary"] strong {
+    font-size:18px !important;
+  }
+}
+
+@media (max-width:390px) {
+  [class*="eventPage"] [class*="pageHeading"] h1,
+  [class*="aiPage"] [class*="pageHeading"] h1,
+  [class*="rewardEmbedded"] [class*="pageHeading"] h1 {
+    font-size:24px !important;
+  }
+
+  [class*="aiPage"] [class*="aiPart1Hero"],
+  [class*="aiPage"] [class*="aiPart2Hero"] {
+    padding-left:15px !important;
+    padding-right:15px !important;
+  }
+
+  [class*="aiPage"] [class*="aiPart2Bento"] {
+    margin-left:-15px !important;
+    margin-right:-15px !important;
+  }
+
+  [class*="aiPage"] [class*="aiPart2Bento"] > div {
+    padding-left:15px !important;
+    padding-right:15px !important;
+  }
+
+  [class*="rewardEmbedded"] [class*="summary"] > div {
+    padding-left:8px !important;
+    padding-right:8px !important;
+  }
+  [class*="rewardEmbedded"] [class*="summary"] span,
+  [class*="rewardEmbedded"] [class*="summary"] small {
+    white-space:normal !important;
+  }
+}
+
+@media (max-width:360px) {
+  [class*="eventPage"] [class*="pageHeading"] h1,
+  [class*="aiPage"] [class*="pageHeading"] h1,
+  [class*="rewardEmbedded"] [class*="pageHeading"] h1 {
+    font-size:23px !important;
+  }
+
+  [class*="aiPage"] [class*="aiPart1Headline"] strong {
+    font-size:31px !important;
+  }
+
+  [class*="aiPage"] [class*="aiPart2Primary"] {
+    grid-template-columns:minmax(0,1fr) !important;
+  }
+
+  [class*="rewardEmbedded"] [class*="summary"] {
+    grid-template-columns:1fr !important;
+    padding:6px 0 !important;
+  }
+  [class*="rewardEmbedded"] [class*="summary"] > div {
+    padding:10px 0 !important;
+    border-right:0 !important;
+    border-bottom:1px solid var(--v2-final-line) !important;
+  }
+  [class*="rewardEmbedded"] [class*="summary"] > div:last-child {
+    border-bottom:0 !important;
+  }
+
+  [class*="rewardEmbedded"] [class*="bubbleWrap"] {
+    grid-template-columns:minmax(0,1fr) !important;
+  }
+  [class*="rewardEmbedded"] [class*="meta"] {
+    grid-column:1 !important;
+    grid-row:auto !important;
+    margin-top:7px !important;
+    justify-items:start !important;
+  }
+}
