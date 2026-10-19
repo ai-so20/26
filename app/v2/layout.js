@@ -11,6 +11,7 @@ import V2CompletedProgressBridge from './V2CompletedProgressBridge';
 import V3EventValidationBridge from './V3EventValidationBridge';
 import V3AiStateIntegrityBridge from './V3AiStateIntegrityBridge';
 import V3AiRefreshIntegrityBridge from './V3AiRefreshIntegrityBridge';
+import V3RewardCenterIntegrityBridge from './V3RewardCenterIntegrityBridge';
 
 // V3 rebuild: legacy presentation-mutating bridges are disconnected.
 // Only interaction/state bridges that preserve required behavior remain.
@@ -22,6 +23,7 @@ export default function V2Layout({ children }) {
       <V3EventValidationBridge />
       <V3AiStateIntegrityBridge />
       <V3AiRefreshIntegrityBridge />
+      <V3RewardCenterIntegrityBridge />
       {children}
     </>
   );
