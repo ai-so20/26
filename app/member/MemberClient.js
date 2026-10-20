@@ -6,7 +6,7 @@ import ProcessScreen from './ProcessScreen';
 import RewardScreen from './RewardScreen';
 import {eventPhase,eventJoined} from './events';
 import styles from './member.module.css';
-const bottomMenu=[['home','홈'],['event','이벤트'],['ai','AI PROCESS'],['reward','지급센터'],['profile','내 정보']];
+const bottomMenu=[['home','홈'],['event','이벤트'],['attendance','출석'],['ai','AI PROCESS'],['reward','지급센터']];
 const validTabs=new Set(['home','event','attendance','ai','reward']);
 export default function MemberClient(){
  const[profileOpen,setProfileOpen]=useState(false);
