@@ -1,6 +1,5 @@
-import ReferenceShell from './ReferenceShell';
-import styles from './reference.module.css';
+import V3FinanceClient from '../v3/V3FinanceClient';
 
 export default function RebuildPage() {
-  return <ReferenceShell styles={styles} />;
+  return <V3FinanceClient />;
 }
