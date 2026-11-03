@@ -34,6 +34,7 @@ export default function PublicProcessStatus(){
  useEffect(()=>{load();const a=setInterval(load,30000),b=setInterval(()=>tick(v=>v+1),1000);return()=>{clearInterval(a);clearInterval(b);};},[]);
  const stats=useMemo(()=>({running:rows.filter(x=>x.process.status==='running').length,done:rows.filter(x=>x.process.status==='completed').length,total:rows.length}),[rows]);
  return <main className={styles.page}><div className={styles.wrap}>
+   <header className={styles.hero}><div className={styles.eyebrow}>VIP EVENT · LIVE STATUS</div><div className={styles.room}>VIP 9번방</div><h1>AI프로세스 진행현황</h1><p>기존 VIP 이벤트 홈페이지의 AI 시뮬레이션 진행 상태를 자동으로 반영합니다.</p></header>
    <div className={styles.live}>● 30초마다 상태 확인 · 수익 3분 단위 반영</div>
    <section className={styles.stats}><div><span>진행 중</span><strong>{stats.running}<small>명</small></strong></div><div><span>진행 완료</span><strong>{stats.done}<small>명</small></strong></div><div><span>전체 진행기록</span><strong>{stats.total}<small>명</small></strong></div></section>
    <section className={styles.board}><header><strong>회원별 진행 현황</strong><span>마지막 확인 {fmtTime(checked)} (한국시간)</span></header><div className={styles.list}>
