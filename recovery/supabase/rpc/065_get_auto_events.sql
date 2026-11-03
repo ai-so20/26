@@ -22,15 +22,25 @@ AS $function$
         and ee.member_id = auth.uid()
     ) as participated,
 
-    (
-      select coalesce(p.nickname, m.nickname, a.nickname, 'VIP 회원')
-      from public.event_winners ew
-      left join public.profiles p on p.id = ew.member_id
-      left join public.members m on m.id = ew.member_id
-      left join public.ai_characters a on a.id = ew.member_id
-      where ew.event_id = e.id
-      order by ew.rank asc, ew.id asc
-      limit 1
+    coalesce(
+      (
+        select coalesce(p.nickname, m.nickname, a.nickname, 'VIP 회원')
+        from public.event_winners ew
+        left join public.profiles p on p.id = ew.member_id
+        left join public.members m on m.id = ew.member_id
+        left join public.ai_characters a on a.id = ew.member_id
+        where ew.event_id = e.id
+        order by ew.rank asc, ew.id asc
+        limit 1
+      ),
+      (
+        select coalesce(p.nickname, 'VIP 회원')
+        from public.virtual_event_results vr
+        left join public.profiles p on p.id = vr.member_id
+        where vr.event_id = e.id
+        order by vr.announced_at asc nulls last, vr.created_at asc
+        limit 1
+      )
     ) as winner_nickname,
 
     (
