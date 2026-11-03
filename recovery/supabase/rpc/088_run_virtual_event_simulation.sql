@@ -12,6 +12,8 @@ declare
  v_gift public.ai_gift_inventory%rowtype;
  v_admin uuid;
  v_name text;
+ v_chat_id uuid;
+ v_payload text;
 begin
  if auth.uid() is not null then raise exception 'Background operation only'; end if;
  for v_event in
@@ -66,7 +68,8 @@ begin
              update public.ai_gift_inventory
                set status='assigned',assigned_event_id=v_event.id,
                    assigned_winner_id=v_winner,assigned_at=now()
-               where id=v_gift.id;
+               where id=v_gift.id
+               returning * into v_gift;
            end if;
          end if;
          if v_gift.id is not null then
@@ -79,6 +82,36 @@ begin
              '당첨을 진심으로 축하드립니다 ♥️'||E'\n\n'||
              '🎁 당첨 상품'||E'\n'||v_gift.product_name,
              false,now());
+
+           select pc.id into v_chat_id from public.private_chats pc where pc.member_id=v_winner limit 1;
+           if v_chat_id is null then
+             insert into public.private_chats(member_id,operator_id,status)
+             values(v_winner,v_admin,'open')
+             on conflict(member_id) do update set operator_id=coalesce(public.private_chats.operator_id,excluded.operator_id),status='open',updated_at=now()
+             returning id into v_chat_id;
+           else
+             update public.private_chats set operator_id=coalesce(operator_id,v_admin),status='open',updated_at=now() where id=v_chat_id;
+           end if;
+
+           v_payload:='[[GIFT_REWARD]]'||jsonb_build_object(
+             'product_name',v_gift.product_name,
+             'gift_url','',
+             'amount',0,
+             'event_id',v_event.id,
+             'queue_no',v_gift.queue_no,
+             'reward_type','ai_event'
+           )::text;
+           if not exists(
+             select 1 from public.private_messages pm
+             where pm.chat_id=v_chat_id and coalesce(pm.is_deleted,false)=false
+               and pm.content like '[[GIFT_REWARD]]%'
+               and pm.content like '%'||v_event.id::text||'%'
+           ) then
+             insert into public.private_messages(chat_id,sender_id,message_type,content,is_deleted,is_read,created_at)
+             values(v_chat_id,v_admin,'text',v_payload,false,false,now());
+           end if;
+           update public.private_chats set updated_at=now() where id=v_chat_id;
+
            update public.virtual_event_results set ai_gift_id=v_gift.id,announced_at=now()
              where event_id=v_event.id;
          end if;
