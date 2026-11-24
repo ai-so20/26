@@ -1,6 +1,6 @@
 {
-  "name": "vip-event",
-  "version": "1.0.0",
+  "name": "nameless-ai-security-upgrade",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,11 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@supabase/supabase-js": "2.117.3",
-    "bcryptjs": "3.0.3",
     "next": "15.5.28",
     "react": "19.3.1",
-    "react-dom": "19.3.1",
-    "web-push": "3.6.7"
+    "react-dom": "19.3.1"
   }
 }
